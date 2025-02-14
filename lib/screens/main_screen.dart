@@ -1,8 +1,9 @@
 import 'package:arabic_font/arabic_font.dart';
 import 'package:flutter/material.dart';
-import 'package:invobay/widgets/inventory_button.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:invobay/widgets/buttons/inventory_button.dart';
 import 'package:invobay/widgets/low_stock_marquee.dart';
-import 'package:invobay/widgets/rectangule_buttons.dart';
+import 'package:invobay/widgets/buttons/rectangule_buttons.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -26,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Icon(
-                    Icons.network_wifi,
+                    Iconsax.wifi,
                     color: Colors.white,
                   ),
                   Row(
@@ -34,9 +35,10 @@ class _MainScreenState extends State<MainScreen> {
                       Text(
                         'أهلا وسهلا احمد',
                         style: ArabicTextStyle(
-                            arabicFont: ArabicFont.avenirArabic,
-                            fontSize: 18,
-                            color: Colors.white),
+                          arabicFont: ArabicFont.avenirArabic,
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
                       ),
                       SizedBox(width: 8),
                       CircleAvatar(
