@@ -7,8 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:invobay/main.dart';
+import 'package:invobay/invobay.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
