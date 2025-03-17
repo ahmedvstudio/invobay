@@ -19,8 +19,8 @@ class LoginHeader extends StatelessWidget {
       children: [
         Image(
           height: 150,
-          image:
-              AssetImage(isDark ? VImages.lightAppLogo : VImages.darkAppLogo),
+          image: AssetImage(
+              isDark ? VImages.lightAppBanner : VImages.darkAppBanner),
         ),
         Text(VText.loginTitle,
             style: Theme.of(context).textTheme.headlineMedium),

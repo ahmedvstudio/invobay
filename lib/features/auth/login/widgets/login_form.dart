@@ -27,7 +27,7 @@ class LoginForm extends StatelessWidget {
                 labelText: VText.email,
               ),
             ),
-            const SizedBox(height: VSizes.spaceBtwInputFelids),
+            const SizedBox(height: VSizes.spaceBtwInputFields),
             //Password
             TextFormField(
               obscureText: true,
@@ -37,7 +37,7 @@ class LoginForm extends StatelessWidget {
                 suffixIcon: Icon(Iconsax.eye_slash),
               ),
             ),
-            const SizedBox(height: VSizes.spaceBtwInputFelids / 2),
+            const SizedBox(height: VSizes.spaceBtwInputFields / 2),
 
             //Remember me + forgot
             Row(
@@ -65,7 +65,7 @@ class LoginForm extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Get.to(() => const NavigationMenu());
+                  context.pushNamed(VRouter.home);
                 },
                 child: const Text(VText.signIn),
               ),

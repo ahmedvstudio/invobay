@@ -61,6 +61,10 @@ class VText {
       "Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!";
 
   // -- Home
-  static const String homeAppBarTitle = "Good day for shopping";
+  static const String homeAppBarTitle = "Welcome back";
   static const String homeAppBarSubTitle = "Ahmed Adnan";
+
+  // -- Inventory
+  static const String inventoryAppBarTitle = "This is your:";
+  static const String inventoryAppBarSubTitle = "Inventory";
 }

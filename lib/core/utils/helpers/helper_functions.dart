@@ -1,3 +1,4 @@
+import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -28,7 +29,7 @@ class VHelperFunctions {
     }
   }
 
-  static String capitalizer(String text) {
+  static String capitalize(String text) {
     if (text.isEmpty) {
       return text;
     }
@@ -99,9 +100,12 @@ class VHelperFunctions {
     return MediaQuery.of(context).size.width;
   }
 
-  // -- Calculate all cart values & return the total amount
-  // static double calculateCartTotal(CartModel cart) {
-  //   return cart.items.map((e) => e.price).fold(0,
-  //       (previousPrice, currentPrice) => previousPrice + (currentPrice ?? 0));
-  // }
+  static Future<void> scanBarcode(TextEditingController controller) async {
+    final result = await BarcodeScanner.scan();
+
+    if (result.type == ResultType.Barcode) {
+      controller.text =
+          result.rawContent; // Update the controller with the scanned code
+    }
+  }
 }

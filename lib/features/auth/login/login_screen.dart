@@ -29,8 +29,7 @@ class LoginScreen extends StatelessWidget {
               // Divider
 
               VFormDivider(
-                  dividerText:
-                      VHelperFunctions.capitalizer(VText.orSignInWith)),
+                  dividerText: VHelperFunctions.capitalize(VText.orSignInWith)),
               const SizedBox(height: VSizes.spaceBtwItems),
               // Footer
               const VSocialButtons(),

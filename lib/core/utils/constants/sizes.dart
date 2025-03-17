@@ -10,6 +10,7 @@ class VSizes {
   // Icon Sizes
   static const double iconXs = 12.0;
   static const double iconSm = 16.0;
+  static const double iconSd = 20.0;
   static const double iconMd = 24.0;
   static const double iconLg = 32.0;
 
@@ -49,7 +50,7 @@ class VSizes {
 
   // Input Field
   static const double inputFieldRadius = 12.0;
-  static const double spaceBtwInputFelids = 16.0;
+  static const double spaceBtwInputFields = 16.0;
 
   // Card Sizes
   static const double cardRadiusXs = 6.0;

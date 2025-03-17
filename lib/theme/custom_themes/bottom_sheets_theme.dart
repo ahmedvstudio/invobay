@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class VBottomSheetTheme {
   VBottomSheetTheme._();
 
-  /// Light Buttom Sheet Theme
+  /// Light Bottom Sheet Theme
   static BottomSheetThemeData lightBottomSheetTheme = BottomSheetThemeData(
     showDragHandle: true,
     backgroundColor: Colors.white,
@@ -12,7 +12,7 @@ class VBottomSheetTheme {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
   );
 
-  /// Dark Buttom Sheet Theme
+  /// Dark Bottom Sheet Theme
   static BottomSheetThemeData darkBottomSheetTheme = BottomSheetThemeData(
     showDragHandle: true,
     backgroundColor: Colors.black,

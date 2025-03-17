@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/utils/constants/colors.dart';
+
 class VElevatedButtonTheme {
   VElevatedButtonTheme._();
 
@@ -7,14 +9,15 @@ class VElevatedButtonTheme {
   static final lightElevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: 0,
-      foregroundColor: Colors.white,
-      backgroundColor: Colors.blue,
-      disabledForegroundColor: Colors.grey,
-      disabledBackgroundColor: Colors.grey,
-      side: const BorderSide(color: Colors.blue),
+      foregroundColor: VColors.white,
+      backgroundColor: VColors.buttonPrimary,
+      iconColor: VColors.white,
+      disabledForegroundColor: VColors.grey,
+      disabledBackgroundColor: VColors.grey,
+      side: const BorderSide(color: VColors.buttonPrimary),
       padding: const EdgeInsets.all(8),
       textStyle: const TextStyle(
-          fontSize: 15, color: Colors.white, fontWeight: FontWeight.normal),
+          fontSize: 15, color: VColors.white, fontWeight: FontWeight.normal),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
   );
@@ -23,14 +26,15 @@ class VElevatedButtonTheme {
   static final darkElevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: 0,
-      foregroundColor: Colors.white,
-      backgroundColor: Colors.blue,
-      disabledForegroundColor: Colors.grey,
-      disabledBackgroundColor: Colors.grey,
-      side: const BorderSide(color: Colors.blue),
+      foregroundColor: VColors.white,
+      backgroundColor: VColors.buttonPrimary,
+      iconColor: VColors.white,
+      disabledForegroundColor: VColors.grey,
+      disabledBackgroundColor: VColors.grey,
+      side: const BorderSide(color: VColors.buttonPrimary),
       padding: const EdgeInsets.all(8),
       textStyle: const TextStyle(
-          fontSize: 15, color: Colors.white, fontWeight: FontWeight.normal),
+          fontSize: 15, color: VColors.white, fontWeight: FontWeight.normal),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
   );
