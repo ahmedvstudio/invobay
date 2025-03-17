@@ -23,7 +23,7 @@ class AddItemScreen extends StatelessWidget {
 
   AddItemScreen({super.key});
 
-  void _addItem(BuildContext context) {
+  Future<void> _addItem(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final provider = Provider.of<ItemProvider>(context, listen: false);
 
@@ -43,8 +43,22 @@ class AddItemScreen extends StatelessWidget {
             : drift.Value(_barcodeController.text),
       );
 
-      provider.addItem(item);
-      context.pop();
+      // Await the addItem method
+      await provider.addItem(item);
+
+      // Optionally clear the controllers if you want to reset the form
+      _nameController.clear();
+      _quantityController.clear();
+      _sellingPriceController.clear();
+      _buyingPriceController.clear();
+      _supplierController.clear();
+      _descriptionController.clear();
+      _barcodeController.clear();
+
+      // Pop the context after adding the item
+      if (context.mounted) {
+        context.pop();
+      }
     }
   }
 
@@ -59,11 +73,12 @@ class AddItemScreen extends StatelessWidget {
               showBackArrow: false,
               actions: [
                 IconButton(
-                    onPressed: () => context.pop(),
-                    icon: const Icon(
-                      CupertinoIcons.xmark,
-                      color: VColors.white,
-                    ))
+                  onPressed: () => context.pop(),
+                  icon: const Icon(
+                    CupertinoIcons.xmark,
+                    color: VColors.white,
+                  ),
+                )
               ],
             ),
             Padding(

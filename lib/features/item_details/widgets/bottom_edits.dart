@@ -53,7 +53,8 @@ class VBottomEdits extends StatelessWidget {
                 color: VColors.white,
               ),
               const SizedBox(width: VSizes.spaceBtwItems),
-              const VCircularIcon(
+              VCircularIcon(
+                onPressed: () => _showQuantityDialog(context, itemId),
                 icon: Iconsax.add,
                 backgroundColor: VColors.black,
                 width: 40,
@@ -76,4 +77,40 @@ class VBottomEdits extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showQuantityDialog(BuildContext context, int itemId) {
+  final TextEditingController quantityController = TextEditingController();
+
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Add Quantity'),
+      content: TextField(
+        controller: quantityController,
+        keyboardType: TextInputType.number,
+        decoration: const InputDecoration(
+          hintText: 'Enter quantity',
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => context.pop(),
+          child: const Text('Cancel'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            final quantity = int.tryParse(quantityController.text) ?? 0;
+            if (quantity > 0) {
+              final provider =
+                  Provider.of<ItemProvider>(context, listen: false);
+              provider.addQuantity(itemId, quantity);
+            }
+            context.pop(); // Close the dialog
+          },
+          child: const Text('Add'),
+        ),
+      ],
+    ),
+  );
 }

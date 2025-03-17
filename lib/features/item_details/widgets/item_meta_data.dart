@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../../common/widgets/text/brand_title_text_with_verification_icon.dart';
 import '../../../common/widgets/text/item_price_text.dart';
 import '../../../common/widgets/text/item_title_text.dart';
 import '../../../common/widgets/text/section_heading.dart';
+import '../../../core/providers/item_provider.dart';
 import '../../../core/utils/constants/enums.dart';
 import '../../../core/utils/constants/sizes.dart';
 import 'meta_data_section.dart';
@@ -56,8 +59,21 @@ class VItemMetaData extends StatelessWidget {
         VMetaDataSection(
           tag: 'In Stock',
           icon: Iconsax.box,
-          child: Text(stock, style: Theme.of(context).textTheme.titleMedium),
+          child: Consumer<ItemProvider>(
+            builder: (context, itemProvider, _) {
+              final quantity = itemProvider.items
+                  .firstWhere((item) => item.name == title)
+                  .quantity;
+              final formattedQuantity = NumberFormat('#,###').format(quantity);
+
+              return Text(
+                formattedQuantity,
+                style: Theme.of(context).textTheme.titleMedium,
+              );
+            },
+          ),
         ),
+
         const SizedBox(height: VSizes.spaceBtwItems),
         // - Buy Price
         VMetaDataSection(

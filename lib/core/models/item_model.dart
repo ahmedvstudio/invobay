@@ -4,8 +4,8 @@ class ItemModel {
   final int quantity;
   final double sellingPrice;
   final double buyingPrice;
-  final String supplierName;
-  final String description;
+  final String? supplierName;
+  final String? description;
   final String? barcode;
 
   ItemModel({
@@ -14,8 +14,8 @@ class ItemModel {
     required this.quantity,
     required this.sellingPrice,
     required this.buyingPrice,
-    required this.supplierName,
-    required this.description,
+    this.supplierName,
+    this.description,
     this.barcode,
   });
 }

@@ -17,6 +17,20 @@ class VValidator {
     if (double.tryParse(value) == null) {
       return 'Enter a valid number';
     }
+
+    return null;
+  }
+
+  static String? validateNumberWithLimit(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field is required';
+    }
+    if (double.tryParse(value) == null) {
+      return 'Enter a valid number';
+    }
+    if (value.length > 10) {
+      return 'Maximum 10 digits allowed';
+    }
     return null;
   }
 
@@ -27,7 +41,7 @@ class VValidator {
     }
 
     // Regular exp. for validating emails
-    final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    final emailRegExp = RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!emailRegExp.hasMatch(value)) {
       return 'Invalid email address';
     }
@@ -55,7 +69,7 @@ class VValidator {
     }
 
     // Check for special characters
-    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>|]'))) {
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
       return 'Password must contain at least one special character.';
     }
     return null;
@@ -75,5 +89,27 @@ class VValidator {
     return null;
   }
 
-// add more if nedded
+  // --- Selling price validator---//
+  static String? validateSellingPrice(String? value, String? buyingPrice) {
+    if (value == null || value.isEmpty) {
+      return 'Selling price is required';
+    }
+
+    final sellingPrice = double.tryParse(value);
+    final buying = double.tryParse(buyingPrice ?? '');
+
+    if (sellingPrice == null) {
+      return 'Enter a valid number';
+    }
+
+    if (buying != null && sellingPrice <= buying) {
+      return 'Selling price must be greater than buying price';
+    }
+
+    // if (value.replaceAll('.', '').length > 6) {
+    //   return 'Maximum 6 digits allowed';
+    // }
+
+    return null;
+  }
 }

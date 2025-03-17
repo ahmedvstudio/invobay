@@ -1,3 +1,5 @@
+import 'package:drift/drift.dart';
+
 import '../database/app_database.dart';
 
 class ItemDao {
@@ -14,4 +16,15 @@ class ItemDao {
 
   Future<void> deleteItem(int id) =>
       (db.delete(db.items)..where((tbl) => tbl.id.equals(id))).go();
+
+  SimpleSelectStatement<$ItemsTable, Item> searchItems(String query) {
+    return db.select(db.items)
+      ..where(
+          (item) => item.name.like('%$query%') | item.barcode.like('%$query%'));
+  }
+
+  Future<Item?> getItemById(int id) {
+    return (db.select(db.items)..where((item) => item.id.equals(id)))
+        .getSingleOrNull();
+  }
 }

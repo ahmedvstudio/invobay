@@ -39,8 +39,10 @@ class ItemForm extends StatelessWidget {
           validator: VValidator.validateEmpty,
         ),
         TextFormField(
+          maxLength: 13,
           controller: quantityController,
-          decoration: const InputDecoration(labelText: 'Quantity'),
+          decoration:
+              const InputDecoration(labelText: 'Quantity', counterText: ''),
           keyboardType: TextInputType.number,
           validator: VValidator.validateNumber,
         ),
@@ -49,7 +51,9 @@ class ItemForm extends StatelessWidget {
             Flexible(
               child: TextFormField(
                 controller: buyingPriceController,
-                decoration: const InputDecoration(labelText: 'Buying Price'),
+                maxLength: 13,
+                decoration: const InputDecoration(
+                    labelText: 'Buying Price', counterText: ''),
                 keyboardType: TextInputType.number,
                 validator: VValidator.validateNumber,
               ),
@@ -57,17 +61,22 @@ class ItemForm extends StatelessWidget {
             const SizedBox(width: VSizes.spaceBtwInputFields),
             Flexible(
               child: TextFormField(
+                maxLength: 13,
                 controller: sellingPriceController,
-                decoration: const InputDecoration(labelText: 'Selling Price'),
+                decoration: const InputDecoration(
+                    labelText: 'Selling Price', counterText: ''),
                 keyboardType: TextInputType.number,
-                validator: VValidator.validateNumber,
+                validator: (value) => VValidator.validateSellingPrice(
+                    value, buyingPriceController!.text),
               ),
             ),
           ],
         ),
         TextFormField(
           controller: supplierController,
-          decoration: const InputDecoration(labelText: 'Supplier'),
+          maxLength: 25,
+          decoration:
+              const InputDecoration(labelText: 'Supplier', counterText: ''),
         ),
         TextFormField(
           controller: barcodeController,
