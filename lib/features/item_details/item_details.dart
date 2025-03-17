@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/features/item_details/widgets/bottom_edits.dart';
 import 'package:invobay/features/item_details/widgets/item_meta_data.dart';
@@ -6,10 +7,11 @@ import 'package:readmore/readmore.dart';
 
 import '../../common/widgets/appbar/custom_appbar.dart';
 import '../../common/widgets/text/section_heading.dart';
+import '../../core/providers/item_notifier_provider.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/sizes.dart';
 
-class ItemDetailsScreen extends StatelessWidget {
+class ItemDetailsScreen extends ConsumerWidget {
   const ItemDetailsScreen({
     super.key,
     required this.itemId,
@@ -32,7 +34,7 @@ class ItemDetailsScreen extends StatelessWidget {
   final String? barcode;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       bottomNavigationBar: VBottomEdits(
         onEdit: (context, itemId) {
@@ -40,6 +42,10 @@ class ItemDetailsScreen extends StatelessWidget {
               pathParameters: {'id': itemId.toString()});
         },
         itemId: itemId,
+        onDelete: (context, itemId) {
+          final notifier = ref.read(itemNotifierProvider.notifier);
+          notifier.deleteItem(itemId);
+        },
       ),
       body: SingleChildScrollView(
         child: Column(

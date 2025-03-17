@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/features/inventory/widgets/item_form.dart';
-import 'package:provider/provider.dart';
-import 'package:invobay/core/providers/item_provider.dart';
+import 'package:invobay/core/providers/item_notifier_provider.dart'; // Import Riverpod provider
 import 'package:invobay/core/database/app_database.dart';
 import 'package:drift/drift.dart' as drift;
+import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod
 
 import '../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../core/utils/constants/sizes.dart';
 
-class EditItemScreen extends StatelessWidget {
+class EditItemScreen extends ConsumerWidget {
   final int itemId;
 
   EditItemScreen({super.key, required this.itemId});
@@ -24,9 +24,9 @@ class EditItemScreen extends StatelessWidget {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _barcodeController = TextEditingController();
 
-  void _loadItemData(BuildContext context) {
-    final itemProvider = Provider.of<ItemProvider>(context, listen: false);
-    final item = itemProvider.items.firstWhere((item) => item.id == itemId);
+  void _loadItemData(BuildContext context, WidgetRef ref) {
+    final itemProvider = ref.watch(itemNotifierProvider);
+    final item = itemProvider.firstWhere((item) => item.id == itemId);
 
     _nameController.text = item.name;
     _quantityController.text = item.quantity.toString();
@@ -39,7 +39,7 @@ class EditItemScreen extends StatelessWidget {
 
   final _formKey2 = GlobalKey<FormState>();
 
-  void _updateItem(BuildContext context) {
+  void _updateItem(BuildContext context, WidgetRef ref) {
     if (_formKey2.currentState!.validate()) {
       final updatedItem = ItemsCompanion(
         id: drift.Value(itemId),
@@ -54,15 +54,16 @@ class EditItemScreen extends StatelessWidget {
             : drift.Value(_barcodeController.text),
       );
 
-      final provider = Provider.of<ItemProvider>(context, listen: false);
+      final provider = ref.read(itemNotifierProvider.notifier);
       provider.updateItem(updatedItem);
       context.pop();
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    _loadItemData(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Load item data using Riverpod
+    _loadItemData(context, ref);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -94,7 +95,7 @@ class EditItemScreen extends StatelessWidget {
                       supplierController: _supplierController,
                       barcodeController: _barcodeController,
                       descriptionController: _descriptionController,
-                      onPressed: () => _updateItem(context),
+                      onPressed: () => _updateItem(context, ref),
                       buttonText: 'Update Item',
                     ),
                   ],

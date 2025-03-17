@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/features/inventory/widgets/inventory_appbar.dart';
-import 'package:provider/provider.dart';
-import 'package:invobay/core/providers/item_provider.dart';
-
 import '../../common/widgets/item_cards/item_listview.dart';
+import '../../core/providers/item_notifier_provider.dart';
 import '../../core/router/router_constant.dart';
 
-class InventoryScreen extends StatelessWidget {
+class InventoryScreen extends ConsumerWidget {
   const InventoryScreen({super.key});
 
   void _editItem(BuildContext context, int itemId) {
@@ -20,14 +19,14 @@ class InventoryScreen extends StatelessWidget {
     );
   }
 
-  void _deleteItem(BuildContext context, int itemId) {
-    final provider = Provider.of<ItemProvider>(context, listen: false);
-    provider.deleteItem(itemId);
+  void _deleteItem(WidgetRef ref, int itemId) {
+    ref.read(itemNotifierProvider.notifier).deleteItem(itemId);
   }
 
   @override
-  Widget build(BuildContext context) {
-    final items = context.watch<ItemProvider>().items;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final items = ref.watch(itemNotifierProvider);
+
     return Scaffold(
       body: Column(
         children: [
@@ -46,7 +45,7 @@ class InventoryScreen extends StatelessWidget {
           ItemListView(
             items: items,
             onEdit: _editItem,
-            onDelete: _deleteItem,
+            onDelete: (context, itemId) => _deleteItem(ref, itemId),
           ),
         ],
       ),

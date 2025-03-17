@@ -1,33 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:provider/provider.dart';
 
 import '../../../common/widgets/icons/circular_icon.dart';
 import '../../../common/widgets/icons/circular_icon_with_conformation.dart';
-import '../../../core/providers/item_provider.dart';
+import '../../../core/providers/item_notifier_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/helper_functions.dart';
 
-class VBottomEdits extends StatelessWidget {
+class VBottomEdits extends ConsumerWidget {
   final Function(BuildContext, int) onEdit;
+  final Function(BuildContext, int) onDelete;
   final int itemId;
 
   const VBottomEdits({
     super.key,
     required this.onEdit,
+    required this.onDelete,
     required this.itemId,
   });
 
-  void _deleteItem(BuildContext context, int itemId) {
-    final provider = Provider.of<ItemProvider>(context, listen: false);
-    provider.deleteItem(itemId);
-    context.pop();
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = VHelperFunctions.isDarkMode(context);
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -45,7 +41,7 @@ class VBottomEdits extends StatelessWidget {
           Row(
             children: [
               VCircularIconWithConfirmation(
-                onPressed: () => _deleteItem(context, itemId),
+                onPressed: () => onDelete(context, itemId),
                 icon: Iconsax.trash,
                 backgroundColor: VColors.error,
                 width: 40,
@@ -54,7 +50,7 @@ class VBottomEdits extends StatelessWidget {
               ),
               const SizedBox(width: VSizes.spaceBtwItems),
               VCircularIcon(
-                onPressed: () => _showQuantityDialog(context, itemId),
+                onPressed: () => _showQuantityDialog(context, ref, itemId),
                 icon: Iconsax.add,
                 backgroundColor: VColors.black,
                 width: 40,
@@ -77,40 +73,46 @@ class VBottomEdits extends StatelessWidget {
       ),
     );
   }
-}
 
-void _showQuantityDialog(BuildContext context, int itemId) {
-  final TextEditingController quantityController = TextEditingController();
+  void _showQuantityDialog(BuildContext context, WidgetRef ref, int itemId) {
+    final TextEditingController quantityController = TextEditingController();
 
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: const Text('Add Quantity'),
-      content: TextField(
-        controller: quantityController,
-        keyboardType: TextInputType.number,
-        decoration: const InputDecoration(
-          hintText: 'Enter quantity',
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: const Text('Cancel'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            final quantity = int.tryParse(quantityController.text) ?? 0;
-            if (quantity > 0) {
-              final provider =
-                  Provider.of<ItemProvider>(context, listen: false);
-              provider.addQuantity(itemId, quantity);
-            }
-            context.pop(); // Close the dialog
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Consumer(
+          builder: (context, ref, child) {
+            return AlertDialog(
+              title: const Text('Add Quantity'),
+              content: TextField(
+                controller: quantityController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  hintText: 'Enter quantity',
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => context.pop(),
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    final quantity = int.tryParse(quantityController.text) ?? 0;
+                    if (quantity > 0) {
+                      final provider = ref.read(itemNotifierProvider.notifier);
+                      provider.addQuantity(
+                          itemId, quantity); // Add quantity to the item
+                    }
+                    context.pop(); // Close the dialog
+                  },
+                  child: const Text('Add'),
+                ),
+              ],
+            );
           },
-          child: const Text('Add'),
-        ),
-      ],
-    ),
-  );
+        );
+      },
+    );
+  }
 }

@@ -1,16 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/appbar/custom_appbar.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
-import 'package:provider/provider.dart';
 import 'package:drift/drift.dart' as drift;
 import '../../../core/database/app_database.dart';
-import '../../../core/providers/item_provider.dart';
+import '../../../core/providers/item_notifier_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import 'item_form.dart';
 
-class AddItemScreen extends StatelessWidget {
+class AddItemScreen extends ConsumerStatefulWidget {
+  const AddItemScreen({super.key});
+
+  @override
+  AddItemScreenState createState() => AddItemScreenState();
+}
+
+class AddItemScreenState extends ConsumerState<AddItemScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _sellingPriceController = TextEditingController();
@@ -21,12 +28,20 @@ class AddItemScreen extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  AddItemScreen({super.key});
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _quantityController.dispose();
+    _sellingPriceController.dispose();
+    _buyingPriceController.dispose();
+    _supplierController.dispose();
+    _descriptionController.dispose();
+    _barcodeController.dispose();
+    super.dispose();
+  }
 
-  Future<void> _addItem(BuildContext context) async {
+  Future<void> _addItem() async {
     if (_formKey.currentState!.validate()) {
-      final provider = Provider.of<ItemProvider>(context, listen: false);
-
       final item = ItemsCompanion.insert(
         name: _nameController.text,
         quantity: int.parse(_quantityController.text),
@@ -43,10 +58,10 @@ class AddItemScreen extends StatelessWidget {
             : drift.Value(_barcodeController.text),
       );
 
-      // Await the addItem method
-      await provider.addItem(item);
+      // ✅ Use Riverpod to add an item
+      await ref.read(itemNotifierProvider.notifier).addItem(item);
 
-      // Optionally clear the controllers if you want to reset the form
+      // ✅ Clear the controllers
       _nameController.clear();
       _quantityController.clear();
       _sellingPriceController.clear();
@@ -55,10 +70,9 @@ class AddItemScreen extends StatelessWidget {
       _descriptionController.clear();
       _barcodeController.clear();
 
-      // Pop the context after adding the item
-      if (context.mounted) {
-        context.pop();
-      }
+      final currentContext = context;
+      if (!currentContext.mounted) return;
+      currentContext.pop();
     }
   }
 
@@ -95,7 +109,7 @@ class AddItemScreen extends StatelessWidget {
                       supplierController: _supplierController,
                       barcodeController: _barcodeController,
                       descriptionController: _descriptionController,
-                      onPressed: () => _addItem(context),
+                      onPressed: _addItem, // ✅ No need to pass context or ref
                       buttonText: 'Add Item',
                     ),
                   ],
