@@ -10,7 +10,18 @@ class VValidator {
   }
 
   // ----- Number validator -----//
-  static String? validateNumber(String? value) {
+  static String? validateIntegerNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field is required';
+    }
+    if (int.tryParse(value) == null) {
+      return 'Enter a valid number';
+    }
+
+    return null;
+  }
+
+  static String? validateDoubleNumber(String? value) {
     if (value == null || value.isEmpty) {
       return 'This field is required';
     }

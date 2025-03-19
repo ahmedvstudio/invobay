@@ -9,8 +9,10 @@ import '../../../common/widgets/text/item_title_text.dart';
 import '../../../common/widgets/text/section_heading.dart';
 import '../../../core/database/app_database.dart';
 import '../../../core/providers/item_notifier_provider.dart'; // Ensure this import is included
+import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/enums.dart';
 import '../../../core/utils/constants/sizes.dart';
+import '../../../core/utils/helpers/low_stock_helper.dart';
 import 'meta_data_section.dart';
 
 class VItemMetaData extends ConsumerWidget {
@@ -33,10 +35,7 @@ class VItemMetaData extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemProvider =
-        ref.watch(itemNotifierProvider); // Access item data via Riverpod
-
-    // Find the item based on title (name)
+    final itemProvider = ref.watch(itemNotifierProvider);
     final item = itemProvider.firstWhere((item) => item.name == title,
         orElse: () => Item(
             id: 0,
@@ -49,6 +48,8 @@ class VItemMetaData extends ConsumerWidget {
             barcode: null));
 
     final formattedQuantity = NumberFormat('#,###').format(item.quantity);
+    final lowStockColor = LowStockHelper(item.quantity).getThreeColor();
+    final lowStockText = LowStockHelper(item.quantity).getThreeText();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +77,9 @@ class VItemMetaData extends ConsumerWidget {
 
         // - In Stock
         VMetaDataSection(
-          tag: 'In Stock',
+          tag: lowStockText,
+          tagBackgroundColor: lowStockColor,
+          tagTextColor: VColors.white,
           icon: Iconsax.box,
           child: Text(
             formattedQuantity,

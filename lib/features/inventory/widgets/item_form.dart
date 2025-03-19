@@ -44,7 +44,7 @@ class ItemForm extends StatelessWidget {
           decoration:
               const InputDecoration(labelText: 'Quantity', counterText: ''),
           keyboardType: TextInputType.number,
-          validator: VValidator.validateNumber,
+          validator: VValidator.validateIntegerNumber,
         ),
         Row(
           children: [
@@ -55,7 +55,7 @@ class ItemForm extends StatelessWidget {
                 decoration: const InputDecoration(
                     labelText: 'Buying Price', counterText: ''),
                 keyboardType: TextInputType.number,
-                validator: VValidator.validateNumber,
+                validator: VValidator.validateDoubleNumber,
               ),
             ),
             const SizedBox(width: VSizes.spaceBtwInputFields),

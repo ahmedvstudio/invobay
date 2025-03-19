@@ -45,4 +45,8 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+    <queries>
+        <package android:name="com.android.camera"/>
+    </queries>
+
 </manifest>

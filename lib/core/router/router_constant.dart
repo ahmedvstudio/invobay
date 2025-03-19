@@ -14,10 +14,12 @@ class VRouter {
   static const String inventory = 'inventory';
   static const String addItem = 'addItem';
   static const String editItem = 'editItem';
+  static const String search = 'search';
 
   // -
   static const String itemDetail = 'itemDetail';
   static const String purchases = 'purchases';
   static const String sales = 'sales';
   static const String reports = 'reports';
+  static const String lowStockScreen = 'lowStockScreen';
 }

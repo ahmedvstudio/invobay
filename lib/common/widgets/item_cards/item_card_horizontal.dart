@@ -14,12 +14,16 @@ class VItemCardHorizontal extends StatelessWidget {
     required this.itemStock,
     required this.itemPrice,
     this.onTapItemDetails,
+    this.stockIconColor = VColors.success,
+    this.nameIconColor = VColors.kAccent,
   });
 
   final String itemName;
   final String itemStock;
   final String itemPrice;
   final VoidCallback? onTapItemDetails;
+  final Color? stockIconColor;
+  final Color nameIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +45,17 @@ class VItemCardHorizontal extends StatelessWidget {
                 title: itemName,
                 smallSize: true,
                 maxLines: 2,
+                iconColor: nameIconColor,
               ),
               const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(child: VItemQuantityTextWithIcon(title: itemStock)),
+                  Flexible(
+                      child: VItemQuantityTextWithIcon(
+                    title: itemStock,
+                    iconColor: stockIconColor,
+                  )),
 
                   // price
                   VItemPriceTextWithIcon(

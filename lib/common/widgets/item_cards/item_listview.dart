@@ -4,6 +4,7 @@ import 'package:invobay/core/utils/constants/sizes.dart';
 
 import '../../../core/database/app_database.dart';
 import '../../../core/router/router_constant.dart';
+import '../../../core/utils/helpers/low_stock_helper.dart';
 import 'item_card_horizontal.dart';
 
 class ItemListView extends StatelessWidget {
@@ -30,6 +31,7 @@ class ItemListView extends StatelessWidget {
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
+          final lowStockColor = LowStockHelper(item.quantity).getThreeColor();
           return VItemCardHorizontal(
             itemName: item.name,
             itemStock: '${item.quantity}',
@@ -38,6 +40,8 @@ class ItemListView extends StatelessWidget {
               context.goNamed(VRouter.itemDetail,
                   pathParameters: {'id': item.id.toString()});
             },
+            stockIconColor: lowStockColor,
+            // nameIconColor: lowStockColor,
           );
         },
         separatorBuilder: (_, index) =>

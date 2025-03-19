@@ -39,22 +39,15 @@ List<GoRoute> inventoryRoutes = [
               builder: (context, ref, child) {
                 final items = ref.watch(itemNotifierProvider);
 
-                if (items.isEmpty) {
+                if (items.isEmpty || !items.any((item) => item.id == itemId)) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    context.pop();
+                    if (context.canPop()) {}
                   });
-                  return const Center(child: Text("No items available."));
+                  return const Center(
+                      child: Text("Item not found or deleted."));
                 }
 
-                final item = items.firstWhere(
-                  (item) => item.id == itemId,
-                  orElse: () {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      context.pop();
-                    });
-                    return throw StateError('Item not found');
-                  },
-                );
+                final item = items.firstWhere((item) => item.id == itemId);
 
                 return ItemDetailsScreen(
                   itemId: itemId,

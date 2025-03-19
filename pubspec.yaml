@@ -15,12 +15,12 @@ dependencies:
   cupertino_icons: ^1.0.8
   iconsax: ^0.0.8
   arabic_font: ^0.0.9
-  font_awesome_flutter: ^10.8.0
-  ionicons: ^0.2.2
 
   # State Management
   flutter_riverpod: ^2.6.1
 
+ # Permissions
+  permission_handler: ^11.4.0
 
   # Local Storage
   drift: ^2.26.0

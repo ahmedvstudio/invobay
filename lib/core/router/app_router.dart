@@ -8,6 +8,7 @@ import 'package:invobay/core/router/routes/sales_route.dart';
 import 'package:invobay/features/error/not_found_screen.dart';
 
 import '../../features/home/home_screen.dart';
+import '../../features/low_stock/low_stock_screen.dart';
 
 final GoRouter invoRouter = GoRouter(
   initialLocation: '/login',
@@ -22,6 +23,11 @@ final GoRouter invoRouter = GoRouter(
         ...purchaseRoutes,
         ...salesRoutes,
         ...reportRoutes,
+        GoRoute(
+          name: VRouter.lowStockScreen,
+          path: '/lowStock',
+          builder: (context, state) => const LowStockScreen(),
+        ),
       ],
     ),
   ],
