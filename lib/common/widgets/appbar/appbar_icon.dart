@@ -8,7 +8,7 @@ class VAppBarIcon extends StatelessWidget {
   const VAppBarIcon({
     super.key,
     this.onPressed,
-    this.icon = Iconsax.profile_circle,
+    this.icon = Iconsax.notification,
     this.badge = true,
     this.badgeText = '2',
   });

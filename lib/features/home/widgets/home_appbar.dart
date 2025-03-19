@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:invobay/core/router/router_constant.dart';
 
 import '../../../common/widgets/appbar/appbar.dart';
 import '../../../common/widgets/appbar/appbar_icon.dart';
@@ -28,8 +30,10 @@ class VHomeAppBar extends StatelessWidget {
                   .apply(color: VColors.white)),
         ],
       ),
-      actions: const [
-        VAppBarIcon(),
+      actions: [
+        VAppBarIcon(
+          onPressed: () => context.pushNamed(VRouter.notification),
+        ),
       ],
     );
   }

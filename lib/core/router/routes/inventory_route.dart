@@ -41,10 +41,13 @@ List<GoRoute> inventoryRoutes = [
 
                 if (items.isEmpty || !items.any((item) => item.id == itemId)) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (context.canPop()) {}
+                    if (context.canPop()) {
+                      context.pop();
+                    }
                   });
-                  return const Center(
-                      child: Text("Item not found or deleted."));
+                  return const Scaffold(
+                    body: Center(child: Text("Item Deleted Successfully.")),
+                  );
                 }
 
                 final item = items.firstWhere((item) => item.id == itemId);

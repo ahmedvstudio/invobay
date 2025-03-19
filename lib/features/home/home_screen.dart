@@ -20,15 +20,13 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(itemNotifierProvider);
-    final lowStockItems =
-        items.where((item) => item.quantity < VNumbers.lowStockNumber).toList();
+    final lowStockItems = items
+        .where((item) => item.quantity <= VNumbers.lowStockNumber)
+        .toList();
 
     final marqueeText = lowStockItems.isEmpty
         ? "Items stock looks good"
-        : lowStockItems
-            .map((e) => '${e.name} (${e.quantity} left)')
-            .join('  &  ');
-
+        : "Low stock item${lowStockItems.length > 1 ? 's' : ''}: ${lowStockItems.length}";
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -55,7 +53,7 @@ class HomeScreen extends ConsumerWidget {
                     longText: marqueeText,
                     backgroundColor: lowStockItems.isEmpty
                         ? Colors.transparent
-                        : VColors.error,
+                        : VColors.info,
                     onTap: () => context.pushNamed(VRouter.lowStockScreen),
                   ),
                   const SizedBox(height: VSizes.spaceBtwSections * 1.5),

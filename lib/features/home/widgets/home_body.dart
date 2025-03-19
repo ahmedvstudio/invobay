@@ -29,7 +29,7 @@ class VHomeBody extends StatelessWidget {
           VBigButton(
             onTap: () => context.pushNamed(VRouter.sales),
             text: 'Sell',
-            icon: Iconsax.box,
+            icon: Iconsax.tag,
           ),
           VBigButton(
             onTap: () => context.pushNamed(VRouter.purchases),
@@ -37,7 +37,7 @@ class VHomeBody extends StatelessWidget {
             icon: Iconsax.shopping_cart,
           ),
           VBigButton(
-            onTap: () {},
+            onTap: () => context.pushNamed(VRouter.receipts),
             text: 'Receipts',
             icon: Iconsax.receipt,
           ),
@@ -47,7 +47,7 @@ class VHomeBody extends StatelessWidget {
             icon: Iconsax.receipt_item,
           ),
           VBigButton(
-            onTap: () {},
+            onTap: () => context.pushNamed(VRouter.setting),
             text: 'Settings',
             icon: Iconsax.setting,
           ),

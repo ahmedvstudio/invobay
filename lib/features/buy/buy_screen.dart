@@ -5,8 +5,8 @@ import '../../common/widgets/appbar/main_appbar.dart';
 import '../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../core/utils/constants/sizes.dart';
 
-class ReportsScreen extends StatelessWidget {
-  const ReportsScreen({super.key});
+class BuyScreen extends StatelessWidget {
+  const BuyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,8 @@ class ReportsScreen extends StatelessWidget {
             child: Column(
               children: [
                 VMainAppBar(
-                  title: 'Reports',
-                  appbarIcon: Iconsax.receipt_item5,
+                  title: 'Buy',
+                  appbarIcon: Iconsax.shopping_cart5,
                 ),
                 SizedBox(height: VSizes.spaceBtwSections),
               ],

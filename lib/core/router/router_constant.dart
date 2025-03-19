@@ -7,19 +7,22 @@ class VRouter {
   static const String resetPass = 'resetPassword';
   static const String forgetPass = 'forgetPassword';
 
-  // - Dashboard
+  // - Home
   static const String dashboard = 'home';
+  static const String lowStockScreen = 'lowStockScreen';
 
   // - Inventory
   static const String inventory = 'inventory';
   static const String addItem = 'addItem';
   static const String editItem = 'editItem';
   static const String search = 'search';
+  static const String itemDetail = 'itemDetail';
 
   // -
-  static const String itemDetail = 'itemDetail';
-  static const String purchases = 'purchases';
-  static const String sales = 'sales';
+  static const String purchases = 'buy';
+  static const String sales = 'sell';
   static const String reports = 'reports';
-  static const String lowStockScreen = 'lowStockScreen';
+  static const String receipts = 'receipts';
+  static const String setting = 'setting';
+  static const String notification = 'notification';
 }

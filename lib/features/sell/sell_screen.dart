@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/common/widgets/appbar/main_appbar.dart';
 
-import '../../common/widgets/appbar/main_appbar.dart';
 import '../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../core/utils/constants/sizes.dart';
 
-class ReportsScreen extends StatelessWidget {
-  const ReportsScreen({super.key});
+class SellScreen extends StatelessWidget {
+  const SellScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,8 @@ class ReportsScreen extends StatelessWidget {
             child: Column(
               children: [
                 VMainAppBar(
-                  title: 'Reports',
-                  appbarIcon: Iconsax.receipt_item5,
+                  title: 'Sell',
+                  appbarIcon: Iconsax.tag5,
                 ),
                 SizedBox(height: VSizes.spaceBtwSections),
               ],

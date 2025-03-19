@@ -1,21 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/widgets/appbar/appbar.dart';
-import '../../../common/widgets/appbar/appbar_icon.dart';
+import 'appbar.dart';
+import 'appbar_icon.dart';
 import '../../../core/utils/constants/colors.dart';
-import '../../../core/utils/constants/text_strings.dart';
 
-class VInventoryAppBar extends StatelessWidget {
-  const VInventoryAppBar({
+class VMainAppBar extends StatelessWidget {
+  const VMainAppBar({
     super.key,
     this.onPressed,
+    required this.title,
+    this.appbarIcon = CupertinoIcons.plus,
+    this.showAppbarIcon = true,
   });
   final VoidCallback? onPressed;
+  final String title;
+  final bool showAppbarIcon;
+  final IconData appbarIcon;
+
   @override
   Widget build(BuildContext context) {
     return VAppBar(
-      title: Text(VText.inventoryAppBarSubTitle,
+      title: Text(title,
           style: Theme.of(context)
               .textTheme
               .headlineMedium!
@@ -23,7 +29,7 @@ class VInventoryAppBar extends StatelessWidget {
       actions: [
         VAppBarIcon(
           badge: false,
-          icon: CupertinoIcons.plus,
+          icon: appbarIcon,
           onPressed: onPressed,
         ),
       ],

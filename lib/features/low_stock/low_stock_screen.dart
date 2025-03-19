@@ -18,8 +18,9 @@ class LowStockScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(itemNotifierProvider);
-    final lowStockItems =
-        items.where((item) => item.quantity < VNumbers.lowStockNumber).toList();
+    final lowStockItems = items
+        .where((item) => item.quantity <= VNumbers.lowStockNumber)
+        .toList();
 
     return Scaffold(
       body: lowStockItems.isEmpty
