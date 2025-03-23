@@ -44,7 +44,7 @@ class ItemForm extends StatelessWidget {
           decoration:
               const InputDecoration(labelText: 'Quantity', counterText: ''),
           keyboardType: TextInputType.number,
-          validator: VValidator.validateIntegerNumber,
+          validator: VValidator.validateDoubleNumber,
         ),
         Row(
           children: [

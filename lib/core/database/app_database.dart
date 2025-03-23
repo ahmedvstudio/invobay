@@ -9,7 +9,7 @@ part 'app_database.g.dart';
 class Items extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text()();
-  IntColumn get quantity => integer()();
+  RealColumn get quantity => real()();
   RealColumn get sellingPrice => real()();
   RealColumn get buyingPrice => real()();
   TextColumn get supplierName => text().nullable()();

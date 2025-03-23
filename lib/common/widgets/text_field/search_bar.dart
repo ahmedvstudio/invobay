@@ -10,10 +10,13 @@ class VSearchBar extends StatelessWidget {
     super.key,
     this.searchController,
     this.suffixIcon,
+    this.onChanged,
   });
 
   final TextEditingController? searchController;
   final Widget? suffixIcon;
+  final Function(String)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     final isDark = VHelperFunctions.isDarkMode(context);
@@ -21,6 +24,7 @@ class VSearchBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: VSizes.defaultSpace),
       child: TextField(
+        onChanged: onChanged,
         controller: searchController,
         decoration: InputDecoration(
           hintText: 'Search in stock',

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/utils/constants/colors.dart';
@@ -23,8 +22,12 @@ class VItemTitleTextWithIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(CupertinoIcons.app_fill, color: iconColor, size: VSizes.iconSm),
-        const SizedBox(width: VSizes.xs),
+        CircleAvatar(
+          radius: VSizes.iconSm,
+          backgroundColor: VColors.kPrimary,
+          child: Text(title[0]),
+        ),
+        const SizedBox(width: VSizes.sm),
         Flexible(
           child: Text(
             title,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common/widgets/text/brand_title_text_with_verification_icon.dart';
@@ -28,8 +27,8 @@ class VItemMetaData extends ConsumerWidget {
 
   final String title;
   final String stock;
-  final String sellingPrice;
-  final String buyingPrice;
+  final double sellingPrice;
+  final double buyingPrice;
   final String? supplier;
   final String? barcode;
 
@@ -40,14 +39,13 @@ class VItemMetaData extends ConsumerWidget {
         orElse: () => Item(
             id: 0,
             name: title,
-            quantity: 0,
+            quantity: 0.0,
             sellingPrice: 0.0,
             buyingPrice: 0.0,
             supplierName: null,
             description: null,
             barcode: null));
 
-    final formattedQuantity = NumberFormat('#,###').format(item.quantity);
     final lowStockColor = LowStockHelper(item.quantity).getThreeColor();
     final lowStockText = LowStockHelper(item.quantity).getThreeText();
 
@@ -82,7 +80,7 @@ class VItemMetaData extends ConsumerWidget {
           tagTextColor: VColors.white,
           icon: Iconsax.box,
           child: Text(
-            formattedQuantity,
+            item.quantity.toStringAsFixed(2),
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),

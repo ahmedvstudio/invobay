@@ -18,9 +18,12 @@ class VRouter {
   static const String search = 'search';
   static const String itemDetail = 'itemDetail';
 
+  // - Sell
+  static const String sell = 'sell';
+  static const String sellReceipt = 'sellReceipt';
+
   // -
   static const String purchases = 'buy';
-  static const String sales = 'sell';
   static const String reports = 'reports';
   static const String receipts = 'receipts';
   static const String setting = 'setting';

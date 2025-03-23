@@ -4,7 +4,7 @@ import '../constants/colors.dart';
 import '../constants/numbers.dart';
 
 class LowStockHelper {
-  final int quantity;
+  final double quantity;
 
   LowStockHelper(this.quantity);
 

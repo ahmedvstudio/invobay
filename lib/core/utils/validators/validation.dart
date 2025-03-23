@@ -25,8 +25,16 @@ class VValidator {
     if (value == null || value.isEmpty) {
       return 'This field is required';
     }
+
+    // Check if the input can be parsed as a double
     if (double.tryParse(value) == null) {
       return 'Enter a valid number';
+    }
+
+    // Regular expression to check for at most two decimal places
+    final RegExp decimalRegExp = RegExp(r'^\d+(\.\d{1,2})?$');
+    if (!decimalRegExp.hasMatch(value)) {
+      return 'Enter a number with up to 2 decimal places';
     }
 
     return null;
@@ -42,6 +50,34 @@ class VValidator {
     if (value.length > 10) {
       return 'Maximum 10 digits allowed';
     }
+    return null;
+  }
+
+  // --- Selling price validator---//
+  static String? validateSellingPrice(String? value, String? buyingPrice) {
+    if (value == null || value.isEmpty) {
+      return 'Selling price is required';
+    }
+
+    // Regular expression to check for valid number format with up to 2 decimal places
+    final RegExp decimalRegExp = RegExp(r'^\d+(\.\d{1,2})?$');
+
+    // Check if the selling price matches the decimal format
+    if (!decimalRegExp.hasMatch(value)) {
+      return 'Enter a number with up to 2 decimal places';
+    }
+
+    final sellingPrice = double.tryParse(value);
+    final buying = double.tryParse(buyingPrice ?? '');
+
+    if (sellingPrice == null) {
+      return 'Enter a valid number';
+    }
+
+    if (buying != null && sellingPrice <= buying) {
+      return 'Selling price must be greater than buying price';
+    }
+
     return null;
   }
 
@@ -97,30 +133,6 @@ class VValidator {
     if (!phoneRegExp.hasMatch(value)) {
       return 'Invalid phone number format (10 digits required.)';
     }
-    return null;
-  }
-
-  // --- Selling price validator---//
-  static String? validateSellingPrice(String? value, String? buyingPrice) {
-    if (value == null || value.isEmpty) {
-      return 'Selling price is required';
-    }
-
-    final sellingPrice = double.tryParse(value);
-    final buying = double.tryParse(buyingPrice ?? '');
-
-    if (sellingPrice == null) {
-      return 'Enter a valid number';
-    }
-
-    if (buying != null && sellingPrice <= buying) {
-      return 'Selling price must be greater than buying price';
-    }
-
-    // if (value.replaceAll('.', '').length > 6) {
-    //   return 'Maximum 6 digits allowed';
-    // }
-
     return null;
   }
 }

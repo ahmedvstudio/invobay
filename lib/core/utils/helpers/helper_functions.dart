@@ -2,6 +2,8 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../constants/colors.dart';
+
 class VHelperFunctions {
   VHelperFunctions._();
   // Colors Helper
@@ -37,17 +39,33 @@ class VHelperFunctions {
     return capitalizedText;
   }
 
-  static void showSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+  static void showSnackBar(
+      {required BuildContext context,
+      required String message,
+      Color bgColor = VColors.error,
+      Color messageColor = VColors.white,
+      Color closeIconColor = VColors.white,
+      bool showCloseIcon = false}) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      showCloseIcon: showCloseIcon,
+      closeIconColor: closeIconColor,
+      content: Text(
+        message,
+        style: const TextStyle().apply(color: messageColor),
+      ),
+      backgroundColor: bgColor,
+    ));
   }
 
   static void showToasty(
-          String message, Color backgroundColor, Color textColor) =>
+          {required String message,
+          Color backgroundColor = VColors.black,
+          Color textColor = VColors.white,
+          ToastGravity? gravity}) =>
       Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
+        gravity: gravity,
         timeInSecForIosWeb: 1,
         backgroundColor: backgroundColor,
         textColor: textColor,

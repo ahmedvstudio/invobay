@@ -8,6 +8,7 @@ import 'package:drift/drift.dart' as drift;
 import '../../../core/database/app_database.dart';
 import '../../../core/providers/item_notifier_provider.dart';
 import '../../../core/utils/constants/colors.dart';
+import '../../../core/utils/helpers/helper_functions.dart';
 import 'item_form.dart';
 
 class AddItemScreen extends ConsumerStatefulWidget {
@@ -44,7 +45,7 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
     if (_formKey.currentState!.validate()) {
       final item = ItemsCompanion.insert(
         name: _nameController.text,
-        quantity: int.parse(_quantityController.text),
+        quantity: double.parse(_quantityController.text),
         sellingPrice: double.parse(_sellingPriceController.text),
         buyingPrice: double.parse(_buyingPriceController.text),
         supplierName: _supplierController.text.isEmpty
@@ -58,10 +59,17 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
             : drift.Value(_barcodeController.text),
       );
 
-      // ✅ Use Riverpod to add an item
-      await ref.read(itemNotifierProvider.notifier).addItem(item);
+      // Check if item exists
+      final errorMessage =
+          await ref.read(itemNotifierProvider.notifier).addItem(item);
 
-      // ✅ Clear the controllers
+      if (errorMessage != null) {
+        if (!mounted) return;
+        VHelperFunctions.showSnackBar(context: context, message: errorMessage);
+        return;
+      }
+
+      // Clear the controllers
       _nameController.clear();
       _quantityController.clear();
       _sellingPriceController.clear();
@@ -70,9 +78,8 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
       _descriptionController.clear();
       _barcodeController.clear();
 
-      final currentContext = context;
-      if (!currentContext.mounted) return;
-      currentContext.pop();
+      if (!mounted) return;
+      context.pop();
     }
   }
 

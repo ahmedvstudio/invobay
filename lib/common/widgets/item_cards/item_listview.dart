@@ -27,6 +27,7 @@ class ItemListView extends StatelessWidget {
         padding: const EdgeInsets.only(
           left: VSizes.defaultSpace,
           right: VSizes.defaultSpace,
+          bottom: VSizes.defaultSpace,
         ),
         itemCount: items.length,
         itemBuilder: (context, index) {

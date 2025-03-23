@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../common/widgets/dialogs/add_quantity_dialog.dart';
 import '../../../common/widgets/icons/circular_icon.dart';
 import '../../../common/widgets/icons/circular_icon_with_conformation.dart';
-import '../../../core/providers/item_notifier_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/helper_functions.dart';
@@ -50,7 +49,12 @@ class VBottomEdits extends ConsumerWidget {
               ),
               const SizedBox(width: VSizes.spaceBtwItems),
               VCircularIcon(
-                onPressed: () => _showQuantityDialog(context, ref, itemId),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => VAddQuantityDialog(itemId: itemId),
+                  );
+                },
                 icon: Iconsax.add,
                 backgroundColor: VColors.black,
                 width: 40,
@@ -71,48 +75,6 @@ class VBottomEdits extends ConsumerWidget {
           )
         ],
       ),
-    );
-  }
-
-  void _showQuantityDialog(BuildContext context, WidgetRef ref, int itemId) {
-    final TextEditingController quantityController = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Consumer(
-          builder: (context, ref, child) {
-            return AlertDialog(
-              title: const Text('Add Quantity'),
-              content: TextField(
-                controller: quantityController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: 'Enter quantity',
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => context.pop(),
-                  child: const Text('Cancel'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    final quantity = int.tryParse(quantityController.text) ?? 0;
-                    if (quantity > 0) {
-                      final provider = ref.read(itemNotifierProvider.notifier);
-                      provider.addQuantity(
-                          itemId, quantity); // Add quantity to the item
-                    }
-                    context.pop(); // Close the dialog
-                  },
-                  child: const Text('Add'),
-                ),
-              ],
-            );
-          },
-        );
-      },
     );
   }
 }

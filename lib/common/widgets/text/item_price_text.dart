@@ -10,15 +10,17 @@ class VItemPriceText extends StatelessWidget {
     this.lineThrough = false,
   });
 
-  final String currencySign, price;
+  final String currencySign;
+  final double price;
   final int maxLines;
   final bool isLarge;
   final bool lineThrough;
 
   @override
   Widget build(BuildContext context) {
+    final currencyWithSign = currencySign + price.toStringAsFixed(2);
     return Text(
-      currencySign + price,
+      currencyWithSign,
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
       style: isLarge

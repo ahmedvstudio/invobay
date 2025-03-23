@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -32,7 +33,10 @@ class LowStockScreen extends ConsumerWidget {
                   actions: [
                     IconButton(
                         onPressed: () => context.pop(),
-                        icon: const Icon(Icons.close))
+                        icon: const Icon(
+                          CupertinoIcons.xmark,
+                          color: VColors.white,
+                        ))
                   ],
                 ),
                 const Flexible(
@@ -47,7 +51,10 @@ class LowStockScreen extends ConsumerWidget {
                   actions: [
                     IconButton(
                         onPressed: () => context.pop(),
-                        icon: const Icon(Icons.close))
+                        icon: const Icon(
+                          CupertinoIcons.xmark,
+                          color: VColors.white,
+                        ))
                   ],
                 ),
                 Flexible(

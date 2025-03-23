@@ -25,9 +25,9 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, Item> {
   static const VerificationMeta _quantityMeta =
       const VerificationMeta('quantity');
   @override
-  late final GeneratedColumn<int> quantity = GeneratedColumn<int>(
+  late final GeneratedColumn<double> quantity = GeneratedColumn<double>(
       'quantity', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.double, requiredDuringInsert: true);
   static const VerificationMeta _sellingPriceMeta =
       const VerificationMeta('sellingPrice');
   @override
@@ -140,7 +140,7 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, Item> {
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       quantity: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}quantity'])!,
+          .read(DriftSqlType.double, data['${effectivePrefix}quantity'])!,
       sellingPrice: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}selling_price'])!,
       buyingPrice: attachedDatabase.typeMapping
@@ -163,7 +163,7 @@ class $ItemsTable extends Items with TableInfo<$ItemsTable, Item> {
 class Item extends DataClass implements Insertable<Item> {
   final int id;
   final String name;
-  final int quantity;
+  final double quantity;
   final double sellingPrice;
   final double buyingPrice;
   final String? supplierName;
@@ -183,7 +183,7 @@ class Item extends DataClass implements Insertable<Item> {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['name'] = Variable<String>(name);
-    map['quantity'] = Variable<int>(quantity);
+    map['quantity'] = Variable<double>(quantity);
     map['selling_price'] = Variable<double>(sellingPrice);
     map['buying_price'] = Variable<double>(buyingPrice);
     if (!nullToAbsent || supplierName != null) {
@@ -223,7 +223,7 @@ class Item extends DataClass implements Insertable<Item> {
     return Item(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      quantity: serializer.fromJson<int>(json['quantity']),
+      quantity: serializer.fromJson<double>(json['quantity']),
       sellingPrice: serializer.fromJson<double>(json['sellingPrice']),
       buyingPrice: serializer.fromJson<double>(json['buyingPrice']),
       supplierName: serializer.fromJson<String?>(json['supplierName']),
@@ -237,7 +237,7 @@ class Item extends DataClass implements Insertable<Item> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
-      'quantity': serializer.toJson<int>(quantity),
+      'quantity': serializer.toJson<double>(quantity),
       'sellingPrice': serializer.toJson<double>(sellingPrice),
       'buyingPrice': serializer.toJson<double>(buyingPrice),
       'supplierName': serializer.toJson<String?>(supplierName),
@@ -249,7 +249,7 @@ class Item extends DataClass implements Insertable<Item> {
   Item copyWith(
           {int? id,
           String? name,
-          int? quantity,
+          double? quantity,
           double? sellingPrice,
           double? buyingPrice,
           Value<String?> supplierName = const Value.absent(),
@@ -320,7 +320,7 @@ class Item extends DataClass implements Insertable<Item> {
 class ItemsCompanion extends UpdateCompanion<Item> {
   final Value<int> id;
   final Value<String> name;
-  final Value<int> quantity;
+  final Value<double> quantity;
   final Value<double> sellingPrice;
   final Value<double> buyingPrice;
   final Value<String?> supplierName;
@@ -339,7 +339,7 @@ class ItemsCompanion extends UpdateCompanion<Item> {
   ItemsCompanion.insert({
     this.id = const Value.absent(),
     required String name,
-    required int quantity,
+    required double quantity,
     required double sellingPrice,
     required double buyingPrice,
     this.supplierName = const Value.absent(),
@@ -352,7 +352,7 @@ class ItemsCompanion extends UpdateCompanion<Item> {
   static Insertable<Item> custom({
     Expression<int>? id,
     Expression<String>? name,
-    Expression<int>? quantity,
+    Expression<double>? quantity,
     Expression<double>? sellingPrice,
     Expression<double>? buyingPrice,
     Expression<String>? supplierName,
@@ -374,7 +374,7 @@ class ItemsCompanion extends UpdateCompanion<Item> {
   ItemsCompanion copyWith(
       {Value<int>? id,
       Value<String>? name,
-      Value<int>? quantity,
+      Value<double>? quantity,
       Value<double>? sellingPrice,
       Value<double>? buyingPrice,
       Value<String?>? supplierName,
@@ -402,7 +402,7 @@ class ItemsCompanion extends UpdateCompanion<Item> {
       map['name'] = Variable<String>(name.value);
     }
     if (quantity.present) {
-      map['quantity'] = Variable<int>(quantity.value);
+      map['quantity'] = Variable<double>(quantity.value);
     }
     if (sellingPrice.present) {
       map['selling_price'] = Variable<double>(sellingPrice.value);
@@ -452,7 +452,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
 typedef $$ItemsTableCreateCompanionBuilder = ItemsCompanion Function({
   Value<int> id,
   required String name,
-  required int quantity,
+  required double quantity,
   required double sellingPrice,
   required double buyingPrice,
   Value<String?> supplierName,
@@ -462,7 +462,7 @@ typedef $$ItemsTableCreateCompanionBuilder = ItemsCompanion Function({
 typedef $$ItemsTableUpdateCompanionBuilder = ItemsCompanion Function({
   Value<int> id,
   Value<String> name,
-  Value<int> quantity,
+  Value<double> quantity,
   Value<double> sellingPrice,
   Value<double> buyingPrice,
   Value<String?> supplierName,
@@ -484,7 +484,7 @@ class $$ItemsTableFilterComposer extends Composer<_$AppDatabase, $ItemsTable> {
   ColumnFilters<String> get name => $composableBuilder(
       column: $table.name, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get quantity => $composableBuilder(
+  ColumnFilters<double> get quantity => $composableBuilder(
       column: $table.quantity, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<double> get sellingPrice => $composableBuilder(
@@ -518,7 +518,7 @@ class $$ItemsTableOrderingComposer
   ColumnOrderings<String> get name => $composableBuilder(
       column: $table.name, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get quantity => $composableBuilder(
+  ColumnOrderings<double> get quantity => $composableBuilder(
       column: $table.quantity, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<double> get sellingPrice => $composableBuilder(
@@ -554,7 +554,7 @@ class $$ItemsTableAnnotationComposer
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
 
-  GeneratedColumn<int> get quantity =>
+  GeneratedColumn<double> get quantity =>
       $composableBuilder(column: $table.quantity, builder: (column) => column);
 
   GeneratedColumn<double> get sellingPrice => $composableBuilder(
@@ -598,7 +598,7 @@ class $$ItemsTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> name = const Value.absent(),
-            Value<int> quantity = const Value.absent(),
+            Value<double> quantity = const Value.absent(),
             Value<double> sellingPrice = const Value.absent(),
             Value<double> buyingPrice = const Value.absent(),
             Value<String?> supplierName = const Value.absent(),
@@ -618,7 +618,7 @@ class $$ItemsTableTableManager extends RootTableManager<
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String name,
-            required int quantity,
+            required double quantity,
             required double sellingPrice,
             required double buyingPrice,
             Value<String?> supplierName = const Value.absent(),

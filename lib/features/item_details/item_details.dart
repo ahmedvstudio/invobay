@@ -26,7 +26,7 @@ class ItemDetailsScreen extends ConsumerWidget {
 
   final int itemId;
   final String title;
-  final int stock;
+  final double stock;
   final double buyPrice;
   final double sellPrice;
   final String? supplierName;
@@ -63,9 +63,9 @@ class ItemDetailsScreen extends ConsumerWidget {
                 children: [
                   VItemMetaData(
                     title: title,
-                    stock: stock.toString(),
-                    sellingPrice: sellPrice.toString(),
-                    buyingPrice: buyPrice.toString(),
+                    stock: stock.toStringAsFixed(2),
+                    sellingPrice: sellPrice,
+                    buyingPrice: buyPrice,
                     supplier: supplierName,
                     barcode: barcode,
                   ),
@@ -84,10 +84,14 @@ class ItemDetailsScreen extends ConsumerWidget {
                     trimMode: TrimMode.Line,
                     trimCollapsedText: ' Show more',
                     trimExpandedText: ' Less',
-                    moreStyle: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w800),
+                    moreStyle: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontWeight: FontWeight.w800),
+                    lessStyle: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontWeight: FontWeight.w800),
                   ),
                   const SizedBox(height: VSizes.spaceBtwSections),
                 ],

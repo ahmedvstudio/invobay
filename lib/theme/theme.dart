@@ -9,6 +9,8 @@ import 'package:invobay/theme/custom_themes/outline_button_theme.dart';
 import 'package:invobay/theme/custom_themes/text_theme.dart';
 import 'package:invobay/theme/custom_themes/textformfield_theme.dart';
 
+import 'custom_themes/text_button_theme.dart';
+
 class VAppTheme {
   VAppTheme._();
 
@@ -28,6 +30,7 @@ class VAppTheme {
     inputDecorationTheme: VTextFormFiledTheme.lightInputDecorationTheme,
     floatingActionButtonTheme: VFloatingActionButtonTheme.lightFABTheme,
     outlinedButtonTheme: VOutlinedButtonTheme.lightOutlineButtonTheme,
+    textButtonTheme: VTextButtonTheme.lightTextButtonTheme,
   );
 
   /// Dark Mode Theme
@@ -46,5 +49,6 @@ class VAppTheme {
     inputDecorationTheme: VTextFormFiledTheme.darkInputDecorationTheme,
     floatingActionButtonTheme: VFloatingActionButtonTheme.darkFABTheme,
     outlinedButtonTheme: VOutlinedButtonTheme.darkOutlineButtonTheme,
+    textButtonTheme: VTextButtonTheme.darkTextButtonTheme,
   );
 }

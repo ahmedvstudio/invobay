@@ -44,7 +44,7 @@ class EditItemScreen extends ConsumerWidget {
       final updatedItem = ItemsCompanion(
         id: drift.Value(itemId),
         name: drift.Value(_nameController.text),
-        quantity: drift.Value(int.parse(_quantityController.text)),
+        quantity: drift.Value(double.parse(_quantityController.text)),
         sellingPrice: drift.Value(double.parse(_sellingPriceController.text)),
         buyingPrice: drift.Value(double.parse(_buyingPriceController.text)),
         supplierName: drift.Value(_supplierController.text),

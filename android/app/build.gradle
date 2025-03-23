@@ -1,45 +1,44 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android" // This applies the Kotlin plugin
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "kotlin-android"
+    // Flutter Gradle Plugin must be applied last
     id "dev.flutter.flutter-gradle-plugin"
 }
 
 android {
-    namespace = "com.ahmed47v.invobay"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    namespace "com.ahmed47v.invobay"
+    compileSdk flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = "17"
     }
 
     defaultConfig {
-        applicationId = "com.ahmed47v.invobay"
-        minSdkVersion 21 // Set this to 21 or higher as per your requirement
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        applicationId "com.ahmed47v.invobay"
+        minSdkVersion 21  // Minimum SDK version for Flutter apps
+        targetSdk flutter.targetSdkVersion
+        versionCode flutter.versionCode
+        versionName flutter.versionName
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.debug // Configure signing for release as needed
+            // Make sure to set up proper signingConfig for production releases
+            signingConfig signingConfigs.debug // Change to signingConfigs.release if using a release keystore
         }
     }
 }
 
 flutter {
-    source = "../.."
+    source "../.."
 }
 
-// Add the dependencies block here
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version" // Include Kotlin standard library
-    // Other dependencies can be added here as needed
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // Use standard Kotlin library
 }
