@@ -36,7 +36,7 @@ class VAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? IconButton(
                 onPressed: () => context.pop(),
                 icon: const Icon(Iconsax.arrow_left),
-                color: isDark ? VColors.white : VColors.white,
+                color: isDark ? VColors.white : VColors.black,
               )
             : leadingIcon != null
                 ? IconButton(

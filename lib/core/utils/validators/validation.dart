@@ -81,6 +81,17 @@ class VValidator {
     return null;
   }
 
+  static String? validateDiscountNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field is required';
+    }
+    if (int.tryParse(value) == null || int.tryParse(value)! > 100) {
+      return 'Enter a valid number';
+    }
+
+    return null;
+  }
+
   // ----- Email validator -----//
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {

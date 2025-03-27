@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class VItemPriceText extends StatelessWidget {
+import '../../../core/providers/currency_sign.dart';
+
+class VItemPriceText extends ConsumerWidget {
   const VItemPriceText({
     super.key,
-    this.currencySign = '\$',
     required this.price,
     this.maxLines = 1,
     this.isLarge = false,
     this.lineThrough = false,
   });
 
-  final String currencySign;
   final double price;
   final int maxLines;
   final bool isLarge;
   final bool lineThrough;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currencySign = ref.watch(currencySignProvider);
     final currencyWithSign = currencySign + price.toStringAsFixed(2);
     return Text(
       currencyWithSign,

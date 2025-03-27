@@ -4,13 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/widgets/appbar/main_appbar.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/search_container.dart';
+import 'package:invobay/features/sell/widgets/customer_and_clear.dart';
 import 'package:invobay/features/sell/widgets/items_bottom_sheet.dart';
 import 'package:invobay/features/sell/widgets/sell_item_list.dart';
 import '../../common/widgets/custom_shapes/containers/primary_header_container.dart';
-import '../../common/widgets/dialogs/customer_name_dialog.dart';
 import '../../core/models/sell_model.dart';
-import '../../core/providers/customer_provider.dart';
 import '../../core/providers/sell_provider.dart';
+import '../../core/providers/sub_total_provider.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/colors.dart';
 import '../../core/utils/constants/sizes.dart';
@@ -22,11 +22,16 @@ class SellScreen extends ConsumerWidget {
   final TextEditingController _searchController = TextEditingController();
 
 // Calculate total price
-  double calculateTotalPrice(List<SellItem> sellItems) {
+
+  double calculateTotalPrice(WidgetRef ref, List<SellItem> sellItems) {
     double total = 0;
     for (var sellItem in sellItems) {
       total += sellItem.item.sellingPrice * sellItem.quantity;
     }
+
+    // Update subtotal provider
+    updateSubtotal(ref, total);
+
     return total;
   }
 
@@ -50,90 +55,55 @@ class SellScreen extends ConsumerWidget {
                   onTap: () =>
                       showItemsBottomSheet(context, ref, _searchController),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Consumer(
-                      builder: (context, ref, _) {
-                        final customerName = ref.watch(customerNameProvider);
-                        return TextButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => const VCustomerNameDialog(),
-                            );
-                          },
-                          child: Text(
-                            'Customer:\n$customerName',
-                            style: const TextStyle(color: VColors.white),
-                          ),
-                        );
-                      },
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        ref.read(sellProvider.notifier).clearCart();
-                      },
-                      child: const Text(
-                        'Clear all',
-                        style: TextStyle(color: VColors.white),
-                      ),
-                    ),
-                  ],
+
+                // Customer and clear all row
+                VCustomerAndClear(
+                  clearAllOnPressed: () =>
+                      ref.read(sellProvider.notifier).clearCart(),
                 ),
                 const SizedBox(height: VSizes.spaceBtwItems),
               ],
             ),
           ),
-          Flexible(
+          const Flexible(
             child: Padding(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                   left: VSizes.defaultSpace, right: VSizes.defaultSpace),
               child: Column(
                 children: [
-                  const SellItemList(),
-                  const Divider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Total:'),
-                      Text(calculateTotalPrice(sellItems).toStringAsFixed(2)),
-                    ],
-                  ),
-                  const Divider(),
-
+                  Expanded(child: SellItemList(isCheckout: false)),
                   // Checkout Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (sellItems.isNotEmpty) {
-                          context.pushNamed(
-                            VRouter.sellReceipt, // Use named route
-                            extra: {
-                              'soldItems': sellItems,
-                              'totalPrice': calculateTotalPrice(sellItems),
-                            },
-                          );
-                        } else {
-                          VHelperFunctions.showToasty(
-                              message: 'No items to Sell !',
-                              backgroundColor: VColors.warning,
-                              textColor: VColors.black);
-                        }
-                      },
-                      child: const Text(
-                        'Proceed',
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: VSizes.spaceBtwSections),
                 ],
               ),
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 80,
+        child: ElevatedButton(
+          onPressed: () {
+            if (sellItems.isNotEmpty) {
+              final totalPrice =
+                  calculateTotalPrice(ref, sellItems); // Update subtotal
+
+              context.pushNamed(
+                VRouter.sellCheckout,
+                extra: {
+                  'soldItems': sellItems,
+                  'totalPrice': totalPrice,
+                },
+              );
+            } else {
+              VHelperFunctions.showToasty(
+                message: 'No items to Sell!',
+                backgroundColor: VColors.warning,
+                textColor: VColors.black,
+              );
+            }
+          },
+          child: const Text('Proceed to checkout'),
+        ),
       ),
     );
   }

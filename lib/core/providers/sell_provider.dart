@@ -8,41 +8,50 @@ import '../models/sell_model.dart';
 import '../utils/constants/numbers.dart';
 import 'app_providers.dart';
 
+// Subtotal provider
+final subtotalPriceProvider = StateProvider<double>((ref) => 0.0);
+
 final sellProvider = StateNotifierProvider<SellNotifier, List<SellItem>>((ref) {
   final itemDao = ref.read(itemDaoProvider);
-  return SellNotifier(itemDao);
+  return SellNotifier(ref, itemDao);
 });
 
 class SellNotifier extends StateNotifier<List<SellItem>> {
+  final Ref ref;
   final ItemDao itemDao;
 
-  SellNotifier(this.itemDao) : super([]);
+  SellNotifier(this.ref, this.itemDao) : super([]);
+
+  // Updates subtotal price
+  void updateSubtotal() {
+    double newSubtotal = state.fold(
+        0, (sum, item) => sum + (item.item.sellingPrice * item.quantity));
+    ref.read(subtotalPriceProvider.notifier).state = newSubtotal;
+  }
 
   // Adds an item to the cart with stock validation
   Future<void> addItem(Item item) async {
-    final existingItem = state.firstWhere(
-      (sellItem) => sellItem.item.id == item.id,
-      orElse: () => SellItem(item: item, quantity: -1), // Mark as non-existent
-    );
-
+    int existingIndex =
+        state.indexWhere((sellItem) => sellItem.item.id == item.id);
     final fetchedItem = await itemDao.getItemById(item.id);
     if (fetchedItem == null) {
-      print("Item not found in the inventory.");
+      debugPrint("Item not found in the inventory.");
       return;
     }
 
     double availableStock = fetchedItem.quantity;
-    double minStep =
-        VNumbers.minStepAdd; // Adjust based on your inventory system
+    double minStep = VNumbers.minStepAdd;
 
-    if (existingItem.quantity != -1) {
-      // Item already in cart, try to increase quantity by minStep
+    if (existingIndex != -1) {
+      SellItem existingItem = state[existingIndex];
       if (existingItem.quantity + minStep <= availableStock) {
-        state = state.map((sellItem) {
-          return sellItem.item.id == item.id
-              ? sellItem.copyWith(quantity: sellItem.quantity + minStep)
-              : sellItem;
-        }).toList();
+        state = [
+          for (int i = 0; i < state.length; i++)
+            if (i == existingIndex)
+              existingItem.copyWith(quantity: existingItem.quantity + minStep)
+            else
+              state[i]
+        ];
       } else {
         VHelperFunctions.showToasty(
           backgroundColor: VColors.warning,
@@ -51,7 +60,6 @@ class SellNotifier extends StateNotifier<List<SellItem>> {
         );
       }
     } else {
-      // New item, check if there's stock available
       if (availableStock >= minStep) {
         state = [...state, SellItem(item: item, quantity: minStep)];
       } else {
@@ -61,24 +69,28 @@ class SellNotifier extends StateNotifier<List<SellItem>> {
         );
       }
     }
+
+    updateSubtotal(); // Update subtotal after adding
   }
 
-  // Adds an item by searching (fixing type issues)
+  // Adds an item by searching for a match
   Future<void> addItemBySearch(String query) async {
     final searchResults = await itemDao.searchItems(query);
     if (searchResults.isNotEmpty) {
+      searchResults.sort((a, b) => b.quantity.compareTo(a.quantity));
       await addItem(searchResults.first);
     } else {
-      print("No items found matching the query.");
+      debugPrint("No items found matching the query.");
     }
   }
 
-  // Removes an item from the cart by ID
+  // Removes an item from the cart
   void removeItem(int itemId) {
     state = state.where((sellItem) => sellItem.item.id != itemId).toList();
+    updateSubtotal(); // Update subtotal after removing
   }
 
-  // Updates the quantity of an item
+  // Updates the quantity of an item with validation
   Future<void> updateQuantity(
       int itemId, double newQuantity, BuildContext context) async {
     final fetchedItem = await itemDao.getItemById(itemId);
@@ -93,7 +105,7 @@ class SellNotifier extends StateNotifier<List<SellItem>> {
 
     double availableStock = fetchedItem.quantity;
 
-    if (newQuantity <= availableStock && newQuantity > 0) {
+    if (newQuantity > 0 && newQuantity <= availableStock) {
       state = state.map((sellItem) {
         return sellItem.item.id == itemId
             ? sellItem.copyWith(quantity: newQuantity)
@@ -107,10 +119,13 @@ class SellNotifier extends StateNotifier<List<SellItem>> {
         showCloseIcon: true,
       );
     }
+
+    updateSubtotal(); // Update subtotal after quantity change
   }
 
   // Clears the cart
   void clearCart() {
     state = [];
+    updateSubtotal(); // Reset subtotal after clearing cart
   }
 }

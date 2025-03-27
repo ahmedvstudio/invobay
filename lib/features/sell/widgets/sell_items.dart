@@ -20,7 +20,13 @@ class VSellItem extends StatelessWidget {
           ),
         ),
         const SizedBox(width: VSizes.spaceBtwItems),
-        Text(item.name, style: Theme.of(context).textTheme.titleSmall),
+        Flexible(
+            child: Text(
+          item.name,
+          style: Theme.of(context).textTheme.titleSmall,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+        )),
       ],
     );
   }
