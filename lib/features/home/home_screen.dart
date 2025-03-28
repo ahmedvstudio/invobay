@@ -9,10 +9,10 @@ import '../../common/widgets/custom_shapes/containers/primary_header_container.d
 import '../../common/widgets/custom_shapes/containers/search_container.dart';
 import '../../common/widgets/text/marquee_text.dart';
 import '../../common/widgets/text/shop_name.dart';
+import '../../core/providers/db_notifiers/database_provider.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/numbers.dart';
 import '../../core/utils/constants/sizes.dart';
-import '../../core/providers/item_notifier_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});

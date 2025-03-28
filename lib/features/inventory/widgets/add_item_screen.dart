@@ -6,7 +6,7 @@ import 'package:invobay/common/widgets/appbar/custom_appbar.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:drift/drift.dart' as drift;
 import '../../../core/database/app_database.dart';
-import '../../../core/providers/item_notifier_provider.dart';
+import '../../../core/providers/db_notifiers/database_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/helpers/helper_functions.dart';
 import 'item_form.dart';

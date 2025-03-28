@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/models/item_model.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 
-import '../../../core/database/app_database.dart';
 import '../../../core/router/router_constant.dart';
 import '../../../core/utils/helpers/low_stock_helper.dart';
 import 'item_card_horizontal.dart';
 
 class ItemListView extends StatelessWidget {
-  final List<Item> items;
+  final List<ItemModel> items;
   final Function(BuildContext, int) onEdit;
   final Function(BuildContext, int) onDelete;
 

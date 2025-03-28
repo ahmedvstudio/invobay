@@ -5,8 +5,9 @@ import 'package:invobay/features/inventory/inventory_screen.dart';
 import 'package:invobay/features/inventory/widgets/add_item_screen.dart';
 import 'package:invobay/features/inventory/widgets/edit_item_screen.dart';
 import 'package:invobay/features/item_details/item_details.dart';
-import 'package:invobay/core/providers/item_notifier_provider.dart';
 import 'package:invobay/core/router/router_constant.dart';
+
+import '../../providers/db_notifiers/database_provider.dart';
 
 List<GoRoute> inventoryRoutes = [
   GoRoute(

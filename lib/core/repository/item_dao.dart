@@ -13,9 +13,9 @@ class ItemDao {
   Future<List<Item>> getAllItems() => db.select(db.items).get();
 
   // Get a single item by its ID
-  Future<Item?> getItemById(int id) async {
+  Future<Item?> getItemById(int? id) async {
     // Fetch the item by its ID. Returns null if not found.
-    return await (db.select(db.items)..where((tbl) => tbl.id.equals(id)))
+    return await (db.select(db.items)..where((tbl) => tbl.id.equals(id!)))
         .getSingleOrNull();
   }
 

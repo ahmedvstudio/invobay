@@ -32,9 +32,14 @@ class VHomeBody extends StatelessWidget {
             icon: Iconsax.tag,
           ),
           VBigButton(
-            onTap: () => context.pushNamed(VRouter.purchases),
+            onTap: () => context.pushNamed(VRouter.buy),
             text: 'Buy',
             icon: Iconsax.shopping_cart,
+          ),
+          VBigButton(
+            onTap: () => context.pushNamed(VRouter.returns),
+            text: 'Return',
+            icon: Iconsax.back_square,
           ),
           VBigButton(
             onTap: () => context.pushNamed(VRouter.receipts),

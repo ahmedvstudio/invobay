@@ -19,14 +19,17 @@ dependencies:
   # State Management
   flutter_riverpod: ^2.6.1
 
- # Permissions
+  # Secrets
+  flutter_dotenv: ^5.2.1
+
+  # Permissions
   permission_handler: ^11.4.0
 
   # Local Storage
   drift: ^2.26.0
+  sqlite3_flutter_libs: ^0.5.31
   hive_ce: ^2.10.1
   hive_ce_flutter: ^2.2.0
-  sqlite3_flutter_libs: ^0.5.31
 
   # Online
   supabase_flutter: ^2.8.3
@@ -61,7 +64,6 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
-  hive_ce_generator: ^1.8.2
 
 flutter:
 
@@ -69,6 +71,7 @@ flutter:
 
   # ------------------ Assets ----------------------#
   assets:
+    - .env
     - assets/
     - assets/fonts/    
     - assets/icons/

@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
-import '../../../core/providers/item_notifier_provider.dart';
+import '../../core/providers/db_notifiers/database_provider.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../common/widgets/appbar/custom_appbar.dart';
 import '../../common/widgets/dialogs/add_quantity_dialog.dart';

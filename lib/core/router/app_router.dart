@@ -6,6 +6,7 @@ import 'package:invobay/core/router/routes/buy_route.dart';
 import 'package:invobay/core/router/routes/notification_route.dart';
 import 'package:invobay/core/router/routes/receipt_route.dart';
 import 'package:invobay/core/router/routes/report_route.dart';
+import 'package:invobay/core/router/routes/return_route.dart';
 import 'package:invobay/core/router/routes/sell_route.dart';
 import 'package:invobay/core/router/routes/setting_route.dart';
 import 'package:invobay/features/error/not_found_screen.dart';
@@ -23,12 +24,13 @@ final GoRouter invoRouter = GoRouter(
       builder: (context, state) => const HomeScreen(),
       routes: [
         ...inventoryRoutes,
-        ...purchaseRoutes,
+        ...buyRoutes,
         ...salesRoutes,
         ...reportRoutes,
         ...receiptRoutes,
         ...settingRoutes,
         ...notificationRoutes,
+        ...returnsRoutes,
         GoRoute(
           name: VRouter.lowStockScreen,
           path: '/lowStock',
