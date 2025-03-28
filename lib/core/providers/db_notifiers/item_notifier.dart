@@ -2,18 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/database/app_database.dart';
 import 'package:invobay/core/repository/item_dao.dart';
 import 'package:drift/drift.dart';
-import 'app_providers.dart';
-
-// Riverpod provider for ItemNotifier
-final itemNotifierProvider =
-    StateNotifierProvider<ItemNotifier, List<Item>>((ref) {
-  final itemDao = ref.watch(itemDaoProvider);
-  return ItemNotifier(itemDao);
-});
+import '../../models/item_model.dart'; // Ensure you import your ItemModel
 
 final addQuantityProvider = StateProvider.autoDispose<String>((ref) => '');
 
-class ItemNotifier extends StateNotifier<List<Item>> {
+class ItemNotifier extends StateNotifier<List<ItemModel>> {
+  // Change to ItemModel
   final ItemDao itemDao;
 
   ItemNotifier(this.itemDao) : super([]) {
@@ -23,7 +17,19 @@ class ItemNotifier extends StateNotifier<List<Item>> {
   // Fetch all items from the database
   Future<void> fetchItems() async {
     final items = await itemDao.getAllItems();
-    state = [...items]; // Create a new list to trigger state updates
+    // Map the fetched items to List<ItemModel>
+    state = items
+        .map((item) => ItemModel(
+              id: item.id,
+              name: item.name,
+              quantity: item.quantity,
+              sellingPrice: item.sellingPrice,
+              buyingPrice: item.buyingPrice,
+              supplierName: item.supplierName,
+              description: item.description,
+              barcode: item.barcode,
+            ))
+        .toList(); // Create a new list to trigger state updates
   }
 
   // Check for duplicate name or barcode
@@ -74,8 +80,8 @@ class ItemNotifier extends StateNotifier<List<Item>> {
   }
 
   // Add quantity to an existing item and check if available stock is enough
-  Future<String?> addQuantity(int itemId, double quantity) async {
-    final fetchedItem = await itemDao.getItemById(itemId);
+  Future<String?> addQuantity(int? itemId, double quantity) async {
+    final fetchedItem = await itemDao.getItemById(itemId!);
     if (fetchedItem == null) {
       return "Item not found in the inventory.";
     }
