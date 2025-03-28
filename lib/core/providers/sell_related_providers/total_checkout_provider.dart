@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'discount_provider.dart';
-import 'fee_provider.dart';
+import 'package:invobay/core/providers/sell_related_providers/update_subtotal_provider.dart';
+import '../default_providers.dart';
 
 final totalAmountProvider = Provider<double>((ref) {
   final subtotalPrice = ref.watch(discountedSubtotal);

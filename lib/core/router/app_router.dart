@@ -4,7 +4,7 @@ import 'package:invobay/core/router/routes/auth_route.dart';
 import 'package:invobay/core/router/routes/inventory_route.dart';
 import 'package:invobay/core/router/routes/buy_route.dart';
 import 'package:invobay/core/router/routes/notification_route.dart';
-import 'package:invobay/core/router/routes/receipt_route.dart';
+import 'package:invobay/core/router/routes/receipts_route.dart';
 import 'package:invobay/core/router/routes/report_route.dart';
 import 'package:invobay/core/router/routes/return_route.dart';
 import 'package:invobay/core/router/routes/sell_route.dart';
@@ -27,7 +27,7 @@ final GoRouter invoRouter = GoRouter(
         ...buyRoutes,
         ...salesRoutes,
         ...reportRoutes,
-        ...receiptRoutes,
+        ...receiptsRoutes,
         ...settingRoutes,
         ...notificationRoutes,
         ...returnsRoutes,

@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
-import 'package:invobay/core/providers/sell_provider.dart';
 
-import '../../../core/providers/quantity_provider.dart';
+import '../../../core/providers/db_notifiers/app_providers.dart';
+import '../../../core/providers/default_providers.dart';
 
 class VQuantityInputDialog extends ConsumerWidget {
   const VQuantityInputDialog({
     super.key,
     required this.initialQuantity,
-    required this.itemId,
+    this.itemId,
   });
 
   final double initialQuantity;
-  final int itemId;
+  final int? itemId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -56,8 +56,8 @@ class VQuantityInputDialog extends ConsumerWidget {
             }
 
             ref
-                .read(sellProvider.notifier)
-                .updateQuantity(itemId, newQuantity, context);
+                .read(sellNotifierProvider.notifier)
+                .updateQuantity(itemId!, newQuantity, context);
             context.pop();
           },
           child: const Text('Confirm'),

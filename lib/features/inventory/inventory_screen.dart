@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/primary_header_container.dart';
-import 'package:invobay/core/models/item_model.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/common/widgets/appbar/main_appbar.dart';
 import '../../common/widgets/item_cards/item_listview.dart';
 import '../../common/widgets/text_field/search_bar.dart';
-import '../../core/providers/db_notifiers/database_provider.dart';
+import '../../core/database/app_database.dart';
+import '../../core/providers/db_notifiers/app_providers.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/enums.dart';
 import '../../core/utils/constants/text_strings.dart';
@@ -80,7 +80,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
     final allItems = ref.watch(itemNotifierProvider);
 
     final query = _searchController.text.toLowerCase();
-    List<ItemModel> filteredItems = allItems
+    List<Item> filteredItems = allItems
         .where((item) => item.name.toLowerCase().contains(query))
         .toList();
 

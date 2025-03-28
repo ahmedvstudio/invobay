@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../common/widgets/dialogs/customer_name_dialog.dart';
-import '../../../core/providers/customer_provider.dart';
+import 'customer_name_dialog.dart';
+import '../../../core/providers/default_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 
 class VCustomerAndClear extends StatelessWidget {

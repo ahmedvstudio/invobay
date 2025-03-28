@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/providers/currency_sign.dart';
+import '../../../core/providers/default_providers.dart';
 
 class VItemPriceText extends ConsumerWidget {
   const VItemPriceText({

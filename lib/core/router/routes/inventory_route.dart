@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/features/inventory/inventory_screen.dart';
-import 'package:invobay/features/inventory/widgets/add_item_screen.dart';
-import 'package:invobay/features/inventory/widgets/edit_item_screen.dart';
+import 'package:invobay/features/inventory/screens/add_item_screen.dart';
+import 'package:invobay/features/inventory/screens/edit_item_screen.dart';
 import 'package:invobay/features/item_details/item_details.dart';
 import 'package:invobay/core/router/router_constant.dart';
 
-import '../../providers/db_notifiers/database_provider.dart';
+import '../../providers/db_notifiers/app_providers.dart';
 
 List<GoRoute> inventoryRoutes = [
   GoRoute(

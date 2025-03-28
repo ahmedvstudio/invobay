@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:invobay/core/models/item_model.dart';
 
 import '../../../common/widgets/text/brand_title_text_with_verification_icon.dart';
 import '../../../common/widgets/text/item_price_text.dart';
 import '../../../common/widgets/text/item_title_text.dart';
 import '../../../common/widgets/text/section_heading.dart';
-import '../../../core/providers/db_notifiers/database_provider.dart';
+import '../../../core/database/app_database.dart';
+import '../../../core/providers/db_notifiers/app_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/enums.dart';
 import '../../../core/utils/constants/sizes.dart';
@@ -36,7 +36,7 @@ class VItemMetaData extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final itemProvider = ref.watch(itemNotifierProvider);
     final item = itemProvider.firstWhere((item) => item.name == title,
-        orElse: () => ItemModel(
+        orElse: () => Item(
             id: 0,
             name: title,
             quantity: 0.0,

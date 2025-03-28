@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/features/receipts/return_receipts/return_receipts_screen.dart';
+import 'package:invobay/features/receipts/sell_receipts/sell_receipts_screen.dart';
 
 import '../../common/widgets/appbar/main_appbar.dart';
 import '../../common/widgets/custom_shapes/containers/primary_header_container.dart';
-import '../../core/database/app_database.dart';
+import '../../core/providers/default_providers.dart';
 import '../../core/utils/constants/colors.dart';
 import '../../core/utils/constants/sizes.dart';
 import '../../core/utils/helpers/helper_functions.dart';
+import 'buy_receipts/buy_receipts_screen.dart';
 
-final receiptsProvider = FutureProvider((ref) async {
-  final db = AppDatabase.getInstance();
-  return db.getReceipts();
-});
-
-class ReceiptScreen extends ConsumerWidget {
-  const ReceiptScreen({super.key});
+class ReceiptsScreen extends ConsumerWidget {
+  const ReceiptsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = VHelperFunctions.isDarkMode(context);
-    final receiptsAsync = ref.watch(receiptsProvider);
+    final selectedIndex = ref.watch(receiptsNavigationProvider);
 
     return Scaffold(
       body: Column(
@@ -37,32 +35,13 @@ class ReceiptScreen extends ConsumerWidget {
             ),
           ),
           Expanded(
-            child: receiptsAsync.when(
-              data: (receipts) {
-                if (receipts.isEmpty) {
-                  return const Center(child: Text("No receipts found."));
-                }
-                return ListView.builder(
-                  itemCount: receipts.length,
-                  itemBuilder: (context, index) {
-                    final receipt = receipts[index];
-                    return ListTile(
-                      leading: const Icon(Iconsax.receipt),
-                      title: Text("Receipt #${receipt.id}"),
-                      subtitle: Text(
-                        "Total: \$${receipt.totalPrice.toStringAsFixed(2)}\nDate: ${receipt.date}",
-                      ),
-                      onTap: () {
-                        // TODO: Navigate to receipt details screen
-                      },
-                    );
-                  },
-                );
-              },
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stackTrace) => Center(
-                child: Text("Error: $error"),
-              ),
+            child: IndexedStack(
+              index: selectedIndex,
+              children: const [
+                SellReceiptsScreen(),
+                BuyReceiptsScreen(),
+                ReturnReceiptsScreen(),
+              ],
             ),
           ),
         ],
@@ -78,7 +57,13 @@ class ReceiptScreen extends ConsumerWidget {
           NavigationDestination(icon: Icon(Iconsax.tag5), label: 'Sell'),
           NavigationDestination(
               icon: Icon(Iconsax.shopping_cart5), label: 'Buy'),
+          NavigationDestination(
+              icon: Icon(Iconsax.back_square), label: 'Return'),
         ],
+        selectedIndex: selectedIndex,
+        onDestinationSelected: (int index) {
+          ref.read(receiptsNavigationProvider.notifier).state = index;
+        },
       ),
     );
   }

@@ -5,8 +5,8 @@ import 'package:invobay/features/sell/widgets/sell_items.dart';
 
 import '../../../common/widgets/text/item_price_text.dart';
 import '../../../core/models/sell_model.dart';
-import '../../../core/providers/currency_sign.dart';
-import '../../../core/providers/sell_provider.dart';
+import '../../../core/providers/default_providers.dart';
+import '../../../core/providers/db_notifiers/sell_notifier.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import 'item_quantity_with_edit.dart';
@@ -79,7 +79,7 @@ class DismissibleItems extends ConsumerWidget {
           label: 'Undo',
           textColor: VColors.white,
           onPressed: () {
-            sellNotifier.addItem(removedItem.item);
+            sellNotifier.addRemovedItem(removedItem);
           },
         ),
         backgroundColor: VColors.error,

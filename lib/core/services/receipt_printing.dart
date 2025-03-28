@@ -63,7 +63,7 @@ class ReceiptPrinter {
       ),
     );
 
-    // 🖨️ Print / Share the receipt
+    // 🖨️ Print / Share the receipts
     await Printing.layoutPdf(onLayout: (format) async => pdf.save());
   }
 }

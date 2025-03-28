@@ -4,17 +4,9 @@ import 'package:invobay/core/database/app_database.dart';
 import 'package:invobay/core/repository/item_dao.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
-import '../models/sell_model.dart';
-import '../utils/constants/numbers.dart';
-import 'app_providers.dart';
-
-// Subtotal provider
-final subtotalPriceProvider = StateProvider<double>((ref) => 0.0);
-
-final sellProvider = StateNotifierProvider<SellNotifier, List<SellItem>>((ref) {
-  final itemDao = ref.read(itemDaoProvider);
-  return SellNotifier(ref, itemDao);
-});
+import '../../models/sell_model.dart';
+import '../../utils/constants/numbers.dart';
+import '../default_providers.dart';
 
 class SellNotifier extends StateNotifier<List<SellItem>> {
   final Ref ref;
@@ -73,6 +65,34 @@ class SellNotifier extends StateNotifier<List<SellItem>> {
     updateSubtotal(); // Update subtotal after adding
   }
 
+  // Adds a removed item back to the cart
+  Future<void> addRemovedItem(SellItem removedItem) async {
+    int existingIndex =
+        state.indexWhere((sellItem) => sellItem.item.id == removedItem.item.id);
+
+    if (existingIndex != -1) {
+      // If the item already exists, update the quantity
+      SellItem existingItem = state[existingIndex];
+      double newQuantity = existingItem.quantity + removedItem.quantity;
+
+      state = [
+        for (int i = 0; i < state.length; i++)
+          if (i == existingIndex)
+            existingItem.copyWith(quantity: newQuantity)
+          else
+            state[i]
+      ];
+    } else {
+      // If the item is not in the state, add it
+      state = [
+        ...state,
+        SellItem(item: removedItem.item, quantity: removedItem.quantity)
+      ];
+    }
+
+    updateSubtotal(); // Update subtotal after adding
+  }
+
   // Adds an item by searching for a match
   Future<void> addItemBySearch(String query) async {
     final searchResults = await itemDao.searchItems(query);
@@ -85,7 +105,7 @@ class SellNotifier extends StateNotifier<List<SellItem>> {
   }
 
   // Removes an item from the cart
-  void removeItem(int itemId) {
+  void removeItem(int? itemId) {
     state = state.where((sellItem) => sellItem.item.id != itemId).toList();
     updateSubtotal(); // Update subtotal after removing
   }

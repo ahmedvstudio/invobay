@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../core/providers/discount_provider.dart';
+import '../../../core/providers/default_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/helper_functions.dart';

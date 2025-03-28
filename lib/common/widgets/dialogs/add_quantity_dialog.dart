@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
-import '../../../core/providers/item_notifier_provider.dart';
+import '../../../core/providers/db_notifiers/app_providers.dart';
+import '../../../core/providers/default_providers.dart';
 
 class VAddQuantityDialog extends ConsumerWidget {
-  final int itemId;
+  final int? itemId;
 
-  const VAddQuantityDialog({super.key, required this.itemId});
+  const VAddQuantityDialog({super.key, this.itemId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

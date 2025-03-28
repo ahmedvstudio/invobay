@@ -2,12 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/database/app_database.dart';
 import 'package:invobay/core/repository/item_dao.dart';
 import 'package:drift/drift.dart';
-import '../../models/item_model.dart'; // Ensure you import your ItemModel
 
-final addQuantityProvider = StateProvider.autoDispose<String>((ref) => '');
-
-class ItemNotifier extends StateNotifier<List<ItemModel>> {
-  // Change to ItemModel
+class ItemNotifier extends StateNotifier<List<Item>> {
   final ItemDao itemDao;
 
   ItemNotifier(this.itemDao) : super([]) {
@@ -17,19 +13,7 @@ class ItemNotifier extends StateNotifier<List<ItemModel>> {
   // Fetch all items from the database
   Future<void> fetchItems() async {
     final items = await itemDao.getAllItems();
-    // Map the fetched items to List<ItemModel>
-    state = items
-        .map((item) => ItemModel(
-              id: item.id,
-              name: item.name,
-              quantity: item.quantity,
-              sellingPrice: item.sellingPrice,
-              buyingPrice: item.buyingPrice,
-              supplierName: item.supplierName,
-              description: item.description,
-              barcode: item.barcode,
-            ))
-        .toList(); // Create a new list to trigger state updates
+    state = [...items]; // Create a new list to trigger state updates
   }
 
   // Check for duplicate name or barcode

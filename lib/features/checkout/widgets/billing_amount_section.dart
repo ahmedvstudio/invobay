@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
-import '../../../core/providers/currency_sign.dart';
-import '../../../core/providers/discount_provider.dart';
-import '../../../core/providers/fee_provider.dart';
-import '../../../core/providers/sub_total_provider.dart';
-import '../../../core/providers/total_checkout_provider.dart';
+import '../../../core/providers/default_providers.dart';
+import '../../../core/providers/sell_related_providers/total_checkout_provider.dart';
+import '../../../core/providers/sell_related_providers/update_subtotal_provider.dart';
 import '../../../core/utils/constants/sizes.dart';
 
 class VBillingAmountSection extends ConsumerWidget {

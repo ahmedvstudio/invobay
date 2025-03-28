@@ -9,7 +9,7 @@ import 'package:drift/drift.dart' as drift;
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod
 
 import '../../../common/widgets/appbar/custom_appbar.dart';
-import '../../../core/providers/db_notifiers/database_provider.dart';
+import '../../../core/providers/db_notifiers/app_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 
 class EditItemScreen extends ConsumerWidget {

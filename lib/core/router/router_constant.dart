@@ -22,11 +22,16 @@ class VRouter {
   static const String sell = 'sell';
   static const String sellCheckout = 'sellCheckout';
 
+  // - Receipts
+  static const String receipts = 'receipts';
+  static const String sellReceipts = 'sellReceipts';
+  static const String buyReceipts = 'buyReceipts';
+  static const String returnReceipts = 'returnReceipts';
+
   // -
   static const String buy = 'buy';
   static const String returns = 'returns';
   static const String reports = 'reports';
-  static const String receipts = 'receipts';
   static const String setting = 'setting';
   static const String notification = 'notification';
 }

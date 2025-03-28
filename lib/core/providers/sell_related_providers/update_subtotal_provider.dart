@@ -1,13 +1,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'discount_provider.dart';
+import '../../models/sell_model.dart';
+import '../default_providers.dart';
 
-final subtotalPriceProvider = StateProvider<double>((ref) => 0.0);
-
+// --> Update Subtotal
 void updateSubtotal(WidgetRef ref, double newSubtotal) {
   ref.read(subtotalPriceProvider.notifier).state = newSubtotal;
 }
 
+// --> Calculate Total Price
+double calculateTotalPrice(WidgetRef ref, List<SellItem> sellItems) {
+  double total = 0;
+  for (var sellItem in sellItems) {
+    total += sellItem.item.sellingPrice * sellItem.quantity;
+  }
+  // Update subtotal provider
+  updateSubtotal(ref, total);
+  return total;
+}
+
+// --> Discount Provider
 final discountedSubtotal = Provider<double>((ref) {
   final subtotalPrice = ref.watch(subtotalPriceProvider);
 

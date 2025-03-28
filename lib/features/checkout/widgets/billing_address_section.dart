@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../common/widgets/text/section_heading.dart';
-import '../../../core/providers/customer_provider.dart';
+import '../../../core/providers/default_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 
 class VBillingAddressSection extends ConsumerWidget {

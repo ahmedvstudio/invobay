@@ -8,9 +8,8 @@ import 'package:invobay/features/sell/widgets/customer_and_clear.dart';
 import 'package:invobay/features/sell/widgets/items_bottom_sheet.dart';
 import 'package:invobay/features/sell/widgets/sell_item_list.dart';
 import '../../common/widgets/custom_shapes/containers/primary_header_container.dart';
-import '../../core/models/sell_model.dart';
-import '../../core/providers/sell_provider.dart';
-import '../../core/providers/sub_total_provider.dart';
+import '../../core/providers/db_notifiers/app_providers.dart';
+import '../../core/providers/sell_related_providers/update_subtotal_provider.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/colors.dart';
 import '../../core/utils/constants/sizes.dart';
@@ -23,21 +22,9 @@ class SellScreen extends ConsumerWidget {
 
 // Calculate total price
 
-  double calculateTotalPrice(WidgetRef ref, List<SellItem> sellItems) {
-    double total = 0;
-    for (var sellItem in sellItems) {
-      total += sellItem.item.sellingPrice * sellItem.quantity;
-    }
-
-    // Update subtotal provider
-    updateSubtotal(ref, total);
-
-    return total;
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sellItems = ref.watch(sellProvider);
+    final sellItems = ref.watch(sellNotifierProvider);
 
     return Scaffold(
       body: Column(
@@ -59,7 +46,7 @@ class SellScreen extends ConsumerWidget {
                 // Customer and clear all row
                 VCustomerAndClear(
                   clearAllOnPressed: () =>
-                      ref.read(sellProvider.notifier).clearCart(),
+                      ref.read(sellNotifierProvider.notifier).clearCart(),
                 ),
                 const SizedBox(height: VSizes.spaceBtwItems),
               ],

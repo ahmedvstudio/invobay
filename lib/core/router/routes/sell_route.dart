@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/features/checkout/checkout_screen.dart';
 
 import '../../../features/sell/sell_screen.dart';
-import '../../models/sell_item_model.dart';
+import '../../models/sell_model.dart';
 import '../router_constant.dart';
 
 List<GoRoute> salesRoutes = [
@@ -19,7 +19,7 @@ List<GoRoute> salesRoutes = [
         path: '/sellCheckout',
         pageBuilder: (context, state) {
           final extra = state.extra as Map<String, dynamic>?; // Get passed data
-          final soldItems = extra?['soldItems'] as List<SellItemModel>? ?? [];
+          final soldItems = extra?['soldItems'] as List<SellItem>? ?? [];
           final totalPrice = extra?['totalPrice'] as double? ?? 0.0;
 
           return MaterialPage(

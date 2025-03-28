@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../common/widgets/dialogs/quantity_input_dialog.dart';
-import '../../../core/providers/quantity_provider.dart';
-import '../../../core/providers/sell_provider.dart';
+import '../../../core/providers/db_notifiers/app_providers.dart';
+import 'quantity_input_dialog.dart';
+import '../../../core/providers/default_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 import 'dismissible_items.dart';
 
@@ -17,8 +17,8 @@ class SellItemList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sellItems = ref.watch(sellProvider);
-    final sellNotifier = ref.read(sellProvider.notifier);
+    final sellItems = ref.watch(sellNotifierProvider);
+    final sellNotifier = ref.read(sellNotifierProvider.notifier);
     return ListView.separated(
       physics: isCheckout ? const NeverScrollableScrollPhysics() : null,
       padding: isCheckout

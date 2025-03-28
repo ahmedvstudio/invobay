@@ -7,7 +7,7 @@ import 'package:readmore/readmore.dart';
 
 import '../../common/widgets/appbar/custom_appbar.dart';
 import '../../common/widgets/text/section_heading.dart';
-import '../../core/providers/db_notifiers/database_provider.dart';
+import '../../core/providers/db_notifiers/app_providers.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/sizes.dart';
 

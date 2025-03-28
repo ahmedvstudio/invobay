@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:invobay/core/models/sell_model.dart';
 import 'package:invobay/features/checkout/widgets/billing_address_section.dart';
 import 'package:invobay/features/checkout/widgets/billing_amount_section.dart';
@@ -9,10 +8,8 @@ import 'package:invobay/features/checkout/widgets/discount_code.dart';
 
 import '../../common/widgets/appbar/appbar.dart';
 import '../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../core/database/app_database.dart';
-import '../../core/providers/currency_sign.dart';
-import '../../core/providers/customer_provider.dart';
-import '../../core/providers/total_checkout_provider.dart';
+import '../../core/providers/default_providers.dart';
+import '../../core/providers/sell_related_providers/total_checkout_provider.dart';
 import '../../core/services/receipt_printing.dart';
 import '../../core/utils/constants/colors.dart';
 import '../../core/utils/constants/sizes.dart';
@@ -92,23 +89,23 @@ class CheckoutScreen extends ConsumerWidget {
         height: 80,
         child: ElevatedButton(
           onPressed: () async {
-            final db = AppDatabase.getInstance();
-            final total = ref.read(totalAmountProvider);
-            final customerName = ref.read(customerNameProvider);
-
-            // Insert the receipt and get the receipt ID
-            final receiptId = await db.insertReceipt(total, customerName);
-
-            // Insert receipt items
-            await db.insertReceiptItems(receiptId, soldItems);
-
-            // Show a confirmation message
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Receipt saved successfully!')),
-            );
-
-            // TODO: Navigate to the receipts page or clear the cart
-            context.pop();
+            // final db = AppDatabase.getInstance();
+            // final total = ref.read(totalAmountProvider);
+            // final customerName = ref.read(customerNameProvider);
+            //
+            // // Insert the receipts and get the receipts ID
+            // final receiptId = await db.insertReceipt(total, customerName);
+            //
+            // // Insert receipts items
+            // await db.insertReceiptItems(receiptId, soldItems);
+            //
+            // // Show a confirmation message
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   const SnackBar(content: Text('Receipt saved successfully!')),
+            // );
+            //
+            // // TODO: Navigate to the receipts page or clear the cart
+            // context.pop();
           },
           child: Consumer(builder: (context, ref, child) {
             final total = ref.watch(totalAmountProvider);
