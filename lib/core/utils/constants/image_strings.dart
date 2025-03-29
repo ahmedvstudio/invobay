@@ -32,4 +32,7 @@ class VImages {
       'assets/icons/payment_methods/credit-card.svg';
   static const String cashSVG =
       'assets/icons/payment_methods/money-payment.svg';
+  static const String masterCashSVG =
+      'assets/icons/payment_methods/mastercard.svg';
+  static const String debtSVG = 'assets/icons/payment_methods/debt.svg';
 }

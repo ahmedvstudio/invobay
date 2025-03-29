@@ -9,6 +9,7 @@ import '../../../core/providers/default_providers.dart';
 import '../../../core/providers/db_notifiers/sell_notifier.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
+import '../../item_details/widgets/meta_data_section.dart';
 import 'item_quantity_with_edit.dart';
 
 class DismissibleItems extends ConsumerWidget {
@@ -113,7 +114,17 @@ class SellItemDetails extends ConsumerWidget {
           children: [
             Row(
               children: [
-                const SizedBox(width: VSizes.leftSideSpace),
+                SizedBox(
+                  width: VSizes.leftSideSpace,
+                  child: VMetaDataSection(
+                    tag: sellItem.item.itemUnit,
+                    tagBackgroundColor: VColors.info,
+                    tagTextColor: VColors.white,
+                    showChild: false,
+                    showIcon: false,
+                    child: const Text(''),
+                  ),
+                ),
                 if (!isCheckout)
                   VItemQuantityWithEdit(quantity: sellItem.quantity),
                 if (isCheckout)

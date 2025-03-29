@@ -21,6 +21,8 @@ class VRouter {
   // - Sell
   static const String sell = 'sell';
   static const String sellCheckout = 'sellCheckout';
+  static const String buyCheckout = 'buyCheckout';
+  static const String returnCheckout = 'returnCheckout';
 
   // - Receipts
   static const String receipts = 'receipts';

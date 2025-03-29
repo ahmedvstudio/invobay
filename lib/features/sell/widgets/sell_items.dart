@@ -13,10 +13,11 @@ class VSellItem extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundColor: VColors.kPrimary,
+          backgroundColor: VColors.kPrimary.withValues(alpha: 0.8),
           radius: VSizes.iconSm,
           child: Text(
             item.name[0],
+            style: const TextStyle().copyWith(color: VColors.white),
           ),
         ),
         const SizedBox(width: VSizes.spaceBtwItems),

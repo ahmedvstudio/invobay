@@ -66,8 +66,11 @@ class SellScreen extends ConsumerWidget {
           ),
         ],
       ),
-      bottomNavigationBar: SizedBox(
-        height: 80,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(
+            bottom: VSizes.defaultSpace,
+            left: VSizes.defaultSpace,
+            right: VSizes.defaultSpace),
         child: ElevatedButton(
           onPressed: () {
             if (sellItems.isNotEmpty) {

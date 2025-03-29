@@ -16,8 +16,8 @@ import '../../core/utils/constants/sizes.dart';
 import '../../core/utils/helpers/helper_functions.dart';
 import '../sell/widgets/sell_item_list.dart';
 
-class CheckoutScreen extends ConsumerWidget {
-  const CheckoutScreen({
+class SellCheckoutScreen extends ConsumerWidget {
+  const SellCheckoutScreen({
     required this.soldItems,
     required this.totalPrice,
     super.key,
@@ -85,44 +85,19 @@ class CheckoutScreen extends ConsumerWidget {
           ],
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        height: 80,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(
+            bottom: VSizes.defaultSpace,
+            left: VSizes.defaultSpace,
+            right: VSizes.defaultSpace),
         child: ElevatedButton(
-          onPressed: () async {
-            // final db = AppDatabase.getInstance();
-            // final total = ref.read(totalAmountProvider);
-            // final customerName = ref.read(customerNameProvider);
-            //
-            // // Insert the receipts and get the receipts ID
-            // final receiptId = await db.insertReceipt(total, customerName);
-            //
-            // // Insert receipts items
-            // await db.insertReceiptItems(receiptId, soldItems);
-            //
-            // // Show a confirmation message
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   const SnackBar(content: Text('Receipt saved successfully!')),
-            // );
-            //
-            // // TODO: Navigate to the receipts page or clear the cart
-            // context.pop();
-          },
+          //TODO: add checkout button
+          onPressed: () {},
           child: Consumer(builder: (context, ref, child) {
             final total = ref.watch(totalAmountProvider);
             return Text('Checkout $currencySign${total.toStringAsFixed(2)}');
           }),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ReceiptPrinter.printReceipt(
-            context: context,
-            items: soldItems,
-            totalPrice: totalPrice,
-            customerName: customerName,
-            footerNote: 'Thank you for your purchase!',
-          );
-        },
       ),
     );
   }

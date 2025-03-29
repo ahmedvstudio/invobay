@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invobay/features/checkout/checkout_screen.dart';
+import 'package:invobay/features/checkout/sell_checkout_screen.dart';
 
 import '../../../features/sell/sell_screen.dart';
 import '../../models/sell_model.dart';
@@ -23,7 +23,7 @@ List<GoRoute> salesRoutes = [
           final totalPrice = extra?['totalPrice'] as double? ?? 0.0;
 
           return MaterialPage(
-            child: CheckoutScreen(
+            child: SellCheckoutScreen(
               soldItems: soldItems,
               totalPrice: totalPrice,
             ),
