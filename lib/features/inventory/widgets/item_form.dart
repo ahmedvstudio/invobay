@@ -16,7 +16,8 @@ class ItemForm extends StatelessWidget {
       this.barcodeController,
       this.descriptionController,
       this.onPressed,
-      required this.buttonText});
+      required this.buttonText,
+      this.itemUnitController});
 
   final TextEditingController? nameController;
   final TextEditingController? quantityController;
@@ -25,6 +26,7 @@ class ItemForm extends StatelessWidget {
   final TextEditingController? supplierController;
   final TextEditingController? barcodeController;
   final TextEditingController? descriptionController;
+  final TextEditingController? itemUnitController;
   final VoidCallback? onPressed;
   final String buttonText;
 
@@ -38,13 +40,28 @@ class ItemForm extends StatelessWidget {
           decoration: const InputDecoration(labelText: 'Name'),
           validator: VValidator.validateEmpty,
         ),
-        TextFormField(
-          maxLength: 13,
-          controller: quantityController,
-          decoration:
-              const InputDecoration(labelText: 'Quantity', counterText: ''),
-          keyboardType: TextInputType.number,
-          validator: VValidator.validateDoubleNumber,
+        Row(
+          children: [
+            Flexible(
+              child: TextFormField(
+                maxLength: 13,
+                controller: quantityController,
+                decoration: const InputDecoration(
+                    labelText: 'Quantity', counterText: ''),
+                keyboardType: TextInputType.number,
+                validator: VValidator.validateDoubleNumber,
+              ),
+            ),
+            const SizedBox(width: VSizes.spaceBtwInputFields),
+            Flexible(
+              child: TextFormField(
+                controller: itemUnitController,
+                decoration: const InputDecoration(
+                    labelText: 'Item Unit', counterText: ''),
+                validator: VValidator.validateEmpty,
+              ),
+            ),
+          ],
         ),
         Row(
           children: [

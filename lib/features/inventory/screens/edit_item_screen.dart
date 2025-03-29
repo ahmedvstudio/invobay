@@ -24,6 +24,7 @@ class EditItemScreen extends ConsumerWidget {
   final TextEditingController _supplierController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _barcodeController = TextEditingController();
+  final TextEditingController _itemUnitController = TextEditingController();
 
   void _loadItemData(BuildContext context, WidgetRef ref) {
     final itemProvider = ref.watch(itemNotifierProvider);
@@ -36,6 +37,7 @@ class EditItemScreen extends ConsumerWidget {
     _supplierController.text = item.supplierName ?? '';
     _descriptionController.text = item.description ?? '';
     _barcodeController.text = item.barcode ?? '';
+    _itemUnitController.text = item.itemUnit ?? '';
   }
 
   final _formKey2 = GlobalKey<FormState>();
@@ -53,6 +55,10 @@ class EditItemScreen extends ConsumerWidget {
         barcode: _barcodeController.text.isEmpty
             ? const drift.Value.absent()
             : drift.Value(_barcodeController.text),
+        //
+        itemUnit: _itemUnitController.text.isEmpty
+            ? const drift.Value.absent()
+            : drift.Value(_itemUnitController.text),
       );
 
       final provider = ref.read(itemNotifierProvider.notifier);
@@ -96,6 +102,7 @@ class EditItemScreen extends ConsumerWidget {
                       supplierController: _supplierController,
                       barcodeController: _barcodeController,
                       descriptionController: _descriptionController,
+                      itemUnitController: _itemUnitController,
                       onPressed: () => _updateItem(context, ref),
                       buttonText: 'Update Item',
                     ),

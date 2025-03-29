@@ -9,4 +9,5 @@ class Items extends Table {
   TextColumn get supplierName => text().nullable()();
   TextColumn get description => text().nullable()();
   TextColumn get barcode => text().nullable()();
+  TextColumn get itemUnit => text().nullable()();
 }

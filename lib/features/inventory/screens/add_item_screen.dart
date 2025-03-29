@@ -26,6 +26,7 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
   final TextEditingController _supplierController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _barcodeController = TextEditingController();
+  final TextEditingController _itemUnitController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -38,6 +39,7 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
     _supplierController.dispose();
     _descriptionController.dispose();
     _barcodeController.dispose();
+    _itemUnitController.dispose();
     super.dispose();
   }
 
@@ -57,6 +59,9 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
         barcode: _barcodeController.text.isEmpty
             ? const drift.Value.absent()
             : drift.Value(_barcodeController.text),
+        itemUnit: _itemUnitController.text.isEmpty
+            ? const drift.Value.absent()
+            : drift.Value(_itemUnitController.text),
       );
 
       // Check if item exists
@@ -77,6 +82,7 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
       _supplierController.clear();
       _descriptionController.clear();
       _barcodeController.clear();
+      _itemUnitController.clear();
 
       if (!mounted) return;
       context.pop();
@@ -116,7 +122,8 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
                       supplierController: _supplierController,
                       barcodeController: _barcodeController,
                       descriptionController: _descriptionController,
-                      onPressed: _addItem, // ✅ No need to pass context or ref
+                      itemUnitController: _itemUnitController,
+                      onPressed: _addItem,
                       buttonText: 'Add Item',
                     ),
                   ],

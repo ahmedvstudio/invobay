@@ -10,7 +10,7 @@ import 'tables/items_table.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [Items, Receipts, ReceiptItems])
+@DriftDatabase(tables: [Items, SellReceipts, SellReceiptItems])
 class AppDatabase extends _$AppDatabase {
   // Private constructor
   AppDatabase._() : super(_openConnection());
