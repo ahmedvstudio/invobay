@@ -26,7 +26,8 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
   final TextEditingController _supplierController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _barcodeController = TextEditingController();
-  final TextEditingController _itemUnitController = TextEditingController();
+  final TextEditingController _itemUnitController =
+      TextEditingController(text: '');
 
   final _formKey = GlobalKey<FormState>();
 

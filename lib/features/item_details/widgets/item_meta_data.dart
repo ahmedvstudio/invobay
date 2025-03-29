@@ -23,6 +23,7 @@ class VItemMetaData extends ConsumerWidget {
     required this.buyingPrice,
     this.supplier,
     this.barcode,
+    this.itemUnit,
   });
 
   final String title;
@@ -31,20 +32,23 @@ class VItemMetaData extends ConsumerWidget {
   final double buyingPrice;
   final String? supplier;
   final String? barcode;
+  final String? itemUnit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemProvider = ref.watch(itemNotifierProvider);
     final item = itemProvider.firstWhere((item) => item.name == title,
         orElse: () => Item(
-            id: 0,
-            name: title,
-            quantity: 0.0,
-            sellingPrice: 0.0,
-            buyingPrice: 0.0,
-            supplierName: null,
-            description: null,
-            barcode: null));
+              id: 0,
+              name: title,
+              quantity: 0.0,
+              sellingPrice: 0.0,
+              buyingPrice: 0.0,
+              supplierName: null,
+              description: null,
+              barcode: null,
+              itemUnit: null,
+            ));
 
     final lowStockColor = LowStockHelper(item.quantity).getThreeColor();
     final lowStockText = LowStockHelper(item.quantity).getThreeText();
@@ -74,15 +78,29 @@ class VItemMetaData extends ConsumerWidget {
         const SizedBox(height: VSizes.spaceBtwItems),
 
         // - In Stock
-        VMetaDataSection(
-          tag: lowStockText,
-          tagBackgroundColor: lowStockColor,
-          tagTextColor: VColors.white,
-          icon: Iconsax.box,
-          child: Text(
-            item.quantity.toStringAsFixed(2),
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+        Row(
+          children: [
+            Flexible(
+              child: VMetaDataSection(
+                tag: lowStockText,
+                tagBackgroundColor: lowStockColor,
+                tagTextColor: VColors.white,
+                icon: Iconsax.box,
+                child: Text(
+                  item.quantity.toStringAsFixed(2),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ),
+            VMetaDataSection(
+              tag: itemUnit ?? 'Unit',
+              tagBackgroundColor: VColors.info,
+              tagTextColor: VColors.white,
+              showChild: false,
+              showIcon: false,
+              child: const Text(''),
+            ),
+          ],
         ),
 
         const SizedBox(height: VSizes.spaceBtwItems),
@@ -117,6 +135,7 @@ class VItemMetaData extends ConsumerWidget {
                 .copyWith(decoration: TextDecoration.underline, fontSize: 14),
           ),
         ),
+
         const SizedBox(height: VSizes.spaceBtwItems),
         VMetaDataSection(
           showTag: false,

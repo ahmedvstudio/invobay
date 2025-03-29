@@ -62,6 +62,7 @@ List<GoRoute> inventoryRoutes = [
                   supplierName: item.supplierName,
                   barcode: item.barcode,
                   description: item.description,
+                  itemUnit: item.itemUnit,
                 );
               },
             ),

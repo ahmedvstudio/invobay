@@ -22,6 +22,7 @@ class ItemDetailsScreen extends ConsumerWidget {
     this.barcode,
     this.description,
     this.supplierName,
+    this.itemUnit,
   });
 
   final int itemId;
@@ -32,6 +33,7 @@ class ItemDetailsScreen extends ConsumerWidget {
   final String? supplierName;
   final String? description;
   final String? barcode;
+  final String? itemUnit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -68,6 +70,7 @@ class ItemDetailsScreen extends ConsumerWidget {
                     buyingPrice: buyPrice,
                     supplier: supplierName,
                     barcode: barcode,
+                    itemUnit: itemUnit,
                   ),
                   const SizedBox(height: VSizes.spaceBtwItems),
                   const Divider(),

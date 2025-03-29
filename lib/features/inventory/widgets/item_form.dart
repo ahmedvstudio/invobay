@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import 'item_unit_selector.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/helper_functions.dart';
 import '../../../core/utils/validators/validation.dart';
@@ -17,7 +18,7 @@ class ItemForm extends StatelessWidget {
       this.descriptionController,
       this.onPressed,
       required this.buttonText,
-      this.itemUnitController});
+      required this.itemUnitController});
 
   final TextEditingController? nameController;
   final TextEditingController? quantityController;
@@ -26,7 +27,7 @@ class ItemForm extends StatelessWidget {
   final TextEditingController? supplierController;
   final TextEditingController? barcodeController;
   final TextEditingController? descriptionController;
-  final TextEditingController? itemUnitController;
+  final TextEditingController itemUnitController;
   final VoidCallback? onPressed;
   final String buttonText;
 
@@ -43,6 +44,7 @@ class ItemForm extends StatelessWidget {
         Row(
           children: [
             Flexible(
+              flex: 2,
               child: TextFormField(
                 maxLength: 13,
                 controller: quantityController,
@@ -53,14 +55,7 @@ class ItemForm extends StatelessWidget {
               ),
             ),
             const SizedBox(width: VSizes.spaceBtwInputFields),
-            Flexible(
-              child: TextFormField(
-                controller: itemUnitController,
-                decoration: const InputDecoration(
-                    labelText: 'Item Unit', counterText: ''),
-                validator: VValidator.validateEmpty,
-              ),
-            ),
+            ItemUnitSelector(itemUnitController: itemUnitController),
           ],
         ),
         Row(

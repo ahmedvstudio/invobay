@@ -15,9 +15,11 @@ class VMetaDataSection extends StatelessWidget {
     this.tagBackgroundColor = VColors.kSecondary,
     this.tagTextColor = VColors.black,
     this.showTag = true,
+    this.showChild = true,
     this.showIcon = true,
   });
   final bool showTag;
+  final bool showChild;
   final String? tag;
   final Color tagBackgroundColor;
   final Color tagTextColor;
@@ -49,7 +51,7 @@ class VMetaDataSection extends StatelessWidget {
             ),
           ),
         if (showTag) const SizedBox(width: VSizes.spaceBtwItems),
-        Flexible(child: child),
+        if (showChild) Flexible(child: child),
       ],
     );
   }

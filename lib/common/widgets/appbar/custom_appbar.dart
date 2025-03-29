@@ -37,6 +37,7 @@ class VCustomAppBar extends StatelessWidget {
             leadingIcon: leadingIcon,
             leadingOnPressed: leadingOnPressed,
             actions: actions,
+            justWhiteBackArrow: true,
           ),
           const SizedBox(height: VSizes.spaceBtwSections),
         ],

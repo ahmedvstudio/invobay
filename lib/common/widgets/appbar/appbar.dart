@@ -15,6 +15,7 @@ class VAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingIcon,
     this.actions,
     this.leadingOnPressed,
+    this.justWhiteBackArrow = false,
   });
 
   final Widget? title;
@@ -22,6 +23,7 @@ class VAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
+  final bool justWhiteBackArrow;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,11 @@ class VAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? IconButton(
                 onPressed: () => context.pop(),
                 icon: const Icon(Iconsax.arrow_left),
-                color: isDark ? VColors.white : VColors.black,
+                color: justWhiteBackArrow
+                    ? VColors.white
+                    : isDark
+                        ? VColors.white
+                        : VColors.black,
               )
             : leadingIcon != null
                 ? IconButton(
