@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:invobay/core/database/tables/customers_table.dart';
 import 'package:invobay/core/database/tables/sell_receipts_tables.dart';
 import 'package:invobay/core/utils/helpers/logger.dart';
 import 'package:path/path.dart' as p;
@@ -10,7 +11,7 @@ import 'tables/items_table.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [Items, SellReceipts, SellReceiptItems])
+@DriftDatabase(tables: [Items, SellReceipts, SellReceiptItems, Customers])
 class AppDatabase extends _$AppDatabase {
   // Private constructor
   AppDatabase._() : super(_openConnection());
