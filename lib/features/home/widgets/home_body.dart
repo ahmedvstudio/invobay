@@ -52,7 +52,7 @@ class VHomeBody extends StatelessWidget {
             icon: Iconsax.receipt_item,
           ),
           VBigButton(
-            onTap: () => context.pushNamed(VRouter.setting),
+            onTap: () => context.pushNamed(VRouter.settings),
             text: 'Settings',
             icon: Iconsax.setting,
           ),

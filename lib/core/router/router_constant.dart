@@ -30,10 +30,20 @@ class VRouter {
   static const String buyReceipts = 'buyReceipts';
   static const String returnReceipts = 'returnReceipts';
 
+  // - Settings
+  static const String settings = 'settings';
+  static const String profile = 'profile';
+  static const String customers = 'customers';
+  static const String addNewCustomer = 'addNewCustomer';
+  static const String suppliers = 'suppliers';
+  static const String addNewSupplier = 'addNewSupplier';
+
+  ///
+  static const String orders = 'orders';
+
   // -
   static const String buy = 'buy';
   static const String returns = 'returns';
   static const String reports = 'reports';
-  static const String setting = 'setting';
   static const String notification = 'notification';
 }

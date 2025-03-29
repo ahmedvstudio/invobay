@@ -10,7 +10,6 @@ import '../../common/widgets/appbar/appbar.dart';
 import '../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../core/providers/default_providers.dart';
 import '../../core/providers/sell_related_providers/total_checkout_provider.dart';
-import '../../core/services/receipt_printing.dart';
 import '../../core/utils/constants/colors.dart';
 import '../../core/utils/constants/sizes.dart';
 import '../../core/utils/helpers/helper_functions.dart';
@@ -30,7 +29,6 @@ class SellCheckoutScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = VHelperFunctions.isDarkMode(context);
     final currencySign = ref.watch(currencySignProvider);
-    final customerName = ref.watch(customerNameProvider);
 
     return Scaffold(
       appBar: const VAppBar(
