@@ -35,6 +35,7 @@ class VRouter {
   static const String profile = 'profile';
   static const String customers = 'customers';
   static const String addNewCustomer = 'addNewCustomer';
+  static const String editCustomer = 'editCustomer';
   static const String suppliers = 'suppliers';
   static const String addNewSupplier = 'addNewSupplier';
 

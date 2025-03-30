@@ -8,7 +8,7 @@ import 'package:invobay/core/router/routes/receipts_route.dart';
 import 'package:invobay/core/router/routes/report_route.dart';
 import 'package:invobay/core/router/routes/return_route.dart';
 import 'package:invobay/core/router/routes/sell_route.dart';
-import 'package:invobay/core/router/routes/setting_route.dart';
+import 'package:invobay/core/router/routes/settings/setting_route.dart';
 import 'package:invobay/features/error/not_found_screen.dart';
 
 import '../../features/home/home_screen.dart';

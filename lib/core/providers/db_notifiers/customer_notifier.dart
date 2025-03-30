@@ -1,4 +1,3 @@
-import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../database/app_database.dart';
@@ -14,20 +13,20 @@ class CustomerNotifier extends StateNotifier<List<CustomerData>> {
     state = customers; // Load customers from the database
   }
 
-  Future<void> addCustomer(CustomerData customerData) async {
-    // Create an instance of CustomersCompanion from CustomerData
-    final customerCompanion = CustomersCompanion(
-      name: Value(customerData.name),
-      phoneNumber: Value(customerData.phoneNumber),
-      street: Value(customerData.street),
-      postalCode: Value(customerData.postalCode),
-      city: Value(customerData.city),
-      state: Value(customerData.state),
-      country: Value(customerData.country),
-    );
+  Future<void> addCustomer(CustomersCompanion customerCompanion) async {
+    // Insert the customer and get the newly created CustomerData
+    final id = await customerDao.insertCustomer(customerCompanion);
+    // Load the customer data after insertion
+    final newCustomer = await customerDao.getCustomerById(id);
+    if (newCustomer != null) {
+      state = [...state, newCustomer]; // Update the state with the new customer
+    }
+  }
 
-    await customerDao.insertCustomer(customerCompanion);
-    await loadCustomers(); // Refresh the list after adding a new customer
+  Future<void> updateCustomer(CustomersCompanion updatedCustomer) async {
+    await customerDao
+        .updateCustomer(updatedCustomer); // Call update method in DAO
+    await loadCustomers(); // Refresh the list after updating
   }
 }
 

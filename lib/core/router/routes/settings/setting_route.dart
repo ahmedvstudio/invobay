@@ -3,13 +3,14 @@ import 'package:go_router/go_router.dart';
 
 import 'package:invobay/core/router/router_constant.dart';
 
-import '../../../features/personalization/address/customers/add_new_custumer.dart';
-import '../../../features/personalization/address/customers/customers_screen.dart';
-import '../../../features/personalization/address/suppliers/add_new_supplier.dart';
-import '../../../features/personalization/address/suppliers/suppliers_screen.dart';
-import '../../../features/personalization/order/order_screen.dart';
-import '../../../features/personalization/profile/profile_screen.dart';
-import '../../../features/personalization/setting/setting_screen.dart';
+import '../../../../features/personalization/address/customers/add_new_custumer.dart';
+import '../../../../features/personalization/address/customers/customers_screen.dart';
+import '../../../../features/personalization/address/customers/edit_customer_form.dart';
+import '../../../../features/personalization/address/suppliers/add_new_supplier.dart';
+import '../../../../features/personalization/address/suppliers/suppliers_screen.dart';
+import '../../../../features/personalization/order/order_screen.dart';
+import '../../../../features/personalization/profile/profile_screen.dart';
+import '../../../../features/personalization/setting/setting_screen.dart';
 
 List<GoRoute> settingRoutes = [
   GoRoute(
@@ -34,6 +35,15 @@ List<GoRoute> settingRoutes = [
             path: '/addNewCustomer',
             pageBuilder: (context, state) =>
                 const MaterialPage(child: AddNewCustomerScreen()),
+          ),
+          GoRoute(
+            name: VRouter.editCustomer,
+            path: '/editCustomer/:id',
+            pageBuilder: (context, state) {
+              final customerId = int.parse(state.pathParameters['id']!);
+              return MaterialPage(
+                  child: EditCustomerForm(customerId: customerId));
+            },
           ),
         ],
       ),

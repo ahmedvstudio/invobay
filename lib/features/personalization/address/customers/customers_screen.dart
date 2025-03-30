@@ -11,6 +11,7 @@ class CustomersScreen extends StatelessWidget {
     return const AddressListScreen(
       title: 'Customers',
       routeName: VRouter.addNewCustomer,
+      isCustomer: true,
     );
   }
 }

@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/features/personalization/address/single_address.dart';
+
 import '../../../common/widgets/appbar/appbar.dart';
+import '../../../core/providers/db_notifiers/customer_notifier.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
-import 'single_address.dart';
 
-class AddressListScreen extends StatelessWidget {
+class AddressListScreen extends ConsumerWidget {
   final String title;
   final String routeName;
 
-  const AddressListScreen(
-      {super.key, required this.title, required this.routeName});
+  const AddressListScreen({
+    super.key,
+    required this.title,
+    required this.routeName,
+    required this.isCustomer,
+  });
+
+  final bool isCustomer;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final customers = ref.watch(customerProvider);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.pushNamed(routeName),
@@ -23,20 +34,29 @@ class AddressListScreen extends StatelessWidget {
       ),
       appBar: VAppBar(
         showBackArrow: true,
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
+        title: Text(title),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(VSizes.defaultSpace),
-          child: Column(
-            children: [
-              VSingleAddress(selectedAddress: true),
-              VSingleAddress(selectedAddress: false),
-            ],
-          ),
+          padding: const EdgeInsets.all(VSizes.defaultSpace),
+          child: isCustomer
+              ? Column(
+                  children: customers
+                      .map((customer) => VSingleAddress(
+                            onTap: () => context.goNamed('editCustomer',
+                                pathParameters: {'id': customer.id.toString()}),
+                            name: customer.name,
+                            phoneNumber: customer.phoneNumber,
+                            address:
+                                '${customer.postalCode} ${customer.street}, ${customer.city}, ${customer.state}, ${customer.country}',
+                          ))
+                      .toList(),
+                )
+
+              /// TODO: add supplier
+              : const Column(
+                  children: [Text('Supplier here')],
+                ),
         ),
       ),
     );

@@ -11,6 +11,7 @@ class SuppliersScreen extends StatelessWidget {
     return const AddressListScreen(
       title: 'Suppliers',
       routeName: VRouter.addNewSupplier,
+      isCustomer: false,
     );
   }
 }
