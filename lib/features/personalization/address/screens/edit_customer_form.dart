@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../core/database/app_database.dart';
-import '../../../../core/providers/db_notifiers/customer_notifier.dart';
+import '../../../../core/providers/db_notifiers/app_providers.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../widgets/address_form.dart';
 
@@ -18,7 +18,7 @@ class EditCustomerForm extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final customer = ref.watch(customerProvider.select(
+    final customer = ref.watch(customerNotifierProvider.select(
         (customers) => customers.firstWhere((c) => c.id == customerId)));
 
     final nameController = TextEditingController(text: customer.name);
@@ -79,7 +79,7 @@ class EditCustomerForm extends ConsumerWidget {
                   );
 
                   await ref
-                      .read(customerProvider.notifier)
+                      .read(customerNotifierProvider.notifier)
                       .updateCustomer(updatedCustomer);
                   if (!context.mounted) return;
                   context.pop();

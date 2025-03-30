@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/personalization/address/widgets/address_form.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../core/database/app_database.dart';
-import '../../../../core/providers/db_notifiers/customer_notifier.dart';
-import '../../../../core/providers/db_notifiers/supplier_notifier.dart';
+import '../../../../core/providers/db_notifiers/app_providers.dart';
 import '../../../../core/utils/constants/sizes.dart';
 
 class AddNewAddress extends ConsumerWidget {
@@ -79,12 +79,18 @@ class AddNewAddress extends ConsumerWidget {
                               ? const drift.Value.absent()
                               : drift.Value(countryController.text),
                         );
-
-                        await ref
-                            .read(customerProvider.notifier)
-                            .addCustomer(newCustomer);
-                        if (!context.mounted) return;
-                        context.pop();
+                        try {
+                          await ref
+                              .read(customerNotifierProvider.notifier)
+                              .addCustomer(newCustomer);
+                          if (!context.mounted) return;
+                          context.pop();
+                        } catch (e) {
+                          VHelperFunctions.showSnackBar(
+                              context: context,
+                              message:
+                                  'Customer with this name already exists.');
+                        }
                       }
                     }
 
@@ -112,12 +118,18 @@ class AddNewAddress extends ConsumerWidget {
                               ? const drift.Value.absent()
                               : drift.Value(countryController.text),
                         );
-
-                        await ref
-                            .read(supplierProvider.notifier)
-                            .addSupplier(newSupplier);
-                        if (!context.mounted) return;
-                        context.pop();
+                        try {
+                          await ref
+                              .read(supplierNotifierProvider.notifier)
+                              .addSupplier(newSupplier);
+                          if (!context.mounted) return;
+                          context.pop();
+                        } catch (e) {
+                          VHelperFunctions.showSnackBar(
+                              context: context,
+                              message:
+                                  'Supplier with this name already exists.');
+                        }
                       }
                     },
             ),

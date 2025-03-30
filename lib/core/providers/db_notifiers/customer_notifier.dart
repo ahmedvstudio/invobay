@@ -14,6 +14,14 @@ class CustomerNotifier extends StateNotifier<List<CustomerData>> {
   }
 
   Future<void> addCustomer(CustomersCompanion customerCompanion) async {
+    // Check if customer with the same name exists
+    final existenceMap = await customerDao.checkCustomerExistence(
+        customerCompanion.name.value, null);
+
+    if (existenceMap['name'] == true) {
+      throw Exception("Customer with this name already exists.");
+    }
+
     // Insert the customer and get the newly created CustomerData
     final id = await customerDao.insertCustomer(customerCompanion);
     // Load the customer data after insertion
@@ -28,11 +36,9 @@ class CustomerNotifier extends StateNotifier<List<CustomerData>> {
         .updateCustomer(updatedCustomer); // Call update method in DAO
     await loadCustomers(); // Refresh the list after updating
   }
-}
 
-final customerProvider =
-    StateNotifierProvider<CustomerNotifier, List<CustomerData>>((ref) {
-  final database = AppDatabase.getInstance(); // Use your singleton instance
-  return CustomerNotifier(CustomerDao(database))
-    ..loadCustomers(); // Load initial customers
-});
+  Future<void> deleteCustomer(int id) async {
+    await customerDao.deleteCustomer(id); // Call the delete method in DAO
+    await loadCustomers(); // Refresh the list after deletion
+  }
+}

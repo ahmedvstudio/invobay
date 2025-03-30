@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/personalization/address/widgets/single_address.dart';
 
 import '../../../common/widgets/appbar/appbar.dart';
-import '../../../core/providers/db_notifiers/customer_notifier.dart';
-import '../../../core/providers/db_notifiers/supplier_notifier.dart';
+import '../../../common/widgets/dialogs/delete_confirm_dialog.dart';
+import '../../../core/providers/db_notifiers/app_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 
@@ -21,8 +22,8 @@ class AddressScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final customers = ref.watch(customerProvider);
-    final suppliers = ref.watch(supplierProvider);
+    final customers = ref.watch(customerNotifierProvider);
+    final suppliers = ref.watch(supplierNotifierProvider);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -58,6 +59,35 @@ class AddressScreen extends ConsumerWidget {
                     return VSingleAddress(
                       onTap: () => context.goNamed(VRouter.editCustomer,
                           pathParameters: {'id': customer.id.toString()}),
+                      deleteOnPressed: () async {
+                        // Confirm deletion with the user
+                        final confirmDelete = await showDialog<bool>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return VDeleteConfirmDialog(
+                              isCustomer: isCustomer,
+                            );
+                          },
+                        );
+                        if (confirmDelete == true) {
+                          try {
+                            await ref
+                                .read(customerNotifierProvider.notifier)
+                                .deleteCustomer(customer.id);
+                            if (!context.mounted) return;
+                            VHelperFunctions.showSnackBar(
+                                context: context,
+                                message: 'Customer deleted successfully',
+                                bgColor: VColors.success);
+                          } catch (e) {
+                            if (!context.mounted) return;
+                            VHelperFunctions.showSnackBar(
+                                context: context,
+                                message:
+                                    'Error deleting customer: ${e.toString()}');
+                          }
+                        }
+                      },
                       name: customer.name,
                       phoneNumber: customer.phoneNumber ?? '',
                       address: address,
@@ -85,6 +115,34 @@ class AddressScreen extends ConsumerWidget {
                       phoneNumber: supplier.phoneNumber ?? '',
                       address: address,
                       isCustomer: isCustomer,
+                      deleteOnPressed: () async {
+                        final confirmDelete = await showDialog<bool>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return VDeleteConfirmDialog(
+                              isCustomer: isCustomer,
+                            );
+                          },
+                        );
+                        if (confirmDelete == true) {
+                          try {
+                            await ref
+                                .read(supplierNotifierProvider.notifier)
+                                .deleteSupplier(supplier.id);
+                            if (!context.mounted) return;
+                            VHelperFunctions.showSnackBar(
+                                context: context,
+                                message: 'Supplier deleted successfully',
+                                bgColor: VColors.success);
+                          } catch (e) {
+                            if (!context.mounted) return;
+                            VHelperFunctions.showSnackBar(
+                                context: context,
+                                message:
+                                    'Error deleting supplier: ${e.toString()}');
+                          }
+                        }
+                      },
                     );
                   }).toList(),
                 ),

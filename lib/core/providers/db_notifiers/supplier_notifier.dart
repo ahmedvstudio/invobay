@@ -14,6 +14,12 @@ class SupplierNotifier extends StateNotifier<List<SupplierData>> {
   }
 
   Future<void> addSupplier(SuppliersCompanion supplierCompanion) async {
+    final existenceMap = await supplierDao.checkSupplierExistence(
+        supplierCompanion.name.value, null);
+
+    if (existenceMap['name'] == true) {
+      throw Exception("Customer with this name already exists.");
+    }
     final id = await supplierDao.insertSupplier(supplierCompanion);
     final newSupplier = await supplierDao.getSupplierById(id);
     if (newSupplier != null) {
@@ -26,10 +32,9 @@ class SupplierNotifier extends StateNotifier<List<SupplierData>> {
         .updateSupplier(updatedSupplier); // Call update method in DAO
     await loadSuppliers(); // Refresh the list after updating
   }
-}
 
-final supplierProvider =
-    StateNotifierProvider<SupplierNotifier, List<SupplierData>>((ref) {
-  final database = AppDatabase.getInstance(); // Use your singleton instance
-  return SupplierNotifier(SupplierDao(database))..loadSuppliers();
-});
+  Future<void> deleteSupplier(int id) async {
+    await supplierDao.deleteSupplier(id); // Call the delete method in DAO
+    await loadSuppliers(); // Refresh the list after deletion
+  }
+}

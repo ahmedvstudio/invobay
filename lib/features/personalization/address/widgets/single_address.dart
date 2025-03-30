@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
@@ -13,12 +14,15 @@ class VSingleAddress extends StatelessWidget {
     required this.address,
     required this.onTap,
     required this.isCustomer,
+    this.deleteOnPressed,
   });
   final String name;
   final String phoneNumber;
   final String address;
   final VoidCallback onTap;
+  final VoidCallback? deleteOnPressed;
   final bool isCustomer;
+
   @override
   Widget build(BuildContext context) {
     final isDark = VHelperFunctions.isDarkMode(context);
@@ -33,19 +37,37 @@ class VSingleAddress extends StatelessWidget {
             : VColors.secondary.withValues(alpha: 0.3),
         borderColor: isDark ? VColors.darkerGrey : VColors.grey,
         margin: const EdgeInsets.only(bottom: VSizes.spaceBtwItems),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            Text(
-              name,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleLarge,
+            Positioned(
+              right: -15,
+              top: -15,
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                icon: Icon(
+                  Iconsax.trash,
+                  color: isDark
+                      ? VColors.light
+                      : VColors.dark.withValues(alpha: 0.6),
+                ),
+                onPressed: deleteOnPressed,
+              ),
             ),
-            const SizedBox(height: VSizes.sm / 2),
-            Text(phoneNumber, maxLines: 1, overflow: TextOverflow.ellipsis),
-            const SizedBox(height: VSizes.sm / 2),
-            Text(address, softWrap: true),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: VSizes.sm / 2),
+                Text(phoneNumber, maxLines: 1, overflow: TextOverflow.ellipsis),
+                const SizedBox(height: VSizes.sm / 2),
+                Text(address, softWrap: true),
+              ],
+            ),
           ],
         ),
       ),
