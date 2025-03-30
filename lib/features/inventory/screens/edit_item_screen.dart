@@ -40,10 +40,10 @@ class EditItemScreen extends ConsumerWidget {
     _itemUnitController.text = item.itemUnit ?? '';
   }
 
-  final _formKey2 = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   void _updateItem(BuildContext context, WidgetRef ref) {
-    if (_formKey2.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       final updatedItem = ItemsCompanion(
         id: drift.Value(itemId),
         name: drift.Value(_nameController.text),
@@ -91,7 +91,7 @@ class EditItemScreen extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.all(VSizes.defaultSpace),
               child: Form(
-                key: _formKey2,
+                key: _formKey,
                 child: Column(
                   children: [
                     ItemForm(

@@ -65,10 +65,12 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () => context.pushNamed(VRouter.suppliers),
                   ),
 
-                  const VSettingsMenuTile(
-                      icon: Iconsax.shopping_cart,
-                      title: 'My Cart',
-                      subTitle: 'Add, remove products and move to checkout.'),
+                  VSettingsMenuTile(
+                    icon: Iconsax.shopping_cart,
+                    title: 'My Cart',
+                    subTitle: 'Add, remove products and move to checkout.',
+                    onTap: () {},
+                  ),
                   VSettingsMenuTile(
                     icon: Iconsax.bag_tick,
                     title: 'My Orders',

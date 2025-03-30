@@ -16,6 +16,9 @@ final discountControllerProvider = Provider<TextEditingController>((ref) {
   return TextEditingController();
 });
 
+// --> Customer Or Supplier Provider
+final isCustomerProvider = StateProvider<bool>((ref) => true);
+
 // --> Shipping and Tax fees
 final shippingFeeProvider = StateProvider<double>((ref) => 0.6);
 final taxFeeProvider = StateProvider<double>((ref) => 5.0);

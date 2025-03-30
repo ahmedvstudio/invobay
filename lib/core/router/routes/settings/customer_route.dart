@@ -1,30 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../features/personalization/address/customers/add_new_custumer.dart';
-import '../../../../features/personalization/address/customers/customers_screen.dart';
-import '../../../../features/personalization/address/customers/edit_customer_form.dart';
+import '../../../../features/personalization/address/address_screen.dart';
+import '../../../../features/personalization/address/screens/add_new_address.dart';
+import '../../../../features/personalization/address/screens/edit_customer_form.dart';
+import '../../../providers/default_providers.dart';
 import '../../router_constant.dart';
 
 List<GoRoute> customerRoute = [
   GoRoute(
     name: VRouter.customers,
     path: '/customers',
-    pageBuilder: (context, state) =>
-        const MaterialPage(child: CustomersScreen()),
+    pageBuilder: (context, state) {
+      return MaterialPage(
+        child: Consumer(
+          builder: (context, ref, child) {
+            final isCustomer = ref.watch(isCustomerProvider);
+            return AddressScreen(isCustomer: isCustomer);
+          },
+        ),
+      );
+    },
     routes: [
       GoRoute(
         name: VRouter.addNewCustomer,
         path: '/addNewCustomer',
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: AddNewCustomerScreen()),
+        pageBuilder: (context, state) {
+          return MaterialPage(
+              fullscreenDialog: true,
+              child: Consumer(
+                builder: (context, ref, child) {
+                  final isCustomer = ref.watch(isCustomerProvider);
+                  return AddNewAddress(isCustomer: isCustomer);
+                },
+              ));
+        },
       ),
       GoRoute(
         name: VRouter.editCustomer,
         path: '/editCustomer/:id',
         pageBuilder: (context, state) {
           final customerId = int.parse(state.pathParameters['id']!);
-          return MaterialPage(child: EditCustomerForm(customerId: customerId));
+          return MaterialPage(child: Consumer(
+            builder: (context, ref, child) {
+              ref.watch(isCustomerProvider);
+              return EditCustomerForm(customerId: customerId);
+            },
+          ));
         },
       ),
     ],

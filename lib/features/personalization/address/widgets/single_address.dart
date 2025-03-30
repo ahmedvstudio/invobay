@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
-import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../../core/utils/constants/colors.dart';
-import '../../../../core/utils/constants/sizes.dart';
+import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../../core/utils/constants/colors.dart';
+import '../../../../../core/utils/constants/sizes.dart';
 
 class VSingleAddress extends StatelessWidget {
   const VSingleAddress({
@@ -12,11 +12,13 @@ class VSingleAddress extends StatelessWidget {
     required this.phoneNumber,
     required this.address,
     required this.onTap,
+    required this.isCustomer,
   });
   final String name;
   final String phoneNumber;
   final String address;
   final VoidCallback onTap;
+  final bool isCustomer;
   @override
   Widget build(BuildContext context) {
     final isDark = VHelperFunctions.isDarkMode(context);
@@ -26,7 +28,9 @@ class VSingleAddress extends StatelessWidget {
         width: double.infinity,
         showBorder: true,
         padding: const EdgeInsets.all(VSizes.md),
-        backgroundColor: VColors.primary.withValues(alpha: 0.3),
+        backgroundColor: isCustomer
+            ? VColors.primary.withValues(alpha: 0.3)
+            : VColors.secondary.withValues(alpha: 0.3),
         borderColor: isDark ? VColors.darkerGrey : VColors.grey,
         margin: const EdgeInsets.only(bottom: VSizes.spaceBtwItems),
         child: Column(

@@ -21,9 +21,9 @@ List<GoRoute> settingRoutes = [
         pageBuilder: (context, state) =>
             const MaterialPage(child: ProfileScreen()),
       ),
+
       // Customer Route
       ...customerRoute,
-
       // Supplier Route
       ...supplierRoute,
 

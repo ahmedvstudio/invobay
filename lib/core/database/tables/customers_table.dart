@@ -4,10 +4,11 @@ import 'package:drift/drift.dart';
 class Customers extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text().withLength(min: 1, max: 50)();
-  TextColumn get phoneNumber => text().withLength(min: 1, max: 15)();
-  TextColumn get street => text().withLength(min: 1, max: 100)();
-  TextColumn get postalCode => text().withLength(min: 1, max: 10)();
-  TextColumn get city => text().withLength(min: 1, max: 50)();
-  TextColumn get state => text().withLength(min: 1, max: 50)();
-  TextColumn get country => text().withLength(min: 1, max: 50)();
+  TextColumn? get phoneNumber =>
+      text().withLength(min: 1, max: 15).nullable()();
+  TextColumn? get street => text().withLength(min: 1, max: 100).nullable()();
+  TextColumn? get postalCode => text().withLength(min: 1, max: 10).nullable()();
+  TextColumn? get city => text().withLength(min: 1, max: 50).nullable()();
+  TextColumn? get state => text().withLength(min: 1, max: 50).nullable()();
+  TextColumn? get country => text().withLength(min: 1, max: 50).nullable()();
 }
