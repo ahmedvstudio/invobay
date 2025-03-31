@@ -44,21 +44,51 @@ class VCustomerAndClear extends StatelessWidget {
                           itemBuilder: (context, index) {
                             if (index < customers.length) {
                               final customer = customers[index];
+
+                              final customerComponents = [
+                                customer.street,
+                                customer.city,
+                                customer.state,
+                                customer.postalCode,
+                                customer.country,
+                              ];
+
+                              final address = customerComponents
+                                  .where((component) =>
+                                      component != null && component.isNotEmpty)
+                                  .join(', ');
+
                               return VRoundedContainer(
                                 backgroundColor:
                                     VColors.kPrimary.withValues(alpha: 0.2),
                                 child: ListTile(
                                   title: Text(customer.name),
-                                  onTap: () => context.pop(customer.name),
+                                  subtitle:
+                                      Text(address), // Display the address
+                                  onTap: () {
+                                    // Update customer details in providers
+                                    ref
+                                        .read(customerNameProvider.notifier)
+                                        .state = customer.name;
+                                    ref
+                                        .read(customerPhoneProvider.notifier)
+                                        .state = customer.phoneNumber ?? '';
+                                    ref
+                                        .read(customerAddressProvider.notifier)
+                                        .state = address; // Update the address
+
+                                    context.pop(customer.name);
+                                  },
                                 ),
                               );
                             } else {
                               return OutlinedButton(
-                                  onPressed: () async {
-                                    context.pop();
-                                    await addNewCustomerDialog(context, ref);
-                                  },
-                                  child: const Text('Add New Customer'));
+                                onPressed: () async {
+                                  context.pop();
+                                  await addNewCustomerDialog(context, ref);
+                                },
+                                child: const Text('Add New Customer'),
+                              );
                             }
                           },
                           separatorBuilder: (_, index) =>
@@ -75,6 +105,7 @@ class VCustomerAndClear extends StatelessWidget {
                   },
                 );
 
+                // If a new customer was selected, update the name provider
                 if (selectedCustomer != null && selectedCustomer.isNotEmpty) {
                   ref.read(customerNameProvider.notifier).state =
                       selectedCustomer;

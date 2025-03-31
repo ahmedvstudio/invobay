@@ -32,6 +32,5 @@ final subtotalPriceProvider = StateProvider<double>((ref) => 0.0);
 
 // --> Customer Details Provider
 final customerNameProvider = StateProvider<String>((ref) => 'Customer');
-final customerPhoneProvider = StateProvider<String>((ref) => '+91 9876543210');
-final customerAddressProvider =
-    StateProvider<String>((ref) => 'South Liana, Maine 04028');
+final customerPhoneProvider = StateProvider<String>((ref) => '');
+final customerAddressProvider = StateProvider<String>((ref) => '');
