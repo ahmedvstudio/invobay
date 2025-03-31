@@ -48,6 +48,7 @@ class SellScreen extends ConsumerWidget {
                   clearAllOnPressed: () =>
                       ref.read(sellNotifierProvider.notifier).clearCart(),
                 ),
+
                 const SizedBox(height: VSizes.spaceBtwItems),
               ],
             ),

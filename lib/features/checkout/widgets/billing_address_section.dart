@@ -30,69 +30,73 @@ class VBillingAddressSection extends ConsumerWidget {
           title: 'Shipping Address',
           buttonTitle: 'Change',
           onPressed: () async {
-            final selectedCustomer = await showDialog<String>(
+            final selectedCustomer = await showModalBottomSheet<String>(
               context: context,
               builder: (context) {
-                return AlertDialog(
-                  title: const Text('Select a Customer'),
-                  content: SizedBox(
-                    width: double.maxFinite,
-                    height: VDeviceUtils.getScreenHeight(context) * 0.5,
-                    child: ListView.separated(
-                      itemCount: customers.length,
-                      itemBuilder: (context, index) {
-                        final customer = customers[index];
+                return Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: VSizes.defaultSpace),
+                  height: VDeviceUtils.getScreenHeight(context) * 0.5,
+                  child: Column(
+                    children: [
+                      Text('Select a Customer',
+                          style: Theme.of(context).textTheme.headlineSmall),
+                      const SizedBox(height: VSizes.spaceBtwItems),
+                      Expanded(
+                        child: ListView.separated(
+                          itemCount: customers.length,
+                          itemBuilder: (context, index) {
+                            final customer = customers[index];
 
-                        // Construct the address from customer components
-                        final customerComponents = [
-                          customer.street,
-                          customer.city,
-                          customer.state,
-                          customer.postalCode,
-                          customer.country,
-                        ];
+                            // Construct the address from customer components
+                            final customerComponents = [
+                              customer.street,
+                              customer.city,
+                              customer.state,
+                              customer.postalCode,
+                              customer.country,
+                            ];
 
-                        final address = customerComponents
-                            .where((component) =>
-                                component != null && component.isNotEmpty)
-                            .join(', ');
+                            final address = customerComponents
+                                .where((component) =>
+                                    component != null && component.isNotEmpty)
+                                .join(', ');
 
-                        return VRoundedContainer(
-                          backgroundColor:
-                              VColors.kPrimary.withValues(alpha: 0.2),
-                          child: ListTile(
-                            title: Text(customer.name),
-                            subtitle: Text(address),
-                            onTap: () {
-                              // Update providers with selected customer details
-                              ref.read(customerNameProvider.notifier).state =
-                                  customer.name;
-                              ref.read(customerPhoneProvider.notifier).state =
-                                  customer.phoneNumber ?? '';
-                              ref.read(customerAddressProvider.notifier).state =
-                                  address;
+                            return VRoundedContainer(
+                              backgroundColor:
+                                  VColors.kPrimary.withValues(alpha: 0.2),
+                              child: ListTile(
+                                title: Text(customer.name),
+                                subtitle: Text(address),
+                                onTap: () {
+                                  // Update providers with selected customer details
+                                  ref
+                                      .read(customerNameProvider.notifier)
+                                      .state = customer.name;
+                                  ref
+                                      .read(customerPhoneProvider.notifier)
+                                      .state = customer.phoneNumber ?? '';
+                                  ref
+                                      .read(customerAddressProvider.notifier)
+                                      .state = address;
 
-                              context.pop(customer.name);
-                            },
-                          ),
-                        );
-                      },
-                      separatorBuilder: (_, index) =>
-                          const SizedBox(height: VSizes.spaceBtwItems / 2),
-                    ),
+                                  context.pop(customer.name);
+                                },
+                              ),
+                            );
+                          },
+                          separatorBuilder: (_, index) =>
+                              const SizedBox(height: VSizes.spaceBtwItems / 2),
+                        ),
+                      ),
+                    ],
                   ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => context.pop(),
-                      child: const Text('Cancel'),
-                    ),
-                  ],
                 );
               },
             );
 
             if (selectedCustomer != null && selectedCustomer.isNotEmpty) {
-              //perform any additional action here if needed
+              // Perform any additional action here if needed
             }
           },
         ),
@@ -116,7 +120,7 @@ class VBillingAddressSection extends ConsumerWidget {
           children: [
             const Icon(Icons.location_city, color: Colors.grey, size: 16),
             const SizedBox(width: VSizes.spaceBtwItems),
-            Expanded(
+            Flexible(
               child: Text(
                 customerAddress,
                 style: Theme.of(context).textTheme.bodyMedium,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/models/sell_model.dart';
 import 'package:invobay/features/checkout/widgets/billing_address_section.dart';
 import 'package:invobay/features/checkout/widgets/billing_amount_section.dart';
@@ -88,13 +89,22 @@ class SellCheckoutScreen extends ConsumerWidget {
             bottom: VSizes.defaultSpace,
             left: VSizes.defaultSpace,
             right: VSizes.defaultSpace),
-        child: ElevatedButton(
-          //TODO: add checkout button
-          onPressed: () {},
-          child: Consumer(builder: (context, ref, child) {
-            final total = ref.watch(totalAmountProvider);
-            return Text('Checkout $currencySign${total.toStringAsFixed(2)}');
-          }),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Consumer(builder: (context, ref, child) {
+              final total = ref.watch(totalAmountProvider);
+              return Flexible(
+                  child: Text('Total: $currencySign${total.toStringAsFixed(2)}',
+                      style: Theme.of(context).textTheme.headlineSmall));
+            }),
+            ElevatedButton.icon(
+              //TODO: add checkout button saving a receipt
+              icon: const Icon(Iconsax.shopping_cart5),
+              onPressed: () {},
+              label: const Text('Checkout'),
+            ),
+          ],
         ),
       ),
     );

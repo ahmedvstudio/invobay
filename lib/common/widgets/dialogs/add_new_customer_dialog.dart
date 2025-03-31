@@ -7,6 +7,7 @@ import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import '../../../core/database/app_database.dart';
 import '../../../core/providers/db_notifiers/app_providers.dart';
 import '../../../core/providers/default_providers.dart';
+import '../../../core/utils/constants/colors.dart';
 
 Future<void> addNewCustomerDialog(BuildContext context, WidgetRef ref) async {
   String? newCustomerName;
@@ -28,11 +29,18 @@ Future<void> addNewCustomerDialog(BuildContext context, WidgetRef ref) async {
             onPressed: () => context.pop(),
             child: const Text('Cancel'),
           ),
-          TextButton(
+          ElevatedButton(
             onPressed: () {
               if (input.isNotEmpty) {
                 newCustomerName = input;
                 context.pop();
+                VHelperFunctions.showToasty(
+                    message: 'Customer added successfully',
+                    backgroundColor: VColors.success);
+              } else {
+                VHelperFunctions.showToasty(
+                    message: 'Customer name cannot be empty',
+                    backgroundColor: VColors.error);
               }
             },
             child: const Text('Add'),

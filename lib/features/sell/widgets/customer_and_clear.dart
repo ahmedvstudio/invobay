@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
@@ -30,77 +31,92 @@ class VCustomerAndClear extends StatelessWidget {
 
             return TextButton(
               onPressed: () async {
-                final selectedCustomer = await showDialog<String>(
+                final selectedCustomer = await showModalBottomSheet<String>(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      title: const Text('Select or Add a Customer'),
-                      content: SizedBox(
-                        width: double.maxFinite,
-                        height: VDeviceUtils.getScreenHeight(context) * 0.5,
-                        child: ListView.separated(
-                          padding: EdgeInsets.zero,
-                          itemCount: customers.length + 1,
-                          itemBuilder: (context, index) {
-                            if (index < customers.length) {
-                              final customer = customers[index];
-
-                              final customerComponents = [
-                                customer.street,
-                                customer.city,
-                                customer.state,
-                                customer.postalCode,
-                                customer.country,
-                              ];
-
-                              final address = customerComponents
-                                  .where((component) =>
-                                      component != null && component.isNotEmpty)
-                                  .join(', ');
-
-                              return VRoundedContainer(
-                                backgroundColor:
-                                    VColors.kPrimary.withValues(alpha: 0.2),
-                                child: ListTile(
-                                  title: Text(customer.name),
-                                  subtitle:
-                                      Text(address), // Display the address
-                                  onTap: () {
-                                    // Update customer details in providers
-                                    ref
-                                        .read(customerNameProvider.notifier)
-                                        .state = customer.name;
-                                    ref
-                                        .read(customerPhoneProvider.notifier)
-                                        .state = customer.phoneNumber ?? '';
-                                    ref
-                                        .read(customerAddressProvider.notifier)
-                                        .state = address; // Update the address
-
-                                    context.pop(customer.name);
-                                  },
-                                ),
-                              );
-                            } else {
-                              return OutlinedButton(
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: VSizes.defaultSpace),
+                      height: VDeviceUtils.getScreenHeight(context) * 0.5,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Select a Customer',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
+                              IconButton(
                                 onPressed: () async {
                                   context.pop();
                                   await addNewCustomerDialog(context, ref);
+
+                                  ref
+                                      .read(customerPhoneProvider.notifier)
+                                      .state = '';
+                                  ref
+                                      .read(customerAddressProvider.notifier)
+                                      .state = '';
                                 },
-                                child: const Text('Add New Customer'),
-                              );
-                            }
-                          },
-                          separatorBuilder: (_, index) =>
-                              const SizedBox(height: VSizes.spaceBtwItems / 2),
-                        ),
+                                icon: const Icon(Iconsax.add_circle5),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: VSizes.spaceBtwItems),
+                          Expanded(
+                            child: ListView.separated(
+                              itemCount: customers.length,
+                              itemBuilder: (context, index) {
+                                if (index < customers.length) {
+                                  final customer = customers[index];
+
+                                  final customerComponents = [
+                                    customer.street,
+                                    customer.city,
+                                    customer.state,
+                                    customer.postalCode,
+                                    customer.country,
+                                  ];
+
+                                  final address = customerComponents
+                                      .where((component) =>
+                                          component != null &&
+                                          component.isNotEmpty)
+                                      .join(', ');
+
+                                  return VRoundedContainer(
+                                    backgroundColor:
+                                        VColors.kPrimary.withValues(alpha: 0.2),
+                                    child: ListTile(
+                                      title: Text(customer.name),
+                                      subtitle: Text(address),
+                                      onTap: () {
+                                        ref
+                                            .read(customerNameProvider.notifier)
+                                            .state = customer.name;
+                                        ref
+                                            .read(
+                                                customerPhoneProvider.notifier)
+                                            .state = customer.phoneNumber ?? '';
+                                        ref
+                                            .read(customerAddressProvider
+                                                .notifier)
+                                            .state = address;
+
+                                        context.pop(customer.name);
+                                      },
+                                    ),
+                                  );
+                                }
+                                return Container();
+                              },
+                              separatorBuilder: (_, index) => const SizedBox(
+                                  height: VSizes.spaceBtwItems / 2),
+                            ),
+                          ),
+                        ],
                       ),
-                      actions: [
-                        TextButton(
-                          onPressed: () => context.pop(),
-                          child: const Text('Cancel'),
-                        ),
-                      ],
                     );
                   },
                 );

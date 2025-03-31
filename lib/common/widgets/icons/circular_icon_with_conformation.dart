@@ -59,11 +59,15 @@ class VCircularIconWithConfirmation extends StatelessWidget {
               },
               child: const Text('No'),
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 onPressed();
                 context.pop();
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: VColors.error,
+                side: const BorderSide(color: Colors.transparent),
+              ),
               child: const Text('Yes'),
             ),
           ],

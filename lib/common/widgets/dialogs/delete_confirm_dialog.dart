@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/utils/constants/colors.dart';
+
 class VDeleteConfirmDialog extends StatelessWidget {
   const VDeleteConfirmDialog({
     super.key,
@@ -19,8 +21,12 @@ class VDeleteConfirmDialog extends StatelessWidget {
           onPressed: () => context.pop(false),
           child: const Text('Cancel'),
         ),
-        TextButton(
+        ElevatedButton(
           onPressed: () => context.pop(true),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: VColors.error,
+            side: const BorderSide(color: Colors.transparent),
+          ),
           child: const Text('Delete'),
         ),
       ],

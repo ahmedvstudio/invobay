@@ -20,8 +20,8 @@ final discountControllerProvider = Provider<TextEditingController>((ref) {
 final isCustomerProvider = StateProvider<bool>((ref) => true);
 
 // --> Shipping and Tax fees
-final shippingFeeProvider = StateProvider<double>((ref) => 0.6);
-final taxFeeProvider = StateProvider<double>((ref) => 5.0);
+final shippingFeeProvider = StateProvider<double>((ref) => 0.0);
+final taxFeeProvider = StateProvider<double>((ref) => 0.0);
 
 // --> Temporary Quantity Provider
 final addQuantityProvider = StateProvider.autoDispose<String>((ref) => '');
