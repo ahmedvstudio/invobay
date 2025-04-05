@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/models/sell_model.dart';
 import 'package:invobay/features/checkout/widgets/billing_address_section.dart';
@@ -9,8 +10,12 @@ import 'package:invobay/features/checkout/widgets/discount_code.dart';
 
 import '../../common/widgets/appbar/appbar.dart';
 import '../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../core/providers/db_notifiers/app_providers.dart';
 import '../../core/providers/default_providers.dart';
+import '../../core/providers/payment_provider.dart';
+import '../../core/providers/reset_default_providers.dart';
 import '../../core/providers/sell_related_providers/total_checkout_provider.dart';
+import '../../core/providers/sell_related_providers/update_subtotal_provider.dart';
 import '../../core/utils/constants/colors.dart';
 import '../../core/utils/constants/sizes.dart';
 import '../../core/utils/helpers/helper_functions.dart';
@@ -30,6 +35,12 @@ class SellCheckoutScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = VHelperFunctions.isDarkMode(context);
     final currencySign = ref.watch(currencySignProvider);
+    final selectedPayment = ref.watch(selectedPaymentProvider);
+    final discountController = ref.watch(discountControllerProvider);
+    final shippingFee = ref.watch(shippingFeeProvider);
+    final taxFee = ref.watch(taxFeeProvider);
+    final subtotal = ref.watch(discountedSubtotal);
+    final customerId = ref.watch(customerIDProvider);
 
     return Scaffold(
       appBar: const VAppBar(
@@ -99,9 +110,30 @@ class SellCheckoutScreen extends ConsumerWidget {
                       style: Theme.of(context).textTheme.headlineSmall));
             }),
             ElevatedButton.icon(
-              //TODO: add checkout button saving a receipt
               icon: const Icon(Iconsax.shopping_cart5),
-              onPressed: () {},
+              onPressed: () async {
+                final checkoutController = ref.read(sellCheckoutProvider);
+
+                await checkoutController.checkout(
+                  soldItems: soldItems,
+                  totalPrice: subtotal,
+                  discount: double.tryParse(discountController.text) ?? 0.00,
+                  shippingFee: shippingFee,
+                  taxFee: taxFee,
+                  paymentMethod: selectedPayment.name,
+                  customerId: customerId,
+                  ref: ref,
+                );
+                if (context.mounted) {
+                  VHelperFunctions.showSnackBar(
+                      context: context,
+                      message: 'Receipt Saved & Stock Updated!');
+                  // Reset default providers
+                  resetProviders(ref);
+
+                  context.pop(); // Close checkout screen after saving
+                }
+              },
               label: const Text('Checkout'),
             ),
           ],
