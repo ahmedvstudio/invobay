@@ -85,8 +85,12 @@ class VValidator {
     if (value == null || value.isEmpty) {
       return 'This field is required';
     }
-    if (int.tryParse(value) == null || int.tryParse(value)! > 100) {
+    if (double.tryParse(value) == null || double.tryParse(value)! > 100) {
       return 'Enter a valid number';
+    }
+    final RegExp decimalRegExp = RegExp(r'^\d+(\.\d{1,2})?$');
+    if (!decimalRegExp.hasMatch(value)) {
+      return 'Enter a number with up to 2 decimal places';
     }
 
     return null;

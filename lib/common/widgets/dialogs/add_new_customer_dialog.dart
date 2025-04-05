@@ -11,6 +11,7 @@ import '../../../core/utils/constants/colors.dart';
 
 Future<void> addNewCustomerDialog(BuildContext context, WidgetRef ref) async {
   String? newCustomerName;
+  final customerNotifier = ref.read(customerNotifierProvider.notifier);
 
   await showDialog<String>(
     context: context,
@@ -35,12 +36,14 @@ Future<void> addNewCustomerDialog(BuildContext context, WidgetRef ref) async {
                 newCustomerName = input;
                 context.pop();
                 VHelperFunctions.showToasty(
-                    message: 'Customer added successfully',
-                    backgroundColor: VColors.success);
+                  message: 'Customer added successfully',
+                  backgroundColor: VColors.success,
+                );
               } else {
                 VHelperFunctions.showToasty(
-                    message: 'Customer name cannot be empty',
-                    backgroundColor: VColors.error);
+                  message: 'Customer name cannot be empty',
+                  backgroundColor: VColors.error,
+                );
               }
             },
             child: const Text('Add'),
@@ -54,14 +57,23 @@ Future<void> addNewCustomerDialog(BuildContext context, WidgetRef ref) async {
     try {
       final newCustomer =
           CustomersCompanion(name: drift.Value(newCustomerName!));
-      await ref
-          .read(customerNotifierProvider.notifier)
-          .addCustomer(newCustomer);
+
+      // Add the customer and get the generated ID
+      final newCustomerId = await customerNotifier.addCustomer(newCustomer);
+
+      // Update the customer ID provider
+      ref.read(customerIDProvider.notifier).state = newCustomerId;
+
+      // Reset other customer details
       ref.read(customerNameProvider.notifier).state = newCustomerName!;
+      ref.read(customerPhoneProvider.notifier).state = '';
+      ref.read(customerAddressProvider.notifier).state = '';
     } catch (e) {
       if (!context.mounted) return;
       VHelperFunctions.showSnackBar(
-          context: context, message: 'Error adding customer: ${e.toString()}');
+        context: context,
+        message: 'Error adding customer: ${e.toString()}',
+      );
     }
   }
 }

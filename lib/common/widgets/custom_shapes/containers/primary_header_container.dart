@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/providers/default_providers.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../curved_edges/curved_edges_widget.dart';
 import 'circular_container.dart';
 
-class VPrimaryHeaderContainer extends StatelessWidget {
+class VPrimaryHeaderContainer extends ConsumerWidget {
   const VPrimaryHeaderContainer({
     super.key,
     required this.child,
   });
+
   final Widget child;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final backgroundColor = ref.watch(appbarColorProvider.notifier).state;
     return VCurvedEdgesWidget(
       child: Container(
-        color: VColors.kPrimary,
+        color: backgroundColor,
         padding: const EdgeInsets.all(0),
         child: Stack(
           children: [

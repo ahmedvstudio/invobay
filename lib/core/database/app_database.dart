@@ -13,7 +13,15 @@ import 'tables/items_table.dart';
 part 'app_database.g.dart';
 
 @DriftDatabase(
-    tables: [Items, SellReceipts, SellReceiptItems, Customers, Suppliers])
+  tables: [
+    Items,
+    SellReceipts,
+    SellReceiptItems,
+    Customers,
+    Suppliers,
+    SellPayments
+  ],
+)
 class AppDatabase extends _$AppDatabase {
   // Private constructor
   AppDatabase._() : super(_openConnection());

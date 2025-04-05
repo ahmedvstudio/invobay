@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/constants/colors.dart';
+
+// --> AppBar Color Provider
+final appbarColorProvider = StateProvider<Color>((ref) {
+  return VColors.kPrimary;
+});
 
 // --> Receipts Navigation Provider
 final receiptsNavigationProvider = StateProvider<int>((ref) {
@@ -12,7 +18,8 @@ final currencySignProvider = StateProvider<String>((ref) => '\$');
 // --> Discount Provider
 final discountProvider = StateProvider<double>((ref) => 0.0);
 final discountAppliedProvider = StateProvider<bool>((ref) => false);
-final discountControllerProvider = Provider<TextEditingController>((ref) {
+final discountControllerProvider =
+    Provider.autoDispose<TextEditingController>((ref) {
   return TextEditingController();
 });
 
@@ -31,6 +38,7 @@ final quantityProvider = StateProvider.autoDispose<String>((ref) => '');
 final subtotalPriceProvider = StateProvider<double>((ref) => 0.0);
 
 // --> Customer Details Provider
-final customerNameProvider = StateProvider<String>((ref) => 'Customer');
+final customerNameProvider = StateProvider<String>((ref) => '');
+final customerIDProvider = StateProvider<int>((ref) => 0);
 final customerPhoneProvider = StateProvider<String>((ref) => '');
 final customerAddressProvider = StateProvider<String>((ref) => '');

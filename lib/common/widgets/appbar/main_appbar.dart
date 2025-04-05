@@ -12,12 +12,13 @@ class VMainAppBar extends StatelessWidget {
     required this.title,
     this.appbarIcon = CupertinoIcons.plus,
     this.showAppbarIcon = true,
+    this.textColor = VColors.white,
   });
   final VoidCallback? onPressed;
   final String title;
   final bool showAppbarIcon;
   final IconData appbarIcon;
-
+  final Color textColor;
   @override
   Widget build(BuildContext context) {
     return VAppBar(
@@ -25,7 +26,7 @@ class VMainAppBar extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headlineMedium!
-              .apply(color: VColors.white)),
+              .apply(color: textColor)),
       actions: [
         VAppBarIcon(
           badge: false,

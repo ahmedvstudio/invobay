@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/features/checkout/sell_checkout_screen.dart';
 
+import '../../../features/receipts/sell_receipts/sell_receipt_detail_screen.dart';
 import '../../../features/sell/sell_screen.dart';
 import '../../models/sell_model.dart';
 import '../router_constant.dart';
@@ -29,6 +30,16 @@ List<GoRoute> salesRoutes = [
             ),
           );
         },
+        routes: [
+          GoRoute(
+            name: VRouter.sellReceiptsDetails,
+            path: '/sellReceiptsDetails/:id',
+            builder: (context, state) {
+              final id = int.parse(state.pathParameters['id']!);
+              return SellReceiptDetailScreen(receiptId: id);
+            },
+          ),
+        ],
       ),
     ],
   ),

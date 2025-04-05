@@ -28,7 +28,7 @@ class VDiscountCode extends ConsumerWidget {
         padding: const EdgeInsets.only(
             top: VSizes.sm,
             bottom: VSizes.sm,
-            left: VSizes.sm,
+            left: VSizes.md,
             right: VSizes.sm),
         child: Row(
           children: [
@@ -42,9 +42,11 @@ class VDiscountCode extends ConsumerWidget {
                   enabledBorder: InputBorder.none,
                   errorBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
+                  prefixText: "% ",
                 ),
                 keyboardType: TextInputType.number,
                 validator: VValidator.validateDiscountNumber,
+                enabled: !discountApplied,
               ),
             ),
 
@@ -75,12 +77,9 @@ class VDiscountCode extends ConsumerWidget {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: isDark
-                      ? VColors.white.withValues(alpha: 0.5)
-                      : VColors.dark.withValues(alpha: 0.5),
-                  backgroundColor: discountApplied
-                      ? VColors.kPrimary.withValues(alpha: 0.2)
-                      : VColors.darkGrey.withValues(alpha: 0.2),
+                  foregroundColor: VColors.white,
+                  backgroundColor:
+                      discountApplied ? VColors.error : VColors.success,
                   side: BorderSide(
                     color: VColors.darkerGrey.withValues(alpha: 0.1),
                   ),

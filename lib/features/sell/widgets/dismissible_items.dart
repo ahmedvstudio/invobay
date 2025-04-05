@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:invobay/features/sell/widgets/sell_items.dart';
 
+import '../../../common/widgets/custom_shapes/dismissible/delete_background.dart';
 import '../../../common/widgets/text/item_price_text.dart';
 import '../../../core/models/sell_model.dart';
 import '../../../core/providers/default_providers.dart';
@@ -30,35 +30,11 @@ class DismissibleItems extends ConsumerWidget {
       key: Key(sellItem.item.id.toString()),
       direction:
           isCheckout ? DismissDirection.none : DismissDirection.endToStart,
-      background: _buildDismissBackground(),
+      background: dismissDeleteBackground(),
       onDismissed: (direction) {
         _handleItemDismiss(context, sellItem, sellNotifier);
       },
       child: SellItemDetails(sellItem: sellItem, isCheckout: isCheckout),
-    );
-  }
-
-  /// Builds the background UI when swiping to delete
-  Widget _buildDismissBackground() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(VSizes.borderRadiusMd),
-      child: Container(
-        decoration: BoxDecoration(
-          color: VColors.error,
-          borderRadius: BorderRadius.circular(VSizes.borderRadiusMd),
-        ),
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.symmetric(horizontal: VSizes.defaultSpace),
-        child: TweenAnimationBuilder<double>(
-          tween: Tween<double>(begin: 0, end: 1),
-          duration: const Duration(milliseconds: 300),
-          builder: (context, opacity, child) {
-            return Opacity(opacity: opacity, child: child);
-          },
-          child: const Icon(Iconsax.trash,
-              color: VColors.white, size: VSizes.iconLg),
-        ),
-      ),
     );
   }
 

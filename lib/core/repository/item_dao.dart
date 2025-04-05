@@ -60,4 +60,18 @@ class ItemDao {
     // Return a map with the existence of the item by name and barcode
     return {'name': nameExists, 'barcode': barcodeExists};
   }
+
+  Future<void> reduceStockQuantity(int itemId, double quantitySold) async {
+    // Fetch current stock quantity
+    final item = await getItemById(itemId);
+
+    if (item != null && item.quantity >= quantitySold) {
+      // Update stock quantity
+      await (db.update(db.items)..where((tbl) => tbl.id.equals(itemId))).write(
+        ItemsCompanion(
+          quantity: drift.Value(item.quantity - quantitySold),
+        ),
+      );
+    }
+  }
 }

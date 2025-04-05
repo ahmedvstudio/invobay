@@ -51,13 +51,6 @@ class VCustomerAndClear extends StatelessWidget {
                                 onPressed: () async {
                                   context.pop();
                                   await addNewCustomerDialog(context, ref);
-
-                                  ref
-                                      .read(customerPhoneProvider.notifier)
-                                      .state = '';
-                                  ref
-                                      .read(customerAddressProvider.notifier)
-                                      .state = '';
                                 },
                                 icon: const Icon(Iconsax.add_circle5),
                               )
@@ -103,7 +96,9 @@ class VCustomerAndClear extends StatelessWidget {
                                             .read(customerAddressProvider
                                                 .notifier)
                                             .state = address;
-
+                                        ref
+                                            .read(customerIDProvider.notifier)
+                                            .state = customer.id;
                                         context.pop(customer.name);
                                       },
                                     ),

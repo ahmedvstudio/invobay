@@ -13,8 +13,7 @@ class CustomerNotifier extends StateNotifier<List<CustomerData>> {
     state = customers; // Load customers from the database
   }
 
-  Future<void> addCustomer(CustomersCompanion customerCompanion) async {
-    // Check if customer with the same name exists
+  Future<int> addCustomer(CustomersCompanion customerCompanion) async {
     final existenceMap = await customerDao.checkCustomerExistence(
         customerCompanion.name.value, null);
 
@@ -22,13 +21,16 @@ class CustomerNotifier extends StateNotifier<List<CustomerData>> {
       throw Exception("Customer with this name already exists.");
     }
 
-    // Insert the customer and get the newly created CustomerData
+    // Insert customer and get the new ID
     final id = await customerDao.insertCustomer(customerCompanion);
-    // Load the customer data after insertion
+
+    // Load the newly created customer data
     final newCustomer = await customerDao.getCustomerById(id);
     if (newCustomer != null) {
-      state = [...state, newCustomer]; // Update the state with the new customer
+      state = [...state, newCustomer]; // Update state with the new customer
     }
+
+    return id; // Return the newly created customer ID
   }
 
   Future<void> updateCustomer(CustomersCompanion updatedCustomer) async {

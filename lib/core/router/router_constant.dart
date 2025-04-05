@@ -21,14 +21,15 @@ class VRouter {
   // - Sell
   static const String sell = 'sell';
   static const String sellCheckout = 'sellCheckout';
-  static const String buyCheckout = 'buyCheckout';
-  static const String returnCheckout = 'returnCheckout';
+  static const String sellReceipts = 'sellReceipts';
+  static const String sellReceiptsDetails = 'sellReceiptsDetails';
 
   // - Receipts
   static const String receipts = 'receipts';
-  static const String sellReceipts = 'sellReceipts';
   static const String buyReceipts = 'buyReceipts';
   static const String returnReceipts = 'returnReceipts';
+  static const String buyCheckout = 'buyCheckout';
+  static const String returnCheckout = 'returnCheckout';
 
   // - Settings
   static const String settings = 'settings';
