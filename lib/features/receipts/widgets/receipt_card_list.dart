@@ -6,11 +6,11 @@ import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/helpers/helper_functions.dart';
 
-class VReceiptItemsList extends StatelessWidget {
+class VReceiptCardList extends StatelessWidget {
   final List<Map<String, String>> items;
   final void Function(String) onTap;
 
-  const VReceiptItemsList({
+  const VReceiptCardList({
     super.key,
     required this.items,
     required this.onTap,
@@ -38,7 +38,7 @@ class VReceiptItemsList extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Iconsax.ship),
+                  const Icon(Iconsax.calendar),
                   const SizedBox(width: VSizes.spaceBtwItems / 2),
                   Expanded(
                     child: Column(
@@ -53,7 +53,7 @@ class VReceiptItemsList extends StatelessWidget {
                               .apply(color: VColors.primary, fontSizeDelta: 1),
                         ),
                         Text(
-                          item['date'] ?? '07 Jan 2025',
+                          item['date'] ?? '## ### ####',
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ],
@@ -86,7 +86,7 @@ class VReceiptItemsList extends StatelessWidget {
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                               Text(
-                                item['receiptId'] ?? '[#12345]',
+                                item['receiptId'] ?? '[####]',
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ],
@@ -98,7 +98,7 @@ class VReceiptItemsList extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        const Icon(Iconsax.calendar),
+                        const Icon(Iconsax.dollar_square),
                         const SizedBox(width: VSizes.spaceBtwItems / 2),
                         Expanded(
                           child: Column(

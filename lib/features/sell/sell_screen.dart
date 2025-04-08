@@ -20,8 +20,6 @@ class SellScreen extends ConsumerWidget {
 
   final TextEditingController _searchController = TextEditingController();
 
-// Calculate total price
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final sellItems = ref.watch(sellNotifierProvider);

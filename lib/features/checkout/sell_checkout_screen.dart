@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,7 +9,7 @@ import 'package:invobay/features/checkout/widgets/billing_amount_section.dart';
 import 'package:invobay/features/checkout/widgets/billing_payment_section.dart';
 import 'package:invobay/features/checkout/widgets/discount_code.dart';
 
-import '../../common/widgets/appbar/appbar.dart';
+import '../../common/widgets/appbar/custom_appbar.dart';
 import '../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../core/providers/db_notifiers/app_providers.dart';
 import '../../core/providers/default_providers.dart';
@@ -43,13 +44,22 @@ class SellCheckoutScreen extends ConsumerWidget {
     final customerId = ref.watch(customerIDProvider);
 
     return Scaffold(
-      appBar: const VAppBar(
-        title: Text('Checkout Review'),
-        showBackArrow: true,
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            VCustomAppBar(
+              text: 'Checkout Review',
+              showBackArrow: false,
+              actions: [
+                IconButton(
+                  onPressed: () => context.pop(),
+                  icon: const Icon(
+                    CupertinoIcons.xmark,
+                    color: VColors.white,
+                  ),
+                )
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.all(VSizes.defaultSpace),
               child: Column(
@@ -125,13 +135,13 @@ class SellCheckoutScreen extends ConsumerWidget {
                   ref: ref,
                 );
                 if (context.mounted) {
-                  VHelperFunctions.showSnackBar(
-                      context: context,
-                      message: 'Receipt Saved & Stock Updated!');
+                  VHelperFunctions.showToasty(
+                      message: 'Receipt Saved Successfully!',
+                      backgroundColor: VColors.success);
                   // Reset default providers
                   resetProviders(ref);
 
-                  context.pop(); // Close checkout screen after saving
+                  context.pop();
                 }
               },
               label: const Text('Checkout'),

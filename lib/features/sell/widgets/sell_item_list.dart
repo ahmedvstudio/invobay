@@ -5,7 +5,7 @@ import '../../../core/providers/db_notifiers/app_providers.dart';
 import 'quantity_input_dialog.dart';
 import '../../../core/providers/default_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
-import 'dismissible_items.dart';
+import 'dismissible_sell_items.dart';
 
 class SellItemList extends ConsumerWidget {
   const SellItemList({
@@ -43,7 +43,7 @@ class SellItemList extends ConsumerWidget {
                     ),
                   );
                 },
-          child: DismissibleItems(
+          child: DismissibleSellItems(
             sellItem: sellItem,
             sellNotifier: sellNotifier,
             isCheckout: isCheckout,

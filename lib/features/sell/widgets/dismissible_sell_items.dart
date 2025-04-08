@@ -12,8 +12,8 @@ import '../../../core/utils/constants/sizes.dart';
 import '../../item_details/widgets/meta_data_section.dart';
 import 'item_quantity_with_edit.dart';
 
-class DismissibleItems extends ConsumerWidget {
-  const DismissibleItems({
+class DismissibleSellItems extends ConsumerWidget {
+  const DismissibleSellItems({
     super.key,
     required this.sellItem,
     required this.sellNotifier,
@@ -83,7 +83,7 @@ class SellItemDetails extends ConsumerWidget {
 
     return Column(
       children: [
-        VSellItem(item: sellItem.item),
+        VSellItem(itemName: sellItem.item.name),
         const SizedBox(height: VSizes.spaceBtwItems / 2),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

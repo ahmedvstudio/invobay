@@ -24,7 +24,7 @@ Widget dismissReturnBackground() {
           children: [
             Icon(Iconsax.box_add, color: VColors.white, size: VSizes.iconLg),
             SizedBox(width: VSizes.spaceBtwItems),
-            Text('Return to Stock'),
+            Text('Return to Stock', style: TextStyle(color: VColors.white)),
           ],
         ),
       ),
