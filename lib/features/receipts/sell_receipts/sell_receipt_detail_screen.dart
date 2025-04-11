@@ -11,6 +11,7 @@ import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_receipt_detail_provider.dart';
+import '../../../core/services/arabic_receipt_printing.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../widgets/receipt_item.dart';
 import '../widgets/receipt_bottom_edit.dart';
@@ -141,7 +142,19 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                   ? VColors.warning
                   : VColors.success,
               //TODO handle printing
-              printReceipt: () {},
+              printReceipt: () {
+                ArabicReceiptPrinter.printReceipt(
+                  context: context,
+                  items:
+                      receiptDetails.items, // assuming you have SellItem list
+                  totalPrice: receiptDetails.receipt.totalPrice,
+                  customerName:
+                      'اسم العميل', // You can load customer's real name
+                  title: 'فاتورة البيع', // Arabic title if you want
+                  footerNote: 'شكراً لتسوقكم معنا ❤️',
+                );
+              },
+
               deleteReceipt: () async {
                 final confirmed = await showDialog<bool>(
                   context: context,
