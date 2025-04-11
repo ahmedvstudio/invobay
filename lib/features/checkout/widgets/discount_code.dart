@@ -12,7 +12,7 @@ class VDiscountCode extends ConsumerWidget {
   VDiscountCode({
     super.key,
   });
-  final _formKey3 = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,7 +21,7 @@ class VDiscountCode extends ConsumerWidget {
     final discountController = ref.watch(discountControllerProvider);
 
     return Form(
-      key: _formKey3,
+      key: _formKey,
       child: VRoundedContainer(
         showBorder: true,
         backgroundColor: isDark ? VColors.dark : VColors.white,
@@ -55,7 +55,7 @@ class VDiscountCode extends ConsumerWidget {
               width: 80,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_formKey3.currentState!.validate()) {
+                  if (_formKey.currentState!.validate()) {
                     final discount =
                         double.tryParse(discountController.text) ?? 0.0;
                     final discountNotifier =

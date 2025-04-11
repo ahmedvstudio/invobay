@@ -79,7 +79,8 @@ class VBillingAddressSection extends ConsumerWidget {
                                   ref
                                       .read(customerAddressProvider.notifier)
                                       .state = address;
-
+                                  ref.read(customerIDProvider.notifier).state =
+                                      customer.id;
                                   context.pop(customer.name);
                                 },
                               ),

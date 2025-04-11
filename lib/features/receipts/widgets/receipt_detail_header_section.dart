@@ -17,6 +17,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
     required this.receiptTaxFee,
     required this.receiptPersonId,
     required this.receiptId,
+    required this.paymentMethod,
   });
   final DateTime receiptDate;
   final double receiptDiscount;
@@ -24,6 +25,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
   final double receiptTaxFee;
   final int receiptPersonId;
   final int receiptId;
+  final String paymentMethod;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,8 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
-          const SizedBox(height: VSizes.spaceBtwItems / 2),
+          if (receiptDiscount != 0)
+            const SizedBox(height: VSizes.spaceBtwItems / 2),
           if (receiptDiscount != 0)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,7 +69,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
-          if (receiptDiscount != 0)
+          if (receiptShippingFee != 0)
             const SizedBox(height: VSizes.spaceBtwItems / 2),
           if (receiptShippingFee != 0)
             Row(
@@ -78,7 +81,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
-          if (receiptShippingFee != 0)
+          if (receiptTaxFee != 0)
             const SizedBox(height: VSizes.spaceBtwItems / 2),
           if (receiptTaxFee != 0)
             Row(
@@ -89,7 +92,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
-          if (receiptTaxFee != 0)
+          if (receiptPersonId != 0)
             const SizedBox(height: VSizes.spaceBtwItems / 2),
           if (receiptPersonId != 0)
             Row(
@@ -114,6 +117,17 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                 ),
               ],
             ),
+          const SizedBox(height: VSizes.spaceBtwItems / 2),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Payment Method",
+                  style: Theme.of(context).textTheme.bodyMedium),
+              Text(paymentMethod,
+                  style: Theme.of(context).textTheme.bodyMedium),
+            ],
+          ),
         ],
       ),
     );

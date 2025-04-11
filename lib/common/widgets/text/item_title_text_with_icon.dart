@@ -25,7 +25,10 @@ class VItemTitleTextWithIcon extends StatelessWidget {
         CircleAvatar(
           radius: VSizes.iconSm,
           backgroundColor: VColors.kPrimary,
-          child: Text(title[0]),
+          child: Text(
+            title[0],
+            style: const TextStyle(color: VColors.white),
+          ),
         ),
         const SizedBox(width: VSizes.sm),
         Flexible(

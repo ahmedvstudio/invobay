@@ -57,11 +57,7 @@ class VItemMetaData extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // title
-        const VSectionHeading(
-          title: 'Name:',
-          showActionButton: false,
-          textUnderline: true,
-        ),
+        const VSectionHeading(title: 'Name:', showActionButton: false),
         const SizedBox(height: VSizes.spaceBtwItems / 2),
 
         VItemTitleText(title: title, maxLines: 2),
@@ -70,11 +66,7 @@ class VItemMetaData extends ConsumerWidget {
         const SizedBox(height: VSizes.spaceBtwItems),
 
         // - Details
-        const VSectionHeading(
-          title: 'Details:',
-          showActionButton: false,
-          textUnderline: true,
-        ),
+        const VSectionHeading(title: 'Details:', showActionButton: false),
         const SizedBox(height: VSizes.spaceBtwItems),
 
         // - In Stock
@@ -93,7 +85,7 @@ class VItemMetaData extends ConsumerWidget {
               ),
             ),
             VMetaDataSection(
-              tag: itemUnit ?? 'Unit',
+              tag: itemUnit ?? '',
               tagBackgroundColor: VColors.info,
               tagTextColor: VColors.white,
               showChild: false,
@@ -102,8 +94,8 @@ class VItemMetaData extends ConsumerWidget {
             ),
           ],
         ),
-
         const SizedBox(height: VSizes.spaceBtwItems),
+
         // - Buy Price
         VMetaDataSection(
           tag: 'Buy',
@@ -126,22 +118,22 @@ class VItemMetaData extends ConsumerWidget {
         const SizedBox(height: VSizes.spaceBtwItems),
         VMetaDataSection(
           tag: 'Barcode',
+          tagBackgroundColor: VColors.info,
+          tagTextColor: VColors.white,
           icon: Iconsax.barcode,
-          child: Text(
-            barcode ?? 'Enter barcode',
-            style: Theme.of(context)
-                .textTheme
-                .titleSmall!
-                .copyWith(decoration: TextDecoration.underline, fontSize: 14),
-          ),
+          child:
+              Text(barcode ?? '', style: Theme.of(context).textTheme.bodyLarge),
         ),
 
         const SizedBox(height: VSizes.spaceBtwItems),
         VMetaDataSection(
-          showTag: false,
+          showTag: true,
+          tag: 'Supplier',
+          tagBackgroundColor: VColors.info,
+          tagTextColor: VColors.white,
           icon: Iconsax.user_tag,
           child: VBrandTitleTextWithVerificationIcon(
-              title: supplier ?? 'Supplier', brandTextSizes: TextSizes.medium),
+              title: supplier ?? '', brandTextSizes: TextSizes.medium),
         ),
       ],
     );

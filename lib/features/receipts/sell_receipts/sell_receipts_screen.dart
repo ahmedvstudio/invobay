@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/providers/default_providers.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:intl/intl.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/receipts/widgets/receipt_card_list.dart';
 
 import '../../../core/providers/sell_related_providers/sell_receipts_provider.dart';
@@ -40,9 +41,9 @@ class SellReceiptsScreen extends ConsumerWidget {
                 final items = receipts.map((receipt) {
                   return {
                     'id': receipt.id.toString(),
-                    'paymentMethod': receipt.paymentMethod,
+                    'paymentStatus': receipt.paymentStatus,
                     'date': DateFormat.yMMMd().format(receipt.date),
-                    'receiptId': '[#${receipt.id}]',
+                    'receiptId': VHelperFunctions.receiptNo(receipt.id),
                     'total': '$currencySign ${receipt.totalPrice}',
                   };
                 }).toList();

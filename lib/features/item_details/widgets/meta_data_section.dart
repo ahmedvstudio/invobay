@@ -11,7 +11,7 @@ class VMetaDataSection extends StatelessWidget {
     required this.child,
     this.tag,
     this.icon = Iconsax.box,
-    this.iconColor = VColors.kPrimary,
+    this.iconColor = VColors.primary,
     this.tagBackgroundColor = VColors.kSecondary,
     this.tagTextColor = VColors.black,
     this.showTag = true,
@@ -32,8 +32,6 @@ class VMetaDataSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (showIcon) Icon(icon, size: VSizes.iconLg, color: iconColor),
-        const SizedBox(width: VSizes.spaceBtwItems / 4),
         if (showTag)
           VRoundedContainer(
             radius: VSizes.sm,
@@ -42,12 +40,19 @@ class VMetaDataSection extends StatelessWidget {
               horizontal: VSizes.sm,
               vertical: VSizes.xs,
             ),
-            child: Text(
-              tag!,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelLarge!
-                  .apply(color: tagTextColor),
+            child: Row(
+              children: [
+                if (showIcon)
+                  Icon(icon, color: tagTextColor, size: VSizes.iconSd),
+                if (showIcon) const SizedBox(width: VSizes.spaceBtwItems / 2),
+                Text(
+                  tag!,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .apply(color: tagTextColor),
+                ),
+              ],
             ),
           ),
         if (showTag) const SizedBox(width: VSizes.spaceBtwItems),

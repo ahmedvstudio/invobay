@@ -45,6 +45,7 @@ class DismissibleSellItems extends ConsumerWidget {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        behavior: SnackBarBehavior.floating,
         showCloseIcon: true,
         closeIconColor: VColors.white,
         dismissDirection: DismissDirection.down,

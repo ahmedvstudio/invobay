@@ -7,7 +7,6 @@ class SellReceipts extends Table {
   IntColumn get customerId => integer()
       .customConstraint('REFERENCES customers(id) ON DELETE SET NULL')
       .nullable()();
-  TextColumn get paymentMethod => text()();
   RealColumn get subTotalPrice => real()();
   RealColumn get discount => real().withDefault(const Constant(0.00))();
   RealColumn get shippingFee => real().withDefault(const Constant(0.00))();
@@ -32,7 +31,8 @@ class SellPayments extends Table {
   IntColumn get receiptId => integer()
       .customConstraint('REFERENCES sellReceipts(id) ON DELETE CASCADE')();
   TextColumn get paymentMethod => text()();
-  RealColumn get amount => real()();
+  RealColumn get paidAmount => real()();
+  RealColumn get debtAmount => real()();
   DateTimeColumn get paymentDate =>
       dateTime().withDefault(currentDateAndTime)();
   TextColumn get status => text().withDefault(const Constant('Completed'))();

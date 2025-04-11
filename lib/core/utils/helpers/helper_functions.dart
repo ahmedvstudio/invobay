@@ -47,6 +47,7 @@ class VHelperFunctions {
       Color closeIconColor = VColors.white,
       bool showCloseIcon = false}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
       showCloseIcon: showCloseIcon,
       closeIconColor: closeIconColor,
       content: Text(
@@ -125,5 +126,9 @@ class VHelperFunctions {
       controller.text =
           result.rawContent; // Update the controller with the scanned code
     }
+  }
+
+  static String receiptNo(int id) {
+    return '[#${id.toString().padLeft(4, '0')}]';
   }
 }

@@ -8,10 +8,10 @@ import '../../../core/utils/constants/sizes.dart';
 class VReceiptBottomEdit extends StatelessWidget {
   const VReceiptBottomEdit({
     super.key,
-    required this.addItem,
+    required this.changePayment,
     required this.deleteReceipt,
   });
-  final VoidCallback addItem;
+  final VoidCallback changePayment;
   final VoidCallback deleteReceipt;
 
   @override
@@ -28,7 +28,8 @@ class VReceiptBottomEdit extends StatelessWidget {
             color: VColors.white,
             onPressed: deleteReceipt,
           ),
-          ElevatedButton(onPressed: addItem, child: const Text('Add Item')),
+          OutlinedButton(
+              onPressed: changePayment, child: const Text('Payment Status')),
         ],
       ),
     );

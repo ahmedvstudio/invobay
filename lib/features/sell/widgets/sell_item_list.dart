@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers/db_notifiers/app_providers.dart';
-import 'quantity_input_dialog.dart';
+import '../../../common/widgets/dialogs/quantity_input_dialog.dart';
 import '../../../core/providers/default_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 import 'dismissible_sell_items.dart';

@@ -23,6 +23,12 @@ final discountControllerProvider =
   return TextEditingController();
 });
 
+// -->
+final paidAmountControllerProvider =
+    Provider.autoDispose<TextEditingController>((ref) {
+  return TextEditingController();
+});
+
 // --> Customer Or Supplier Provider
 final isCustomerProvider = StateProvider<bool>((ref) => true);
 

@@ -46,11 +46,13 @@ class VReceiptCardList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          item['paymentMethod'] ?? 'Cash',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .apply(color: VColors.primary, fontSizeDelta: 1),
+                          item['paymentStatus'] ?? 'Unknown',
+                          style: Theme.of(context).textTheme.bodyLarge!.apply(
+                                color: item['paymentStatus'] == 'Completed'
+                                    ? VColors.primary
+                                    : VColors.error,
+                                fontSizeDelta: 1,
+                              ),
                         ),
                         Text(
                           item['date'] ?? '## ### ####',

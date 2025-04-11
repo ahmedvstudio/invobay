@@ -7,12 +7,13 @@ import '../../../core/utils/helpers/helper_functions.dart';
 import '../../styles/spacing_style.dart';
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen(
-      {super.key,
-      required this.image,
-      required this.title,
-      required this.subTitle,
-      required this.onPressed});
+  const SuccessScreen({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.subTitle,
+    required this.onPressed,
+  });
   final String image, title, subTitle;
   final VoidCallback onPressed;
   @override
@@ -48,7 +49,9 @@ class SuccessScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: onPressed, child: const Text(VText.vContinue)),
+                  onPressed: onPressed,
+                  child: const Text(VText.vContinue),
+                ),
               ),
             ],
           ),

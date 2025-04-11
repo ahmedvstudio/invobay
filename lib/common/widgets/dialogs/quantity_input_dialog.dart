@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
@@ -24,6 +25,10 @@ class VQuantityInputDialog extends ConsumerWidget {
       title: const Text('Enter Quantity'),
       content: TextField(
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(
+              r'^\d*\.?\d{0,2}')), // Allow numbers with up to two decimal places
+        ],
         decoration: const InputDecoration(hintText: 'Enter quantity'),
         onChanged: (value) => quantityState.state = value,
       ),

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/features/item_details/widgets/bottom_edits.dart';
 import 'package:invobay/features/item_details/widgets/item_meta_data.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/widgets/appbar/custom_appbar.dart';
+import '../../common/widgets/dialogs/more_item_info_dialog.dart';
 import '../../common/widgets/text/section_heading.dart';
 import '../../core/providers/db_notifiers/app_providers.dart';
+import '../../core/providers/default_providers.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/sizes.dart';
 
@@ -37,6 +41,8 @@ class ItemDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final currencySign = ref.watch(currencySignProvider);
+
     return Scaffold(
       bottomNavigationBar: VBottomEdits(
         onEdit: (context, itemId) {
@@ -52,8 +58,28 @@ class ItemDetailsScreen extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const VCustomAppBar(
+            VCustomAppBar(
               text: 'Item Details',
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return VMoreItemInfoDialog(
+                            currencySign: currencySign,
+                            buyPrice: buyPrice,
+                            stock: stock,
+                            sellPrice: sellPrice,
+                          );
+                        });
+                  },
+                  icon: const Icon(
+                    Iconsax.information,
+                    color: VColors.white,
+                  ),
+                )
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -76,13 +102,10 @@ class ItemDetailsScreen extends ConsumerWidget {
                   const Divider(),
                   const SizedBox(height: VSizes.spaceBtwItems),
                   const VSectionHeading(
-                    title: 'Description:',
-                    showActionButton: false,
-                    textUnderline: true,
-                  ),
+                      title: 'Description:', showActionButton: false),
                   const SizedBox(height: VSizes.spaceBtwItems),
                   ReadMoreText(
-                    description!,
+                    description ?? '',
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: ' Show more',

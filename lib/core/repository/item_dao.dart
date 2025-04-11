@@ -74,4 +74,28 @@ class ItemDao {
       );
     }
   }
+
+  Future<void> increaseStockQuantity(
+      int itemId, double quantityReturned) async {
+    // Fetch current stock quantity
+    final item = await getItemById(itemId);
+
+    if (item != null && item.quantity >= quantityReturned) {
+      // Update stock quantity
+      await (db.update(db.items)..where((tbl) => tbl.id.equals(itemId))).write(
+        ItemsCompanion(
+          quantity: drift.Value(item.quantity + quantityReturned),
+        ),
+      );
+    }
+  }
+
+  Future<Item?> getItemByBarcode(String barcode) async {
+    final result = await (db.select(db.items)
+          ..where((tbl) => tbl.barcode.equals(barcode)))
+        .get();
+    return result.isNotEmpty
+        ? result.first
+        : null; // Return the first item or null
+  }
 }

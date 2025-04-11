@@ -93,4 +93,11 @@ class ItemNotifier extends StateNotifier<List<Item>> {
     await fetchItems();
     return null; // No error
   }
+
+  // Add this method in your ItemNotifier class
+  Future<Item?> fetchItemByBarcode(String barcode) async {
+    // Fetch item by barcode using the ItemDao
+    final item = await itemDao.getItemByBarcode(barcode);
+    return item; // This should return an Item or null if not found
+  }
 }

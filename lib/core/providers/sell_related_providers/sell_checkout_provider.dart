@@ -16,12 +16,14 @@ class SellCheckoutNotifier {
     required double shippingFee,
     required double taxFee,
     required String paymentMethod,
+    required String paymentStatus,
+    required double amountPaid,
+    required double amountDebt,
     int? customerId,
-    required WidgetRef ref, // Add ref to access providers
+    required WidgetRef ref,
   }) async {
-    final itemDao = ref.read(itemDaoProvider); // Get itemDao to update stock
-    final itemNotifier =
-        ref.read(itemNotifierProvider.notifier); // Get the ItemNotifier
+    final itemDao = ref.read(itemDaoProvider);
+    final itemNotifier = ref.read(itemNotifierProvider.notifier);
     final sellNotifier = ref.read(sellNotifierProvider.notifier);
     // Save receipt first
     await sellReceiptDao.saveSellReceipt(
@@ -32,6 +34,9 @@ class SellCheckoutNotifier {
       taxFee: taxFee,
       paymentMethod: paymentMethod,
       customerId: customerId,
+      amountPaid: amountPaid,
+      amountDebt: amountDebt,
+      paymentStatus: paymentStatus,
     );
 
     // Reduce stock quantity for each sold item

@@ -6,10 +6,7 @@ import 'package:invobay/core/repository/item_dao.dart';
 
 import '../../models/sell_model.dart';
 import '../../repository/customer_dao.dart';
-import '../../repository/sell_receipt_dao.dart';
 import '../../repository/supplier_dao.dart';
-import '../sell_related_providers/sell_checkout_provider.dart';
-import '../sell_related_providers/sell_receipts_provider.dart';
 import 'customer_notifier.dart';
 import 'item_notifier.dart';
 
@@ -56,20 +53,4 @@ final supplierNotifierProvider =
     StateNotifierProvider<SupplierNotifier, List<SupplierData>>((ref) {
   final database = AppDatabase.getInstance(); // Use your singleton instance
   return SupplierNotifier(SupplierDao(database))..loadSuppliers();
-});
-
-final sellReceiptDaoProvider = Provider<SellReceiptDao>((ref) {
-  final db = ref.watch(databaseProvider);
-  return SellReceiptDao(db);
-});
-
-final sellCheckoutProvider = Provider((ref) {
-  final sellReceiptDao = ref.watch(sellReceiptDaoProvider);
-  return SellCheckoutNotifier(sellReceiptDao);
-});
-
-final receiptNotifierProvider =
-    StateNotifierProvider<ReceiptNotifier, List<SellReceiptsModel>>((ref) {
-  final dao = ref.watch(sellReceiptDaoProvider);
-  return ReceiptNotifier(dao);
 });

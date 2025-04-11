@@ -28,6 +28,8 @@ List<GoRoute> salesRoutes = [
               soldItems: soldItems,
               totalPrice: totalPrice,
             ),
+            canPop: false,
+            fullscreenDialog: true,
           );
         },
         routes: [

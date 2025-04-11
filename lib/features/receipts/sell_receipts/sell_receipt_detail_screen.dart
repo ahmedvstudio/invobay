@@ -7,12 +7,13 @@ import 'package:invobay/core/utils/constants/sizes.dart';
 
 import '../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../common/widgets/dialogs/delete_confirm_dialog.dart';
-import '../../../core/providers/db_notifiers/app_providers.dart';
+import '../../../common/widgets/dialogs/edit_receipt_payment.dart';
 import '../../../core/providers/default_providers.dart';
 import '../../../core/providers/sell_related_providers/by_id_provider.dart';
 import '../../../core/providers/sell_related_providers/sell_receipt_detail_provider.dart';
+import '../../../core/providers/sell_related_providers/sell_receipts_provider.dart';
 import '../../../core/utils/constants/colors.dart';
-import '../widgets/dismissible_receipt_item.dart';
+import '../widgets/receipt_item.dart';
 import '../widgets/receipt_bottom_edit.dart';
 import '../widgets/receipt_detail_footer_section.dart';
 import '../widgets/receipt_detail_header_section.dart';
@@ -64,6 +65,7 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                         receiptTaxFee: receipt.taxFee,
                         receiptPersonId: receipt.customerId ?? 0,
                         receiptId: receipt.id,
+                        paymentMethod: payment.paymentMethod,
                       ),
                       const SizedBox(height: VSizes.spaceBtwSections),
 
@@ -83,8 +85,7 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                                     ref.watch(itemByIdProvider(item.itemId));
 
                                 return itemAsync.when(
-                                  data: (itemData) => VDismissibleReceiptItem(
-                                    dismissKey: Key(item.id.toString()),
+                                  data: (itemData) => VReceiptItem(
                                     itemName: itemData.name,
                                     itemQuantity: item.quantity,
                                     itemPrice: item.price,
@@ -92,20 +93,16 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                                     itemUnit: itemData.itemUnit ?? 'Unit',
                                   ),
                                   loading: () => Center(
-                                    child: Text(
-                                      "Loading item...",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    ),
+                                    child: Text("Loading item...",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall),
                                   ),
                                   error: (error, stackTrace) => Center(
-                                    child: Text(
-                                      "Item removed from inventory",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    ),
+                                    child: Text("Item removed from inventory",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall),
                                   ),
                                 );
                               },
@@ -121,6 +118,8 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                         totalPrice:
                             '$currencySign ${receipt.totalPrice.toStringAsFixed(2)}',
                         paymentStatus: payment.status,
+                        paidAmount: payment.paidAmount.toStringAsFixed(2),
+                        debtAmount: payment.debtAmount.toStringAsFixed(2),
                       ),
                     ],
                   ),
@@ -132,27 +131,47 @@ class SellReceiptDetailScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(child: Text("Error: $error")),
       ),
-      bottomNavigationBar: VReceiptBottomEdit(
-        addItem: () {},
-        deleteReceipt: () async {
-          final confirmed = await showDialog<bool>(
-            context: context,
-            builder: (context) => const VDeleteConfirmDialog(
-              isGeneral: true,
-              contentText: 'Are you sure you want to delete this receipt?',
-            ),
-          );
+      bottomNavigationBar: Consumer(builder: (context, ref, child) {
+        final receiptAsync = ref.watch(sellReceiptDetailProvider(receiptId));
+        return receiptAsync.when(
+          data: (receiptDetails) {
+            final payment = receiptDetails.payment;
+            final receipt = receiptDetails.receipt;
 
-          if (confirmed == true) {
-            await ref
-                .read(receiptNotifierProvider.notifier)
-                .deleteReceipt(receiptId);
-            if (context.mounted) {
-              context.pop(context);
-            }
-          }
-        },
-      ),
+            return VReceiptBottomEdit(
+              changePayment: () => showEditReceiptPayment(
+                context: context,
+                ref: ref,
+                receiptId: receiptId,
+                total: receipt.totalPrice,
+                paidAmount: payment.paidAmount,
+              ),
+              deleteReceipt: () async {
+                final confirmed = await showDialog<bool>(
+                  context: context,
+                  builder: (context) => const VDeleteConfirmDialog(
+                    isGeneral: true,
+                    contentText:
+                        'Are you sure you want to delete this receipt?',
+                  ),
+                );
+
+                if (confirmed == true) {
+                  await ref
+                      .read(receiptNotifierProvider.notifier)
+                      .deleteReceipt(receiptId, ref);
+                  if (context.mounted) {
+                    context.pop(context);
+                  }
+                }
+              },
+            );
+          },
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, stackTrace) =>
+              const Center(child: Text("Error retrieving payment details")),
+        );
+      }),
     );
   }
 }

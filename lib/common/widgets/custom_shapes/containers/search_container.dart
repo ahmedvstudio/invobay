@@ -11,16 +11,19 @@ class VSearchContainer extends StatelessWidget {
     super.key,
     required this.text,
     this.icon = Iconsax.search_normal,
+    this.prefixIcon = Iconsax.scan_barcode,
     this.showBackground = true,
     this.showBorder = true,
+    this.showPrefixIcon = false,
     this.onTap,
+    this.prefixOnTap,
     this.padding = const EdgeInsets.symmetric(horizontal: VSizes.defaultSpace),
   });
 
   final String text;
-  final IconData? icon;
-  final bool showBackground, showBorder;
-  final VoidCallback? onTap;
+  final IconData? icon, prefixIcon;
+  final bool showBackground, showBorder, showPrefixIcon;
+  final VoidCallback? onTap, prefixOnTap;
   final EdgeInsetsGeometry padding;
 
   @override
@@ -45,14 +48,23 @@ class VSearchContainer extends StatelessWidget {
             border: showBorder ? Border.all(color: VColors.grey) : null,
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //
-              Icon(icon, color: VColors.darkerGrey),
-              const SizedBox(width: VSizes.spaceBtwItems),
-              Text(
-                text,
-                style: Theme.of(context).textTheme.bodySmall,
+              Row(
+                children: [
+                  Icon(icon, color: VColors.darkerGrey),
+                  const SizedBox(width: VSizes.spaceBtwItems),
+                  Text(
+                    text,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
               ),
+              if (showPrefixIcon)
+                GestureDetector(
+                    onTap: prefixOnTap,
+                    child: Icon(prefixIcon, color: VColors.darkerGrey)),
             ],
           ),
         ),

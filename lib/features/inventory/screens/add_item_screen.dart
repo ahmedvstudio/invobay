@@ -52,10 +52,10 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
         sellingPrice: double.parse(_sellingPriceController.text),
         buyingPrice: double.parse(_buyingPriceController.text),
         supplierName: _supplierController.text.isEmpty
-            ? const drift.Value('Supplier')
+            ? const drift.Value.absent()
             : drift.Value(_supplierController.text),
         description: _descriptionController.text.isEmpty
-            ? const drift.Value('Write a description about the item')
+            ? const drift.Value.absent()
             : drift.Value(_descriptionController.text),
         barcode: _barcodeController.text.isEmpty
             ? const drift.Value.absent()

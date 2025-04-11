@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import '../../../common/widgets/dialogs/edit_fees_dialog.dart';
 import '../../../core/providers/default_providers.dart';
 import '../../../core/providers/sell_related_providers/total_checkout_provider.dart';
 import '../../../core/providers/sell_related_providers/update_subtotal_provider.dart';
 import '../../../core/utils/constants/sizes.dart';
+import '../../../core/utils/validators/validation.dart';
 
 class VBillingAmountSection extends ConsumerWidget {
   const VBillingAmountSection({
     super.key,
     required this.subtotalPrice,
+    required this.formKey,
   });
 
   final double subtotalPrice;
-
+  final Key formKey;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final shippingFee = ref.watch(shippingFeeProvider);
@@ -22,6 +26,7 @@ class VBillingAmountSection extends ConsumerWidget {
     final currencySign = ref.watch(currencySignProvider);
     final discountApplied = ref.watch(discountAppliedProvider);
     final discountController = ref.watch(discountControllerProvider);
+    final paidAmountController = ref.watch(paidAmountControllerProvider);
 
     return GestureDetector(
       onTap: () => showEditFeeDialog(context, ref, shippingFee, taxFee),
@@ -96,6 +101,27 @@ class VBillingAmountSection extends ConsumerWidget {
                 },
               ),
             ],
+          ),
+          const SizedBox(height: VSizes.spaceBtwItems),
+          Form(
+            key: formKey,
+            child: TextFormField(
+              controller: paidAmountController,
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+              ],
+              decoration: InputDecoration(
+                prefixIcon: const Icon(
+                  Iconsax.money_recive,
+                  color: VColors.primary,
+                ),
+                suffixText: currencySign,
+                labelText: 'Paid Amount',
+              ),
+              validator: VValidator.validateDoubleNumber,
+            ),
           ),
         ],
       ),

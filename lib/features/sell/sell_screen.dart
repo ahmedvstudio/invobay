@@ -1,3 +1,4 @@
+import 'package:barcode_scan2/platform_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -37,8 +38,33 @@ class SellScreen extends ConsumerWidget {
                 const SizedBox(height: VSizes.spaceBtwItems),
                 VSearchContainer(
                   text: 'Search and Add Items',
+                  showPrefixIcon: true,
                   onTap: () =>
                       showItemsBottomSheet(context, ref, _searchController),
+                  prefixOnTap: () async {
+                    // Start the barcode scan
+                    final result = await BarcodeScanner.scan();
+
+                    if (result.rawContent.isNotEmpty) {
+                      final scannedBarcode = result.rawContent;
+                      final itemNotifier =
+                          ref.read(itemNotifierProvider.notifier);
+
+                      // Fetch item by barcode
+                      final item =
+                          await itemNotifier.fetchItemByBarcode(scannedBarcode);
+
+                      if (item != null) {
+                        ref.read(sellNotifierProvider.notifier).addItem(item);
+                      } else {
+                        VHelperFunctions.showToasty(
+                          message: 'Item not found!',
+                          backgroundColor: VColors.warning,
+                          textColor: VColors.grey,
+                        );
+                      }
+                    }
+                  },
                 ),
 
                 // Customer and clear all row
@@ -75,7 +101,6 @@ class SellScreen extends ConsumerWidget {
             if (sellItems.isNotEmpty) {
               final totalPrice =
                   calculateTotalPrice(ref, sellItems); // Update subtotal
-
               context.pushNamed(
                 VRouter.sellCheckout,
                 extra: {
@@ -87,7 +112,7 @@ class SellScreen extends ConsumerWidget {
               VHelperFunctions.showToasty(
                 message: 'No items to Sell!',
                 backgroundColor: VColors.warning,
-                textColor: VColors.black,
+                textColor: VColors.grey,
               );
             }
           },
