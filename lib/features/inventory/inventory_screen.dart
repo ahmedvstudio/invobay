@@ -7,7 +7,7 @@ import 'package:invobay/common/widgets/appbar/main_appbar.dart';
 import '../../common/widgets/item_cards/item_listview.dart';
 import '../../common/widgets/text_field/search_bar.dart';
 import '../../core/database/app_database.dart';
-import '../../core/providers/db_notifiers/app_providers.dart';
+import '../../core/providers/item_providers/item_related_providers.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/enums.dart';
 import '../../core/utils/constants/text_strings.dart';

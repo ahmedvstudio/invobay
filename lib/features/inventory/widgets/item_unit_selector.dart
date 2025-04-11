@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:invobay/core/providers/item_unit_notifier.dart';
+import 'package:invobay/core/providers/item_providers/item_unit_notifier.dart';
 
 import '../../../core/utils/constants/lists.dart';
 import '../../../core/utils/validators/validation.dart';

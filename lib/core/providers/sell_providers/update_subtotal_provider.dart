@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/sell_model.dart';
-import '../default_providers.dart';
+import '../common_providers/default_providers.dart';
 
 // --> Update Subtotal
 void updateSubtotal(WidgetRef ref, double newSubtotal) {

@@ -6,7 +6,7 @@ import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import '../../models/sell_model.dart';
 import '../../utils/constants/numbers.dart';
-import '../default_providers.dart';
+import '../common_providers/default_providers.dart';
 
 class SellNotifier extends StateNotifier<List<SellItem>> {
   final Ref ref;

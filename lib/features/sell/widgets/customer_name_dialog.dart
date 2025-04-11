@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/providers/default_providers.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
 
 class VCustomerNameDialog extends ConsumerWidget {
   const VCustomerNameDialog({super.key});

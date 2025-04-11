@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
-import '../../../core/providers/db_notifiers/app_providers.dart';
-import '../../../core/providers/default_providers.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/item_providers/item_related_providers.dart';
 
 class VAddQuantityDialog extends ConsumerWidget {
   final int? itemId;

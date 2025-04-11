@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/models/sell_model.dart';
-import '../../../core/providers/default_providers.dart';
-import '../../../core/providers/payment_provider.dart';
-import '../../../core/providers/reset_default_providers.dart';
-import '../../../core/providers/sell_related_providers/sell_checkout_provider.dart';
-import '../../../core/providers/sell_related_providers/sell_receipts_provider.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/payment_providers/payment_provider.dart';
+import '../../../core/providers/common_providers/reset_default_providers.dart';
+import '../../../core/providers/sell_providers/sell_related_providers.dart';
+import '../../../core/providers/sell_providers/sell_checkout_notifier.dart';
 import '../../../core/router/router_constant.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';

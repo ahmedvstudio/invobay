@@ -49,7 +49,7 @@ class VReceiptCardList extends StatelessWidget {
                           item['paymentStatus'] ?? 'Unknown',
                           style: Theme.of(context).textTheme.bodyLarge!.apply(
                                 color: item['paymentStatus'] == 'Completed'
-                                    ? VColors.primary
+                                    ? VColors.success
                                     : VColors.error,
                                 fontSizeDelta: 1,
                               ),

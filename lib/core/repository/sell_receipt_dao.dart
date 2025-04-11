@@ -9,37 +9,6 @@ class SellReceiptDao {
 
   SellReceiptDao(this.db);
 
-  // Future<SellReceiptsWithPaymentModel?> refreshReceiptData(
-  //     int receiptId) async {
-  //   final query = db.select(db.sellReceipts).join([
-  //     drift.innerJoin(
-  //       db.sellPayments,
-  //       db.sellPayments.receiptId.equalsExp(db.sellReceipts.id),
-  //     ),
-  //   ])
-  //     ..where(db.sellReceipts.id.equals(receiptId));
-  //
-  //   final rows = await query.get();
-  //
-  //   if (rows.isNotEmpty) {
-  //     final row = rows.first;
-  //     final receipt = row.readTable(db.sellReceipts); // ✅ Correct way
-  //     final payment = row.readTable(db.sellPayments); // ✅ Correct way
-  //
-  //     return SellReceiptsWithPaymentModel(
-  //       id: receipt.id,
-  //       date: receipt.date,
-  //       paymentMethod: payment.paymentMethod,
-  //       totalPrice: receipt.totalPrice,
-  //       paidAmount: payment.paidAmount,
-  //       debtAmount: payment.debtAmount,
-  //       paymentStatus: payment.status,
-  //     );
-  //   }
-  //
-  //   return null;
-  // }
-
   Future<int> saveSellReceipt({
     required List<SellItem> soldItems,
     required double totalPrice,

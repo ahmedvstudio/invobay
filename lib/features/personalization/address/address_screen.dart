@@ -8,7 +8,8 @@ import 'package:invobay/features/personalization/address/widgets/single_address.
 
 import '../../../common/widgets/appbar/appbar.dart';
 import '../../../common/widgets/dialogs/delete_confirm_dialog.dart';
-import '../../../core/providers/db_notifiers/app_providers.dart';
+import '../../../core/providers/customer_providers/customer_related_providers.dart';
+import '../../../core/providers/supplier_providers/supplier_related_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 

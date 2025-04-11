@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:invobay/theme/custom_themes/appbar_theme.dart';
+import 'package:invobay/theme/custom_themes/bottom_navigation_bar_theme.dart';
 import 'package:invobay/theme/custom_themes/bottom_sheets_theme.dart';
 import 'package:invobay/theme/custom_themes/checkbox_theme.dart';
 import 'package:invobay/theme/custom_themes/chip_theme.dart';
@@ -31,6 +32,8 @@ class VAppTheme {
     floatingActionButtonTheme: VFloatingActionButtonTheme.lightFABTheme,
     outlinedButtonTheme: VOutlinedButtonTheme.lightOutlineButtonTheme,
     textButtonTheme: VTextButtonTheme.lightTextButtonTheme,
+    bottomNavigationBarTheme:
+        VBottomNavigationBarTheme.lightBottomNavigationBarTheme,
   );
 
   /// Dark Mode Theme
@@ -50,5 +53,7 @@ class VAppTheme {
     floatingActionButtonTheme: VFloatingActionButtonTheme.darkFABTheme,
     outlinedButtonTheme: VOutlinedButtonTheme.darkOutlineButtonTheme,
     textButtonTheme: VTextButtonTheme.darkTextButtonTheme,
+    bottomNavigationBarTheme:
+        VBottomNavigationBarTheme.darkBottomNavigationBarTheme,
   );
 }

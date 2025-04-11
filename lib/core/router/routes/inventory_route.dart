@@ -7,7 +7,7 @@ import 'package:invobay/features/inventory/screens/edit_item_screen.dart';
 import 'package:invobay/features/item_details/item_details.dart';
 import 'package:invobay/core/router/router_constant.dart';
 
-import '../../providers/db_notifiers/app_providers.dart';
+import '../../providers/item_providers/item_related_providers.dart';
 
 List<GoRoute> inventoryRoutes = [
   GoRoute(

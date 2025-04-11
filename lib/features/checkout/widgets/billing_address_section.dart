@@ -5,8 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/rounded_container.dart';
 
 import '../../../../../common/widgets/text/section_heading.dart';
-import '../../../core/providers/db_notifiers/app_providers.dart';
-import '../../../core/providers/default_providers.dart';
+import '../../../core/providers/customer_providers/customer_related_providers.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/device/device_utility.dart';

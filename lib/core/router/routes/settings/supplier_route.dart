@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../features/personalization/address/address_screen.dart';
 import '../../../../features/personalization/address/screens/add_new_address.dart';
 import '../../../../features/personalization/address/screens/edit_supplier_screen.dart';
-import '../../../providers/default_providers.dart';
+import '../../../providers/common_providers/default_providers.dart';
 import '../../router_constant.dart';
 
 List<GoRoute> supplierRoute = [

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,10 +7,10 @@ import 'package:invobay/core/utils/constants/sizes.dart';
 import '../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../common/widgets/dialogs/delete_confirm_dialog.dart';
 import '../../../common/widgets/dialogs/edit_receipt_payment.dart';
-import '../../../core/providers/default_providers.dart';
-import '../../../core/providers/sell_related_providers/by_id_provider.dart';
-import '../../../core/providers/sell_related_providers/sell_receipt_detail_provider.dart';
-import '../../../core/providers/sell_related_providers/sell_receipts_provider.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/item_providers/item_related_providers.dart';
+import '../../../core/providers/sell_providers/sell_related_providers.dart';
+import '../../../core/providers/sell_providers/sell_receipt_detail_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../widgets/receipt_item.dart';
 import '../widgets/receipt_bottom_edit.dart';
@@ -38,17 +37,9 @@ class SellReceiptDetailScreen extends ConsumerWidget {
           return SingleChildScrollView(
             child: Column(
               children: [
-                VCustomAppBar(
+                const VCustomAppBar(
                   text: 'Receipt Detail',
-                  showBackArrow: false,
-                  actions: [
-                    IconButton(
-                        onPressed: () => context.pop(),
-                        icon: const Icon(
-                          CupertinoIcons.xmark,
-                          color: VColors.white,
-                        ))
-                  ],
+                  showBackArrow: true,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -146,6 +137,11 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                 total: receipt.totalPrice,
                 paidAmount: payment.paidAmount,
               ),
+              statusIconColor: payment.status == 'Pending'
+                  ? VColors.warning
+                  : VColors.success,
+              //TODO handle printing
+              printReceipt: () {},
               deleteReceipt: () async {
                 final confirmed = await showDialog<bool>(
                   context: context,
@@ -158,7 +154,7 @@ class SellReceiptDetailScreen extends ConsumerWidget {
 
                 if (confirmed == true) {
                   await ref
-                      .read(receiptNotifierProvider.notifier)
+                      .read(sellReceiptNotifierProvider.notifier)
                       .deleteReceipt(receiptId, ref);
                   if (context.mounted) {
                     context.pop(context);

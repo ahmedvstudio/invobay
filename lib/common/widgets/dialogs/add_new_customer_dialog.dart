@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../core/database/app_database.dart';
-import '../../../core/providers/db_notifiers/app_providers.dart';
-import '../../../core/providers/default_providers.dart';
+import '../../../core/providers/customer_providers/customer_related_providers.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 
 Future<void> addNewCustomerDialog(BuildContext context, WidgetRef ref) async {

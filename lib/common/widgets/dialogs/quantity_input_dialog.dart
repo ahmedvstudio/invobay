@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
-import '../../../core/providers/db_notifiers/app_providers.dart';
-import '../../../core/providers/default_providers.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/sell_providers/sell_related_providers.dart';
 
 class VQuantityInputDialog extends ConsumerWidget {
   const VQuantityInputDialog({

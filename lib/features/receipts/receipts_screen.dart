@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/features/receipts/return_receipts/return_receipts_screen.dart';
 import 'package:invobay/features/receipts/sell_receipts/sell_receipts_screen.dart';
-import '../../core/providers/default_providers.dart';
+import '../../core/providers/common_providers/default_providers.dart';
 import '../../core/utils/constants/colors.dart';
-import '../../core/utils/helpers/helper_functions.dart';
 import 'buy_receipts/buy_receipts_screen.dart';
 
 class ReceiptsScreen extends ConsumerWidget {
@@ -13,7 +12,6 @@ class ReceiptsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = VHelperFunctions.isDarkMode(context);
     final selectedIndex = ref.watch(receiptsNavigationProvider);
 
     return Scaffold(
@@ -33,28 +31,30 @@ class ReceiptsScreen extends ConsumerWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
+        type: BottomNavigationBarType.shifting,
         onTap: (index) {
           ref.read(receiptsNavigationProvider.notifier).state = index;
         },
-        backgroundColor: isDark ? VColors.black : VColors.white,
-        selectedItemColor: isDark ? VColors.white : VColors.black,
-        unselectedItemColor: isDark
-            ? VColors.white.withValues(alpha: 0.5)
-            : VColors.black.withValues(alpha: 0.5),
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.tag5),
+            icon: Icon(Iconsax.tag),
             label: 'Sell',
+            activeIcon: Icon(
+              Iconsax.tag5,
+            ),
+            backgroundColor: VColors.kPrimary,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.shopping_cart5),
+            icon: Icon(Iconsax.shopping_cart),
             label: 'Buy',
+            activeIcon: Icon(Iconsax.shopping_cart5),
+            backgroundColor: VColors.kPrimary,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.back_square),
+            icon: Icon(Iconsax.directbox_receive),
             label: 'Return',
+            activeIcon: Icon(Iconsax.directbox_receive5),
+            backgroundColor: VColors.kPrimary,
           ),
         ],
       ),

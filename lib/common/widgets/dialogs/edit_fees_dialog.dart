@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/providers/default_providers.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 
 void showEditFeeDialog(

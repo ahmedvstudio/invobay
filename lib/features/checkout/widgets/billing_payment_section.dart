@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../common/widgets/text/section_heading.dart';
-import '../../../core/providers/payment_provider.dart';
+import '../../../core/providers/payment_providers/payment_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/helper_functions.dart';

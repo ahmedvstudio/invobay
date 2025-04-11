@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../core/providers/sell_related_providers/by_id_provider.dart';
+import '../../../core/providers/customer_providers/customer_related_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/helper_functions.dart';

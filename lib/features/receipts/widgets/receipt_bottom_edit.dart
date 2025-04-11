@@ -10,10 +10,13 @@ class VReceiptBottomEdit extends StatelessWidget {
     super.key,
     required this.changePayment,
     required this.deleteReceipt,
+    this.statusIconColor,
+    this.printReceipt,
   });
   final VoidCallback changePayment;
   final VoidCallback deleteReceipt;
-
+  final VoidCallback? printReceipt;
+  final Color? statusIconColor;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,8 +31,24 @@ class VReceiptBottomEdit extends StatelessWidget {
             color: VColors.white,
             onPressed: deleteReceipt,
           ),
-          OutlinedButton(
-              onPressed: changePayment, child: const Text('Payment Status')),
+          const SizedBox(width: VSizes.spaceBtwItems),
+          VCircularIcon(
+            icon: Iconsax.printer,
+            backgroundColor: VColors.info,
+            color: VColors.white,
+            onPressed: printReceipt,
+          ),
+          const SizedBox(width: VSizes.spaceBtwSections),
+          Flexible(
+            child: SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: changePayment,
+                label: const Text('New Payment'),
+                icon: Icon(Iconsax.status_up, color: statusIconColor),
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invobay/core/providers/default_providers.dart';
+import 'package:invobay/core/providers/common_providers/default_providers.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
-import '../../../core/providers/sell_related_providers/sell_receipt_detail_provider.dart';
-import '../../../core/providers/sell_related_providers/sell_receipts_provider.dart';
+import '../../../core/providers/sell_providers/sell_related_providers.dart';
+import '../../../core/providers/sell_providers/sell_receipt_detail_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../features/item_details/widgets/meta_data_section.dart';
@@ -34,14 +34,15 @@ void showEditReceiptPayment(
               tagTextColor: VColors.white,
               showIcon: false,
               child: Text(
-                total.toStringAsFixed(2),
+                '$currencySign ${total.toStringAsFixed(2)}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
             const SizedBox(height: VSizes.spaceBtwSections),
             TextField(
               controller: paidAmountController,
-              decoration: const InputDecoration(labelText: 'Paid Amount'),
+              decoration: InputDecoration(
+                  labelText: 'Paid Amount', prefix: Text('$currencySign ')),
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [
@@ -61,7 +62,7 @@ void showEditReceiptPayment(
                   double.tryParse(paidAmountController.text) ?? 0.0;
               if (total >= newPaidAmount) {
                 await ref
-                    .read(receiptNotifierProvider.notifier)
+                    .read(sellReceiptNotifierProvider.notifier)
                     .updatePaymentDetails(
                       receiptId: receiptId,
                       newPaidAmount: newPaidAmount,

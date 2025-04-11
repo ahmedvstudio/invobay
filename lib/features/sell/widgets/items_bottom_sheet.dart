@@ -7,7 +7,8 @@ import 'package:invobay/core/utils/device/device_utility.dart';
 
 import '../../../common/widgets/text_field/search_bar.dart';
 import '../../../core/database/app_database.dart';
-import '../../../core/providers/db_notifiers/app_providers.dart';
+import '../../../core/providers/item_providers/item_related_providers.dart';
+import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/low_stock_helper.dart';
 

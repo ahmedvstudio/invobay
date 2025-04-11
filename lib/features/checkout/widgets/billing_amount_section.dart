@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import '../../../common/widgets/dialogs/edit_fees_dialog.dart';
-import '../../../core/providers/default_providers.dart';
-import '../../../core/providers/sell_related_providers/total_checkout_provider.dart';
-import '../../../core/providers/sell_related_providers/update_subtotal_provider.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/sell_providers/total_checkout_provider.dart';
+import '../../../core/providers/sell_providers/update_subtotal_provider.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/validators/validation.dart';
 

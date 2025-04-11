@@ -9,7 +9,7 @@ import '../../common/widgets/custom_shapes/containers/primary_header_container.d
 import '../../common/widgets/custom_shapes/containers/search_container.dart';
 import '../../common/widgets/text/marquee_text.dart';
 import '../../common/widgets/text/shop_name.dart';
-import '../../core/providers/db_notifiers/app_providers.dart';
+import '../../core/providers/item_providers/item_related_providers.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/numbers.dart';
 import '../../core/utils/constants/sizes.dart';

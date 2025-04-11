@@ -2,7 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/models/sell_model.dart';
 
 import '../../repository/sell_receipt_dao.dart';
-import '../db_notifiers/app_providers.dart';
+import '../item_providers/item_related_providers.dart';
+import 'sell_related_providers.dart';
 
 class SellCheckoutNotifier {
   final SellReceiptDao sellReceiptDao;
