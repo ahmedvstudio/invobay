@@ -54,6 +54,7 @@ dependencies:
   path: ^1.9.0
   flutter_native_splash: ^2.4.4
   barcode_scan2: ^4.5.0
+  open_file: ^3.5.10
 
 
 # ---------------- END OF PACKAGES ----------------#
@@ -114,3 +115,64 @@ flutter:
           weight: 600
         - asset: assets\fonts\cairo\Cairo-Bold.ttf
           weight: 800
+
+    - family: Amiri
+      fonts:
+        - asset: assets\fonts\amiri\Amiri-Italic.ttf
+          style: italic
+        - asset: assets\fonts\amiri\Amiri-Regular.ttf
+          weight: 400
+        - asset: assets\fonts\amiri\Amiri-Bold.ttf
+          weight: 800
+        - asset: assets\fonts\amiri\Amiri-BoldItalic.ttf
+          style: italic
+          weight: 800
+
+    - family: NotoKufiArabic
+      fonts:
+        - asset: assets\fonts\kufi\NotoKufiArabic-Thin.ttf
+          weight: 100
+        - asset: assets\fonts\kufi\NotoKufiArabic-ExtraLight.ttf
+          weight: 200
+        - asset: assets\fonts\kufi\NotoKufiArabic-Light.ttf
+          weight: 300
+        - asset: assets\fonts\kufi\NotoKufiArabic-Regular.ttf
+          weight: 400
+        - asset: assets\fonts\kufi\NotoKufiArabic-Medium.ttf
+          weight: 500
+        - asset: assets\fonts\kufi\NotoKufiArabic-SemiBold.ttf
+          weight: 700
+        - asset: assets\fonts\kufi\NotoKufiArabic-Bold.ttf
+          weight: 800
+        - asset: assets\fonts\kufi\NotoKufiArabic-ExtraBold.ttf
+          weight: 900
+
+    - family: NotoNaskhArabic
+      fonts:
+        - asset: assets\fonts\naskh\NotoNaskhArabic-Regular.ttf
+          weight: 400
+        - asset: assets\fonts\naskh\NotoNaskhArabic-Medium.ttf
+          weight: 500
+        - asset: assets\fonts\naskh\NotoNaskhArabic-SemiBold.ttf
+          weight: 700
+        - asset: assets\fonts\naskh\NotoNaskhArabic-Bold.ttf
+          weight: 800
+
+    - family: NotoSansArabic
+      fonts:
+        - asset: assets\fonts\sans_arabic\NotoSansArabic-Thin.ttf
+          weight: 100
+        - asset: assets\fonts\sans_arabic\NotoSansArabic-Light.ttf
+          weight: 300
+        - asset: assets\fonts\sans_arabic\NotoSansArabic-Regular.ttf
+          weight: 400
+        - asset: assets\fonts\sans_arabic\NotoSansArabic-Medium.ttf
+          weight: 500
+        - asset: assets\fonts\sans_arabic\NotoSansArabic-SemiBold.ttf
+          weight: 700
+        - asset: assets\fonts\sans_arabic\NotoSansArabic-Bold.ttf
+          weight: 800
+
+
+
+

@@ -57,9 +57,8 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
-          if (receiptDiscount != 0)
+          if (receiptDiscount != 0) ...[
             const SizedBox(height: VSizes.spaceBtwItems / 2),
-          if (receiptDiscount != 0)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -69,9 +68,9 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
-          if (receiptShippingFee != 0)
+          ],
+          if (receiptShippingFee != 0) ...[
             const SizedBox(height: VSizes.spaceBtwItems / 2),
-          if (receiptShippingFee != 0)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -81,9 +80,9 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
-          if (receiptTaxFee != 0)
+          ],
+          if (receiptTaxFee != 0) ...[
             const SizedBox(height: VSizes.spaceBtwItems / 2),
-          if (receiptTaxFee != 0)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -92,9 +91,9 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
-          if (receiptPersonId != 0)
+          ],
+          if (receiptPersonId != 0) ...[
             const SizedBox(height: VSizes.spaceBtwItems / 2),
-          if (receiptPersonId != 0)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -117,6 +116,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                 ),
               ],
             ),
+          ],
           const SizedBox(height: VSizes.spaceBtwItems / 2),
 
           Row(
