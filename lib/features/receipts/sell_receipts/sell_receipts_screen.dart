@@ -12,6 +12,7 @@ import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../common/widgets/appbar/main_appbar.dart';
 import '../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
+import '../../../core/utils/formatters/formatters.dart';
 
 class SellReceiptsScreen extends ConsumerWidget {
   const SellReceiptsScreen({super.key});
@@ -44,7 +45,8 @@ class SellReceiptsScreen extends ConsumerWidget {
                     'paymentStatus': receipt.paymentStatus,
                     'date': DateFormat.yMMMd().format(receipt.date),
                     'receiptId': VHelperFunctions.receiptNo(receipt.id),
-                    'total': '$currencySign ${receipt.totalPrice}',
+                    'total':
+                        '$currencySign ${VFormatters.formatPrice(receipt.totalPrice)}',
                   };
                 }).toList();
 

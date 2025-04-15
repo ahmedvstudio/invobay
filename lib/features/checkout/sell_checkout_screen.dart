@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/models/sell_model.dart';
 import 'package:invobay/core/providers/common_providers/reset_default_providers.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/features/checkout/widgets/billing_address_section.dart';
 import 'package:invobay/features/checkout/widgets/billing_amount_section.dart';
 import 'package:invobay/features/checkout/widgets/billing_payment_section.dart';
@@ -128,7 +129,8 @@ class SellCheckoutScreen extends ConsumerWidget {
               final total = ref.watch(totalAmountProvider);
 
               return Flexible(
-                child: Text('Total: $currencySign${total.toStringAsFixed(2)}',
+                child: Text(
+                    'Total: $currencySign${VFormatters.formatPrice(total)}',
                     style: Theme.of(context).textTheme.headlineSmall),
               );
             }),
@@ -149,7 +151,7 @@ class SellCheckoutScreen extends ConsumerWidget {
                     VHelperFunctions.showSnackBar(
                         context: context,
                         message:
-                            'Exceed total amount: $currencySign${totalAmount.toStringAsFixed(2)}');
+                            'Exceed total amount: $currencySign${VFormatters.formatPrice(totalAmount)}');
                     return;
                   }
                   String paymentStatus = _determinePaymentStatus(debtAmount);

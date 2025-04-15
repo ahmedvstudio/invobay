@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/providers/common_providers/default_providers.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../core/providers/sell_providers/sell_related_providers.dart';
@@ -34,7 +35,7 @@ void showEditReceiptPayment(
               tagTextColor: VColors.white,
               showIcon: false,
               child: Text(
-                '$currencySign ${total.toStringAsFixed(2)}',
+                '$currencySign ${VFormatters.formatPrice(total)}',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),

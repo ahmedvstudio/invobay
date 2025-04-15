@@ -1,7 +1,19 @@
 class VFonts {
   VFonts._();
 
-  // --> Amiri
+  // --> Poppins
+  static const String poppinsLight = 'assets/fonts/poppins/Poppins-Light.ttf';
+  static const String poppinsRegular =
+      'assets/fonts/poppins/Poppins-Regular.ttf';
+  static const String poppinsItalic = 'assets/fonts/poppins/Poppins-Italic.ttf';
+  static const String poppinsBold = 'assets/fonts/poppins/Poppins-Bold.ttf';
+  static const String poppinsSemiBold =
+      'assets/fonts/poppins/Poppins-SemiBold.ttf';
+  static const String poppinsMedium = 'assets/fonts/poppins/Poppins-Medium.ttf';
+  static const String poppinsMediumItalic =
+      'assets/fonts/poppins/Poppins-MediumItalic.ttf';
+
+// --> Amiri
   static const String amiriRegular = 'assets/fonts/amiri/Amiri-Regular.ttf';
   static const String amiriItalic = 'assets/fonts/amiri/Amiri-Italic.ttf';
   static const String amiriBold = 'assets/fonts/amiri/Amiri-Bold.ttf';

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/features/item_details/widgets/bottom_edits.dart';
 import 'package:invobay/features/item_details/widgets/item_meta_data.dart';
 import 'package:readmore/readmore.dart';
@@ -91,7 +92,7 @@ class ItemDetailsScreen extends ConsumerWidget {
                 children: [
                   VItemMetaData(
                     title: title,
-                    stock: stock.toStringAsFixed(2),
+                    stock: VFormatters.formatPrice(stock),
                     sellingPrice: sellPrice,
                     buyingPrice: buyPrice,
                     supplier: supplierName,

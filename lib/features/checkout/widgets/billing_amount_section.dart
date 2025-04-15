@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 import '../../../common/widgets/dialogs/edit_fees_dialog.dart';
 import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/providers/sell_providers/total_checkout_provider.dart';
@@ -43,7 +44,8 @@ class VBillingAmountSection extends ConsumerWidget {
               Consumer(
                 builder: (context, ref, child) {
                   final subtotal = ref.watch(discountedSubtotal);
-                  return Text('$currencySign${subtotal.toStringAsFixed(2)}',
+                  return Text(
+                      '$currencySign${VFormatters.formatPrice(subtotal)}',
                       style: Theme.of(context).textTheme.bodyMedium);
                 },
               ),
@@ -70,7 +72,7 @@ class VBillingAmountSection extends ConsumerWidget {
             children: [
               Text('Shipping Fee',
                   style: Theme.of(context).textTheme.bodyMedium),
-              Text('$currencySign${shippingFee.toStringAsFixed(2)}',
+              Text('$currencySign${VFormatters.formatPrice(shippingFee)}',
                   style: Theme.of(context).textTheme.labelLarge),
             ],
           ),
@@ -81,7 +83,7 @@ class VBillingAmountSection extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Tax Fee', style: Theme.of(context).textTheme.bodyMedium),
-              Text('$currencySign${taxFee.toStringAsFixed(2)}',
+              Text('$currencySign${VFormatters.formatPrice(taxFee)}',
                   style: Theme.of(context).textTheme.labelLarge),
             ],
           ),
@@ -96,7 +98,7 @@ class VBillingAmountSection extends ConsumerWidget {
               Consumer(
                 builder: (context, ref, child) {
                   final total = ref.watch(totalAmountProvider);
-                  return Text('$currencySign${total.toStringAsFixed(2)}',
+                  return Text('$currencySign${VFormatters.formatPrice(total)}',
                       style: Theme.of(context).textTheme.titleMedium);
                 },
               ),

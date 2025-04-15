@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../common/widgets/dialogs/delete_confirm_dialog.dart';
@@ -11,7 +12,7 @@ import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_receipt_detail_provider.dart';
-import '../../../core/services/sell_invoice/invoice_printer.dart';
+import '../../../core/services/printing/print_receipt_api.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../widgets/receipt_item.dart';
 import '../widgets/receipt_bottom_edit.dart';
@@ -108,10 +109,10 @@ class SellReceiptDetailScreen extends ConsumerWidget {
 
                       VReceiptDetailFooterSection(
                         totalPrice:
-                            '$currencySign ${receipt.totalPrice.toStringAsFixed(2)}',
+                            '$currencySign ${VFormatters.formatPrice(receipt.totalPrice)}',
                         paymentStatus: payment.status,
-                        paidAmount: payment.paidAmount.toStringAsFixed(2),
-                        debtAmount: payment.debtAmount.toStringAsFixed(2),
+                        paidAmount: VFormatters.formatPrice(payment.paidAmount),
+                        debtAmount: VFormatters.formatPrice(payment.debtAmount),
                       ),
                     ],
                   ),
@@ -129,6 +130,7 @@ class SellReceiptDetailScreen extends ConsumerWidget {
           data: (receiptDetails) {
             final payment = receiptDetails.payment;
             final receipt = receiptDetails.receipt;
+            final items = receiptDetails.items;
 
             return VReceiptBottomEdit(
               changePayment: () => showEditReceiptPayment(
@@ -141,10 +143,15 @@ class SellReceiptDetailScreen extends ConsumerWidget {
               statusIconColor: payment.status == 'Pending'
                   ? VColors.warning
                   : VColors.success,
-              //TODO handle printing
-              printReceipt: () async =>
-                  SellInvoicePrinter.printReceipt(context),
-
+              printReceipt: () {
+                PrintReceiptApi.printReceipt(
+                  ref: ref,
+                  items: items,
+                  receipt: receipt,
+                  payment: payment,
+                  customerId: receipt.customerId,
+                );
+              },
               deleteReceipt: () async {
                 final confirmed = await showDialog<bool>(
                   context: context,

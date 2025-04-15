@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../common/widgets/text/brand_title_text_with_verification_icon.dart';
 import '../../../common/widgets/text/item_price_text.dart';
@@ -79,7 +80,7 @@ class VItemMetaData extends ConsumerWidget {
                 tagTextColor: VColors.white,
                 icon: Iconsax.box,
                 child: Text(
-                  item.quantity.toStringAsFixed(2),
+                  VFormatters.formatPrice(item.quantity),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),

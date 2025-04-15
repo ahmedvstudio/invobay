@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../core/models/sell_model.dart';
 import '../../../core/providers/common_providers/default_providers.dart';
@@ -60,7 +61,7 @@ class VCheckoutConfirmDialog extends ConsumerWidget {
             tagTextColor: VColors.white,
             showIcon: false,
             child: Text(
-              '$currencySign${totalAmount.toStringAsFixed(2)}',
+              '$currencySign${VFormatters.formatPrice(totalAmount)}',
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
@@ -70,7 +71,7 @@ class VCheckoutConfirmDialog extends ConsumerWidget {
             tagTextColor: VColors.white,
             showIcon: false,
             child: Text(
-              '$currencySign${paidAmount.toStringAsFixed(2)}',
+              '$currencySign${VFormatters.formatPrice(paidAmount)}',
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
@@ -81,7 +82,7 @@ class VCheckoutConfirmDialog extends ConsumerWidget {
               tagTextColor: VColors.white,
               showIcon: false,
               child: Text(
-                '$currencySign${debtAmount.toStringAsFixed(2)}',
+                '$currencySign${VFormatters.formatPrice(debtAmount)}',
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium!

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../core/providers/common_providers/default_providers.dart';
 
@@ -20,7 +21,7 @@ class VItemPriceText extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currencySign = ref.watch(currencySignProvider);
-    final currencyWithSign = currencySign + price.toStringAsFixed(2);
+    final currencyWithSign = currencySign + VFormatters.formatPrice(price);
     return Text(
       currencyWithSign,
       maxLines: maxLines,
