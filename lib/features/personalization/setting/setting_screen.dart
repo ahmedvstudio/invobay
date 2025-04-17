@@ -55,14 +55,20 @@ class SettingsScreen extends StatelessWidget {
                   VSettingsMenuTile(
                     icon: Iconsax.personalcard,
                     title: 'Customers',
-                    subTitle: 'Add Customers Details.',
+                    subTitle: 'Add Loyal Customers Details.',
                     onTap: () => context.pushNamed(VRouter.customers),
                   ),
                   VSettingsMenuTile(
                     icon: Iconsax.people,
                     title: 'Suppliers',
-                    subTitle: 'Add Suppliers Details.',
+                    subTitle: 'Add Your Suppliers Details.',
                     onTap: () => context.pushNamed(VRouter.suppliers),
+                  ),
+                  VSettingsMenuTile(
+                    icon: Iconsax.shop,
+                    title: 'Shop Settings',
+                    subTitle: 'Add Shop Details.',
+                    onTap: () => context.pushNamed(VRouter.shopDetails),
                   ),
 
                   VSettingsMenuTile(
@@ -77,14 +83,6 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'In-progress and Completed Orders.',
                     onTap: () => context.pushNamed(VRouter.orders),
                   ),
-                  const VSettingsMenuTile(
-                      icon: Iconsax.bank,
-                      title: 'Bank Account',
-                      subTitle: 'withdraw balance to registered bank account.'),
-                  const VSettingsMenuTile(
-                      icon: Iconsax.discount_shape,
-                      title: 'My Coupons',
-                      subTitle: 'List of all the discount coupons.'),
                   const VSettingsMenuTile(
                       icon: Iconsax.notification,
                       title: 'Notifications',

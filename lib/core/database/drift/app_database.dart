@@ -1,14 +1,14 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:invobay/core/database/tables/customers_table.dart';
-import 'package:invobay/core/database/tables/sell_receipts_tables.dart';
-import 'package:invobay/core/database/tables/suppliers_table.dart';
+import 'package:invobay/core/database/drift/tables/customers_table.dart';
+import 'package:invobay/core/database/drift/tables/items_table.dart';
+import 'package:invobay/core/database/drift/tables/sell_receipts_tables.dart';
+import 'package:invobay/core/database/drift/tables/suppliers_table.dart';
+
 import 'package:invobay/core/utils/helpers/logger.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-
-import 'tables/items_table.dart';
 
 part 'app_database.g.dart';
 

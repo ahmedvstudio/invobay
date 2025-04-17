@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/features/inventory/widgets/item_form.dart';
 // Import Riverpod provider
-import 'package:invobay/core/database/app_database.dart';
+import 'package:invobay/core/database/drift/app_database.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod
 

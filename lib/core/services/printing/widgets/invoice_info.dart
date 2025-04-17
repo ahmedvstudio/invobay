@@ -1,6 +1,6 @@
 import 'package:invobay/core/services/printing/widgets/text_widget.dart';
 
-import '../../../database/app_database.dart';
+import '../../../database/drift/app_database.dart';
 import '../../../utils/formatters/formatters.dart';
 import 'package:pdf/widgets.dart' as pw;
 

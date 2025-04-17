@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart' as drift;
-import 'package:invobay/core/database/app_database.dart';
+import 'package:invobay/core/database/drift/app_database.dart';
 
 import '../models/sell_model.dart';
 import '../models/sell_with_payment_model.dart';

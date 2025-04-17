@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../database/app_database.dart';
+import '../../database/drift/app_database.dart';
 import '../../repository/item_dao.dart';
 import 'item_notifier.dart';
 import '../db_providers/database_provider.dart';

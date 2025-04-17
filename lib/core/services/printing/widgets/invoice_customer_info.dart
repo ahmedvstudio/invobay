@@ -1,6 +1,6 @@
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../database/app_database.dart';
+import '../../../database/drift/app_database.dart';
 
 pw.Widget invoCustomerInfo({CustomerData? customerData}) {
   final customerComponents = [

@@ -9,6 +9,7 @@ import '../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../common/widgets/dialogs/delete_confirm_dialog.dart';
 import '../../../common/widgets/dialogs/edit_receipt_payment.dart';
 import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/db_providers/hive_providers/shop_detail_provider.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_receipt_detail_provider.dart';
@@ -124,60 +125,83 @@ class SellReceiptDetailScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(child: Text("Error: $error")),
       ),
-      bottomNavigationBar: Consumer(builder: (context, ref, child) {
-        final receiptAsync = ref.watch(sellReceiptDetailProvider(receiptId));
-        return receiptAsync.when(
-          data: (receiptDetails) {
-            final payment = receiptDetails.payment;
-            final receipt = receiptDetails.receipt;
-            final items = receiptDetails.items;
+      bottomNavigationBar: Consumer(
+        builder: (context, ref, child) {
+          final shopDetailAsync = ref.watch(shopDetailProvider);
+          final receiptAsync = ref.watch(sellReceiptDetailProvider(receiptId));
 
-            return VReceiptBottomEdit(
-              changePayment: () => showEditReceiptPayment(
-                context: context,
-                ref: ref,
-                receiptId: receiptId,
-                total: receipt.totalPrice,
-                paidAmount: payment.paidAmount,
-              ),
-              statusIconColor: payment.status == 'Pending'
-                  ? VColors.warning
-                  : VColors.success,
-              printReceipt: () {
-                PrintReceiptApi.printReceipt(
-                  ref: ref,
-                  items: items,
-                  receipt: receipt,
-                  payment: payment,
-                  customerId: receipt.customerId,
-                );
-              },
-              deleteReceipt: () async {
-                final confirmed = await showDialog<bool>(
-                  context: context,
-                  builder: (context) => const VDeleteConfirmDialog(
-                    isGeneral: true,
-                    contentText:
-                        'Are you sure you want to delete this receipt?',
-                  ),
-                );
+          // Combine two AsyncValues safely
+          return shopDetailAsync.when(
+            data: (shopDetail) {
+              return receiptAsync.when(
+                data: (receiptDetails) {
+                  final payment = receiptDetails.payment;
+                  final receipt = receiptDetails.receipt;
+                  final items = receiptDetails.items;
 
-                if (confirmed == true) {
-                  await ref
-                      .read(sellReceiptNotifierProvider.notifier)
-                      .deleteReceipt(receiptId, ref);
-                  if (context.mounted) {
-                    context.pop(context);
-                  }
-                }
-              },
-            );
-          },
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, stackTrace) =>
-              const Center(child: Text("Error retrieving payment details")),
-        );
-      }),
+                  // Now you have both shopDetail and receiptDetails available
+                  return VReceiptBottomEdit(
+                    changePayment: () => showEditReceiptPayment(
+                      context: context,
+                      ref: ref,
+                      receiptId: receiptId,
+                      total: receipt.totalPrice,
+                      paidAmount: payment.paidAmount,
+                    ),
+                    statusIconColor: payment.status == 'Pending'
+                        ? VColors.warning
+                        : VColors.success,
+                    printReceipt: () {
+                      PrintReceiptApi.printReceipt(
+                        ref: ref,
+                        items: items,
+                        receipt: receipt,
+                        payment: payment,
+                        customerId: receipt.customerId,
+                        shopDetail: shopDetail,
+                      );
+                    },
+                    deleteReceipt: () async {
+                      final confirmed = await showDialog<bool>(
+                        context: context,
+                        builder: (context) => const VDeleteConfirmDialog(
+                          isGeneral: true,
+                          contentText:
+                              'Are you sure you want to delete this receipt?',
+                        ),
+                      );
+
+                      if (confirmed == true) {
+                        await ref
+                            .read(sellReceiptNotifierProvider.notifier)
+                            .deleteReceipt(receiptId, ref);
+                        if (context.mounted) {
+                          context.pop(context);
+                        }
+                      }
+                    },
+                  );
+                },
+                loading: () => const SizedBox(
+                  height: 60,
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+                error: (error, stackTrace) => const SizedBox(
+                    height: 60,
+                    child:
+                        Center(child: Text("Error loading receipt details"))),
+              );
+            },
+            loading: () => const SizedBox(
+              height: 60,
+              child: Center(child: CircularProgressIndicator()),
+            ),
+            error: (error, stackTrace) => const SizedBox(
+                height: 60,
+                child: Center(child: Text("Error loading shop details"))),
+          );
+        },
+      ),
     );
   }
 }

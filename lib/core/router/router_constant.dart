@@ -47,6 +47,7 @@ class VRouter {
   static const String editSupplier = 'editSupplier';
 
   ///
+  static const String shopDetails = 'shopDetails';
   static const String orders = 'orders';
 
   // -

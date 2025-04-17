@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../database/app_database.dart';
+import '../../database/drift/app_database.dart';
 import '../../models/sell_model.dart';
 import '../../models/sell_with_payment_model.dart';
 import '../../repository/sell_receipt_dao.dart';

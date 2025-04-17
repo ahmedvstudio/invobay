@@ -1,17 +1,17 @@
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../database/app_database.dart';
+import '../../../database/drift/app_database.dart';
+import '../../../database/hive/shop_details/shop_details.dart';
 import 'invoice_customer_info.dart';
 import 'invoice_info.dart';
 import 'invoice_shop_info.dart';
 
 pw.Widget invoHeader({
-  required String shopName,
-  required String shopNumber,
   required SellReceiptsModel receipt,
   required SellPaymentsModel payment,
   CustomerData? customerData,
+  ShopDetail? shopDetail,
 }) {
   final currentYear = DateTime.now().year;
   final formattedId = receipt.id.toString().padLeft(4, '0');
@@ -23,8 +23,7 @@ pw.Widget invoHeader({
         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         children: [
           invoShopInfo(
-            shopName: shopName,
-            shopNumber: shopNumber,
+            shopDetail: shopDetail,
           ),
           pw.Container(
             height: 50,

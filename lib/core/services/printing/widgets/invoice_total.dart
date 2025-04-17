@@ -3,7 +3,7 @@ import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../database/app_database.dart';
+import '../../../database/drift/app_database.dart';
 
 pw.Widget invoTotalSection({
   required SellReceiptsModel receipt,

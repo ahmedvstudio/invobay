@@ -10,7 +10,8 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-import '../../database/app_database.dart';
+import '../../database/drift/app_database.dart';
+import '../../database/hive/shop_details/shop_details.dart';
 import '../../providers/common_providers/default_providers.dart';
 import '../../providers/customer_providers/customer_related_providers.dart';
 import '../../providers/item_providers/item_related_providers.dart';
@@ -21,6 +22,7 @@ class PrintReceiptApi {
     required List<SellReceiptItemsModel> items,
     required SellReceiptsModel receipt,
     required SellPaymentsModel payment,
+    ShopDetail? shopDetail,
     int? customerId,
   }) async {
     final fonts = await loadFonts();
@@ -54,6 +56,7 @@ class PrintReceiptApi {
         receipt: receipt,
         payment: payment,
         customerData: customerData,
+        shopDetail: shopDetail,
       ),
     );
 
@@ -66,50 +69,59 @@ class PrintReceiptApi {
     required SellReceiptsModel receipt,
     required SellPaymentsModel payment,
     CustomerData? customerData,
+    ShopDetail? shopDetail,
     required WidgetRef ref,
   }) {
     final currencySign = ref.watch(currencySignProvider);
 
     return pw.MultiPage(
-      textDirection: pw.TextDirection.rtl,
-      build: (pw.Context context) => [
-        pw.Stack(
-          children: [
-            buildWatermark('shop Name'),
-            pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                /// --> Header
-                invoHeader(
-                  shopName: 'shopName',
-                  shopNumber: 'shopNumber',
-                  customerData: customerData,
-                  receipt: receipt,
-                  payment: payment,
-                ),
+        textDirection: pw.TextDirection.rtl,
+        build: (pw.Context context) => [
+              pw.Stack(
+                children: [
+                  buildWatermark(shopDetail?.name ?? 'Your Shop'),
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      /// --> Header
+                      invoHeader(
+                        customerData: customerData,
+                        receipt: receipt,
+                        payment: payment,
+                        shopDetail: shopDetail,
+                      ),
 
-                /// --> Title
-                invoTitle(),
+                      /// --> Title
+                      invoTitle(),
 
-                /// --> Items
-                invoiceItems(items, itemDetailsList, currencySign),
-                pw.SizedBox(height: 1 * PdfPageFormat.cm),
+                      /// --> Items
+                      invoiceItems(items, itemDetailsList, currencySign),
+                      pw.SizedBox(height: 1 * PdfPageFormat.cm),
 
-                /// --> Total
-                invoTotalSection(
-                  currencySign: currencySign,
-                  receipt: receipt,
-                  payment: payment,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
+                      /// --> Total
+                      invoTotalSection(
+                        currencySign: currencySign,
+                        receipt: receipt,
+                        payment: payment,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
 
-      /// --> Footer
-      footer: (context) =>
-          invoFooter(shopAddress: 'ديالى- جلولاء- قرب الجامع الكبير'),
-    );
+        /// --> Footer
+        footer: (context) {
+          final shopComponents = [
+            shopDetail?.country,
+            shopDetail?.state,
+            shopDetail?.city,
+            shopDetail?.street,
+          ];
+          final address = shopComponents
+              .where((component) => component != null && component.isNotEmpty)
+              .join(', ');
+          return invoFooter(shopAddress: address);
+        });
   }
 }

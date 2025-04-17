@@ -15,8 +15,11 @@ class AddressForm extends ConsumerWidget {
     required this.cityController,
     required this.stateController,
     required this.countryController,
+    this.descriptionController,
     this.onPressed,
     required this.buttonText,
+    this.withDescription = false,
+    this.currencySign = false,
   });
 
   final TextEditingController nameController;
@@ -26,9 +29,11 @@ class AddressForm extends ConsumerWidget {
   final TextEditingController cityController;
   final TextEditingController stateController;
   final TextEditingController countryController;
+  final TextEditingController? descriptionController;
   final VoidCallback? onPressed;
   final String buttonText;
-
+  final bool withDescription;
+  final bool currencySign;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
@@ -63,16 +68,26 @@ class AddressForm extends ConsumerWidget {
               ),
             ),
             const SizedBox(width: VSizes.spaceBtwInputFields),
-            Expanded(
-              child: TextFormField(
-                controller: postalCodeController,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Iconsax.code),
-                  labelText: 'Postal Code',
-                ),
-                keyboardType: TextInputType.number,
-              ),
-            ),
+            currencySign
+                ? Expanded(
+                    child: TextFormField(
+                      controller: postalCodeController,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Iconsax.dollar_circle),
+                        labelText: 'Currency',
+                      ),
+                    ),
+                  )
+                : Expanded(
+                    child: TextFormField(
+                      controller: postalCodeController,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Iconsax.code),
+                        labelText: 'Postal Code',
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
           ],
         ),
         const SizedBox(height: VSizes.spaceBtwInputFields),
@@ -107,7 +122,19 @@ class AddressForm extends ConsumerWidget {
             labelText: 'Country',
           ),
         ),
-        const SizedBox(height: VSizes.defaultSpace),
+        const SizedBox(height: VSizes.spaceBtwInputFields),
+        if (withDescription) ...[
+          TextFormField(
+            controller: descriptionController,
+            decoration: const InputDecoration(
+              prefixIcon: Icon(Iconsax.note),
+              labelText: 'Description',
+            ),
+            minLines: 5,
+            maxLines: 7,
+          ),
+          const SizedBox(height: VSizes.defaultSpace),
+        ],
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(

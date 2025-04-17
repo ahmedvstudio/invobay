@@ -8,14 +8,13 @@ pw.Widget invoFooter({required String shopAddress}) => pw.Column(
         pw.Divider(),
         pw.SizedBox(height: 2 * PdfPageFormat.mm),
         buildText(
-          title: 'شكراً لتسوقكم معنا',
+          title: 'شكراً لتسوقكم معنا.',
           value: shopAddress,
           titleStyle: pw.TextStyle(
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: pw.FontWeight.bold,
           ),
           unite: false,
         ),
-        // pw.Text(shopAddress, textAlign: pw.TextAlign.center),
       ],
     );

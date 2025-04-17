@@ -7,7 +7,7 @@ import '../../../common/widgets/text/brand_title_text_with_verification_icon.dar
 import '../../../common/widgets/text/item_price_text.dart';
 import '../../../common/widgets/text/item_title_text.dart';
 import '../../../common/widgets/text/section_heading.dart';
-import '../../../core/database/app_database.dart';
+import '../../../core/database/drift/app_database.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/enums.dart';

@@ -6,7 +6,7 @@ import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
 import '../../../common/widgets/text_field/search_bar.dart';
-import '../../../core/database/app_database.dart';
+import '../../../core/database/drift/app_database.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/utils/constants/sizes.dart';

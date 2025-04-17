@@ -22,11 +22,3 @@ class BuyItems extends Table {
   RealColumn get quantity => real()();
   RealColumn get unitPrice => real().customConstraint('NOT NULL')();
 }
-
-class Suppliers extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get supplierName => text().withLength(min: 1, max: 255)();
-  TextColumn get supplierAddress => text().nullable()();
-  TextColumn get supplierNumber => text().nullable()();
-  TextColumn get supplierNotes => text().nullable()();
-}

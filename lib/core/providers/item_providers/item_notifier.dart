@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:invobay/core/database/app_database.dart';
+import 'package:invobay/core/database/drift/app_database.dart';
 import 'package:invobay/core/repository/item_dao.dart';
 import 'package:drift/drift.dart';
 

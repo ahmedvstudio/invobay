@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import '../database/app_database.dart';
+import '../database/drift/app_database.dart';
 
 class CustomerDao {
   final AppDatabase db;

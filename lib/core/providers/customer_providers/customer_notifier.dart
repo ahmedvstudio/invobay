@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../database/app_database.dart';
+import '../../database/drift/app_database.dart';
 import '../../repository/customer_dao.dart';
 
 class CustomerNotifier extends StateNotifier<List<CustomerData>> {

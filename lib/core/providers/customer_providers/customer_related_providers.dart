@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:invobay/core/database/app_database.dart';
+import 'package:invobay/core/database/drift/app_database.dart';
 
 import '../../repository/customer_dao.dart';
 import 'customer_notifier.dart';

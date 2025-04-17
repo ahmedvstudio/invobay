@@ -7,7 +7,7 @@ import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/personalization/address/widgets/address_form.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
-import '../../../../core/database/app_database.dart';
+import '../../../../core/database/drift/app_database.dart';
 import '../../../../core/providers/customer_providers/customer_related_providers.dart';
 import '../../../../core/providers/supplier_providers/supplier_related_providers.dart';
 import '../../../../core/utils/constants/sizes.dart';
@@ -20,7 +20,7 @@ class AddNewAddress extends ConsumerWidget {
     required this.isCustomer,
   });
 
-  final _formKey3 = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,7 +45,7 @@ class AddNewAddress extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(VSizes.defaultSpace),
           child: Form(
-            key: _formKey3,
+            key: _formKey,
             child: AddressForm(
               nameController: nameController,
               phoneController: phoneController,
@@ -57,7 +57,7 @@ class AddNewAddress extends ConsumerWidget {
               buttonText: isCustomer ? 'Save Customer' : 'Save Supplier',
               onPressed: isCustomer
                   ? () async {
-                      if (_formKey3.currentState!.validate()) {
+                      if (_formKey.currentState!.validate()) {
                         /// add New Customer
                         final newCustomer = CustomersCompanion(
                           name: drift.Value(nameController.text),
@@ -97,7 +97,7 @@ class AddNewAddress extends ConsumerWidget {
 
                   /// add New Supplier
                   : () async {
-                      if (_formKey3.currentState!.validate()) {
+                      if (_formKey.currentState!.validate()) {
                         final newSupplier = SuppliersCompanion(
                           name: drift.Value(nameController.text),
                           phoneNumber: phoneController.text.isEmpty
