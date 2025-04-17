@@ -71,36 +71,40 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () => context.pushNamed(VRouter.shopDetails),
                   ),
 
-                  VSettingsMenuTile(
-                    icon: Iconsax.shopping_cart,
-                    title: 'My Cart',
-                    subTitle: 'Add, remove products and move to checkout.',
-                    onTap: () {},
-                  ),
+                  const VSettingsMenuTile(
+                      icon: Iconsax.notification,
+                      title: 'Notifications',
+                      subTitle: 'Set any kind of notification message.'),
+                  // const VSettingsMenuTile(
+                  //     icon: Iconsax.security_card,
+                  //     title: 'Account Privacy',
+                  //     subTitle: 'Manage data usage and connected accounts.'),
                   VSettingsMenuTile(
                     icon: Iconsax.bag_tick,
                     title: 'My Orders',
                     subTitle: 'In-progress and Completed Orders.',
                     onTap: () => context.pushNamed(VRouter.orders),
                   ),
-                  const VSettingsMenuTile(
-                      icon: Iconsax.notification,
-                      title: 'Notifications',
-                      subTitle: 'Set any kind of notification message.'),
-                  const VSettingsMenuTile(
-                      icon: Iconsax.security_card,
-                      title: 'Account Privacy',
-                      subTitle: 'Manage data usage and connected accounts.'),
-
                   // app settings
                   const SizedBox(height: VSizes.spaceBtwSections),
                   const VSectionHeading(
                       title: 'App Settings', showActionButton: false),
                   const SizedBox(height: VSizes.spaceBtwItems),
                   const VSettingsMenuTile(
-                      icon: Iconsax.document_upload,
-                      title: 'Load Data',
-                      subTitle: 'Upload Data to your cloud firebase.'),
+                    icon: Iconsax.colorfilter,
+                    title: 'Appearance',
+                    subTitle: 'Personalize the app theme to your liking.',
+                  ),
+                  const VSettingsMenuTile(
+                    icon: Iconsax.document_download,
+                    title: 'Backup Data',
+                    subTitle: 'Back Data to your local Storage.',
+                  ),
+                  const VSettingsMenuTile(
+                    icon: Iconsax.document_upload,
+                    title: 'Load Data',
+                    subTitle: 'Upload Data from your local Storage.',
+                  ),
                   VSettingsMenuTile(
                     icon: Iconsax.location,
                     title: 'Geolocation',

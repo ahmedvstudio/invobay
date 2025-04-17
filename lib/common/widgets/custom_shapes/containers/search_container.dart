@@ -11,7 +11,7 @@ class VSearchContainer extends StatelessWidget {
     super.key,
     required this.text,
     this.icon = Iconsax.search_normal,
-    this.prefixIcon = Iconsax.scan_barcode,
+    this.prefixIcon = Iconsax.scan,
     this.showBackground = true,
     this.showBorder = true,
     this.showPrefixIcon = false,
