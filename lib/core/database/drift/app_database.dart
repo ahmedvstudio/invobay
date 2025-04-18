@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:invobay/core/database/drift/tables/buy_receipts_tables.dart';
 import 'package:invobay/core/database/drift/tables/customers_table.dart';
 import 'package:invobay/core/database/drift/tables/items_table.dart';
 import 'package:invobay/core/database/drift/tables/sell_receipts_tables.dart';
@@ -17,9 +18,12 @@ part 'app_database.g.dart';
     Items,
     SellReceipts,
     SellReceiptItems,
+    SellPayments,
+    BuyReceipts,
+    BuyReceiptItems,
+    BuyPayments,
     Customers,
     Suppliers,
-    SellPayments
   ],
 )
 class AppDatabase extends _$AppDatabase {

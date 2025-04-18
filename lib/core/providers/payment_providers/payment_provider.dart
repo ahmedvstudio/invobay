@@ -11,8 +11,8 @@ class PaymentMethod {
 // List of payment methods
 final paymentMethodsProvider = Provider<List<PaymentMethod>>((ref) => [
       PaymentMethod(name: "Cash", imagePath: VImages.cashSVG),
-      PaymentMethod(name: "Debt", imagePath: VImages.debtSVG),
       PaymentMethod(name: "MasterCard", imagePath: VImages.masterCashSVG),
+      PaymentMethod(name: "Bank Transfer", imagePath: VImages.bankSVG),
     ]);
 
 // StateNotifier to manage selected payment method

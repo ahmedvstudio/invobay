@@ -35,4 +35,6 @@ class VImages {
   static const String masterCashSVG =
       'assets/icons/payment_methods/mastercard.svg';
   static const String debtSVG = 'assets/icons/payment_methods/debt.svg';
+  static const String bankSVG =
+      'assets/icons/payment_methods/bank_transfer.svg';
 }

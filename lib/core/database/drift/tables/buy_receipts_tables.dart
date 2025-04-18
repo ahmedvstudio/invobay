@@ -1,24 +1,39 @@
 import 'package:drift/drift.dart';
 
+@DataClassName('BuyReceiptsModel')
 class BuyReceipts extends Table {
   IntColumn get id => integer().autoIncrement()();
   DateTimeColumn get date => dateTime().withDefault(currentDateAndTime)();
-  TextColumn get paymentMethod => text()();
-  IntColumn get buyReceiptItemsId => integer()
-      .customConstraint('NOT NULL REFERENCES buyItems(id) ON DELETE CASCADE')();
-  IntColumn get supplierId => integer().customConstraint(
-      'NOT NULL REFERENCES suppliers(id) ON DELETE CASCADE')();
+  IntColumn get supplierId => integer()
+      .customConstraint('REFERENCES suppliers(id) ON DELETE SET NULL')
+      .nullable()();
   RealColumn get subTotalPrice => real()();
-  RealColumn get discount => real().withDefault(const Constant(0))();
+  RealColumn get discount => real().withDefault(const Constant(0.00))();
   RealColumn get shippingFee => real().withDefault(const Constant(0.00))();
   RealColumn get taxFee => real().withDefault(const Constant(0.00))();
   RealColumn get totalPrice => real()();
 }
 
-class BuyItems extends Table {
+@DataClassName('BuyReceiptItemsModel')
+class BuyReceiptItems extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get itemName => text()
-      .customConstraint('NOT NULL REFERENCES name(id) ON DELETE CASCADE')();
+  IntColumn get receiptId => integer().customConstraint(
+      'NOT NULL REFERENCES buyReceipts(id) ON DELETE CASCADE')();
+  IntColumn get itemId => integer()
+      .customConstraint('NOT NULL REFERENCES items(id) ON DELETE CASCADE')();
   RealColumn get quantity => real()();
-  RealColumn get unitPrice => real().customConstraint('NOT NULL')();
+  RealColumn get price => real()();
+}
+
+@DataClassName('BuyPaymentsModel')
+class BuyPayments extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get receiptId => integer()
+      .customConstraint('REFERENCES buyReceipts(id) ON DELETE CASCADE')();
+  TextColumn get paymentMethod => text()();
+  RealColumn get paidAmount => real()();
+  RealColumn get debtAmount => real()();
+  DateTimeColumn get paymentDate =>
+      dateTime().withDefault(currentDateAndTime)();
+  TextColumn get status => text().withDefault(const Constant('Completed'))();
 }
