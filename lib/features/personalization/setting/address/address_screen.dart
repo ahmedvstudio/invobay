@@ -4,14 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
-import 'package:invobay/features/personalization/address/widgets/single_address.dart';
+import 'package:invobay/features/personalization/setting/address/widgets/single_address.dart';
 
-import '../../../common/widgets/appbar/appbar.dart';
-import '../../../common/widgets/dialogs/delete_confirm_dialog.dart';
-import '../../../core/providers/customer_providers/customer_related_providers.dart';
-import '../../../core/providers/supplier_providers/supplier_related_providers.dart';
-import '../../../core/utils/constants/colors.dart';
-import '../../../core/utils/constants/sizes.dart';
+import '../../../../common/widgets/appbar/appbar.dart';
+import '../../../../common/widgets/dialogs/delete_confirm_dialog.dart';
+import '../../../../core/providers/customer_providers/customer_related_providers.dart';
+import '../../../../core/providers/supplier_providers/supplier_related_providers.dart';
+import '../../../../core/utils/constants/colors.dart';
+import '../../../../core/utils/constants/sizes.dart';
 
 class AddressScreen extends ConsumerWidget {
   final bool isCustomer;

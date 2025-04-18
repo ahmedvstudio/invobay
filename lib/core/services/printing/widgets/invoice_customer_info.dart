@@ -1,3 +1,4 @@
+import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../../../database/drift/app_database.dart';
@@ -21,7 +22,7 @@ pw.Widget invoCustomerInfo({CustomerData? customerData}) {
         customerData?.name ?? '',
         style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
       ),
-      pw.Text(customerData?.phoneNumber ?? ''),
+      pw.Text(VFormatters.formatPhoneNumber(customerData?.phoneNumber ?? '')),
       pw.Text(address),
     ],
   );

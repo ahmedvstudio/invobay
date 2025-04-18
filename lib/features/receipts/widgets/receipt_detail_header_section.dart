@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../core/providers/customer_providers/customer_related_providers.dart';
@@ -53,7 +53,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Date:", style: Theme.of(context).textTheme.bodyMedium),
-              Text(DateFormat.yMd().format(receiptDate),
+              Text(VFormatters.formatDate(receiptDate),
                   style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),

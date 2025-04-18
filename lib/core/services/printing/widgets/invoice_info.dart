@@ -19,7 +19,7 @@ pw.Widget invoiceInfo({
   ];
   final data = <String>[
     '$currentYear-$formattedId',
-    VFormatters.formatDates(receipt.date),
+    VFormatters.formatDate(receipt.date),
     payment.paymentMethod,
     payment.status,
   ];

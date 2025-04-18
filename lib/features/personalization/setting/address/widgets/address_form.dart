@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../core/utils/constants/sizes.dart';
-import '../../../../core/utils/validators/validation.dart';
+import '../../../../../core/utils/constants/sizes.dart';
+import '../../../../../core/utils/validators/validation.dart';
 
 class AddressForm extends ConsumerWidget {
   const AddressForm({
@@ -52,8 +52,10 @@ class AddressForm extends ConsumerWidget {
           decoration: const InputDecoration(
             prefixIcon: Icon(Iconsax.mobile),
             labelText: 'Phone Number',
+            counterText: '',
           ),
           keyboardType: TextInputType.number,
+          maxLength: 11,
         ),
         const SizedBox(height: VSizes.spaceBtwInputFields),
         Row(

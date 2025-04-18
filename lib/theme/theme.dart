@@ -10,6 +10,7 @@ import 'package:invobay/theme/custom_themes/outline_button_theme.dart';
 import 'package:invobay/theme/custom_themes/text_theme.dart';
 import 'package:invobay/theme/custom_themes/textformfield_theme.dart';
 
+import 'custom_themes/segmented_button_theme.dart';
 import 'custom_themes/text_button_theme.dart';
 
 class VAppTheme {
@@ -34,6 +35,7 @@ class VAppTheme {
     textButtonTheme: VTextButtonTheme.lightTextButtonTheme,
     bottomNavigationBarTheme:
         VBottomNavigationBarTheme.lightBottomNavigationBarTheme,
+    segmentedButtonTheme: VSegmentedButtonTheme.lightSegmentedButtonTheme,
   );
 
   /// Dark Mode Theme
@@ -55,5 +57,6 @@ class VAppTheme {
     textButtonTheme: VTextButtonTheme.darkTextButtonTheme,
     bottomNavigationBarTheme:
         VBottomNavigationBarTheme.darkBottomNavigationBarTheme,
+    segmentedButtonTheme: VSegmentedButtonTheme.darkSegmentedButtonTheme,
   );
 }

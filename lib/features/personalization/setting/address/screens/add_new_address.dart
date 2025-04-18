@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
-import 'package:invobay/features/personalization/address/widgets/address_form.dart';
 
-import '../../../../common/widgets/appbar/appbar.dart';
-import '../../../../core/database/drift/app_database.dart';
-import '../../../../core/providers/customer_providers/customer_related_providers.dart';
-import '../../../../core/providers/supplier_providers/supplier_related_providers.dart';
-import '../../../../core/utils/constants/sizes.dart';
+import '../../../../../common/widgets/appbar/appbar.dart';
+import '../../../../../core/database/drift/app_database.dart';
+import '../../../../../core/providers/customer_providers/customer_related_providers.dart';
+import '../../../../../core/providers/supplier_providers/supplier_related_providers.dart';
+import '../../../../../core/utils/constants/sizes.dart';
+import '../widgets/address_form.dart';
 
 class AddNewAddress extends ConsumerWidget {
   final bool isCustomer;

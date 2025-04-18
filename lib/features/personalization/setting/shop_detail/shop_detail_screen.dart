@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
-import 'package:invobay/features/personalization/address/widgets/address_form.dart';
 
-import '../../../common/widgets/appbar/appbar.dart';
-import '../../../core/database/hive/shop_details/shop_details.dart';
-import '../../../core/providers/common_providers/default_providers.dart';
-import '../../../core/providers/db_providers/hive_providers/shop_detail_provider.dart';
-import '../../../core/utils/constants/sizes.dart';
+import '../../../../common/widgets/appbar/appbar.dart';
+import '../../../../core/database/hive/shop_details/shop_details.dart';
+import '../../../../core/providers/common_providers/default_providers.dart';
+import '../../../../core/providers/db_providers/hive_providers/shop_detail_provider.dart';
+import '../../../../core/utils/constants/sizes.dart';
+import '../address/widgets/address_form.dart';
 
 class ShopDetailScreen extends ConsumerStatefulWidget {
   const ShopDetailScreen({super.key});

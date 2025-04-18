@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../features/personalization/address/address_screen.dart';
-import '../../../../features/personalization/address/screens/add_new_address.dart';
-import '../../../../features/personalization/address/screens/edit_customer_form.dart';
+import '../../../../features/personalization/setting/address/address_screen.dart';
+import '../../../../features/personalization/setting/address/screens/add_new_address.dart';
+import '../../../../features/personalization/setting/address/screens/edit_customer_form.dart';
 import '../../../providers/common_providers/default_providers.dart';
 import '../../router_constant.dart';
 

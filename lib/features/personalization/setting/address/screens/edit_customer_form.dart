@@ -3,36 +3,37 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../common/widgets/appbar/appbar.dart';
-import '../../../../core/database/drift/app_database.dart';
-import '../../../../core/providers/supplier_providers/supplier_related_providers.dart';
-import '../../../../core/utils/constants/sizes.dart';
+
+import '../../../../../common/widgets/appbar/appbar.dart';
+import '../../../../../core/database/drift/app_database.dart';
+import '../../../../../core/providers/customer_providers/customer_related_providers.dart';
+import '../../../../../core/utils/constants/sizes.dart';
 import '../widgets/address_form.dart';
 
-class EditSupplierForm extends ConsumerWidget {
-  final int supplierId;
+class EditCustomerForm extends ConsumerWidget {
+  final int customerId;
 
-  EditSupplierForm({super.key, required this.supplierId});
+  EditCustomerForm({super.key, required this.customerId});
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final supplier = ref.watch(supplierNotifierProvider.select(
-        (suppliers) => suppliers.firstWhere((c) => c.id == supplierId)));
+    final customer = ref.watch(customerNotifierProvider.select(
+        (customers) => customers.firstWhere((c) => c.id == customerId)));
 
-    final nameController = TextEditingController(text: supplier.name);
-    final phoneController = TextEditingController(text: supplier.phoneNumber);
-    final streetController = TextEditingController(text: supplier.street);
+    final nameController = TextEditingController(text: customer.name);
+    final phoneController = TextEditingController(text: customer.phoneNumber);
+    final streetController = TextEditingController(text: customer.street);
     final postalCodeController =
-        TextEditingController(text: supplier.postalCode);
-    final cityController = TextEditingController(text: supplier.city);
-    final stateController = TextEditingController(text: supplier.state);
-    final countryController = TextEditingController(text: supplier.country);
+        TextEditingController(text: customer.postalCode);
+    final cityController = TextEditingController(text: customer.city);
+    final stateController = TextEditingController(text: customer.state);
+    final countryController = TextEditingController(text: customer.country);
 
     return Scaffold(
       appBar: VAppBar(
-        title: const Text('Edit Supplier'),
+        title: const Text('Edit Customer'),
         actions: [
           IconButton(
               onPressed: () => context.pop(),
@@ -52,11 +53,11 @@ class EditSupplierForm extends ConsumerWidget {
               cityController: cityController,
               stateController: stateController,
               countryController: countryController,
-              buttonText: 'Update Supplier',
+              buttonText: 'Update Customer',
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  final updatedSupplier = SuppliersCompanion(
-                    id: drift.Value(supplier.id),
+                  final updatedCustomer = CustomersCompanion(
+                    id: drift.Value(customer.id),
                     name: drift.Value(nameController.text),
                     phoneNumber: phoneController.text.isEmpty
                         ? const drift.Value.absent()
@@ -79,8 +80,8 @@ class EditSupplierForm extends ConsumerWidget {
                   );
 
                   await ref
-                      .read(supplierNotifierProvider.notifier)
-                      .updateSupplier(updatedSupplier);
+                      .read(customerNotifierProvider.notifier)
+                      .updateCustomer(updatedCustomer);
                   if (!context.mounted) return;
                   context.pop();
                 }

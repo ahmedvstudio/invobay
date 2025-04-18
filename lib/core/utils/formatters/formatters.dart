@@ -3,9 +3,8 @@ import 'package:intl/intl.dart';
 class VFormatters {
   VFormatters._();
   //
-  static formatDate(DateTime date) => DateFormat.yMd().format(date);
-  static String formatDates(DateTime date) {
-    return DateFormat('dd-MMM-yyy').format(date);
+  static String formatDate(DateTime date) {
+    return DateFormat('dd-MM-yyy').format(date);
   }
 
   //

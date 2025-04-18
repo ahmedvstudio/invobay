@@ -75,10 +75,7 @@ class SettingsScreen extends StatelessWidget {
                       icon: Iconsax.notification,
                       title: 'Notifications',
                       subTitle: 'Set any kind of notification message.'),
-                  // const VSettingsMenuTile(
-                  //     icon: Iconsax.security_card,
-                  //     title: 'Account Privacy',
-                  //     subTitle: 'Manage data usage and connected accounts.'),
+
                   VSettingsMenuTile(
                     icon: Iconsax.bag_tick,
                     title: 'My Orders',
@@ -90,10 +87,11 @@ class SettingsScreen extends StatelessWidget {
                   const VSectionHeading(
                       title: 'App Settings', showActionButton: false),
                   const SizedBox(height: VSizes.spaceBtwItems),
-                  const VSettingsMenuTile(
-                    icon: Iconsax.colorfilter,
+                  VSettingsMenuTile(
+                    icon: Iconsax.brush,
                     title: 'Appearance',
                     subTitle: 'Personalize the app theme to your liking.',
+                    onTap: () => context.pushNamed(VRouter.appearance),
                   ),
                   const VSettingsMenuTile(
                     icon: Iconsax.document_download,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
@@ -63,7 +64,8 @@ class VSingleAddress extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: VSizes.sm / 2),
-                Text(phoneNumber, maxLines: 1, overflow: TextOverflow.ellipsis),
+                Text(VFormatters.formatPhoneNumber(phoneNumber),
+                    maxLines: 1, overflow: TextOverflow.ellipsis),
                 const SizedBox(height: VSizes.sm / 2),
                 Text(address, softWrap: true),
               ],
