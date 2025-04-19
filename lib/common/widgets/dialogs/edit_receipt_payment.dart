@@ -10,7 +10,7 @@ import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_receipt_detail_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
-import '../../../features/item_details/widgets/meta_data_section.dart';
+import '../../../features/inventory/item_details/widgets/meta_data_section.dart';
 
 void showEditReceiptPayment(
     {required BuildContext context,

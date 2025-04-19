@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../models/sell_receipt_details_model.dart';
+import '../../models/sell_related_model/sell_receipt_details_model.dart';
 import '../db_providers/database_provider.dart';
 
 final sellReceiptDetailProvider = FutureProvider.family<SellReceiptDetail, int>(

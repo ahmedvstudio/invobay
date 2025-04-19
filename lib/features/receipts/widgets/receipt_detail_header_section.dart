@@ -4,6 +4,7 @@ import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../core/providers/customer_providers/customer_related_providers.dart';
+import '../../../core/providers/supplier_providers/supplier_related_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/helper_functions.dart';
@@ -18,6 +19,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
     required this.receiptPersonId,
     required this.receiptId,
     required this.paymentMethod,
+    required this.isSell,
   });
   final DateTime receiptDate;
   final double receiptDiscount;
@@ -26,7 +28,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
   final int receiptPersonId;
   final int receiptId;
   final String paymentMethod;
-
+  final bool isSell;
   @override
   Widget build(BuildContext context) {
     final isDark = VHelperFunctions.isDarkMode(context);
@@ -97,22 +99,36 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Customer:",
+                Text(isSell ? "Customer:" : "Supplier:",
                     style: Theme.of(context).textTheme.bodyMedium),
                 Consumer(
-                  builder: (context, ref, child) {
-                    final customerAsync =
-                        ref.watch(customerByIdProvider(receiptPersonId));
+                  builder: isSell
+                      ? (context, ref, child) {
+                          final customerAsync =
+                              ref.watch(customerByIdProvider(receiptPersonId));
 
-                    return customerAsync.when(
-                      data: (customer) => Text(
-                          customer?.name ?? "Unknown Customer",
-                          style: Theme.of(context).textTheme.bodyMedium),
-                      loading: () => const Text("Loading..."),
-                      error: (error, stackTrace) =>
-                          const Text("Error loading customer"),
-                    );
-                  },
+                          return customerAsync.when(
+                            data: (customer) => Text(
+                                customer?.name ?? "Unknown Customer",
+                                style: Theme.of(context).textTheme.bodyMedium),
+                            loading: () => const Text("Loading..."),
+                            error: (error, stackTrace) =>
+                                const Text("Error loading customer"),
+                          );
+                        }
+                      : (context, ref, child) {
+                          final supplierAsync =
+                              ref.watch(supplierByIdProvider(receiptPersonId));
+
+                          return supplierAsync.when(
+                            data: (supplier) => Text(
+                                supplier?.name ?? "Unknown Supplier",
+                                style: Theme.of(context).textTheme.bodyMedium),
+                            loading: () => const Text("Loading..."),
+                            error: (error, stackTrace) =>
+                                const Text("Error loading supplier"),
+                          );
+                        },
                 ),
               ],
             ),

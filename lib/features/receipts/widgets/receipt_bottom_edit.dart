@@ -12,10 +12,12 @@ class VReceiptBottomEdit extends StatelessWidget {
     required this.deleteReceipt,
     this.statusIconColor,
     this.printReceipt,
+    required this.withPrint,
   });
   final VoidCallback changePayment;
   final VoidCallback deleteReceipt;
   final VoidCallback? printReceipt;
+  final bool withPrint;
   final Color? statusIconColor;
   @override
   Widget build(BuildContext context) {
@@ -32,13 +34,15 @@ class VReceiptBottomEdit extends StatelessWidget {
             onPressed: deleteReceipt,
           ),
           const SizedBox(width: VSizes.spaceBtwItems),
-          VCircularIcon(
-            icon: Iconsax.printer,
-            backgroundColor: VColors.info,
-            color: VColors.white,
-            onPressed: printReceipt,
-          ),
-          const SizedBox(width: VSizes.spaceBtwSections),
+          if (withPrint) ...[
+            VCircularIcon(
+              icon: Iconsax.printer,
+              backgroundColor: VColors.info,
+              color: VColors.white,
+              onPressed: printReceipt,
+            ),
+            const SizedBox(width: VSizes.spaceBtwSections),
+          ],
           Flexible(
             child: SizedBox(
               width: double.infinity,

@@ -15,4 +15,14 @@ List<GoRoute> successFailRoute = [
       onPressed: () => context.pop(),
     ),
   ),
+  GoRoute(
+    name: VRouter.buyReceiptsSuccess,
+    path: '/buyReceiptsSuccess',
+    builder: (context, state) => SuccessScreen(
+      image: VImages.success1,
+      title: 'Success',
+      subTitle: 'Receipt saved successfully',
+      onPressed: () => context.pop(),
+    ),
+  ),
 ];

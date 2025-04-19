@@ -57,3 +57,9 @@ final customerNameProvider = StateProvider<String>((ref) => '');
 final customerIDProvider = StateProvider<int>((ref) => 0);
 final customerPhoneProvider = StateProvider<String>((ref) => '');
 final customerAddressProvider = StateProvider<String>((ref) => '');
+
+// --> Supplier Details Provider
+final supplierNameProvider = StateProvider<String>((ref) => '');
+final supplierIDProvider = StateProvider<int>((ref) => 0);
+final supplierPhoneProvider = StateProvider<String>((ref) => '');
+final supplierAddressProvider = StateProvider<String>((ref) => '');

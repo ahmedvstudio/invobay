@@ -4,7 +4,7 @@ import 'package:invobay/core/database/drift/app_database.dart';
 import 'package:invobay/core/repository/item_dao.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
-import '../../models/sell_model.dart';
+import '../../models/sell_related_model/sell_model.dart';
 import '../../utils/constants/numbers.dart';
 import '../common_providers/default_providers.dart';
 

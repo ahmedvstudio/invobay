@@ -11,7 +11,7 @@ import '../../common/widgets/dialogs/add_quantity_dialog.dart';
 import '../../core/providers/item_providers/item_related_providers.dart';
 import '../../core/utils/constants/numbers.dart';
 import '../../core/utils/helpers/low_stock_helper.dart';
-import '../item_details/widgets/meta_data_section.dart';
+import '../inventory/item_details/widgets/meta_data_section.dart';
 
 class LowStockScreen extends ConsumerWidget {
   const LowStockScreen({super.key});

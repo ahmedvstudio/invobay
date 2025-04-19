@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
-import '../../../features/item_details/widgets/meta_data_section.dart';
+import '../../../features/inventory/item_details/widgets/meta_data_section.dart';
 
 class VMoreItemInfoDialog extends StatelessWidget {
   const VMoreItemInfoDialog({

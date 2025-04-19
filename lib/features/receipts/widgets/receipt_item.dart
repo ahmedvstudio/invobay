@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../common/widgets/text/item_price_text.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
-import '../../item_details/widgets/meta_data_section.dart';
-import '../../sell/widgets/sell_items.dart';
+import '../../inventory/item_details/widgets/meta_data_section.dart';
+import '../../sell_buy_return/common/invoice_items.dart';
 
 class VReceiptItem extends ConsumerWidget {
   const VReceiptItem({
@@ -27,7 +27,7 @@ class VReceiptItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        VSellItem(itemName: itemName),
+        VInvoiceItem(itemName: itemName),
         const SizedBox(height: VSizes.spaceBtwItems / 2),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

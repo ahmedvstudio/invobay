@@ -25,11 +25,15 @@ class VRouter {
   static const String sellReceiptsDetails = 'sellReceiptsDetails';
   static const String sellReceiptsSuccess = 'sellReceiptsSuccess';
 
+  // - Buy
+  static const String buy = 'buy';
+  static const String buyCheckout = 'buyCheckout';
+  static const String buyReceipts = 'buyReceipts';
+  static const String buyReceiptsDetails = 'buyReceiptsDetails';
+  static const String buyReceiptsSuccess = 'buyReceiptsSuccess';
   // - Receipts
   static const String receipts = 'receipts';
-  static const String buyReceipts = 'buyReceipts';
   static const String returnReceipts = 'returnReceipts';
-  static const String buyCheckout = 'buyCheckout';
   static const String returnCheckout = 'returnCheckout';
 
   // - Settings
@@ -52,7 +56,6 @@ class VRouter {
   static const String orders = 'orders';
 
   // -
-  static const String buy = 'buy';
   static const String returns = 'returns';
   static const String reports = 'reports';
   static const String notification = 'notification';

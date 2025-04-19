@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:invobay/core/models/sell_model.dart';
+import 'package:invobay/core/models/sell_related_model/sell_model.dart';
 
 import '../../repository/sell_receipt_dao.dart';
 import '../item_providers/item_related_providers.dart';

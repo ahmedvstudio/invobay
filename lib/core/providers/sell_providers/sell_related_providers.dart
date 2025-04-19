@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../database/drift/app_database.dart';
-import '../../models/sell_model.dart';
-import '../../models/sell_with_payment_model.dart';
+import '../../models/sell_related_model/sell_model.dart';
+import '../../models/sell_related_model/sell_with_payment_model.dart';
 import '../../repository/sell_receipt_dao.dart';
 import 'sell_notifier.dart';
 import '../db_providers/database_provider.dart';

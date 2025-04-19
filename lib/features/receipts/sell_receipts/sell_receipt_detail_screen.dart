@@ -60,6 +60,7 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                         receiptPersonId: receipt.customerId ?? 0,
                         receiptId: receipt.id,
                         paymentMethod: payment.paymentMethod,
+                        isSell: true,
                       ),
                       const SizedBox(height: VSizes.spaceBtwSections),
 
@@ -180,6 +181,7 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                         }
                       }
                     },
+                    withPrint: true,
                   );
                 },
                 loading: () => const SizedBox(
