@@ -42,6 +42,7 @@ class VThemeSection extends ConsumerWidget {
             },
           ),
         ),
+        const SizedBox(height: VSizes.spaceBtwSections),
       ],
     );
   }

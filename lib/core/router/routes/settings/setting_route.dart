@@ -6,9 +6,9 @@ import 'package:invobay/core/router/routes/settings/supplier_route.dart';
 
 import '../../../../features/personalization/order/order_screen.dart';
 import '../../../../features/personalization/profile/profile_screen.dart';
-import '../../../../features/personalization/setting/appearance/appearance_screen.dart';
 import '../../../../features/personalization/setting/setting_screen.dart';
 import '../../../../features/personalization/setting/shop_detail/shop_detail_screen.dart';
+import 'appearance_route.dart';
 import 'customer_route.dart';
 
 List<GoRoute> settingRoutes = [
@@ -28,6 +28,8 @@ List<GoRoute> settingRoutes = [
       ...customerRoute,
       // Supplier Route
       ...supplierRoute,
+      // Appearance Route
+      ...appearanceRoute,
 
       // --> Shop Details
       GoRoute(
@@ -35,11 +37,6 @@ List<GoRoute> settingRoutes = [
           path: '/shopDetails',
           pageBuilder: (context, state) =>
               const MaterialPage(child: ShopDetailScreen())),
-      GoRoute(
-          name: VRouter.appearance,
-          path: '/appearance',
-          pageBuilder: (context, state) =>
-              const MaterialPage(child: AppearanceScreen())),
 
       ///
 

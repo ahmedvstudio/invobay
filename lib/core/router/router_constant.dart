@@ -31,6 +31,7 @@ class VRouter {
   static const String buyReceipts = 'buyReceipts';
   static const String buyReceiptsDetails = 'buyReceiptsDetails';
   static const String buyReceiptsSuccess = 'buyReceiptsSuccess';
+
   // - Receipts
   static const String receipts = 'receipts';
   static const String returnReceipts = 'returnReceipts';
@@ -40,6 +41,7 @@ class VRouter {
   static const String settings = 'settings';
   static const String shopDetails = 'shopDetails';
   static const String appearance = 'appearance';
+  static const String appLanguage = 'appLanguage';
   static const String profile = 'profile';
 
   // - Customer

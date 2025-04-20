@@ -108,7 +108,8 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
               children: [
                 VMainAppBar(
                   title: VText.inventoryAppBarSubTitle,
-                  onPressed: () => context.pushNamed(VRouter.addItem),
+                  onPressed: () => context.pushNamed(VRouter.addItem,
+                      pathParameters: {'itemName': 'itemName'}),
                 ),
                 const SizedBox(height: VSizes.spaceBtwItems),
                 VSearchBar(

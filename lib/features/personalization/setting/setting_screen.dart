@@ -87,10 +87,11 @@ class SettingsScreen extends StatelessWidget {
                   const VSectionHeading(
                       title: 'App Settings', showActionButton: false),
                   const SizedBox(height: VSizes.spaceBtwItems),
+
                   VSettingsMenuTile(
                     icon: Iconsax.brush,
                     title: 'Appearance',
-                    subTitle: 'Personalize the app theme to your liking.',
+                    subTitle: 'Personalize the app to your liking.',
                     onTap: () => context.pushNamed(VRouter.appearance),
                   ),
                   const VSettingsMenuTile(

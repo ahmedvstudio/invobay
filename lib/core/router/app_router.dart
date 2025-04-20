@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/router/routes/auth_route.dart';
@@ -15,7 +16,10 @@ import 'package:invobay/features/error/not_found_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/low_stock/low_stock_screen.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 final GoRouter invoRouter = GoRouter(
+  navigatorKey: navigatorKey,
   initialLocation: '/login',
   routes: <RouteBase>[
     ...authRoutes,

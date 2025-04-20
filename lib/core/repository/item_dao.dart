@@ -80,7 +80,7 @@ class ItemDao {
     // Fetch current stock quantity
     final item = await getItemById(itemId);
 
-    if (item != null && item.quantity >= quantityReturned) {
+    if (item != null) {
       // Update stock quantity
       await (db.update(db.items)..where((tbl) => tbl.id.equals(itemId))).write(
         ItemsCompanion(

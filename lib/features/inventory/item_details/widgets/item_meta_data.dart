@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../../common/widgets/text/brand_title_text_with_verification_icon.dart';
@@ -9,8 +11,9 @@ import '../../../../common/widgets/text/item_title_text.dart';
 import '../../../../common/widgets/text/section_heading.dart';
 import '../../../../core/database/drift/app_database.dart';
 import '../../../../core/providers/item_providers/item_related_providers.dart';
+import '../../../../core/providers/item_providers/receipt_with_item_provider.dart';
+import '../../../../core/providers/supplier_providers/supplier_related_providers.dart';
 import '../../../../core/utils/constants/colors.dart';
-import '../../../../core/utils/constants/enums.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/helpers/low_stock_helper.dart';
 import 'meta_data_section.dart';
@@ -53,6 +56,7 @@ class VItemMetaData extends ConsumerWidget {
 
     final lowStockColor = LowStockHelper(item.quantity).getThreeColor();
     final lowStockText = LowStockHelper(item.quantity).getThreeText();
+    final receiptsAsync = ref.watch(receiptsWithItemProvider(item.id));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,7 +123,7 @@ class VItemMetaData extends ConsumerWidget {
         const SizedBox(height: VSizes.spaceBtwItems),
         VMetaDataSection(
           tag: 'Barcode',
-          tagBackgroundColor: VColors.info,
+          tagBackgroundColor: VColors.secondaryDark,
           tagTextColor: VColors.white,
           icon: Iconsax.barcode,
           child:
@@ -133,8 +137,78 @@ class VItemMetaData extends ConsumerWidget {
           tagBackgroundColor: VColors.info,
           tagTextColor: VColors.white,
           icon: Iconsax.user_tag,
-          child: VBrandTitleTextWithVerificationIcon(
-              title: supplier ?? '', brandTextSizes: TextSizes.medium),
+          child: receiptsAsync.when(
+            data: (receipts) {
+              if (receipts.isEmpty) {
+                return const Text('No Supplier found.');
+              }
+
+              // Filter unique receipts by supplierId (exclude supplierId == 0)
+              final uniqueReceiptsMap = <int, BuyReceiptsModel>{};
+              for (var receipt in receipts) {
+                if (receipt.supplierId != 0 && receipt.supplierId != null) {
+                  uniqueReceiptsMap[receipt.supplierId!] = receipt;
+                }
+              }
+              final uniqueReceipts = uniqueReceiptsMap.values.toList();
+
+              return Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: uniqueReceipts.map((receipt) {
+                  return Consumer(
+                    builder: (context, ref, child) {
+                      final supplierAsync =
+                          ref.watch(supplierByIdProvider(receipt.supplierId!));
+                      return supplierAsync.when(
+                        data: (supplier) {
+                          return VBrandTitleTextWithVerificationIcon(
+                            title: supplier?.name ?? "Unknown Supplier",
+                          );
+                        },
+                        loading: () => const Text("Loading..."),
+                        error: (error, stackTrace) =>
+                            const Text("Error loading supplier"),
+                      );
+                    },
+                  );
+                }).toList(),
+              );
+            },
+            loading: () => const CircularProgressIndicator(),
+            error: (e, st) => const Text('Error loading receipts'),
+          ),
+        ),
+        const SizedBox(height: VSizes.spaceBtwItems),
+        VMetaDataSection(
+          showTag: true,
+          tag: 'Receipts',
+          tagBackgroundColor: VColors.info,
+          tagTextColor: VColors.white,
+          icon: Iconsax.receipt,
+          child: receiptsAsync.when(
+            data: (receipts) {
+              if (receipts.isEmpty) {
+                return const Text('No receipts found.');
+              }
+              return Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: receipts.map((receipt) {
+                  return GestureDetector(
+                    onTap: () => context.pushNamed(
+                      VRouter.buyReceiptsDetails,
+                      pathParameters: {'id': '${receipt.id}'},
+                    ),
+                    child: Text('#${receipt.id}',
+                        style: Theme.of(context).textTheme.labelSmall),
+                  );
+                }).toList(),
+              );
+            },
+            loading: () => const CircularProgressIndicator(),
+            error: (e, st) => const Text('Error loading receipts'),
+          ),
         ),
       ],
     );

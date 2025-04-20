@@ -12,14 +12,17 @@ import '../../../core/utils/helpers/helper_functions.dart';
 import '../widgets/item_form.dart';
 
 class AddItemScreen extends ConsumerStatefulWidget {
-  const AddItemScreen({super.key});
-
+  const AddItemScreen({
+    super.key,
+    this.itemName,
+  });
+  final String? itemName;
   @override
   AddItemScreenState createState() => AddItemScreenState();
 }
 
 class AddItemScreenState extends ConsumerState<AddItemScreen> {
-  final TextEditingController _nameController = TextEditingController();
+  late final TextEditingController _nameController;
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _sellingPriceController = TextEditingController();
   final TextEditingController _buyingPriceController = TextEditingController();
@@ -30,6 +33,16 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
       TextEditingController(text: '');
 
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(
+      text: widget.itemName == 'itemName' || widget.itemName == null
+          ? ''
+          : widget.itemName,
+    );
+  }
 
   @override
   void dispose() {

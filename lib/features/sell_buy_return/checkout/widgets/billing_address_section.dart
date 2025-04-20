@@ -35,7 +35,7 @@ class VBillingAddressSection extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         VSectionHeading(
-          title: 'Shipping Address',
+          title: isSell ? 'Shipping Address' : 'Supplier Address',
           buttonTitle: 'Change',
           onPressed: isSell
               ? () async {

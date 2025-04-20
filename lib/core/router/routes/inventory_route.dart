@@ -17,9 +17,15 @@ List<GoRoute> inventoryRoutes = [
     routes: [
       GoRoute(
         name: VRouter.addItem,
-        path: '/addItem',
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: AddItemScreen(), fullscreenDialog: true),
+        path: '/addItem/:itemName',
+        pageBuilder: (context, state) {
+          final itemName = state.pathParameters['itemName']!;
+          return MaterialPage(
+              child: AddItemScreen(
+                itemName: itemName,
+              ),
+              fullscreenDialog: true);
+        },
       ),
       GoRoute(
         name: VRouter.editItem,

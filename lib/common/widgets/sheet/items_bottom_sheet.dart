@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/item_cards/item_card_horizontal.dart';
+import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
@@ -80,10 +81,32 @@ void showItemsBottomSheet({
                 ),
                 const SizedBox(height: VSizes.spaceBtwSections),
                 filteredItems.isEmpty
-                    ? const Padding(
-                        padding: EdgeInsets.all(VSizes.defaultSpace),
-                        child: Text("No items found"),
-                      )
+                    ? isSell
+                        ? const Padding(
+                            padding: EdgeInsets.all(VSizes.defaultSpace),
+                            child: Text("No items found"),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: VSizes.defaultSpace),
+                            child: Column(
+                              spacing: VSizes.defaultSpace,
+                              children: [
+                                Text("${searchController.text} Not found!"),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: OutlinedButton(
+                                      onPressed: () => context.goNamed(
+                                              VRouter.addItem,
+                                              pathParameters: {
+                                                'itemName':
+                                                    searchController.text
+                                              }),
+                                      child: const Text('Add New')),
+                                ),
+                              ],
+                            ),
+                          )
                     : Flexible(
                         child: ListView.separated(
                           padding: const EdgeInsets.symmetric(
