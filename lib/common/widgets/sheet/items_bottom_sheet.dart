@@ -86,27 +86,29 @@ void showItemsBottomSheet({
                             padding: EdgeInsets.all(VSizes.defaultSpace),
                             child: Text("No items found"),
                           )
-                        : Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: VSizes.defaultSpace),
-                            child: Column(
-                              spacing: VSizes.defaultSpace,
-                              children: [
-                                Text("${searchController.text} Not found!"),
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: OutlinedButton(
-                                      onPressed: () => context.goNamed(
-                                              VRouter.addItem,
-                                              pathParameters: {
-                                                'itemName':
-                                                    searchController.text
-                                              }),
-                                      child: const Text('Add New')),
+                        : searchController.text.isNotEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: VSizes.defaultSpace),
+                                child: Column(
+                                  spacing: VSizes.defaultSpace,
+                                  children: [
+                                    Text("${searchController.text} Not found!"),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: OutlinedButton(
+                                          onPressed: () => context.goNamed(
+                                                  VRouter.addItem,
+                                                  pathParameters: {
+                                                    'itemName':
+                                                        searchController.text
+                                                  }),
+                                          child: const Text('Add New')),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          )
+                              )
+                            : const Text('Your Inventory is Empty')
                     : Flexible(
                         child: ListView.separated(
                           padding: const EdgeInsets.symmetric(
