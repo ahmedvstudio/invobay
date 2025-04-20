@@ -84,7 +84,6 @@ class ItemNotifier extends StateNotifier<List<Item>> {
         quantity: Value(newQuantity),
         sellingPrice: Value(fetchedItem.sellingPrice),
         buyingPrice: Value(fetchedItem.buyingPrice),
-        supplierName: Value(fetchedItem.supplierName),
         description: Value(fetchedItem.description),
         barcode: Value(fetchedItem.barcode),
       ),

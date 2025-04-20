@@ -5,20 +5,19 @@ import 'package:invobay/core/database/drift/app_database.dart';
 import '../db_providers/database_provider.dart';
 
 final receiptsWithItemProvider =
-    FutureProvider.family<List<BuyReceiptsModel>, int>((ref, itemId) async {
+    StreamProvider.family<List<BuyReceiptsModel>, int>((ref, itemId) {
   final db = ref.watch(databaseProvider);
 
-  // Join buyReceiptItems and buyReceipts filtering by itemId
-  final rows = await (db.select(db.buyReceiptItems).join([
+  final query = (db.select(db.buyReceiptItems).join([
     innerJoin(db.buyReceipts,
         db.buyReceipts.id.equalsExp(db.buyReceiptItems.receiptId)),
   ])
-        ..where(db.buyReceiptItems.itemId.equals(itemId)))
-      .get();
+    ..where(db.buyReceiptItems.itemId.equals(itemId)));
 
-  // Extract unique receipts from join result
-  final receipts =
-      rows.map((row) => row.readTable(db.buyReceipts)).toSet().toList();
-
-  return receipts;
+  // Map the stream of joined rows to a stream of unique buyReceipts
+  return query.watch().map((rows) {
+    final receipts =
+        rows.map((row) => row.readTable(db.buyReceipts)).toSet().toList();
+    return receipts;
+  });
 });

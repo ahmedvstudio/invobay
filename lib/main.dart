@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:invobay/hive_registrar.g.dart';
+import 'package:invobay/core/database/hive/hive_registrar.dart';
 import 'package:invobay/invobay.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 

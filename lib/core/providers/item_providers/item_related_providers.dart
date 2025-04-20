@@ -19,8 +19,7 @@ final itemNotifierProvider =
 });
 
 // Item By ID Provider
-final itemByIdProvider = FutureProvider.family<Item, int>((ref, itemId) async {
-  final db = ref.watch(databaseProvider);
-  return await (db.select(db.items)..where((i) => i.id.equals(itemId)))
-      .getSingle();
+final itemByIdProvider = StreamProvider.family<Item?, int>((ref, id) {
+  final itemDao = ref.watch(itemDaoProvider);
+  return itemDao.watchItemById(id);
 });

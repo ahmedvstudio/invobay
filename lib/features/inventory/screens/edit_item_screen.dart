@@ -21,7 +21,6 @@ class EditItemScreen extends ConsumerWidget {
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _sellingPriceController = TextEditingController();
   final TextEditingController _buyingPriceController = TextEditingController();
-  final TextEditingController _supplierController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _barcodeController = TextEditingController();
   final TextEditingController _itemUnitController = TextEditingController();
@@ -34,7 +33,6 @@ class EditItemScreen extends ConsumerWidget {
     _quantityController.text = item.quantity.toString();
     _sellingPriceController.text = item.sellingPrice.toString();
     _buyingPriceController.text = item.buyingPrice.toString();
-    _supplierController.text = item.supplierName ?? '';
     _descriptionController.text = item.description ?? '';
     _barcodeController.text = item.barcode ?? '';
     _itemUnitController.text = item.itemUnit ?? '';
@@ -50,15 +48,9 @@ class EditItemScreen extends ConsumerWidget {
         quantity: drift.Value(double.parse(_quantityController.text)),
         sellingPrice: drift.Value(double.parse(_sellingPriceController.text)),
         buyingPrice: drift.Value(double.parse(_buyingPriceController.text)),
-        supplierName: drift.Value(_supplierController.text),
         description: drift.Value(_descriptionController.text),
-        barcode: _barcodeController.text.isEmpty
-            ? const drift.Value.absent()
-            : drift.Value(_barcodeController.text),
-        //
-        itemUnit: _itemUnitController.text.isEmpty
-            ? const drift.Value.absent()
-            : drift.Value(_itemUnitController.text),
+        barcode: drift.Value(_barcodeController.text),
+        itemUnit: drift.Value(_itemUnitController.text),
       );
 
       final provider = ref.read(itemNotifierProvider.notifier);
@@ -99,7 +91,6 @@ class EditItemScreen extends ConsumerWidget {
                       quantityController: _quantityController,
                       buyingPriceController: _buyingPriceController,
                       sellingPriceController: _sellingPriceController,
-                      supplierController: _supplierController,
                       barcodeController: _barcodeController,
                       descriptionController: _descriptionController,
                       itemUnitController: _itemUnitController,

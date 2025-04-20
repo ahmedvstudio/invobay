@@ -80,13 +80,24 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                                     ref.watch(itemByIdProvider(item.itemId));
 
                                 return itemAsync.when(
-                                  data: (itemData) => VReceiptItem(
-                                    itemName: itemData.name,
-                                    itemQuantity: item.quantity,
-                                    itemPrice: item.price,
-                                    currencySign: currencySign,
-                                    itemUnit: itemData.itemUnit ?? 'Unit',
-                                  ),
+                                  data: (itemData) {
+                                    if (itemData == null) {
+                                      return Center(
+                                        child: Text(
+                                            "Item removed from inventory",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall),
+                                      );
+                                    }
+                                    return VReceiptItem(
+                                      itemName: itemData.name,
+                                      itemQuantity: item.quantity,
+                                      itemPrice: item.price,
+                                      currencySign: currencySign,
+                                      itemUnit: itemData.itemUnit ?? 'Unit',
+                                    );
+                                  },
                                   loading: () => Center(
                                     child: Text("Loading item...",
                                         style: Theme.of(context)

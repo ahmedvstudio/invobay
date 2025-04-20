@@ -65,7 +65,7 @@ class PrintReceiptApi {
 
   static pw.MultiPage buildPdfPage({
     required List<SellReceiptItemsModel> items,
-    required List<Item> itemDetailsList,
+    required List<Item?> itemDetailsList,
     required SellReceiptsModel receipt,
     required SellPaymentsModel payment,
     CustomerData? customerData,

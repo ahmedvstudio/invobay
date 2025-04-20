@@ -26,7 +26,6 @@ class ItemDetailsScreen extends ConsumerWidget {
     required this.sellPrice,
     this.barcode,
     this.description,
-    this.supplierName,
     this.itemUnit,
   });
 
@@ -35,7 +34,6 @@ class ItemDetailsScreen extends ConsumerWidget {
   final double stock;
   final double buyPrice;
   final double sellPrice;
-  final String? supplierName;
   final String? description;
   final String? barcode;
   final String? itemUnit;
@@ -95,7 +93,6 @@ class ItemDetailsScreen extends ConsumerWidget {
                     stock: VFormatters.formatPrice(stock),
                     sellingPrice: sellPrice,
                     buyingPrice: buyPrice,
-                    supplier: supplierName,
                     barcode: barcode,
                     itemUnit: itemUnit,
                   ),

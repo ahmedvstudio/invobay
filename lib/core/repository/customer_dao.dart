@@ -22,6 +22,11 @@ class CustomerDao {
         .getSingleOrNull();
   }
 
+  Stream<CustomerData?> watchCustomerById(int id) {
+    return (db.select(db.customers)..where((tbl) => tbl.id.equals(id)))
+        .watchSingleOrNull();
+  }
+
   // Update an existing customer
   Future<void> updateCustomer(CustomersCompanion customer) {
     return db.update(db.customers).replace(customer);

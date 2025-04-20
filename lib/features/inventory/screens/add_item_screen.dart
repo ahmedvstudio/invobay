@@ -26,7 +26,6 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _sellingPriceController = TextEditingController();
   final TextEditingController _buyingPriceController = TextEditingController();
-  final TextEditingController _supplierController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _barcodeController = TextEditingController();
   final TextEditingController _itemUnitController =
@@ -50,7 +49,6 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
     _quantityController.dispose();
     _sellingPriceController.dispose();
     _buyingPriceController.dispose();
-    _supplierController.dispose();
     _descriptionController.dispose();
     _barcodeController.dispose();
     _itemUnitController.dispose();
@@ -64,9 +62,6 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
         quantity: double.parse(_quantityController.text),
         sellingPrice: double.parse(_sellingPriceController.text),
         buyingPrice: double.parse(_buyingPriceController.text),
-        supplierName: _supplierController.text.isEmpty
-            ? const drift.Value.absent()
-            : drift.Value(_supplierController.text),
         description: _descriptionController.text.isEmpty
             ? const drift.Value.absent()
             : drift.Value(_descriptionController.text),
@@ -93,7 +88,6 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
       _quantityController.clear();
       _sellingPriceController.clear();
       _buyingPriceController.clear();
-      _supplierController.clear();
       _descriptionController.clear();
       _barcodeController.clear();
       _itemUnitController.clear();
@@ -133,7 +127,6 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
                       quantityController: _quantityController,
                       buyingPriceController: _buyingPriceController,
                       sellingPriceController: _sellingPriceController,
-                      supplierController: _supplierController,
                       barcodeController: _barcodeController,
                       descriptionController: _descriptionController,
                       itemUnitController: _itemUnitController,

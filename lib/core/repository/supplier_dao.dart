@@ -19,6 +19,11 @@ class SupplierDao {
         .getSingleOrNull();
   }
 
+  Stream<SupplierData?> watchSupplierById(int id) {
+    return (db.select(db.suppliers)..where((tbl) => tbl.id.equals(id)))
+        .watchSingleOrNull();
+  }
+
   Future<void> updateSupplier(SuppliersCompanion supplier) {
     return db.update(db.suppliers).replace(supplier);
   }

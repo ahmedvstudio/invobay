@@ -19,6 +19,11 @@ class ItemDao {
         .getSingleOrNull();
   }
 
+  Stream<Item?> watchItemById(int id) {
+    return (db.select(db.items)..where((tbl) => tbl.id.equals(id)))
+        .watchSingleOrNull();
+  }
+
   // Update an existing item
   Future<void> updateItem(ItemsCompanion item) =>
       db.update(db.items).replace(item);

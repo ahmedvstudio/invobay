@@ -19,9 +19,8 @@ final supplierNotifierProvider =
     ..loadSuppliers(); // Load initial suppliers
 });
 
-// supplier By ID Provide
 final supplierByIdProvider =
-    FutureProvider.family<SupplierData?, int>((ref, supplierId) {
+    StreamProvider.family<SupplierData?, int>((ref, id) {
   final supplierDao = ref.watch(supplierDaoProvider);
-  return supplierDao.getSupplierById(supplierId);
+  return supplierDao.watchSupplierById(id);
 });

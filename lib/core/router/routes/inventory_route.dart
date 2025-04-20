@@ -65,7 +65,6 @@ List<GoRoute> inventoryRoutes = [
                   stock: item.quantity,
                   buyPrice: item.buyingPrice,
                   sellPrice: item.sellingPrice,
-                  supplierName: item.supplierName,
                   barcode: item.barcode,
                   description: item.description,
                   itemUnit: item.itemUnit,

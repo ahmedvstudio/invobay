@@ -6,7 +6,6 @@ class Items extends Table {
   RealColumn get quantity => real()();
   RealColumn get sellingPrice => real()();
   RealColumn get buyingPrice => real()();
-  TextColumn get supplierName => text().nullable()();
   TextColumn get description => text().nullable()();
   TextColumn get barcode => text().nullable()();
   TextColumn get itemUnit => text().nullable()();

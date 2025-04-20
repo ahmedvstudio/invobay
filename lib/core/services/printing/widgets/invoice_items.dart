@@ -5,7 +5,7 @@ import 'package:pdf/widgets.dart' as pw;
 import '../../../database/drift/app_database.dart';
 
 pw.Widget invoiceItems(List<SellReceiptItemsModel> items,
-    List<Item> itemDetailsList, String currencySign) {
+    List<Item?> itemDetailsList, String currencySign) {
   final headers = [
     'الملاحظات',
     'المبلغ الكلي',
@@ -25,7 +25,7 @@ pw.Widget invoiceItems(List<SellReceiptItemsModel> items,
       '${item.price * item.quantity}', // الإجمالي
       '${VFormatters.formatPrice(item.price)}', // السعر
       '${item.quantity}', // الكمية
-      itemDetails.name, // المنتج
+      itemDetails?.name ?? 'Item Unavailable', // المنتج
       '${index + 1}',
     ];
   }).toList();

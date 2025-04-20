@@ -60,22 +60,22 @@ class EditSupplierForm extends ConsumerWidget {
                     id: drift.Value(supplier.id),
                     name: drift.Value(nameController.text),
                     phoneNumber: phoneController.text.isEmpty
-                        ? const drift.Value.absent()
+                        ? const drift.Value(null)
                         : drift.Value(phoneController.text),
                     street: streetController.text.isEmpty
-                        ? const drift.Value.absent()
+                        ? const drift.Value(null)
                         : drift.Value(streetController.text),
                     postalCode: postalCodeController.text.isEmpty
-                        ? const drift.Value.absent()
+                        ? const drift.Value(null)
                         : drift.Value(postalCodeController.text),
                     city: cityController.text.isEmpty
-                        ? const drift.Value.absent()
+                        ? const drift.Value(null)
                         : drift.Value(cityController.text),
                     state: stateController.text.isEmpty
-                        ? const drift.Value.absent()
+                        ? const drift.Value(null)
                         : drift.Value(stateController.text),
                     country: countryController.text.isEmpty
-                        ? const drift.Value.absent()
+                        ? const drift.Value(null)
                         : drift.Value(countryController.text),
                   );
 

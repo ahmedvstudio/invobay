@@ -25,7 +25,6 @@ class VItemMetaData extends ConsumerWidget {
     required this.stock,
     required this.sellingPrice,
     required this.buyingPrice,
-    this.supplier,
     this.barcode,
     this.itemUnit,
   });
@@ -34,7 +33,6 @@ class VItemMetaData extends ConsumerWidget {
   final String stock;
   final double sellingPrice;
   final double buyingPrice;
-  final String? supplier;
   final String? barcode;
   final String? itemUnit;
 
@@ -48,7 +46,6 @@ class VItemMetaData extends ConsumerWidget {
               quantity: 0.0,
               sellingPrice: 0.0,
               buyingPrice: 0.0,
-              supplierName: null,
               description: null,
               barcode: null,
               itemUnit: null,

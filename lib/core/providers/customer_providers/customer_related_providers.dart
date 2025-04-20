@@ -19,9 +19,8 @@ final customerNotifierProvider =
     ..loadCustomers(); // Load initial customers
 });
 
-// Customer By ID Provide
 final customerByIdProvider =
-    FutureProvider.family<CustomerData?, int>((ref, customerId) {
+    StreamProvider.family<CustomerData?, int>((ref, id) {
   final customerDao = ref.watch(customerDaoProvider);
-  return customerDao.getCustomerById(customerId);
+  return customerDao.watchCustomerById(id);
 });

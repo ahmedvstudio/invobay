@@ -13,7 +13,6 @@ class ItemForm extends StatelessWidget {
       this.quantityController,
       this.buyingPriceController,
       this.sellingPriceController,
-      this.supplierController,
       this.barcodeController,
       this.descriptionController,
       this.onPressed,
@@ -24,7 +23,6 @@ class ItemForm extends StatelessWidget {
   final TextEditingController? quantityController;
   final TextEditingController? buyingPriceController;
   final TextEditingController? sellingPriceController;
-  final TextEditingController? supplierController;
   final TextEditingController? barcodeController;
   final TextEditingController? descriptionController;
   final TextEditingController itemUnitController;
@@ -83,12 +81,6 @@ class ItemForm extends StatelessWidget {
               ),
             ),
           ],
-        ),
-        TextFormField(
-          controller: supplierController,
-          maxLength: 25,
-          decoration:
-              const InputDecoration(labelText: 'Supplier', counterText: ''),
         ),
         TextFormField(
           controller: barcodeController,
