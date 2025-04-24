@@ -17,6 +17,7 @@ class VMetaDataSection extends StatelessWidget {
     this.showTag = true,
     this.showChild = true,
     this.showIcon = true,
+    this.onTap,
   });
   final bool showTag;
   final bool showChild;
@@ -27,37 +28,41 @@ class VMetaDataSection extends StatelessWidget {
   final Color iconColor;
   final Widget child;
   final bool showIcon;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (showTag)
-          VRoundedContainer(
-            radius: VSizes.sm,
-            backgroundColor: tagBackgroundColor.withValues(alpha: 0.8),
-            padding: const EdgeInsets.symmetric(
-              horizontal: VSizes.sm,
-              vertical: VSizes.xs,
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          if (showTag)
+            VRoundedContainer(
+              radius: VSizes.sm,
+              backgroundColor: tagBackgroundColor.withValues(alpha: 0.8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: VSizes.sm,
+                vertical: VSizes.xs,
+              ),
+              child: Row(
+                children: [
+                  if (showIcon)
+                    Icon(icon, color: tagTextColor, size: VSizes.iconSd),
+                  if (showIcon) const SizedBox(width: VSizes.spaceBtwItems / 2),
+                  Text(
+                    tag!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .apply(color: tagTextColor),
+                  ),
+                ],
+              ),
             ),
-            child: Row(
-              children: [
-                if (showIcon)
-                  Icon(icon, color: tagTextColor, size: VSizes.iconSd),
-                if (showIcon) const SizedBox(width: VSizes.spaceBtwItems / 2),
-                Text(
-                  tag!,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelLarge!
-                      .apply(color: tagTextColor),
-                ),
-              ],
-            ),
-          ),
-        if (showTag) const SizedBox(width: VSizes.spaceBtwItems),
-        if (showChild) Flexible(child: child),
-      ],
+          if (showTag) const SizedBox(width: VSizes.spaceBtwItems),
+          if (showChild) Flexible(child: child),
+        ],
+      ),
     );
   }
 }

@@ -159,6 +159,7 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                       receiptId: receiptId,
                       total: receipt.totalPrice,
                       paidAmount: payment.paidAmount,
+                      isSell: true,
                     ),
                     statusIconColor: payment.status == 'Pending'
                         ? VColors.warning

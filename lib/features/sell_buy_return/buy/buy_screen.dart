@@ -63,7 +63,6 @@ class BuyScreen extends ConsumerWidget {
                       if (item != null) {
                         ref.read(buyNotifierProvider.notifier).addItem(item);
                       } else {
-                        ///TODO handle adding
                         VHelperFunctions.showToasty(
                           message: 'Item not found!',
                           backgroundColor: VColors.warning,

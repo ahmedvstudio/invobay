@@ -35,11 +35,14 @@ class BuyItemList extends ConsumerWidget {
               : () {
                   ref.read(quantityProvider.notifier).state =
                       buyItem.quantity.toString();
+                  ref.read(buyPriceProvider.notifier).state =
+                      buyItem.price.toString();
                   showDialog(
                     context: context,
                     builder: (context) => VQuantityInputDialog(
                       initialQuantity: buyItem.quantity,
                       itemId: buyItem.item.id,
+                      initialBuyingPrice: buyItem.price,
                       isSell: false,
                     ),
                   );

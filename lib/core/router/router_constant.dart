@@ -17,6 +17,7 @@ class VRouter {
   static const String editItem = 'editItem';
   static const String search = 'search';
   static const String itemDetail = 'itemDetail';
+  static const String itemBuyReceipts = 'itemBuyReceipts';
 
   // - Sell
   static const String sell = 'sell';

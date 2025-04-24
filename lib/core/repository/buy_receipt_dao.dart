@@ -43,7 +43,7 @@ class BuyReceiptDao {
                 receiptId: drift.Value(receiptId),
                 itemId: drift.Value(item.item.id),
                 quantity: drift.Value(item.quantity),
-                price: drift.Value(item.item.buyingPrice),
+                price: drift.Value(item.price),
               ),
             );
       }

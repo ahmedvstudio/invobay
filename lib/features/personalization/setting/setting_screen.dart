@@ -76,13 +76,6 @@ class SettingsScreen extends StatelessWidget {
                       title: 'Notifications',
                       subTitle: 'Set any kind of notification message.'),
 
-                  VSettingsMenuTile(
-                    icon: Iconsax.bag_tick,
-                    title: 'My Orders',
-                    subTitle: 'In-progress and Completed Orders.',
-                    onTap: () => context.pushNamed(VRouter.orders),
-                  ),
-                  // app settings
                   const SizedBox(height: VSizes.spaceBtwSections),
                   const VSectionHeading(
                       title: 'App Settings', showActionButton: false),

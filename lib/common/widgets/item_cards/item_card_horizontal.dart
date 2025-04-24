@@ -47,7 +47,7 @@ class VItemCardHorizontal extends StatelessWidget {
                 maxLines: 2,
                 iconColor: nameIconColor,
               ),
-              const Divider(),
+              const SizedBox(height: VSizes.spaceBtwItems),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

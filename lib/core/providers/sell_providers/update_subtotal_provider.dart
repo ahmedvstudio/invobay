@@ -24,7 +24,7 @@ double calculateSellTotalPrice(WidgetRef ref, List<SellItem> sellItems) {
 double calculateBuyTotalPrice(WidgetRef ref, List<BuyItem> buyItems) {
   double total = 0;
   for (var buyItem in buyItems) {
-    total += buyItem.item.buyingPrice * buyItem.quantity;
+    total += buyItem.price * buyItem.quantity;
   }
   // Update subtotal provider
   updateSubtotal(ref, total);

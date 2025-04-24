@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/router/routes/settings/supplier_route.dart';
 
-import '../../../../features/personalization/order/order_screen.dart';
 import '../../../../features/personalization/profile/profile_screen.dart';
 import '../../../../features/personalization/setting/setting_screen.dart';
 import '../../../../features/personalization/setting/shop_detail/shop_detail_screen.dart';
@@ -37,15 +36,6 @@ List<GoRoute> settingRoutes = [
           path: '/shopDetails',
           pageBuilder: (context, state) =>
               const MaterialPage(child: ShopDetailScreen())),
-
-      ///
-
-      GoRoute(
-        name: VRouter.orders,
-        path: '/orders',
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: OrdersScreen()),
-      ),
     ],
   ),
 ];

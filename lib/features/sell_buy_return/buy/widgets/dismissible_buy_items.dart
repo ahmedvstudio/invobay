@@ -103,14 +103,17 @@ class BuyItemDetails extends ConsumerWidget {
                   ),
                 ),
                 if (!isCheckout)
-                  VItemQuantityWithEdit(quantity: buyItem.quantity),
+                  VItemQuantityWithEdit(
+                    quantity: buyItem.quantity,
+                    buyingPrice: buyItem.price,
+                    currencySign: currencySign,
+                  ),
                 if (isCheckout)
-                  Text(
-                      '${buyItem.quantity} × $currencySign${buyItem.item.buyingPrice}',
+                  Text('${buyItem.quantity} × $currencySign${buyItem.price}',
                       style: Theme.of(context).textTheme.bodyLarge),
               ],
             ),
-            VItemPriceText(price: buyItem.item.buyingPrice * buyItem.quantity),
+            VItemPriceText(price: buyItem.price * buyItem.quantity),
           ],
         ),
       ],

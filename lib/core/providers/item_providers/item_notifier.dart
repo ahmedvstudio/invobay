@@ -99,4 +99,46 @@ class ItemNotifier extends StateNotifier<List<Item>> {
     final item = await itemDao.getItemByBarcode(barcode);
     return item; // This should return an Item or null if not found
   }
+
+  // Add this inside your ItemNotifier class
+  Future<void> updateBuyingPrice(int itemId, double newBuyingPrice) async {
+    // Fetch the current item
+    final item = await itemDao.getItemById(itemId);
+    if (item == null) return; // Optionally, handle error
+
+    // Update only the buying price
+    await itemDao.updateItem(
+      ItemsCompanion(
+        id: Value(itemId),
+        name: Value(item.name),
+        quantity: Value(item.quantity),
+        sellingPrice: Value(item.sellingPrice),
+        buyingPrice: Value(newBuyingPrice),
+        description: Value(item.description),
+        barcode: Value(item.barcode),
+        itemUnit: Value(item.itemUnit),
+      ),
+    );
+    await fetchItems();
+  }
+
+  Future<void> updateSellingPrice(int itemId, double newSellingPrice) async {
+    final item = await itemDao.getItemById(itemId);
+    if (item == null) return;
+
+    await itemDao.updateItem(
+      ItemsCompanion(
+        id: Value(itemId),
+        name: Value(item.name),
+        quantity: Value(item.quantity),
+        sellingPrice: Value(newSellingPrice),
+        buyingPrice: Value(item.buyingPrice),
+        description: Value(item.description),
+        barcode: Value(item.barcode),
+        itemUnit: Value(item.itemUnit),
+      ),
+    );
+
+    await fetchItems();
+  }
 }

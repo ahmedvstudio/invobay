@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/database/drift/app_database.dart';
 import 'package:invobay/core/repository/item_dao.dart';
-import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import '../../models/buy_related_model/buy_model.dart';
 import '../../utils/constants/numbers.dart';
@@ -16,12 +15,13 @@ class BuyNotifier extends StateNotifier<List<BuyItem>> {
 
   // Updates subtotal price
   void updateSubtotal() {
-    double newSubtotal = state.fold(
-        0, (sum, item) => sum + (item.item.buyingPrice * item.quantity));
+    double newSubtotal =
+        state.fold(0, (sum, item) => sum + (item.price * item.quantity));
     ref.read(subtotalPriceProvider.notifier).state = newSubtotal;
   }
 
   // Adds an item to the cart with stock validation
+
   Future<void> addItem(Item item) async {
     int existingIndex =
         state.indexWhere((buyItem) => buyItem.item.id == item.id);
@@ -31,35 +31,24 @@ class BuyNotifier extends StateNotifier<List<BuyItem>> {
       return;
     }
 
-    double availableStock = fetchedItem.quantity;
     double minStep = VNumbers.minStepAdd;
 
     if (existingIndex != -1) {
+      // If the item already exists in the cart, increment its quantity by minStep
       BuyItem existingItem = state[existingIndex];
-      if (existingItem.quantity + minStep <= availableStock) {
-        state = [
-          for (int i = 0; i < state.length; i++)
-            if (i == existingIndex)
-              existingItem.copyWith(quantity: existingItem.quantity + minStep)
-            else
-              state[i]
-        ];
-      } else {
-        VHelperFunctions.showToasty(
-          backgroundColor: VColors.warning,
-          message:
-              "Quantity exceeds available stock. Current: ${existingItem.quantity}, Available: $availableStock",
-        );
-      }
+      state = [
+        for (int i = 0; i < state.length; i++)
+          if (i == existingIndex)
+            existingItem.copyWith(quantity: existingItem.quantity + minStep)
+          else
+            state[i]
+      ];
     } else {
-      if (availableStock >= minStep) {
-        state = [...state, BuyItem(item: item, quantity: minStep)];
-      } else {
-        VHelperFunctions.showToasty(
-          backgroundColor: VColors.error,
-          message: 'Item out of stock.',
-        );
-      }
+      // If the item is not in the cart, add it with the initial quantity of minStep
+      state = [
+        ...state,
+        BuyItem(item: item, quantity: minStep, price: item.buyingPrice)
+      ];
     }
 
     updateSubtotal(); // Update subtotal after adding
@@ -67,11 +56,21 @@ class BuyNotifier extends StateNotifier<List<BuyItem>> {
 
   // Adds a removed item back to the cart
   Future<void> addRemovedItem(BuyItem removedItem) async {
+    final fetchedItem = await itemDao.getItemById(removedItem.item.id);
+    if (fetchedItem == null) {
+      debugPrint("Item not found in the inventory.");
+      return;
+    }
+
+    // Update buying price if necessary
+    if (removedItem.price > fetchedItem.buyingPrice) {
+      await itemDao.updateBuyingPrice(removedItem.item.id, removedItem.price);
+    }
+
     int existingIndex =
         state.indexWhere((buyItem) => buyItem.item.id == removedItem.item.id);
 
     if (existingIndex != -1) {
-      // If the item already exists, update the quantity
       BuyItem existingItem = state[existingIndex];
       double newQuantity = existingItem.quantity + removedItem.quantity;
 
@@ -83,10 +82,12 @@ class BuyNotifier extends StateNotifier<List<BuyItem>> {
             state[i]
       ];
     } else {
-      // If the item is not in the state, add it
       state = [
         ...state,
-        BuyItem(item: removedItem.item, quantity: removedItem.quantity)
+        BuyItem(
+            item: removedItem.item,
+            quantity: removedItem.quantity,
+            price: removedItem.price)
       ];
     }
 
@@ -110,37 +111,33 @@ class BuyNotifier extends StateNotifier<List<BuyItem>> {
     updateSubtotal(); // Update subtotal after removing
   }
 
-  // Updates the quantity of an item with validation
-  Future<void> updateQuantity(
-      int itemId, double newQuantity, BuildContext context) async {
-    final fetchedItem = await itemDao.getItemById(itemId);
-    if (fetchedItem == null) {
-      if (!context.mounted) return;
-      VHelperFunctions.showSnackBar(
-        context: context,
-        message: "Item not found in the inventory.",
-      );
-      return;
-    }
-
-    // double availableStock = fetchedItem.quantity;
-
+// Updates only the BuyItem quantity and price, does not touch Item.buyingPrice
+  Future<void> updateQuantityAndPrice(
+    int itemId,
+    double newQuantity,
+    BuildContext context, [
+    double? newBuyPrice,
+  ]) async {
     if (newQuantity > 0) {
       state = state.map((buyItem) {
-        return buyItem.item.id == itemId
-            ? buyItem.copyWith(quantity: newQuantity)
-            : buyItem;
+        if (buyItem.item.id == itemId) {
+          return buyItem.copyWith(
+            quantity: newQuantity,
+            price: newBuyPrice ?? buyItem.price, // override if provided
+          );
+        }
+        return buyItem;
       }).toList();
     } else {
       if (!context.mounted) return;
       VHelperFunctions.showSnackBar(
         context: context,
-        message: fetchedItem.name,
+        message: "Quantity must be greater than 0",
         showCloseIcon: true,
       );
     }
 
-    updateSubtotal(); // Update subtotal after quantity change
+    updateSubtotal();
   }
 
   // Clears the cart

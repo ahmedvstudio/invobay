@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
@@ -37,7 +36,7 @@ class VAppBar extends StatelessWidget implements PreferredSizeWidget {
         leading: showBackArrow
             ? IconButton(
                 onPressed: () => context.pop(),
-                icon: const Icon(Iconsax.arrow_left),
+                icon: const Icon(Icons.arrow_back),
                 color: justWhiteBackArrow
                     ? VColors.white
                     : isDark

@@ -103,4 +103,9 @@ class ItemDao {
         ? result.first
         : null; // Return the first item or null
   }
+
+  Future<void> updateBuyingPrice(int itemId, double newPrice) async {
+    await (db.update(db.items)..where((tbl) => tbl.id.equals(itemId)))
+        .write(ItemsCompanion(buyingPrice: drift.Value(newPrice)));
+  }
 }

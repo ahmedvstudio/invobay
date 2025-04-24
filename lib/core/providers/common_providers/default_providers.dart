@@ -48,6 +48,7 @@ final taxFeeProvider = StateProvider<double>((ref) => 0.0);
 // --> Temporary Quantity Provider
 final addQuantityProvider = StateProvider.autoDispose<String>((ref) => '');
 final quantityProvider = StateProvider.autoDispose<String>((ref) => '');
+final buyPriceProvider = StateProvider.autoDispose<String>((ref) => '');
 
 // --> Subtotal Provider
 final subtotalPriceProvider = StateProvider<double>((ref) => 0.0);

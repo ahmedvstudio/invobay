@@ -103,7 +103,11 @@ class SellItemDetails extends ConsumerWidget {
                   ),
                 ),
                 if (!isCheckout)
-                  VItemQuantityWithEdit(quantity: sellItem.quantity),
+                  VItemQuantityWithEdit(
+                    quantity: sellItem.quantity,
+                    buyingPrice: sellItem.item.sellingPrice,
+                    currencySign: currencySign,
+                  ),
                 if (isCheckout)
                   Text(
                       '${sellItem.quantity} × $currencySign${sellItem.item.sellingPrice}',
