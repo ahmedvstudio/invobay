@@ -12,7 +12,7 @@ class SellCheckoutNotifier {
 
   Future<void> checkout({
     required List<SellItem> soldItems,
-    required double totalPrice,
+    required double subTotalPrice,
     required double discount,
     required double shippingFee,
     required double taxFee,
@@ -29,7 +29,7 @@ class SellCheckoutNotifier {
     // Save receipt first
     await sellReceiptDao.saveSellReceipt(
       soldItems: soldItems,
-      totalPrice: totalPrice,
+      subTotalPrice: subTotalPrice,
       discount: discount,
       shippingFee: shippingFee,
       taxFee: taxFee,

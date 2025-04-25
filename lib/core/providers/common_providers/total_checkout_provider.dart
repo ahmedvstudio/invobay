@@ -5,13 +5,10 @@ import 'default_providers.dart';
 final totalAmountProvider = Provider<double>((ref) {
   final subtotalPrice = ref.watch(discountedSubtotal);
   final shippingFee = ref.watch(shippingFeeProvider);
-  final taxFee = ref.watch(taxFeeProvider);
-
-  // Calculating Taxes
-  final taxAmount = subtotalPrice * (taxFee / 100);
+  final taxedSubtotal = ref.watch(taxAmountProvider);
 
   // Calculate the total amount by adding the subtotal, shipping fee, and tax fee
-  final total = subtotalPrice + shippingFee + taxAmount;
+  final total = subtotalPrice + shippingFee + taxedSubtotal;
 
   return total;
 });
@@ -25,4 +22,13 @@ final discountedSubtotal = Provider<double>((ref) {
   final discountAmount = subtotalPrice * (discount / 100);
   final discountedSubtotal = subtotalPrice - discountAmount;
   return discountedSubtotal;
+});
+
+// --> Tax Amount Provider
+final taxAmountProvider = Provider<double>((ref) {
+  final taxFee = ref.watch(taxFeeProvider);
+  final subtotalPrice = ref.watch(discountedSubtotal);
+
+  final taxedAmount = subtotalPrice * (taxFee / 100);
+  return taxedAmount;
 });

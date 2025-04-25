@@ -101,13 +101,13 @@ class BuyScreen extends ConsumerWidget {
         child: ElevatedButton(
           onPressed: () {
             if (buyItems.isNotEmpty) {
-              final totalPrice =
+              final subTotalPrice =
                   calculateBuyTotalPrice(ref, buyItems); // Update subtotal
               context.pushNamed(
                 VRouter.buyCheckout,
                 extra: {
                   'boughtItems': buyItems,
-                  'totalPrice': totalPrice,
+                  'totalPrice': subTotalPrice,
                 },
               );
             } else {

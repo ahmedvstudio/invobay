@@ -2,6 +2,7 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../constants/colors.dart';
 
@@ -160,5 +161,23 @@ class VHelperFunctions {
 
   static String receiptNo(int id) {
     return '[#${id.toString().padLeft(4, '0')}]';
+  }
+
+  static String paymentStatus(double debtAmount) {
+    return debtAmount == 0 ? 'Completed' : 'Pending';
+  }
+
+  static String calculateTotalPrice({
+    required double subtotal,
+    required double taxFee,
+    required double discount,
+    required double shippingFee,
+  }) {
+    final taxAmount = subtotal * (taxFee / 100);
+    final discountAmount = subtotal * (discount / 100);
+    final discountedAmount = subtotal - discountAmount;
+    final total = discountedAmount + taxAmount + shippingFee;
+    final formattedTotal = VFormatters.formatPrice(total);
+    return formattedTotal;
   }
 }

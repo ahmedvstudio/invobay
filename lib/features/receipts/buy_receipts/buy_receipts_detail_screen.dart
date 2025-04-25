@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../common/widgets/dialogs/delete_confirm_dialog.dart';
@@ -62,6 +63,8 @@ class BuyReceiptsDetailScreen extends ConsumerWidget {
                         receiptId: receipt.id,
                         paymentMethod: payment.paymentMethod,
                         isSell: false,
+                        subTotalPrice: receipt.subTotalPrice,
+                        currencySign: currencySign,
                       ),
                       const SizedBox(height: VSizes.spaceBtwSections),
 
@@ -124,7 +127,7 @@ class BuyReceiptsDetailScreen extends ConsumerWidget {
 
                       VReceiptDetailFooterSection(
                         totalPrice:
-                            '$currencySign ${VFormatters.formatPrice(receipt.totalPrice)}',
+                            '$currencySign ${VHelperFunctions.calculateTotalPrice(subtotal: receipt.totalPrice, taxFee: receipt.taxFee, discount: receipt.discount, shippingFee: receipt.shippingFee)}',
                         paymentStatus: payment.status,
                         paidAmount: VFormatters.formatPrice(payment.paidAmount),
                         debtAmount: VFormatters.formatPrice(payment.debtAmount),

@@ -11,7 +11,7 @@ class BuyReceiptDao {
 
   Future<int> saveBuyReceipt({
     required List<BuyItem> boughtItems,
-    required double totalPrice,
+    required double subTotalPrice,
     required double discount,
     required double shippingFee,
     required double taxFee,
@@ -21,18 +21,18 @@ class BuyReceiptDao {
     required double amountDebt,
     int? supplierId,
   }) async {
-    final totalPricePlusFees = totalPrice + shippingFee + taxFee;
+    final taxAmount = subTotalPrice * (taxFee / 100);
+    final totalPrice = subTotalPrice + shippingFee + taxAmount;
     return await db.transaction(() async {
       // Insert into BuyReceipts
       final receiptId = await db.into(db.buyReceipts).insert(
             BuyReceiptsCompanion(
               supplierId: drift.Value(supplierId),
-              // paymentMethod: drift.Value(paymentMethod),
-              subTotalPrice: drift.Value(totalPrice),
+              subTotalPrice: drift.Value(subTotalPrice),
               discount: drift.Value(discount),
               shippingFee: drift.Value(shippingFee),
               taxFee: drift.Value(taxFee),
-              totalPrice: drift.Value(totalPricePlusFees),
+              totalPrice: drift.Value(totalPrice),
             ),
           );
 
@@ -84,7 +84,6 @@ class BuyReceiptDao {
           paidAmount: payment.paidAmount,
           debtAmount: payment.debtAmount,
           paymentStatus: payment.status,
-          // Add other fields as necessary
         );
       }).toList();
     });

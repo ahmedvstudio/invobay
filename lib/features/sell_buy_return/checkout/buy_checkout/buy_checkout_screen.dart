@@ -36,10 +36,6 @@ class BuyCheckoutScreen extends ConsumerWidget {
   final List<BuyItem> boughtItems;
   final double totalPrice;
 
-  String _determinePaymentStatus(double debtAmount) {
-    return debtAmount == 0 ? 'Completed' : 'Pending';
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = VHelperFunctions.isDarkMode(context);
@@ -47,7 +43,7 @@ class BuyCheckoutScreen extends ConsumerWidget {
     final selectedPayment = ref.watch(selectedPaymentProvider);
     final shippingFee = ref.watch(shippingFeeProvider);
     final taxFee = ref.watch(taxFeeProvider);
-    final subtotal = ref.watch(discountedSubtotal);
+    final subtotal = ref.watch(subtotalPriceProvider);
     final supplierId = ref.watch(supplierIDProvider);
     final paidAmountController = ref.watch(paidAmountControllerProvider);
     final discountAmount = ref.watch(discountProvider);
@@ -158,7 +154,8 @@ class BuyCheckoutScreen extends ConsumerWidget {
                             'Exceed total amount: $currencySign${VFormatters.formatPrice(totalAmount)}');
                     return;
                   }
-                  String paymentStatus = _determinePaymentStatus(debtAmount);
+                  String paymentStatus =
+                      VHelperFunctions.paymentStatus(debtAmount);
 
                   // Show confirmation dialog
                   showDialog(

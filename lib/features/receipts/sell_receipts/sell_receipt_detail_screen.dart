@@ -61,6 +61,8 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                         receiptId: receipt.id,
                         paymentMethod: payment.paymentMethod,
                         isSell: true,
+                        subTotalPrice: receipt.subTotalPrice,
+                        currencySign: currencySign,
                       ),
                       const SizedBox(height: VSizes.spaceBtwSections),
 

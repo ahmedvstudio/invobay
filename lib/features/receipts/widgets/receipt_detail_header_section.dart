@@ -13,21 +13,25 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
   const VReceiptDetailHeaderSection({
     super.key,
     required this.receiptDate,
+    required this.subTotalPrice,
     required this.receiptDiscount,
     required this.receiptShippingFee,
     required this.receiptTaxFee,
     required this.receiptPersonId,
     required this.receiptId,
     required this.paymentMethod,
+    required this.currencySign,
     required this.isSell,
   });
   final DateTime receiptDate;
+  final double subTotalPrice;
   final double receiptDiscount;
   final double receiptShippingFee;
   final double receiptTaxFee;
   final int receiptPersonId;
   final int receiptId;
   final String paymentMethod;
+  final String currencySign;
   final bool isSell;
   @override
   Widget build(BuildContext context) {
@@ -59,6 +63,17 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
+          const SizedBox(height: VSizes.spaceBtwItems / 2),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Subtotal Price:",
+                  style: Theme.of(context).textTheme.bodyMedium),
+              Text('$currencySign $subTotalPrice',
+                  style: Theme.of(context).textTheme.bodyMedium),
+            ],
+          ),
+
           if (receiptDiscount != 0) ...[
             const SizedBox(height: VSizes.spaceBtwItems / 2),
             Row(
@@ -78,7 +93,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
               children: [
                 Text("Shipping Fee:",
                     style: Theme.of(context).textTheme.bodyMedium),
-                Text(receiptShippingFee.toString(),
+                Text('$currencySign ${receiptShippingFee.toString()}',
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
@@ -89,7 +104,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Tax Fee:", style: Theme.of(context).textTheme.bodyMedium),
-                Text(receiptTaxFee.toString(),
+                Text('% $receiptTaxFee',
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),

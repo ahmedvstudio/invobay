@@ -12,7 +12,7 @@ class BuyCheckoutNotifier {
 
   Future<void> checkout({
     required List<BuyItem> boughtItems,
-    required double totalPrice,
+    required double subTotalPrice,
     required double discount,
     required double shippingFee,
     required double taxFee,
@@ -29,7 +29,7 @@ class BuyCheckoutNotifier {
     // Save receipt first
     await buyReceiptDao.saveBuyReceipt(
       boughtItems: boughtItems,
-      totalPrice: totalPrice,
+      subTotalPrice: subTotalPrice,
       discount: discount,
       shippingFee: shippingFee,
       taxFee: taxFee,

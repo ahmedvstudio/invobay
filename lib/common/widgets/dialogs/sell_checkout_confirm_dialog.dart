@@ -112,7 +112,7 @@ class VSellCheckoutConfirmDialog extends ConsumerWidget {
             // Proceed with checkout
             await checkoutController.checkout(
               soldItems: soldItems,
-              totalPrice: subtotal,
+              subTotalPrice: subtotal,
               discount: discountAmount,
               shippingFee: shippingFee,
               taxFee: taxFee,
