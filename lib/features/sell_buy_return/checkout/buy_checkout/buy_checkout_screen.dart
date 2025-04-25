@@ -14,7 +14,7 @@ import '../../../../core/providers/buy_providers/buy_related_providers.dart';
 import '../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/providers/payment_providers/payment_provider.dart';
-import '../../../../core/providers/common_providers/total_checkout_provider.dart';
+import '../../../../core/providers/common_providers/total_amount_provider.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/helpers/helper_functions.dart';

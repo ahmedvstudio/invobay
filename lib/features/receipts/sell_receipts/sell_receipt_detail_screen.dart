@@ -15,6 +15,7 @@ import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_receipt_detail_provider.dart';
 import '../../../core/services/printing/print_receipt_api.dart';
 import '../../../core/utils/constants/colors.dart';
+import '../../../core/utils/helpers/helper_functions.dart';
 import '../widgets/receipt_item.dart';
 import '../widgets/receipt_bottom_edit.dart';
 import '../widgets/receipt_detail_footer_section.dart';
@@ -124,7 +125,7 @@ class SellReceiptDetailScreen extends ConsumerWidget {
 
                       VReceiptDetailFooterSection(
                         totalPrice:
-                            '$currencySign ${VFormatters.formatPrice(receipt.totalPrice)}',
+                            '$currencySign ${VHelperFunctions.calculateTotalPrice(subtotal: receipt.totalPrice, taxFee: receipt.taxFee, discount: receipt.discount, shippingFee: receipt.shippingFee)}',
                         paymentStatus: payment.status,
                         paidAmount: VFormatters.formatPrice(payment.paidAmount),
                         debtAmount: VFormatters.formatPrice(payment.debtAmount),

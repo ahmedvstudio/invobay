@@ -5,7 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import '../../../../../core/providers/common_providers/default_providers.dart';
-import '../../../../core/providers/common_providers/total_checkout_provider.dart';
+import '../../../../core/providers/common_providers/total_amount_provider.dart';
 import '../../../../../core/utils/constants/sizes.dart';
 import '../../../../../core/utils/validators/validation.dart';
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
@@ -27,7 +27,7 @@ class VBillingAmountSection extends ConsumerWidget {
     final discountApplied = ref.watch(discountAppliedProvider);
     final discountController = ref.watch(discountControllerProvider);
     final paidAmountController = ref.watch(paidAmountControllerProvider);
-    final subtotal = ref.watch(discountedSubtotal);
+    final subtotal = ref.watch(subtotalPriceProvider);
     final total = ref.watch(totalAmountProvider);
 
     return Column(
