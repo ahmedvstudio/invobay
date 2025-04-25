@@ -12,6 +12,7 @@ class SellReceiptDao {
   Future<int> saveSellReceipt({
     required List<SellItem> soldItems,
     required double subTotalPrice,
+    required double totalPrice,
     required double discount,
     required double shippingFee,
     required double taxFee,
@@ -21,8 +22,6 @@ class SellReceiptDao {
     required double amountDebt,
     int? customerId,
   }) async {
-    final taxAmount = subTotalPrice * (taxFee / 100);
-    final totalPrice = subTotalPrice + shippingFee + taxAmount;
     return await db.transaction(() async {
       // Insert into SellReceipts
       final receiptId = await db.into(db.sellReceipts).insert(

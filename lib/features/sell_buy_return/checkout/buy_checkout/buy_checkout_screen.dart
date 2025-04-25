@@ -28,13 +28,11 @@ import '../widgets/discount_code.dart';
 class BuyCheckoutScreen extends ConsumerWidget {
   BuyCheckoutScreen({
     required this.boughtItems,
-    required this.totalPrice,
     super.key,
   });
 
   final _formKey = GlobalKey<FormState>();
   final List<BuyItem> boughtItems;
-  final double totalPrice;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,7 +46,7 @@ class BuyCheckoutScreen extends ConsumerWidget {
     final paidAmountController = ref.watch(paidAmountControllerProvider);
     final discountAmount = ref.watch(discountProvider);
     final buyNotifier = ref.read(buyNotifierProvider.notifier);
-
+    final total = ref.watch(totalAmountProvider);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -94,8 +92,7 @@ class BuyCheckoutScreen extends ConsumerWidget {
                       children: [
                         // pricing
 
-                        VBillingAmountSection(
-                            subtotalPrice: totalPrice, formKey: _formKey),
+                        VBillingAmountSection(formKey: _formKey),
 
                         const SizedBox(height: VSizes.spaceBtwItems),
 
@@ -125,15 +122,11 @@ class BuyCheckoutScreen extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Consumer(builder: (context, ref, child) {
-              final total = ref.watch(totalAmountProvider);
-
-              return Flexible(
-                child: Text(
-                    'Total: $currencySign${VFormatters.formatPrice(total)}',
-                    style: Theme.of(context).textTheme.headlineSmall),
-              );
-            }),
+            Flexible(
+              child: Text(
+                  'Total: $currencySign${VFormatters.formatPrice(total)}',
+                  style: Theme.of(context).textTheme.headlineSmall),
+            ),
             ElevatedButton.icon(
               icon: const Icon(Iconsax.shopping_cart5),
               // Inside the ElevatedButton onPressed method
@@ -144,14 +137,13 @@ class BuyCheckoutScreen extends ConsumerWidget {
                   // Calculate amounts
                   final paidAmount =
                       double.tryParse(paidAmountController.text) ?? 0.00;
-                  final totalAmount = ref.read(totalAmountProvider);
-                  final debtAmount = totalAmount - paidAmount;
-                  if (paidAmount > totalAmount) {
+                  final debtAmount = total - paidAmount;
+                  if (paidAmount > total) {
                     // Show error message
                     VHelperFunctions.showSnackBar(
                         context: context,
                         message:
-                            'Exceed total amount: $currencySign${VFormatters.formatPrice(totalAmount)}');
+                            'Exceed total amount: $currencySign${VFormatters.formatPrice(total)}');
                     return;
                   }
                   String paymentStatus =
@@ -162,7 +154,6 @@ class BuyCheckoutScreen extends ConsumerWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return VBuyCheckoutConfirmDialog(
-                        totalAmount: totalAmount,
                         paidAmount: paidAmount,
                         debtAmount: debtAmount,
                         checkoutController: checkoutController,
@@ -174,6 +165,7 @@ class BuyCheckoutScreen extends ConsumerWidget {
                         selectedPayment: selectedPayment,
                         supplierId: supplierId,
                         paymentStatus: paymentStatus,
+                        totalPrice: total,
                       );
                     },
                   );

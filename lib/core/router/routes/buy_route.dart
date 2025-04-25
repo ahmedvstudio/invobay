@@ -19,13 +19,9 @@ List<GoRoute> buyRoutes = [
         pageBuilder: (context, state) {
           final extra = state.extra as Map<String, dynamic>?; // Get passed data
           final boughtItems = extra?['boughtItems'] as List<BuyItem>? ?? [];
-          final totalPrice = extra?['totalPrice'] as double? ?? 0.0;
 
           return MaterialPage(
-            child: BuyCheckoutScreen(
-              boughtItems: boughtItems,
-              totalPrice: totalPrice,
-            ),
+            child: BuyCheckoutScreen(boughtItems: boughtItems),
             canPop: false,
             fullscreenDialog: true,
           );

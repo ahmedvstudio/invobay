@@ -13,6 +13,7 @@ class SellCheckoutNotifier {
   Future<void> checkout({
     required List<SellItem> soldItems,
     required double subTotalPrice,
+    required double totalPrice,
     required double discount,
     required double shippingFee,
     required double taxFee,
@@ -38,6 +39,7 @@ class SellCheckoutNotifier {
       amountPaid: amountPaid,
       amountDebt: amountDebt,
       paymentStatus: paymentStatus,
+      totalPrice: totalPrice,
     );
 
     // Reduce stock quantity for each sold item

@@ -28,13 +28,11 @@ import '../widgets/discount_code.dart';
 class SellCheckoutScreen extends ConsumerWidget {
   SellCheckoutScreen({
     required this.soldItems,
-    required this.totalPrice,
     super.key,
   });
 
   final _formKey = GlobalKey<FormState>();
   final List<SellItem> soldItems;
-  final double totalPrice;
 
   String _determinePaymentStatus(double debtAmount) {
     return debtAmount == 0 ? 'Completed' : 'Pending';
@@ -52,6 +50,7 @@ class SellCheckoutScreen extends ConsumerWidget {
     final paidAmountController = ref.watch(paidAmountControllerProvider);
     final discountAmount = ref.watch(discountProvider);
     final sellNotifier = ref.read(sellNotifierProvider.notifier);
+    final total = ref.watch(totalAmountProvider);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -127,15 +126,11 @@ class SellCheckoutScreen extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Consumer(builder: (context, ref, child) {
-              final total = ref.watch(totalAmountProvider);
-
-              return Flexible(
-                child: Text(
-                    'Total: $currencySign${VFormatters.formatPrice(total)}',
-                    style: Theme.of(context).textTheme.headlineSmall),
-              );
-            }),
+            Flexible(
+              child: Text(
+                  'Total: $currencySign${VFormatters.formatPrice(total)}',
+                  style: Theme.of(context).textTheme.headlineSmall),
+            ),
             ElevatedButton.icon(
               icon: const Icon(Iconsax.shopping_cart5),
               // Inside the ElevatedButton onPressed method
@@ -146,14 +141,13 @@ class SellCheckoutScreen extends ConsumerWidget {
                   // Calculate amounts
                   final paidAmount =
                       double.tryParse(paidAmountController.text) ?? 0.00;
-                  final totalAmount = ref.read(totalAmountProvider);
-                  final debtAmount = totalAmount - paidAmount;
-                  if (paidAmount > totalAmount) {
+                  final debtAmount = total - paidAmount;
+                  if (paidAmount > total) {
                     // Show error message
                     VHelperFunctions.showSnackBar(
                         context: context,
                         message:
-                            'Exceed total amount: $currencySign${VFormatters.formatPrice(totalAmount)}');
+                            'Exceed total amount: $currencySign${VFormatters.formatPrice(total)}');
                     return;
                   }
                   String paymentStatus = _determinePaymentStatus(debtAmount);
@@ -163,7 +157,6 @@ class SellCheckoutScreen extends ConsumerWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return VSellCheckoutConfirmDialog(
-                        totalAmount: totalAmount,
                         paidAmount: paidAmount,
                         debtAmount: debtAmount,
                         checkoutController: checkoutController,
@@ -175,6 +168,7 @@ class SellCheckoutScreen extends ConsumerWidget {
                         selectedPayment: selectedPayment,
                         customerId: customerId,
                         paymentStatus: paymentStatus,
+                        totalPrice: total,
                       );
                     },
                   );

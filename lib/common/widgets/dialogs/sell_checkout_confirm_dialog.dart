@@ -17,12 +17,12 @@ import '../../../features/inventory/item_details/widgets/meta_data_section.dart'
 class VSellCheckoutConfirmDialog extends ConsumerWidget {
   const VSellCheckoutConfirmDialog({
     super.key,
-    required this.totalAmount,
     required this.paidAmount,
     required this.debtAmount,
     required this.checkoutController,
     required this.soldItems,
     required this.subtotal,
+    required this.totalPrice,
     required this.discountAmount,
     required this.shippingFee,
     required this.taxFee,
@@ -31,12 +31,12 @@ class VSellCheckoutConfirmDialog extends ConsumerWidget {
     required this.paymentStatus,
   });
 
-  final double totalAmount;
   final double paidAmount;
   final double debtAmount;
   final SellCheckoutNotifier checkoutController;
   final List<SellItem> soldItems;
   final double subtotal;
+  final double totalPrice;
   final double discountAmount;
   final double shippingFee;
   final double taxFee;
@@ -61,7 +61,7 @@ class VSellCheckoutConfirmDialog extends ConsumerWidget {
             tagTextColor: VColors.white,
             showIcon: false,
             child: Text(
-              '$currencySign${VFormatters.formatPrice(totalAmount)}',
+              '$currencySign${VFormatters.formatPrice(totalPrice)}',
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
@@ -122,6 +122,7 @@ class VSellCheckoutConfirmDialog extends ConsumerWidget {
               amountPaid: paidAmount,
               amountDebt: debtAmount,
               paymentStatus: paymentStatus,
+              totalPrice: totalPrice,
             );
 
             if (!context.mounted) return;
