@@ -12,7 +12,7 @@ final totalAmountProvider = Provider<double>((ref) {
   final discountAmount = subtotalPrice * (discount / 100);
   final discountedSubtotal = subtotalPrice - discountAmount;
   // Calculate Tax
-  final taxedAmount = subtotalPrice * (taxFee / 100);
+  final taxedAmount = discountedSubtotal * (taxFee / 100);
 
   // Calculate the total amount by adding the subtotal, shipping fee, and tax fee
   final total = discountedSubtotal + shippingFee + taxedAmount;

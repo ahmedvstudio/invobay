@@ -13,11 +13,9 @@ import '../../../../core/providers/db_providers/hive_providers/app_settings_prov
 class VBillingAmountSection extends ConsumerWidget {
   const VBillingAmountSection({
     super.key,
-    required this.subtotalPrice,
     required this.formKey,
   });
 
-  final double subtotalPrice;
   final Key formKey;
   @override
   Widget build(BuildContext context, WidgetRef ref) {

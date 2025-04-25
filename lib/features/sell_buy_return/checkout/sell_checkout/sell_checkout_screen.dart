@@ -97,8 +97,7 @@ class SellCheckoutScreen extends ConsumerWidget {
                     child: Column(
                       children: [
                         // pricing
-                        VBillingAmountSection(
-                            subtotalPrice: totalPrice, formKey: _formKey),
+                        VBillingAmountSection(formKey: _formKey),
 
                         const SizedBox(height: VSizes.spaceBtwItems),
 
