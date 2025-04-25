@@ -5,7 +5,7 @@ import '../../../../common/widgets/custom_shapes/dismissible/delete_background.d
 import '../../../../common/widgets/text/item_price_text.dart';
 import '../../../../core/models/buy_related_model/buy_model.dart';
 import '../../../../core/providers/buy_providers/buy_notifier.dart';
-import '../../../../core/providers/common_providers/default_providers.dart';
+import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../inventory/item_details/widgets/meta_data_section.dart';

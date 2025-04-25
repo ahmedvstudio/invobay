@@ -8,8 +8,8 @@ import 'package:invobay/core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../common/widgets/appbar/custom_appbar.dart';
 import '../../common/widgets/dialogs/add_quantity_dialog.dart';
+import '../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../core/providers/item_providers/item_related_providers.dart';
-import '../../core/utils/constants/numbers.dart';
 import '../../core/utils/helpers/low_stock_helper.dart';
 import '../inventory/item_details/widgets/meta_data_section.dart';
 
@@ -19,9 +19,9 @@ class LowStockScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(itemNotifierProvider);
-    final lowStockItems = items
-        .where((item) => item.quantity <= VNumbers.lowStockNumber)
-        .toList();
+    final threshold = ref.watch(lowStockThresholdProvider);
+    final lowStockItems =
+        items.where((item) => item.quantity <= threshold).toList();
 
     return Scaffold(
       body: lowStockItems.isEmpty
@@ -69,9 +69,9 @@ class LowStockScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final item = lowStockItems[index];
                       final lowStockColor =
-                          LowStockHelper(item.quantity).getTwoColor();
+                          LowStockHelper(item.quantity, ref).getTwoColor();
                       final lowStockText =
-                          LowStockHelper(item.quantity).getTwoText();
+                          LowStockHelper(item.quantity, ref).getTwoText();
 
                       return ListTile(
                         onTap: () => context.pushNamed(

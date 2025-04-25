@@ -118,7 +118,8 @@ void showItemsBottomSheet({
                           itemBuilder: (context, index) {
                             final item = filteredItems[index];
                             final lowStockColor =
-                                LowStockHelper(item.quantity).getThreeColor();
+                                LowStockHelper(item.quantity, ref)
+                                    .getThreeColor();
 
                             return VItemCardHorizontal(
                               onTapItemDetails: isSell

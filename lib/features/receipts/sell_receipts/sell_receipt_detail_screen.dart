@@ -8,7 +8,7 @@ import 'package:invobay/core/utils/formatters/formatters.dart';
 import '../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../common/widgets/dialogs/delete_confirm_dialog.dart';
 import '../../../common/widgets/dialogs/edit_receipt_payment.dart';
-import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/db_providers/hive_providers/shop_detail_provider.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_related_providers.dart';

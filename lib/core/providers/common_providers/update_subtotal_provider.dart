@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/buy_related_model/buy_model.dart';
 import '../../models/sell_related_model/sell_model.dart';
-import '../common_providers/default_providers.dart';
+import 'default_providers.dart';
 
 // --> Update Subtotal
 void updateSubtotal(WidgetRef ref, double newSubtotal) {
@@ -30,14 +30,3 @@ double calculateBuyTotalPrice(WidgetRef ref, List<BuyItem> buyItems) {
   updateSubtotal(ref, total);
   return total;
 }
-
-// --> Discount Provider
-final discountedSubtotal = Provider<double>((ref) {
-  final subtotalPrice = ref.watch(subtotalPriceProvider);
-
-  final discount = ref.watch(discountProvider);
-
-  final discountAmount = subtotalPrice * (discount / 100);
-  final discountedSubtotal = subtotalPrice - discountAmount;
-  return discountedSubtotal;
-});

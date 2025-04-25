@@ -66,7 +66,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   VSettingsMenuTile(
                     icon: Iconsax.shop,
-                    title: 'Shop Settings',
+                    title: 'Shop Details',
                     subTitle: 'Add Shop Details.',
                     onTap: () => context.pushNamed(VRouter.shopDetails),
                   ),

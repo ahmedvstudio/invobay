@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/common/widgets/appbar/appbar.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
-import 'package:invobay/core/providers/common_providers/localization_provider.dart';
+import 'package:invobay/core/providers/localization_related_providers/local_provider.dart';
 
 class AppLanguageScreen extends ConsumerWidget {
   const AppLanguageScreen({super.key});

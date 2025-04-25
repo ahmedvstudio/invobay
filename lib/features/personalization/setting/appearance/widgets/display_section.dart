@@ -19,9 +19,10 @@ class VDisplaySection extends StatelessWidget {
         const SizedBox(height: VSizes.spaceBtwItems / 2),
         ListTile(
           onTap: () => context.pushNamed(VRouter.appLanguage),
-          title: const Text('App Language'),
+          title: const Text('App Language.'),
           leading: const Icon(Iconsax.global),
         ),
+        const SizedBox(height: VSizes.spaceBtwItems),
       ],
     );
   }

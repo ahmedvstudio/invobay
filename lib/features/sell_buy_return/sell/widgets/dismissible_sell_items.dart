@@ -5,7 +5,7 @@ import 'package:invobay/features/sell_buy_return/common/invoice_items.dart';
 import '../../../../common/widgets/custom_shapes/dismissible/delete_background.dart';
 import '../../../../common/widgets/text/item_price_text.dart';
 import '../../../../core/models/sell_related_model/sell_model.dart';
-import '../../../../core/providers/common_providers/default_providers.dart';
+import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/providers/sell_providers/sell_notifier.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';

@@ -12,13 +12,14 @@ import '../../../../common/widgets/dialogs/buy_checkout_confirm_dialog.dart';
 import '../../../../core/models/buy_related_model/buy_model.dart';
 import '../../../../core/providers/buy_providers/buy_related_providers.dart';
 import '../../../../core/providers/common_providers/default_providers.dart';
+import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/providers/payment_providers/payment_provider.dart';
-import '../../../../core/providers/sell_providers/total_checkout_provider.dart';
-import '../../../../core/providers/sell_providers/update_subtotal_provider.dart';
+import '../../../../core/providers/common_providers/total_checkout_provider.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/helpers/helper_functions.dart';
 import '../../buy/widgets/buy_item_list.dart';
+import '../widgets/add_fees_button.dart';
 import '../widgets/billing_address_section.dart';
 import '../widgets/billing_amount_section.dart';
 import '../widgets/billing_payment_section.dart';
@@ -83,7 +84,10 @@ class BuyCheckoutScreen extends ConsumerWidget {
 
                   // coupon textField
                   VDiscountCode(),
-                  const SizedBox(height: VSizes.spaceBtwSections),
+                  const SizedBox(height: VSizes.spaceBtwItems / 2),
+
+                  /// Add Fees Section
+                  const VAddFeesButton(),
 
                   /// billing section
                   VRoundedContainer(

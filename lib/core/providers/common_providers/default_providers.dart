@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 
-import '../db_providers/hive_providers/shop_detail_provider.dart';
-
 // --> AppBar Color Provider
 final appbarColorProvider = StateProvider<Color>((ref) {
   return VColors.kPrimary;
@@ -12,16 +10,6 @@ final appbarColorProvider = StateProvider<Color>((ref) {
 // --> Receipts Navigation Provider
 final receiptsNavigationProvider = StateProvider<int>((ref) {
   return 0;
-});
-
-// --> Currency Sign Provider
-// final currencySignProvider = StateProvider<String>((ref) => '\$');
-final currencySignProvider = StateProvider<String>((ref) {
-  final savedCurrencySign = ref.watch(shopDetailProvider).maybeWhen(
-        data: (detail) => detail?.currencySign ?? '\$',
-        orElse: () => '\$',
-      );
-  return savedCurrencySign;
 });
 
 // --> Discount Provider
@@ -43,7 +31,6 @@ final isCustomerProvider = StateProvider<bool>((ref) => true);
 
 // --> Shipping and Tax fees
 final shippingFeeProvider = StateProvider<double>((ref) => 0.0);
-final taxFeeProvider = StateProvider<double>((ref) => 0.0);
 
 // --> Temporary Quantity Provider
 final addQuantityProvider = StateProvider.autoDispose<String>((ref) => '');

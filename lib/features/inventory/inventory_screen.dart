@@ -139,6 +139,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
             items: filteredItems,
             onEdit: _editItem,
             onDelete: (context, itemId) => _deleteItem(ref, itemId),
+            ref: ref,
           ),
         ],
       ),

@@ -12,8 +12,8 @@ import 'package:printing/printing.dart';
 
 import '../../database/drift/app_database.dart';
 import '../../database/hive/shop_details/shop_details.dart';
-import '../../providers/common_providers/default_providers.dart';
 import '../../providers/customer_providers/customer_related_providers.dart';
+import '../../providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../providers/item_providers/item_related_providers.dart';
 
 class PrintReceiptApi {

@@ -1,6 +1,7 @@
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 
 import '../constants/colors.dart';
 
@@ -48,6 +49,7 @@ class VHelperFunctions {
       bool showCloseIcon = false}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
+      dismissDirection: DismissDirection.horizontal,
       showCloseIcon: showCloseIcon,
       closeIconColor: closeIconColor,
       content: Text(
@@ -83,6 +85,34 @@ class VHelperFunctions {
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: const Text('OK'))
+            ],
+          );
+        });
+  }
+
+  static Future<void> showCustomDialog({
+    required BuildContext context,
+    required String title,
+    required Widget content,
+    required VoidCallback onSaved,
+    String? buttonText,
+  }) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            scrollable: true,
+            title: Text(title),
+            content: content,
+            actions: [
+              TextButton(
+                onPressed: () => context.pop(),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                onPressed: onSaved,
+                child: Text(buttonText ?? 'Save'),
+              )
             ],
           );
         });

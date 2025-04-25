@@ -6,7 +6,7 @@ import 'package:invobay/core/utils/formatters/formatters.dart';
 import '../../../core/models/buy_related_model/buy_model.dart';
 import '../../../core/providers/buy_providers/buy_checkout_notifier.dart';
 import '../../../core/providers/buy_providers/buy_related_providers.dart';
-import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/payment_providers/payment_provider.dart';
 import '../../../core/providers/common_providers/reset_default_providers.dart';
 import '../../../core/router/router_constant.dart';

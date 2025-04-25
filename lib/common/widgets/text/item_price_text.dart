@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
-import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 
 class VItemPriceText extends ConsumerWidget {
   const VItemPriceText({

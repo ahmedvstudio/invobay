@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import '../../../common/widgets/appbar/main_appbar.dart';
 import '../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../../core/providers/buy_providers/buy_related_providers.dart';
-import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/router/router_constant.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/formatters/formatters.dart';

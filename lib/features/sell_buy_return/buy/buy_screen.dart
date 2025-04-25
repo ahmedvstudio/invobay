@@ -13,7 +13,7 @@ import '../../../common/widgets/sheet/items_bottom_sheet.dart';
 import '../../../core/providers/buy_providers/buy_related_providers.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 
-import '../../../core/providers/sell_providers/update_subtotal_provider.dart';
+import '../../../core/providers/common_providers/update_subtotal_provider.dart';
 import '../../../core/router/router_constant.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';

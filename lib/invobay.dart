@@ -5,7 +5,7 @@ import 'package:invobay/core/router/app_router.dart';
 import 'package:invobay/generated/l10n.dart';
 import 'package:invobay/theme/theme.dart';
 
-import 'core/providers/common_providers/localization_provider.dart';
+import 'core/providers/localization_related_providers/local_provider.dart';
 import 'core/providers/common_providers/theme_provider.dart';
 
 class InvoBay extends ConsumerWidget {

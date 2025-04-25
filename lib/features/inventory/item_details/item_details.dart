@@ -11,7 +11,7 @@ import 'package:readmore/readmore.dart';
 
 import '../../../common/widgets/dialogs/more_item_info_dialog.dart';
 import '../../../common/widgets/text/section_heading.dart';
-import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/router/router_constant.dart';
 import '../../../core/utils/constants/sizes.dart';

@@ -9,9 +9,9 @@ import '../../common/widgets/custom_shapes/containers/primary_header_container.d
 import '../../common/widgets/custom_shapes/containers/search_container.dart';
 import '../../common/widgets/text/marquee_text.dart';
 import '../../common/widgets/text/shop_name.dart';
+import '../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../core/providers/item_providers/item_related_providers.dart';
 import '../../core/router/router_constant.dart';
-import '../../core/utils/constants/numbers.dart';
 import '../../core/utils/constants/sizes.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -20,9 +20,9 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(itemNotifierProvider);
-    final lowStockItems = items
-        .where((item) => item.quantity <= VNumbers.lowStockNumber)
-        .toList();
+    final threshold = ref.watch(lowStockThresholdProvider);
+    final lowStockItems =
+        items.where((item) => item.quantity <= threshold).toList();
 
     final marqueeText = lowStockItems.isEmpty
         ? "Items stock looks good"

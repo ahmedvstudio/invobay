@@ -6,7 +6,6 @@ import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../core/database/hive/shop_details/shop_details.dart';
-import '../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../core/providers/db_providers/hive_providers/shop_detail_provider.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../address/widgets/address_form.dart';
@@ -24,7 +23,6 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
   late final TextEditingController nameController;
   late final TextEditingController phoneController;
   late final TextEditingController streetController;
-  late final TextEditingController currencySignController;
   late final TextEditingController cityController;
   late final TextEditingController stateController;
   late final TextEditingController countryController;
@@ -33,21 +31,15 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
   @override
   void initState() {
     super.initState();
-    final currencySign = ref.read(currencySignProvider);
 
     nameController = TextEditingController();
     phoneController = TextEditingController();
     streetController = TextEditingController();
-    currencySignController = TextEditingController(text: currencySign);
     cityController = TextEditingController();
     stateController = TextEditingController();
     countryController = TextEditingController();
     descriptionController = TextEditingController();
 
-    currencySignController.addListener(() {
-      ref.read(currencySignProvider.notifier).state =
-          currencySignController.text;
-    });
     // Listen to shop details changes and update controllers accordingly
     ref.read(shopDetailProvider.notifier).loadShopDetails();
   }
@@ -57,7 +49,6 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
     nameController.dispose();
     phoneController.dispose();
     streetController.dispose();
-    currencySignController.dispose();
     cityController.dispose();
     stateController.dispose();
     countryController.dispose();
@@ -93,12 +84,6 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
                 streetController.text = savedDetail?.street ?? '';
               }
 
-              if (currencySignController.text.isEmpty &&
-                  savedDetail?.currencySign != null) {
-                currencySignController.text = savedDetail!.currencySign;
-                ref.read(currencySignProvider.notifier).state =
-                    savedDetail.currencySign;
-              }
               if (cityController.text.isEmpty) {
                 cityController.text = savedDetail?.city ?? '';
               }
@@ -118,7 +103,6 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
                 nameController: nameController,
                 phoneController: phoneController,
                 streetController: streetController,
-                postalCodeController: currencySignController,
                 cityController: cityController,
                 stateController: stateController,
                 countryController: countryController,
@@ -130,7 +114,6 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
                       name: nameController.text,
                       phone: phoneController.text,
                       street: streetController.text,
-                      currencySign: currencySignController.text,
                       city: cityController.text,
                       state: stateController.text,
                       country: countryController.text,
@@ -140,10 +123,6 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
                     await ref
                         .read(shopDetailProvider.notifier)
                         .updateShopDetails(shopDetail);
-
-                    // Update the currencySignProvider with the new value
-                    ref.read(currencySignProvider.notifier).state =
-                        currencySignController.text;
 
                     VHelperFunctions.showToasty(
                       message: 'Shop details saved',

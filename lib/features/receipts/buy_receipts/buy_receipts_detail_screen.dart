@@ -8,7 +8,7 @@ import '../../../common/widgets/dialogs/edit_receipt_payment.dart';
 import '../../../common/widgets/text/section_heading.dart';
 import '../../../core/providers/buy_providers/buy_receipt_detail_provider.dart';
 import '../../../core/providers/buy_providers/buy_related_providers.dart';
-import '../../../core/providers/common_providers/default_providers.dart';
+import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/db_providers/hive_providers/shop_detail_provider.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/utils/constants/colors.dart';

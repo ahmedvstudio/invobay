@@ -15,12 +15,14 @@ class ItemListView extends StatelessWidget {
   final List<Item> items;
   final Function(BuildContext, int) onEdit;
   final Function(BuildContext, int) onDelete;
+  final WidgetRef ref;
 
   const ItemListView({
     super.key,
     required this.items,
     required this.onEdit,
     required this.onDelete,
+    required this.ref,
   });
 
   @override
@@ -36,7 +38,8 @@ class ItemListView extends StatelessWidget {
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
-          final lowStockColor = LowStockHelper(item.quantity).getThreeColor();
+          final lowStockColor =
+              LowStockHelper(item.quantity, ref).getThreeColor();
           return Stack(
             children: [
               VItemCardHorizontal(

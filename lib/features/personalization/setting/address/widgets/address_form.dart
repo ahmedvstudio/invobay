@@ -11,7 +11,7 @@ class AddressForm extends ConsumerWidget {
     required this.nameController,
     required this.phoneController,
     required this.streetController,
-    required this.postalCodeController,
+    this.postalCodeController,
     required this.cityController,
     required this.stateController,
     required this.countryController,
@@ -25,7 +25,7 @@ class AddressForm extends ConsumerWidget {
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final TextEditingController streetController;
-  final TextEditingController postalCodeController;
+  final TextEditingController? postalCodeController;
   final TextEditingController cityController;
   final TextEditingController stateController;
   final TextEditingController countryController;
@@ -69,27 +69,19 @@ class AddressForm extends ConsumerWidget {
                 ),
               ),
             ),
-            const SizedBox(width: VSizes.spaceBtwInputFields),
-            currencySign
-                ? Expanded(
-                    child: TextFormField(
-                      controller: postalCodeController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Iconsax.dollar_circle),
-                        labelText: 'Currency',
-                      ),
-                    ),
-                  )
-                : Expanded(
-                    child: TextFormField(
-                      controller: postalCodeController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Iconsax.code),
-                        labelText: 'Postal Code',
-                      ),
-                      keyboardType: TextInputType.number,
-                    ),
+            if (!currencySign) ...[
+              const SizedBox(width: VSizes.spaceBtwInputFields),
+              Expanded(
+                child: TextFormField(
+                  controller: postalCodeController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Iconsax.code),
+                    labelText: 'Postal Code',
                   ),
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+            ],
           ],
         ),
         const SizedBox(height: VSizes.spaceBtwInputFields),

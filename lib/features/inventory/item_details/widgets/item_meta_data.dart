@@ -51,8 +51,8 @@ class VItemMetaData extends ConsumerWidget {
               itemUnit: null,
             ));
 
-    final lowStockColor = LowStockHelper(item.quantity).getThreeColor();
-    final lowStockText = LowStockHelper(item.quantity).getThreeText();
+    final lowStockColor = LowStockHelper(item.quantity, ref).getThreeColor();
+    final lowStockText = LowStockHelper(item.quantity, ref).getThreeText();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

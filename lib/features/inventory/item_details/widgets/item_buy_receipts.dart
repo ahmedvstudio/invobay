@@ -7,7 +7,7 @@ import 'package:invobay/core/utils/constants/sizes.dart';
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../core/database/drift/app_database.dart';
 import '../../../../core/providers/buy_providers/buy_receipt_details_provider.dart';
-import '../../../../core/providers/common_providers/default_providers.dart';
+import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/providers/item_providers/item_related_providers.dart';
 import 'item_buy_receipt_section.dart';
 

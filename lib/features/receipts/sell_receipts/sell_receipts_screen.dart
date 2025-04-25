@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:invobay/core/providers/common_providers/default_providers.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:intl/intl.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/receipts/widgets/receipt_card_list.dart';
 
+import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/services/qr_code/receipt_qr_scan.dart';
 import '../../../core/utils/constants/sizes.dart';

@@ -20,18 +20,17 @@ class ShopDetailAdapter extends TypeAdapter<ShopDetail> {
       name: fields[0] as String,
       phone: fields[1] as String,
       street: fields[2] as String,
-      currencySign: fields[3] as String,
-      city: fields[4] as String,
-      state: fields[5] as String,
-      country: fields[6] as String,
-      description: fields[7] as String,
+      city: fields[3] as String,
+      state: fields[4] as String,
+      country: fields[5] as String,
+      description: fields[6] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ShopDetail obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -39,14 +38,12 @@ class ShopDetailAdapter extends TypeAdapter<ShopDetail> {
       ..writeByte(2)
       ..write(obj.street)
       ..writeByte(3)
-      ..write(obj.currencySign)
-      ..writeByte(4)
       ..write(obj.city)
-      ..writeByte(5)
+      ..writeByte(4)
       ..write(obj.state)
-      ..writeByte(6)
+      ..writeByte(5)
       ..write(obj.country)
-      ..writeByte(7)
+      ..writeByte(6)
       ..write(obj.description);
   }
 
