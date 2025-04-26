@@ -32,13 +32,16 @@ void showUpdateBuyingPriceDialog({
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: VSizes.spaceBtwItems / 2),
-            ...highPriceReceipts.map((r) => VMetaDataSection(
-                  tag: 'Receipt No. #${r.receiptId}',
-                  tagBackgroundColor: VColors.kAccent,
-                  tagTextColor: VColors.black,
-                  showChild: true,
-                  showIcon: false,
-                  child: Text(r.itemPrice.toStringAsFixed(2)),
+            ...highPriceReceipts.map((r) => Padding(
+                  padding: const EdgeInsets.only(bottom: VSizes.xs),
+                  child: VMetaDataSection(
+                    tag: 'Receipt No. #${r.receiptId}',
+                    tagBackgroundColor: VColors.kAccent,
+                    tagTextColor: VColors.black,
+                    showChild: true,
+                    showIcon: false,
+                    child: Text(r.itemPrice.toStringAsFixed(2)),
+                  ),
                 )),
             const SizedBox(height: VSizes.spaceBtwItems),
             TextField(

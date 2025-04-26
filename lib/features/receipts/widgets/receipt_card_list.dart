@@ -64,7 +64,7 @@ class VReceiptCardList extends StatelessWidget {
                   IconButton(
                     onPressed: () => onTap(item['id'] ?? ''),
                     icon: const Icon(
-                      Iconsax.arrow_right_34,
+                      Icons.arrow_forward_ios_outlined,
                       size: VSizes.iconSm,
                     ),
                   )

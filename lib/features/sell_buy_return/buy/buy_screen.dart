@@ -41,6 +41,7 @@ class BuyScreen extends ConsumerWidget {
                 const SizedBox(height: VSizes.spaceBtwItems),
                 VSearchContainer(
                   text: 'Search and Add Items',
+                  showPrefixIcon: true,
                   onTap: () => showItemsBottomSheet(
                     context: context,
                     ref: ref,

@@ -10,6 +10,7 @@ import 'package:invobay/features/receipts/widgets/receipt_card_list.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/services/qr_code/receipt_qr_scan.dart';
+import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../common/widgets/appbar/main_appbar.dart';
 import '../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
@@ -29,23 +30,57 @@ class SellReceiptsScreen extends ConsumerWidget {
           VPrimaryHeaderContainer(
             child: Column(
               children: [
-                sellReceiptData.when(
-                  data: (receipts) => VMainAppBar(
-                    title: 'Sell Receipts',
-                    appbarIcon: Iconsax.scan_barcode,
-                    onPressed: () =>
-                        VReceiptQRScan.scanQRCode(context, receipts),
-                  ),
-                  loading: () => VMainAppBar(
-                      title: 'Sell Receipts',
-                      appbarIcon: Iconsax.scan_barcode,
-                      onPressed: () {}),
-                  error: (_, __) => VMainAppBar(
-                      title: 'Sell Receipts',
-                      appbarIcon: Iconsax.scan_barcode,
-                      onPressed: () {}),
+                const VMainAppBar(
+                  title: 'Sell Receipts',
+                  appbarIcon: Iconsax.tag5,
                 ),
-                const SizedBox(height: VSizes.spaceBtwSections),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    sellReceiptData.when(
+                      data: (receipts) => TextButton.icon(
+                        onPressed: () =>
+                            VReceiptQRScan.scanQRCode(context, receipts),
+                        label: Text(
+                          'Scan QR Code',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        icon: const Icon(
+                          Iconsax.scan_barcode,
+                          color: VColors.white,
+                        ),
+                      ),
+                      loading: () => TextButton.icon(
+                        onPressed: null,
+                        label: Text(
+                          'Scan QR Code',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        icon: const Icon(Iconsax.scan_barcode),
+                      ),
+                      error: (_, __) => TextButton.icon(
+                        onPressed: null,
+                        label: Text(
+                          'Scan QR Code',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        icon: const Icon(Iconsax.scan_barcode),
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {},
+                      label: Text(
+                        'Edit',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      icon: const Icon(
+                        Iconsax.edit,
+                        color: VColors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: VSizes.spaceBtwSections / 2),
               ],
             ),
           ),

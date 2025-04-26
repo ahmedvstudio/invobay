@@ -87,16 +87,6 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'Personalize the app to your liking.',
                     onTap: () => context.pushNamed(VRouter.appearance),
                   ),
-                  const VSettingsMenuTile(
-                    icon: Iconsax.document_download,
-                    title: 'Backup Data',
-                    subTitle: 'Back Data to your local Storage.',
-                  ),
-                  const VSettingsMenuTile(
-                    icon: Iconsax.document_upload,
-                    title: 'Load Data',
-                    subTitle: 'Upload Data from your local Storage.',
-                  ),
                   VSettingsMenuTile(
                     icon: Iconsax.location,
                     title: 'Geolocation',
@@ -123,6 +113,25 @@ class SettingsScreen extends StatelessWidget {
                       value: false,
                       onChanged: (value) {},
                     ),
+                  ),
+                  const SizedBox(height: VSizes.spaceBtwSections),
+                  const VSectionHeading(
+                      title: 'Data Settings', showActionButton: false),
+                  const SizedBox(height: VSizes.spaceBtwItems),
+                  const VSettingsMenuTile(
+                    icon: Iconsax.document_download,
+                    title: 'Backup Data',
+                    subTitle: 'Backup Data to your local Storage.',
+                  ),
+                  const VSettingsMenuTile(
+                    icon: Iconsax.document_upload,
+                    title: 'Load Data',
+                    subTitle: 'Load Data from your local Storage.',
+                  ),
+                  const VSettingsMenuTile(
+                    icon: Iconsax.document_text,
+                    title: 'Delete Data',
+                    subTitle: 'Delete Data from your local Storage.',
                   ),
 
                   // logout

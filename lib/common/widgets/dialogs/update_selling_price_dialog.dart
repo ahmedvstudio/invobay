@@ -60,14 +60,14 @@ Future<void> showUpdateSellingPriceDialog({
           onPressed: () {
             final text = controller.text.trim();
             final price = double.tryParse(text);
-            if (price != null && price >= 0) {
+            if (price != null && price > buyingPrice) {
               onUpdate(price);
               context.pop();
             } else {
               VHelperFunctions.showAlert(
                 context,
                 'Invalid Price',
-                'Please enter a valid price greater than or equal to 0.',
+                'Please enter a valid price greater than buying price.',
               );
             }
           },
