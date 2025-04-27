@@ -27,7 +27,7 @@ class AddNewAddress extends ConsumerWidget {
     final nameController = TextEditingController();
     final phoneController = TextEditingController();
     final streetController = TextEditingController();
-    final postalCodeController = TextEditingController();
+    final extraPhoneNumberController = TextEditingController();
     final cityController = TextEditingController();
     final stateController = TextEditingController();
     final countryController = TextEditingController();
@@ -50,7 +50,7 @@ class AddNewAddress extends ConsumerWidget {
               nameController: nameController,
               phoneController: phoneController,
               streetController: streetController,
-              postalCodeController: postalCodeController,
+              extraPhoneNumberController: extraPhoneNumberController,
               cityController: cityController,
               stateController: stateController,
               countryController: countryController,
@@ -67,9 +67,10 @@ class AddNewAddress extends ConsumerWidget {
                           street: streetController.text.isEmpty
                               ? const drift.Value.absent()
                               : drift.Value(streetController.text),
-                          postalCode: postalCodeController.text.isEmpty
+                          extraPhoneNumber: extraPhoneNumberController
+                                  .text.isEmpty
                               ? const drift.Value.absent()
-                              : drift.Value(postalCodeController.text),
+                              : drift.Value(extraPhoneNumberController.text),
                           city: cityController.text.isEmpty
                               ? const drift.Value.absent()
                               : drift.Value(cityController.text),
@@ -106,9 +107,10 @@ class AddNewAddress extends ConsumerWidget {
                           street: streetController.text.isEmpty
                               ? const drift.Value.absent()
                               : drift.Value(streetController.text),
-                          postalCode: postalCodeController.text.isEmpty
+                          extraPhoneNumber: extraPhoneNumberController
+                                  .text.isEmpty
                               ? const drift.Value.absent()
-                              : drift.Value(postalCodeController.text),
+                              : drift.Value(extraPhoneNumberController.text),
                           city: cityController.text.isEmpty
                               ? const drift.Value.absent()
                               : drift.Value(cityController.text),

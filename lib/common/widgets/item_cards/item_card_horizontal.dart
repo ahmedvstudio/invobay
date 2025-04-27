@@ -15,7 +15,7 @@ class VItemCardHorizontal extends StatelessWidget {
     required this.itemPrice,
     this.onTapItemDetails,
     this.stockIconColor = VColors.success,
-    this.nameIconColor = VColors.kAccent,
+    this.nameIconColor = VColors.kPrimary,
   });
 
   final String itemName;
@@ -43,7 +43,7 @@ class VItemCardHorizontal extends StatelessWidget {
             children: [
               VItemTitleTextWithIcon(
                 title: itemName,
-                smallSize: true,
+                smallSize: false,
                 maxLines: 2,
                 iconColor: nameIconColor,
               ),

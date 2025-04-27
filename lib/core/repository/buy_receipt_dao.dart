@@ -22,8 +22,6 @@ class BuyReceiptDao {
     required double amountDebt,
     int? supplierId,
   }) async {
-    // final taxAmount = subTotalPrice * (taxFee / 100);
-    // final totalPrice = subTotalPrice + shippingFee + taxAmount;
     return await db.transaction(() async {
       // Insert into BuyReceipts
       final receiptId = await db.into(db.buyReceipts).insert(

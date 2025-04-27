@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/item_cards/item_card_horizontal.dart';
-import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
 import '../../../core/providers/buy_providers/buy_related_providers.dart';
+import '../dialogs/add_new_item_dialog.dart';
 import '../text_field/search_bar.dart';
 import '../../../core/database/drift/app_database.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
@@ -97,12 +97,10 @@ void showItemsBottomSheet({
                                     SizedBox(
                                       width: double.infinity,
                                       child: OutlinedButton(
-                                          onPressed: () => context.goNamed(
-                                                  VRouter.addItem,
-                                                  pathParameters: {
-                                                    'itemName':
-                                                        searchController.text
-                                                  }),
+                                          onPressed: () => showAddNewItemDialog(
+                                              context,
+                                              ref,
+                                              searchController.text),
                                           child: const Text('Add New')),
                                     ),
                                   ],

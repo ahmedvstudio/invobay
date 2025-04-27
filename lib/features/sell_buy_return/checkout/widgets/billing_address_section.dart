@@ -63,7 +63,7 @@ class VBillingAddressSection extends ConsumerWidget {
                                     customer.street,
                                     customer.city,
                                     customer.state,
-                                    customer.postalCode,
+                                    customer.extraPhoneNumber,
                                     customer.country,
                                   ];
 
@@ -139,7 +139,7 @@ class VBillingAddressSection extends ConsumerWidget {
                                     supplier.street,
                                     supplier.city,
                                     supplier.state,
-                                    supplier.postalCode,
+                                    supplier.extraPhoneNumber,
                                     supplier.country,
                                   ];
 

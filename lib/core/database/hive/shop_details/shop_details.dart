@@ -11,23 +11,27 @@ class ShopDetail extends HiveObject {
   String phone;
 
   @HiveField(2)
-  String street;
+  String extraPhone;
 
   @HiveField(3)
-  String city;
+  String street;
 
   @HiveField(4)
-  String state;
+  String city;
 
   @HiveField(5)
-  String country;
+  String state;
 
   @HiveField(6)
+  String country;
+
+  @HiveField(7)
   String description;
 
   ShopDetail({
     required this.name,
     required this.phone,
+    required this.extraPhone,
     required this.street,
     required this.city,
     required this.state,

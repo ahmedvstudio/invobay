@@ -45,7 +45,7 @@ class AddressScreen extends ConsumerWidget {
               ? Column(
                   children: customers.map((customer) {
                     final customerComponents = [
-                      customer.postalCode,
+                      // customer.extraPhoneNumber,
                       customer.street,
                       customer.city,
                       customer.state,
@@ -93,13 +93,14 @@ class AddressScreen extends ConsumerWidget {
                       phoneNumber: customer.phoneNumber ?? '',
                       address: address,
                       isCustomer: isCustomer,
+                      extraPhoneNumber: customer.extraPhoneNumber ?? '',
                     );
                   }).toList(),
                 )
               : Column(
                   children: suppliers.map((supplier) {
                     final supplierComponents = [
-                      supplier.postalCode,
+                      // supplier.extraPhoneNumber,
                       supplier.street,
                       supplier.city,
                       supplier.state,
@@ -115,6 +116,7 @@ class AddressScreen extends ConsumerWidget {
                       name: supplier.name,
                       phoneNumber: supplier.phoneNumber ?? '',
                       address: address,
+                      extraPhoneNumber: supplier.extraPhoneNumber ?? '',
                       isCustomer: isCustomer,
                       deleteOnPressed: () async {
                         final confirmDelete = await showDialog<bool>(

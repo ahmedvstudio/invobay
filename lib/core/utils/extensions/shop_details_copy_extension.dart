@@ -4,6 +4,7 @@ extension ShopDetailCopy on ShopDetail {
   ShopDetail copyWith({
     String? name,
     String? phone,
+    String? extraPhone,
     String? street,
     String? city,
     String? state,
@@ -18,6 +19,7 @@ extension ShopDetailCopy on ShopDetail {
       state: state ?? this.state,
       country: country ?? this.country,
       description: description ?? this.description,
+      extraPhone: extraPhone ?? this.extraPhone,
     );
   }
 }

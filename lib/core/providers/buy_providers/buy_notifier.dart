@@ -140,6 +140,36 @@ class BuyNotifier extends StateNotifier<List<BuyItem>> {
     updateSubtotal();
   }
 
+  ///
+  // In BuyNotifier
+  void addTemporaryNewItem({
+    required String name,
+    required double buyingPrice,
+    double sellingPrice = 0,
+    double quantity = 1,
+    String? unit,
+  }) {
+    final tempItem = Item(
+      id: -DateTime.now().millisecondsSinceEpoch, // negative temp id
+      name: name,
+      buyingPrice: buyingPrice,
+      sellingPrice: sellingPrice,
+      quantity: 0, // Inventory has 0 quantity for now
+      itemUnit: unit ?? 'Piece',
+      barcode: null, // optional
+      description: null, // optional
+    );
+
+    state = [
+      ...state,
+      BuyItem(item: tempItem, quantity: quantity, price: buyingPrice),
+    ];
+
+    updateSubtotal();
+  }
+
+  ///
+
   // Clears the cart
   void clearCart() {
     state = [];

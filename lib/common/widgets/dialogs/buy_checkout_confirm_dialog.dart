@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../core/models/buy_related_model/buy_model.dart';
-import '../../../core/providers/buy_providers/buy_checkout_notifier.dart';
 import '../../../core/providers/buy_providers/buy_related_providers.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/payment_providers/payment_provider.dart';
@@ -19,7 +18,6 @@ class VBuyCheckoutConfirmDialog extends ConsumerWidget {
     super.key,
     required this.paidAmount,
     required this.debtAmount,
-    required this.checkoutController,
     required this.boughtItems,
     required this.subtotal,
     required this.totalPrice,
@@ -33,7 +31,6 @@ class VBuyCheckoutConfirmDialog extends ConsumerWidget {
 
   final double paidAmount;
   final double debtAmount;
-  final BuyCheckoutNotifier checkoutController;
   final List<BuyItem> boughtItems;
   final double subtotal;
   final double totalPrice;

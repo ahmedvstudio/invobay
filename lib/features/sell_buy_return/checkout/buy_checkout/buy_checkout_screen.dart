@@ -132,8 +132,6 @@ class BuyCheckoutScreen extends ConsumerWidget {
               // Inside the ElevatedButton onPressed method
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  final checkoutController = ref.read(buyCheckoutProvider);
-
                   // Calculate amounts
                   final paidAmount =
                       double.tryParse(paidAmountController.text) ?? 0.00;
@@ -156,7 +154,6 @@ class BuyCheckoutScreen extends ConsumerWidget {
                       return VBuyCheckoutConfirmDialog(
                         paidAmount: paidAmount,
                         debtAmount: debtAmount,
-                        checkoutController: checkoutController,
                         boughtItems: boughtItems,
                         subtotal: subtotal,
                         discountAmount: discountAmount,

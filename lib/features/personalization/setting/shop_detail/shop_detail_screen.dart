@@ -22,6 +22,7 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
 
   late final TextEditingController nameController;
   late final TextEditingController phoneController;
+  late final TextEditingController extraPhoneController;
   late final TextEditingController streetController;
   late final TextEditingController cityController;
   late final TextEditingController stateController;
@@ -34,6 +35,7 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
 
     nameController = TextEditingController();
     phoneController = TextEditingController();
+    extraPhoneController = TextEditingController();
     streetController = TextEditingController();
     cityController = TextEditingController();
     stateController = TextEditingController();
@@ -48,6 +50,7 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
   void dispose() {
     nameController.dispose();
     phoneController.dispose();
+    extraPhoneController.dispose();
     streetController.dispose();
     cityController.dispose();
     stateController.dispose();
@@ -80,6 +83,9 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
               if (phoneController.text.isEmpty) {
                 phoneController.text = savedDetail?.phone ?? '';
               }
+              if (extraPhoneController.text.isEmpty) {
+                extraPhoneController.text = savedDetail?.extraPhone ?? '';
+              }
               if (streetController.text.isEmpty) {
                 streetController.text = savedDetail?.street ?? '';
               }
@@ -98,7 +104,6 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
               }
 
               return AddressForm(
-                currencySign: true,
                 withDescription: true,
                 nameController: nameController,
                 phoneController: phoneController,
@@ -107,6 +112,7 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
                 stateController: stateController,
                 countryController: countryController,
                 descriptionController: descriptionController,
+                extraPhoneNumberController: extraPhoneController,
                 buttonText: 'Save',
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
@@ -118,6 +124,7 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
                       state: stateController.text,
                       country: countryController.text,
                       description: descriptionController.text,
+                      extraPhone: extraPhoneController.text,
                     );
 
                     await ref

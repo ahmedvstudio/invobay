@@ -70,8 +70,8 @@ class ItemListView extends StatelessWidget {
 
                         if (hasHighPriceReceipts || isSellingBelowCost) {
                           return const Icon(
-                            Iconsax.info_circle,
-                            color: VColors.warning,
+                            Iconsax.info_circle5,
+                            color: VColors.error,
                             size: VSizes.iconSm,
                           );
                         }

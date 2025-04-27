@@ -68,7 +68,7 @@ class VCustomerAndClear extends StatelessWidget {
                                     customer.street,
                                     customer.city,
                                     customer.state,
-                                    customer.postalCode,
+                                    customer.extraPhoneNumber,
                                     customer.country,
                                   ];
 

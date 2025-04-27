@@ -5,7 +5,7 @@ import '../../../database/drift/app_database.dart';
 
 pw.Widget invoCustomerInfo({CustomerData? customerData}) {
   final customerComponents = [
-    customerData?.postalCode,
+    customerData?.extraPhoneNumber,
     customerData?.street,
     customerData?.city,
     customerData?.state,

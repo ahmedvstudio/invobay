@@ -68,7 +68,7 @@ class VSupplierAndClear extends StatelessWidget {
                                     supplier.street,
                                     supplier.city,
                                     supplier.state,
-                                    supplier.postalCode,
+                                    supplier.extraPhoneNumber,
                                     supplier.country,
                                   ];
 

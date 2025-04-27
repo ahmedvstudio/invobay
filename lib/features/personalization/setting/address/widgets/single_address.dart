@@ -12,6 +12,7 @@ class VSingleAddress extends StatelessWidget {
     super.key,
     required this.name,
     required this.phoneNumber,
+    required this.extraPhoneNumber,
     required this.address,
     required this.onTap,
     required this.isCustomer,
@@ -19,6 +20,7 @@ class VSingleAddress extends StatelessWidget {
   });
   final String name;
   final String phoneNumber;
+  final String extraPhoneNumber;
   final String address;
   final VoidCallback onTap;
   final VoidCallback? deleteOnPressed;
@@ -65,6 +67,8 @@ class VSingleAddress extends StatelessWidget {
                 ),
                 const SizedBox(height: VSizes.sm / 2),
                 Text(VFormatters.formatPhoneNumber(phoneNumber),
+                    maxLines: 1, overflow: TextOverflow.ellipsis),
+                Text(VFormatters.formatPhoneNumber(extraPhoneNumber),
                     maxLines: 1, overflow: TextOverflow.ellipsis),
                 const SizedBox(height: VSizes.sm / 2),
                 Text(address, softWrap: true),

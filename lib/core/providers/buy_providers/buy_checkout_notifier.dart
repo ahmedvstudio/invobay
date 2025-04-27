@@ -27,9 +27,38 @@ class BuyCheckoutNotifier {
     final itemDao = ref.read(itemDaoProvider);
     final itemNotifier = ref.read(itemNotifierProvider.notifier);
     final buyNotifier = ref.read(buyNotifierProvider.notifier);
-    // Save receipt first
+
+    // Step 1: Insert temporary items into inventory first
+    List<BuyItem> updatedBoughtItems = [];
+
+    for (final item in boughtItems) {
+      if (item.item.id.isNegative) {
+        // Temporary item -> insert into inventory
+        final newItemId = await itemDao.insertNewItem(
+          name: item.item.name,
+          buyingPrice: item.item.buyingPrice,
+          sellingPrice: item.item.sellingPrice,
+          quantity: item.quantity,
+          unit: item.item.itemUnit ?? 'Piece',
+          barcode: '',
+          description: '',
+        );
+
+        updatedBoughtItems.add(
+          BuyItem(
+            item: item.item.copyWith(id: newItemId),
+            quantity: item.quantity,
+            price: item.price,
+          ),
+        );
+      } else {
+        updatedBoughtItems.add(item);
+      }
+    }
+
+    // Step 2: Save receipt with updatedBoughtItems
     await buyReceiptDao.saveBuyReceipt(
-      boughtItems: boughtItems,
+      boughtItems: updatedBoughtItems,
       subTotalPrice: subTotalPrice,
       discount: discount,
       shippingFee: shippingFee,
@@ -42,12 +71,13 @@ class BuyCheckoutNotifier {
       totalPrice: totalPrice,
     );
 
-    // Reduce stock quantity for each boughtItems
-    for (final item in boughtItems) {
+    // Step 3: Increase stock quantities for existing items
+    for (final item in updatedBoughtItems) {
       await itemDao.increaseStockQuantity(item.item.id, item.quantity);
-      // Update the state after reducing the quantity
-      await itemNotifier.fetchItems();
-      buyNotifier.clearCart();
     }
+
+    // Step 4: Refresh UI
+    await itemNotifier.fetchItems();
+    buyNotifier.clearCart();
   }
 }

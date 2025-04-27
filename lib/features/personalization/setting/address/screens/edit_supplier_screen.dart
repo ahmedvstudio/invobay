@@ -25,8 +25,8 @@ class EditSupplierForm extends ConsumerWidget {
     final nameController = TextEditingController(text: supplier.name);
     final phoneController = TextEditingController(text: supplier.phoneNumber);
     final streetController = TextEditingController(text: supplier.street);
-    final postalCodeController =
-        TextEditingController(text: supplier.postalCode);
+    final extraPhoneNumberController =
+        TextEditingController(text: supplier.extraPhoneNumber);
     final cityController = TextEditingController(text: supplier.city);
     final stateController = TextEditingController(text: supplier.state);
     final countryController = TextEditingController(text: supplier.country);
@@ -49,10 +49,10 @@ class EditSupplierForm extends ConsumerWidget {
               nameController: nameController,
               phoneController: phoneController,
               streetController: streetController,
-              postalCodeController: postalCodeController,
               cityController: cityController,
               stateController: stateController,
               countryController: countryController,
+              extraPhoneNumberController: extraPhoneNumberController,
               buttonText: 'Update Supplier',
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
@@ -65,9 +65,9 @@ class EditSupplierForm extends ConsumerWidget {
                     street: streetController.text.isEmpty
                         ? const drift.Value(null)
                         : drift.Value(streetController.text),
-                    postalCode: postalCodeController.text.isEmpty
+                    extraPhoneNumber: extraPhoneNumberController.text.isEmpty
                         ? const drift.Value(null)
-                        : drift.Value(postalCodeController.text),
+                        : drift.Value(extraPhoneNumberController.text),
                     city: cityController.text.isEmpty
                         ? const drift.Value(null)
                         : drift.Value(cityController.text),

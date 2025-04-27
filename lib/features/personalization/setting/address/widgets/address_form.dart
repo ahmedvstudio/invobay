@@ -11,7 +11,7 @@ class AddressForm extends ConsumerWidget {
     required this.nameController,
     required this.phoneController,
     required this.streetController,
-    this.postalCodeController,
+    this.extraPhoneNumberController,
     required this.cityController,
     required this.stateController,
     required this.countryController,
@@ -19,13 +19,12 @@ class AddressForm extends ConsumerWidget {
     this.onPressed,
     required this.buttonText,
     this.withDescription = false,
-    this.currencySign = false,
   });
 
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final TextEditingController streetController;
-  final TextEditingController? postalCodeController;
+  final TextEditingController? extraPhoneNumberController;
   final TextEditingController cityController;
   final TextEditingController stateController;
   final TextEditingController countryController;
@@ -33,7 +32,6 @@ class AddressForm extends ConsumerWidget {
   final VoidCallback? onPressed;
   final String buttonText;
   final bool withDescription;
-  final bool currencySign;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
@@ -58,31 +56,23 @@ class AddressForm extends ConsumerWidget {
           maxLength: 11,
         ),
         const SizedBox(height: VSizes.spaceBtwInputFields),
-        Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                controller: streetController,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Iconsax.building_31),
-                  labelText: 'Street',
-                ),
-              ),
-            ),
-            if (!currencySign) ...[
-              const SizedBox(width: VSizes.spaceBtwInputFields),
-              Expanded(
-                child: TextFormField(
-                  controller: postalCodeController,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Iconsax.code),
-                    labelText: 'Postal Code',
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-              ),
-            ],
-          ],
+        TextFormField(
+          controller: extraPhoneNumberController,
+          decoration: const InputDecoration(
+            prefixIcon: Icon(Iconsax.mobile5),
+            labelText: 'Phone Number (Optional)',
+            counterText: '',
+          ),
+          keyboardType: TextInputType.number,
+          maxLength: 11,
+        ),
+        const SizedBox(height: VSizes.spaceBtwInputFields),
+        TextFormField(
+          controller: streetController,
+          decoration: const InputDecoration(
+            prefixIcon: Icon(Iconsax.building_31),
+            labelText: 'Street',
+          ),
         ),
         const SizedBox(height: VSizes.spaceBtwInputFields),
         Row(

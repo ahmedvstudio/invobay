@@ -2718,7 +2718,7 @@ class $CustomersTable extends Customers
   late final GeneratedColumn<String> phoneNumber = GeneratedColumn<String>(
       'phone_number', aliasedName, true,
       additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 15),
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 11),
       type: DriftSqlType.string,
       requiredDuringInsert: false);
   static const VerificationMeta _streetMeta = const VerificationMeta('street');
@@ -2729,13 +2729,13 @@ class $CustomersTable extends Customers
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 100),
       type: DriftSqlType.string,
       requiredDuringInsert: false);
-  static const VerificationMeta _postalCodeMeta =
-      const VerificationMeta('postalCode');
+  static const VerificationMeta _extraPhoneNumberMeta =
+      const VerificationMeta('extraPhoneNumber');
   @override
-  late final GeneratedColumn<String> postalCode = GeneratedColumn<String>(
-      'postal_code', aliasedName, true,
+  late final GeneratedColumn<String> extraPhoneNumber = GeneratedColumn<String>(
+      'extra_phone_number', aliasedName, true,
       additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 10),
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 11),
       type: DriftSqlType.string,
       requiredDuringInsert: false);
   static const VerificationMeta _cityMeta = const VerificationMeta('city');
@@ -2765,7 +2765,7 @@ class $CustomersTable extends Customers
       requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, phoneNumber, street, postalCode, city, state, country];
+      [id, name, phoneNumber, street, extraPhoneNumber, city, state, country];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -2795,11 +2795,11 @@ class $CustomersTable extends Customers
       context.handle(_streetMeta,
           street.isAcceptableOrUnknown(data['street']!, _streetMeta));
     }
-    if (data.containsKey('postal_code')) {
+    if (data.containsKey('extra_phone_number')) {
       context.handle(
-          _postalCodeMeta,
-          postalCode.isAcceptableOrUnknown(
-              data['postal_code']!, _postalCodeMeta));
+          _extraPhoneNumberMeta,
+          extraPhoneNumber.isAcceptableOrUnknown(
+              data['extra_phone_number']!, _extraPhoneNumberMeta));
     }
     if (data.containsKey('city')) {
       context.handle(
@@ -2830,8 +2830,8 @@ class $CustomersTable extends Customers
           .read(DriftSqlType.string, data['${effectivePrefix}phone_number']),
       street: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}street']),
-      postalCode: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}postal_code']),
+      extraPhoneNumber: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}extra_phone_number']),
       city: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}city']),
       state: attachedDatabase.typeMapping
@@ -2852,7 +2852,7 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
   final String name;
   final String? phoneNumber;
   final String? street;
-  final String? postalCode;
+  final String? extraPhoneNumber;
   final String? city;
   final String? state;
   final String? country;
@@ -2861,7 +2861,7 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
       required this.name,
       this.phoneNumber,
       this.street,
-      this.postalCode,
+      this.extraPhoneNumber,
       this.city,
       this.state,
       this.country});
@@ -2876,8 +2876,8 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
     if (!nullToAbsent || street != null) {
       map['street'] = Variable<String>(street);
     }
-    if (!nullToAbsent || postalCode != null) {
-      map['postal_code'] = Variable<String>(postalCode);
+    if (!nullToAbsent || extraPhoneNumber != null) {
+      map['extra_phone_number'] = Variable<String>(extraPhoneNumber);
     }
     if (!nullToAbsent || city != null) {
       map['city'] = Variable<String>(city);
@@ -2900,9 +2900,9 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
           : Value(phoneNumber),
       street:
           street == null && nullToAbsent ? const Value.absent() : Value(street),
-      postalCode: postalCode == null && nullToAbsent
+      extraPhoneNumber: extraPhoneNumber == null && nullToAbsent
           ? const Value.absent()
-          : Value(postalCode),
+          : Value(extraPhoneNumber),
       city: city == null && nullToAbsent ? const Value.absent() : Value(city),
       state:
           state == null && nullToAbsent ? const Value.absent() : Value(state),
@@ -2920,7 +2920,7 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
       name: serializer.fromJson<String>(json['name']),
       phoneNumber: serializer.fromJson<String?>(json['phoneNumber']),
       street: serializer.fromJson<String?>(json['street']),
-      postalCode: serializer.fromJson<String?>(json['postalCode']),
+      extraPhoneNumber: serializer.fromJson<String?>(json['extraPhoneNumber']),
       city: serializer.fromJson<String?>(json['city']),
       state: serializer.fromJson<String?>(json['state']),
       country: serializer.fromJson<String?>(json['country']),
@@ -2934,7 +2934,7 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
       'name': serializer.toJson<String>(name),
       'phoneNumber': serializer.toJson<String?>(phoneNumber),
       'street': serializer.toJson<String?>(street),
-      'postalCode': serializer.toJson<String?>(postalCode),
+      'extraPhoneNumber': serializer.toJson<String?>(extraPhoneNumber),
       'city': serializer.toJson<String?>(city),
       'state': serializer.toJson<String?>(state),
       'country': serializer.toJson<String?>(country),
@@ -2946,7 +2946,7 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
           String? name,
           Value<String?> phoneNumber = const Value.absent(),
           Value<String?> street = const Value.absent(),
-          Value<String?> postalCode = const Value.absent(),
+          Value<String?> extraPhoneNumber = const Value.absent(),
           Value<String?> city = const Value.absent(),
           Value<String?> state = const Value.absent(),
           Value<String?> country = const Value.absent()}) =>
@@ -2955,7 +2955,9 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
         name: name ?? this.name,
         phoneNumber: phoneNumber.present ? phoneNumber.value : this.phoneNumber,
         street: street.present ? street.value : this.street,
-        postalCode: postalCode.present ? postalCode.value : this.postalCode,
+        extraPhoneNumber: extraPhoneNumber.present
+            ? extraPhoneNumber.value
+            : this.extraPhoneNumber,
         city: city.present ? city.value : this.city,
         state: state.present ? state.value : this.state,
         country: country.present ? country.value : this.country,
@@ -2967,8 +2969,9 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
       phoneNumber:
           data.phoneNumber.present ? data.phoneNumber.value : this.phoneNumber,
       street: data.street.present ? data.street.value : this.street,
-      postalCode:
-          data.postalCode.present ? data.postalCode.value : this.postalCode,
+      extraPhoneNumber: data.extraPhoneNumber.present
+          ? data.extraPhoneNumber.value
+          : this.extraPhoneNumber,
       city: data.city.present ? data.city.value : this.city,
       state: data.state.present ? data.state.value : this.state,
       country: data.country.present ? data.country.value : this.country,
@@ -2982,7 +2985,7 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
           ..write('name: $name, ')
           ..write('phoneNumber: $phoneNumber, ')
           ..write('street: $street, ')
-          ..write('postalCode: $postalCode, ')
+          ..write('extraPhoneNumber: $extraPhoneNumber, ')
           ..write('city: $city, ')
           ..write('state: $state, ')
           ..write('country: $country')
@@ -2992,7 +2995,7 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
 
   @override
   int get hashCode => Object.hash(
-      id, name, phoneNumber, street, postalCode, city, state, country);
+      id, name, phoneNumber, street, extraPhoneNumber, city, state, country);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3001,7 +3004,7 @@ class CustomerData extends DataClass implements Insertable<CustomerData> {
           other.name == this.name &&
           other.phoneNumber == this.phoneNumber &&
           other.street == this.street &&
-          other.postalCode == this.postalCode &&
+          other.extraPhoneNumber == this.extraPhoneNumber &&
           other.city == this.city &&
           other.state == this.state &&
           other.country == this.country);
@@ -3012,7 +3015,7 @@ class CustomersCompanion extends UpdateCompanion<CustomerData> {
   final Value<String> name;
   final Value<String?> phoneNumber;
   final Value<String?> street;
-  final Value<String?> postalCode;
+  final Value<String?> extraPhoneNumber;
   final Value<String?> city;
   final Value<String?> state;
   final Value<String?> country;
@@ -3021,7 +3024,7 @@ class CustomersCompanion extends UpdateCompanion<CustomerData> {
     this.name = const Value.absent(),
     this.phoneNumber = const Value.absent(),
     this.street = const Value.absent(),
-    this.postalCode = const Value.absent(),
+    this.extraPhoneNumber = const Value.absent(),
     this.city = const Value.absent(),
     this.state = const Value.absent(),
     this.country = const Value.absent(),
@@ -3031,7 +3034,7 @@ class CustomersCompanion extends UpdateCompanion<CustomerData> {
     required String name,
     this.phoneNumber = const Value.absent(),
     this.street = const Value.absent(),
-    this.postalCode = const Value.absent(),
+    this.extraPhoneNumber = const Value.absent(),
     this.city = const Value.absent(),
     this.state = const Value.absent(),
     this.country = const Value.absent(),
@@ -3041,7 +3044,7 @@ class CustomersCompanion extends UpdateCompanion<CustomerData> {
     Expression<String>? name,
     Expression<String>? phoneNumber,
     Expression<String>? street,
-    Expression<String>? postalCode,
+    Expression<String>? extraPhoneNumber,
     Expression<String>? city,
     Expression<String>? state,
     Expression<String>? country,
@@ -3051,7 +3054,7 @@ class CustomersCompanion extends UpdateCompanion<CustomerData> {
       if (name != null) 'name': name,
       if (phoneNumber != null) 'phone_number': phoneNumber,
       if (street != null) 'street': street,
-      if (postalCode != null) 'postal_code': postalCode,
+      if (extraPhoneNumber != null) 'extra_phone_number': extraPhoneNumber,
       if (city != null) 'city': city,
       if (state != null) 'state': state,
       if (country != null) 'country': country,
@@ -3063,7 +3066,7 @@ class CustomersCompanion extends UpdateCompanion<CustomerData> {
       Value<String>? name,
       Value<String?>? phoneNumber,
       Value<String?>? street,
-      Value<String?>? postalCode,
+      Value<String?>? extraPhoneNumber,
       Value<String?>? city,
       Value<String?>? state,
       Value<String?>? country}) {
@@ -3072,7 +3075,7 @@ class CustomersCompanion extends UpdateCompanion<CustomerData> {
       name: name ?? this.name,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       street: street ?? this.street,
-      postalCode: postalCode ?? this.postalCode,
+      extraPhoneNumber: extraPhoneNumber ?? this.extraPhoneNumber,
       city: city ?? this.city,
       state: state ?? this.state,
       country: country ?? this.country,
@@ -3094,8 +3097,8 @@ class CustomersCompanion extends UpdateCompanion<CustomerData> {
     if (street.present) {
       map['street'] = Variable<String>(street.value);
     }
-    if (postalCode.present) {
-      map['postal_code'] = Variable<String>(postalCode.value);
+    if (extraPhoneNumber.present) {
+      map['extra_phone_number'] = Variable<String>(extraPhoneNumber.value);
     }
     if (city.present) {
       map['city'] = Variable<String>(city.value);
@@ -3116,7 +3119,7 @@ class CustomersCompanion extends UpdateCompanion<CustomerData> {
           ..write('name: $name, ')
           ..write('phoneNumber: $phoneNumber, ')
           ..write('street: $street, ')
-          ..write('postalCode: $postalCode, ')
+          ..write('extraPhoneNumber: $extraPhoneNumber, ')
           ..write('city: $city, ')
           ..write('state: $state, ')
           ..write('country: $country')
@@ -3154,7 +3157,7 @@ class $SuppliersTable extends Suppliers
   late final GeneratedColumn<String> phoneNumber = GeneratedColumn<String>(
       'phone_number', aliasedName, true,
       additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 15),
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 11),
       type: DriftSqlType.string,
       requiredDuringInsert: false);
   static const VerificationMeta _streetMeta = const VerificationMeta('street');
@@ -3165,13 +3168,13 @@ class $SuppliersTable extends Suppliers
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 100),
       type: DriftSqlType.string,
       requiredDuringInsert: false);
-  static const VerificationMeta _postalCodeMeta =
-      const VerificationMeta('postalCode');
+  static const VerificationMeta _extraPhoneNumberMeta =
+      const VerificationMeta('extraPhoneNumber');
   @override
-  late final GeneratedColumn<String> postalCode = GeneratedColumn<String>(
-      'postal_code', aliasedName, true,
+  late final GeneratedColumn<String> extraPhoneNumber = GeneratedColumn<String>(
+      'extra_phone_number', aliasedName, true,
       additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 10),
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 11),
       type: DriftSqlType.string,
       requiredDuringInsert: false);
   static const VerificationMeta _cityMeta = const VerificationMeta('city');
@@ -3201,7 +3204,7 @@ class $SuppliersTable extends Suppliers
       requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, phoneNumber, street, postalCode, city, state, country];
+      [id, name, phoneNumber, street, extraPhoneNumber, city, state, country];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -3231,11 +3234,11 @@ class $SuppliersTable extends Suppliers
       context.handle(_streetMeta,
           street.isAcceptableOrUnknown(data['street']!, _streetMeta));
     }
-    if (data.containsKey('postal_code')) {
+    if (data.containsKey('extra_phone_number')) {
       context.handle(
-          _postalCodeMeta,
-          postalCode.isAcceptableOrUnknown(
-              data['postal_code']!, _postalCodeMeta));
+          _extraPhoneNumberMeta,
+          extraPhoneNumber.isAcceptableOrUnknown(
+              data['extra_phone_number']!, _extraPhoneNumberMeta));
     }
     if (data.containsKey('city')) {
       context.handle(
@@ -3266,8 +3269,8 @@ class $SuppliersTable extends Suppliers
           .read(DriftSqlType.string, data['${effectivePrefix}phone_number']),
       street: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}street']),
-      postalCode: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}postal_code']),
+      extraPhoneNumber: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}extra_phone_number']),
       city: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}city']),
       state: attachedDatabase.typeMapping
@@ -3288,7 +3291,7 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
   final String name;
   final String? phoneNumber;
   final String? street;
-  final String? postalCode;
+  final String? extraPhoneNumber;
   final String? city;
   final String? state;
   final String? country;
@@ -3297,7 +3300,7 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
       required this.name,
       this.phoneNumber,
       this.street,
-      this.postalCode,
+      this.extraPhoneNumber,
       this.city,
       this.state,
       this.country});
@@ -3312,8 +3315,8 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
     if (!nullToAbsent || street != null) {
       map['street'] = Variable<String>(street);
     }
-    if (!nullToAbsent || postalCode != null) {
-      map['postal_code'] = Variable<String>(postalCode);
+    if (!nullToAbsent || extraPhoneNumber != null) {
+      map['extra_phone_number'] = Variable<String>(extraPhoneNumber);
     }
     if (!nullToAbsent || city != null) {
       map['city'] = Variable<String>(city);
@@ -3336,9 +3339,9 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
           : Value(phoneNumber),
       street:
           street == null && nullToAbsent ? const Value.absent() : Value(street),
-      postalCode: postalCode == null && nullToAbsent
+      extraPhoneNumber: extraPhoneNumber == null && nullToAbsent
           ? const Value.absent()
-          : Value(postalCode),
+          : Value(extraPhoneNumber),
       city: city == null && nullToAbsent ? const Value.absent() : Value(city),
       state:
           state == null && nullToAbsent ? const Value.absent() : Value(state),
@@ -3356,7 +3359,7 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
       name: serializer.fromJson<String>(json['name']),
       phoneNumber: serializer.fromJson<String?>(json['phoneNumber']),
       street: serializer.fromJson<String?>(json['street']),
-      postalCode: serializer.fromJson<String?>(json['postalCode']),
+      extraPhoneNumber: serializer.fromJson<String?>(json['extraPhoneNumber']),
       city: serializer.fromJson<String?>(json['city']),
       state: serializer.fromJson<String?>(json['state']),
       country: serializer.fromJson<String?>(json['country']),
@@ -3370,7 +3373,7 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
       'name': serializer.toJson<String>(name),
       'phoneNumber': serializer.toJson<String?>(phoneNumber),
       'street': serializer.toJson<String?>(street),
-      'postalCode': serializer.toJson<String?>(postalCode),
+      'extraPhoneNumber': serializer.toJson<String?>(extraPhoneNumber),
       'city': serializer.toJson<String?>(city),
       'state': serializer.toJson<String?>(state),
       'country': serializer.toJson<String?>(country),
@@ -3382,7 +3385,7 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
           String? name,
           Value<String?> phoneNumber = const Value.absent(),
           Value<String?> street = const Value.absent(),
-          Value<String?> postalCode = const Value.absent(),
+          Value<String?> extraPhoneNumber = const Value.absent(),
           Value<String?> city = const Value.absent(),
           Value<String?> state = const Value.absent(),
           Value<String?> country = const Value.absent()}) =>
@@ -3391,7 +3394,9 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
         name: name ?? this.name,
         phoneNumber: phoneNumber.present ? phoneNumber.value : this.phoneNumber,
         street: street.present ? street.value : this.street,
-        postalCode: postalCode.present ? postalCode.value : this.postalCode,
+        extraPhoneNumber: extraPhoneNumber.present
+            ? extraPhoneNumber.value
+            : this.extraPhoneNumber,
         city: city.present ? city.value : this.city,
         state: state.present ? state.value : this.state,
         country: country.present ? country.value : this.country,
@@ -3403,8 +3408,9 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
       phoneNumber:
           data.phoneNumber.present ? data.phoneNumber.value : this.phoneNumber,
       street: data.street.present ? data.street.value : this.street,
-      postalCode:
-          data.postalCode.present ? data.postalCode.value : this.postalCode,
+      extraPhoneNumber: data.extraPhoneNumber.present
+          ? data.extraPhoneNumber.value
+          : this.extraPhoneNumber,
       city: data.city.present ? data.city.value : this.city,
       state: data.state.present ? data.state.value : this.state,
       country: data.country.present ? data.country.value : this.country,
@@ -3418,7 +3424,7 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
           ..write('name: $name, ')
           ..write('phoneNumber: $phoneNumber, ')
           ..write('street: $street, ')
-          ..write('postalCode: $postalCode, ')
+          ..write('extraPhoneNumber: $extraPhoneNumber, ')
           ..write('city: $city, ')
           ..write('state: $state, ')
           ..write('country: $country')
@@ -3428,7 +3434,7 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
 
   @override
   int get hashCode => Object.hash(
-      id, name, phoneNumber, street, postalCode, city, state, country);
+      id, name, phoneNumber, street, extraPhoneNumber, city, state, country);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3437,7 +3443,7 @@ class SupplierData extends DataClass implements Insertable<SupplierData> {
           other.name == this.name &&
           other.phoneNumber == this.phoneNumber &&
           other.street == this.street &&
-          other.postalCode == this.postalCode &&
+          other.extraPhoneNumber == this.extraPhoneNumber &&
           other.city == this.city &&
           other.state == this.state &&
           other.country == this.country);
@@ -3448,7 +3454,7 @@ class SuppliersCompanion extends UpdateCompanion<SupplierData> {
   final Value<String> name;
   final Value<String?> phoneNumber;
   final Value<String?> street;
-  final Value<String?> postalCode;
+  final Value<String?> extraPhoneNumber;
   final Value<String?> city;
   final Value<String?> state;
   final Value<String?> country;
@@ -3457,7 +3463,7 @@ class SuppliersCompanion extends UpdateCompanion<SupplierData> {
     this.name = const Value.absent(),
     this.phoneNumber = const Value.absent(),
     this.street = const Value.absent(),
-    this.postalCode = const Value.absent(),
+    this.extraPhoneNumber = const Value.absent(),
     this.city = const Value.absent(),
     this.state = const Value.absent(),
     this.country = const Value.absent(),
@@ -3467,7 +3473,7 @@ class SuppliersCompanion extends UpdateCompanion<SupplierData> {
     required String name,
     this.phoneNumber = const Value.absent(),
     this.street = const Value.absent(),
-    this.postalCode = const Value.absent(),
+    this.extraPhoneNumber = const Value.absent(),
     this.city = const Value.absent(),
     this.state = const Value.absent(),
     this.country = const Value.absent(),
@@ -3477,7 +3483,7 @@ class SuppliersCompanion extends UpdateCompanion<SupplierData> {
     Expression<String>? name,
     Expression<String>? phoneNumber,
     Expression<String>? street,
-    Expression<String>? postalCode,
+    Expression<String>? extraPhoneNumber,
     Expression<String>? city,
     Expression<String>? state,
     Expression<String>? country,
@@ -3487,7 +3493,7 @@ class SuppliersCompanion extends UpdateCompanion<SupplierData> {
       if (name != null) 'name': name,
       if (phoneNumber != null) 'phone_number': phoneNumber,
       if (street != null) 'street': street,
-      if (postalCode != null) 'postal_code': postalCode,
+      if (extraPhoneNumber != null) 'extra_phone_number': extraPhoneNumber,
       if (city != null) 'city': city,
       if (state != null) 'state': state,
       if (country != null) 'country': country,
@@ -3499,7 +3505,7 @@ class SuppliersCompanion extends UpdateCompanion<SupplierData> {
       Value<String>? name,
       Value<String?>? phoneNumber,
       Value<String?>? street,
-      Value<String?>? postalCode,
+      Value<String?>? extraPhoneNumber,
       Value<String?>? city,
       Value<String?>? state,
       Value<String?>? country}) {
@@ -3508,7 +3514,7 @@ class SuppliersCompanion extends UpdateCompanion<SupplierData> {
       name: name ?? this.name,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       street: street ?? this.street,
-      postalCode: postalCode ?? this.postalCode,
+      extraPhoneNumber: extraPhoneNumber ?? this.extraPhoneNumber,
       city: city ?? this.city,
       state: state ?? this.state,
       country: country ?? this.country,
@@ -3530,8 +3536,8 @@ class SuppliersCompanion extends UpdateCompanion<SupplierData> {
     if (street.present) {
       map['street'] = Variable<String>(street.value);
     }
-    if (postalCode.present) {
-      map['postal_code'] = Variable<String>(postalCode.value);
+    if (extraPhoneNumber.present) {
+      map['extra_phone_number'] = Variable<String>(extraPhoneNumber.value);
     }
     if (city.present) {
       map['city'] = Variable<String>(city.value);
@@ -3552,7 +3558,7 @@ class SuppliersCompanion extends UpdateCompanion<SupplierData> {
           ..write('name: $name, ')
           ..write('phoneNumber: $phoneNumber, ')
           ..write('street: $street, ')
-          ..write('postalCode: $postalCode, ')
+          ..write('extraPhoneNumber: $extraPhoneNumber, ')
           ..write('city: $city, ')
           ..write('state: $state, ')
           ..write('country: $country')
@@ -4961,7 +4967,7 @@ typedef $$CustomersTableCreateCompanionBuilder = CustomersCompanion Function({
   required String name,
   Value<String?> phoneNumber,
   Value<String?> street,
-  Value<String?> postalCode,
+  Value<String?> extraPhoneNumber,
   Value<String?> city,
   Value<String?> state,
   Value<String?> country,
@@ -4971,7 +4977,7 @@ typedef $$CustomersTableUpdateCompanionBuilder = CustomersCompanion Function({
   Value<String> name,
   Value<String?> phoneNumber,
   Value<String?> street,
-  Value<String?> postalCode,
+  Value<String?> extraPhoneNumber,
   Value<String?> city,
   Value<String?> state,
   Value<String?> country,
@@ -4998,8 +5004,9 @@ class $$CustomersTableFilterComposer
   ColumnFilters<String> get street => $composableBuilder(
       column: $table.street, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get postalCode => $composableBuilder(
-      column: $table.postalCode, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get extraPhoneNumber => $composableBuilder(
+      column: $table.extraPhoneNumber,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get city => $composableBuilder(
       column: $table.city, builder: (column) => ColumnFilters(column));
@@ -5032,8 +5039,9 @@ class $$CustomersTableOrderingComposer
   ColumnOrderings<String> get street => $composableBuilder(
       column: $table.street, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get postalCode => $composableBuilder(
-      column: $table.postalCode, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get extraPhoneNumber => $composableBuilder(
+      column: $table.extraPhoneNumber,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get city => $composableBuilder(
       column: $table.city, builder: (column) => ColumnOrderings(column));
@@ -5066,8 +5074,8 @@ class $$CustomersTableAnnotationComposer
   GeneratedColumn<String> get street =>
       $composableBuilder(column: $table.street, builder: (column) => column);
 
-  GeneratedColumn<String> get postalCode => $composableBuilder(
-      column: $table.postalCode, builder: (column) => column);
+  GeneratedColumn<String> get extraPhoneNumber => $composableBuilder(
+      column: $table.extraPhoneNumber, builder: (column) => column);
 
   GeneratedColumn<String> get city =>
       $composableBuilder(column: $table.city, builder: (column) => column);
@@ -5109,7 +5117,7 @@ class $$CustomersTableTableManager extends RootTableManager<
             Value<String> name = const Value.absent(),
             Value<String?> phoneNumber = const Value.absent(),
             Value<String?> street = const Value.absent(),
-            Value<String?> postalCode = const Value.absent(),
+            Value<String?> extraPhoneNumber = const Value.absent(),
             Value<String?> city = const Value.absent(),
             Value<String?> state = const Value.absent(),
             Value<String?> country = const Value.absent(),
@@ -5119,7 +5127,7 @@ class $$CustomersTableTableManager extends RootTableManager<
             name: name,
             phoneNumber: phoneNumber,
             street: street,
-            postalCode: postalCode,
+            extraPhoneNumber: extraPhoneNumber,
             city: city,
             state: state,
             country: country,
@@ -5129,7 +5137,7 @@ class $$CustomersTableTableManager extends RootTableManager<
             required String name,
             Value<String?> phoneNumber = const Value.absent(),
             Value<String?> street = const Value.absent(),
-            Value<String?> postalCode = const Value.absent(),
+            Value<String?> extraPhoneNumber = const Value.absent(),
             Value<String?> city = const Value.absent(),
             Value<String?> state = const Value.absent(),
             Value<String?> country = const Value.absent(),
@@ -5139,7 +5147,7 @@ class $$CustomersTableTableManager extends RootTableManager<
             name: name,
             phoneNumber: phoneNumber,
             street: street,
-            postalCode: postalCode,
+            extraPhoneNumber: extraPhoneNumber,
             city: city,
             state: state,
             country: country,
@@ -5171,7 +5179,7 @@ typedef $$SuppliersTableCreateCompanionBuilder = SuppliersCompanion Function({
   required String name,
   Value<String?> phoneNumber,
   Value<String?> street,
-  Value<String?> postalCode,
+  Value<String?> extraPhoneNumber,
   Value<String?> city,
   Value<String?> state,
   Value<String?> country,
@@ -5181,7 +5189,7 @@ typedef $$SuppliersTableUpdateCompanionBuilder = SuppliersCompanion Function({
   Value<String> name,
   Value<String?> phoneNumber,
   Value<String?> street,
-  Value<String?> postalCode,
+  Value<String?> extraPhoneNumber,
   Value<String?> city,
   Value<String?> state,
   Value<String?> country,
@@ -5208,8 +5216,9 @@ class $$SuppliersTableFilterComposer
   ColumnFilters<String> get street => $composableBuilder(
       column: $table.street, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get postalCode => $composableBuilder(
-      column: $table.postalCode, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get extraPhoneNumber => $composableBuilder(
+      column: $table.extraPhoneNumber,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get city => $composableBuilder(
       column: $table.city, builder: (column) => ColumnFilters(column));
@@ -5242,8 +5251,9 @@ class $$SuppliersTableOrderingComposer
   ColumnOrderings<String> get street => $composableBuilder(
       column: $table.street, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get postalCode => $composableBuilder(
-      column: $table.postalCode, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get extraPhoneNumber => $composableBuilder(
+      column: $table.extraPhoneNumber,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get city => $composableBuilder(
       column: $table.city, builder: (column) => ColumnOrderings(column));
@@ -5276,8 +5286,8 @@ class $$SuppliersTableAnnotationComposer
   GeneratedColumn<String> get street =>
       $composableBuilder(column: $table.street, builder: (column) => column);
 
-  GeneratedColumn<String> get postalCode => $composableBuilder(
-      column: $table.postalCode, builder: (column) => column);
+  GeneratedColumn<String> get extraPhoneNumber => $composableBuilder(
+      column: $table.extraPhoneNumber, builder: (column) => column);
 
   GeneratedColumn<String> get city =>
       $composableBuilder(column: $table.city, builder: (column) => column);
@@ -5319,7 +5329,7 @@ class $$SuppliersTableTableManager extends RootTableManager<
             Value<String> name = const Value.absent(),
             Value<String?> phoneNumber = const Value.absent(),
             Value<String?> street = const Value.absent(),
-            Value<String?> postalCode = const Value.absent(),
+            Value<String?> extraPhoneNumber = const Value.absent(),
             Value<String?> city = const Value.absent(),
             Value<String?> state = const Value.absent(),
             Value<String?> country = const Value.absent(),
@@ -5329,7 +5339,7 @@ class $$SuppliersTableTableManager extends RootTableManager<
             name: name,
             phoneNumber: phoneNumber,
             street: street,
-            postalCode: postalCode,
+            extraPhoneNumber: extraPhoneNumber,
             city: city,
             state: state,
             country: country,
@@ -5339,7 +5349,7 @@ class $$SuppliersTableTableManager extends RootTableManager<
             required String name,
             Value<String?> phoneNumber = const Value.absent(),
             Value<String?> street = const Value.absent(),
-            Value<String?> postalCode = const Value.absent(),
+            Value<String?> extraPhoneNumber = const Value.absent(),
             Value<String?> city = const Value.absent(),
             Value<String?> state = const Value.absent(),
             Value<String?> country = const Value.absent(),
@@ -5349,7 +5359,7 @@ class $$SuppliersTableTableManager extends RootTableManager<
             name: name,
             phoneNumber: phoneNumber,
             street: street,
-            postalCode: postalCode,
+            extraPhoneNumber: extraPhoneNumber,
             city: city,
             state: state,
             country: country,

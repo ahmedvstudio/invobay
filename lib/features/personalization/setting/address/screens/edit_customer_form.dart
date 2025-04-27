@@ -25,8 +25,8 @@ class EditCustomerForm extends ConsumerWidget {
     final nameController = TextEditingController(text: customer.name);
     final phoneController = TextEditingController(text: customer.phoneNumber);
     final streetController = TextEditingController(text: customer.street);
-    final postalCodeController =
-        TextEditingController(text: customer.postalCode);
+    final extraPhoneNumberController =
+        TextEditingController(text: customer.extraPhoneNumber);
     final cityController = TextEditingController(text: customer.city);
     final stateController = TextEditingController(text: customer.state);
     final countryController = TextEditingController(text: customer.country);
@@ -49,7 +49,7 @@ class EditCustomerForm extends ConsumerWidget {
               nameController: nameController,
               phoneController: phoneController,
               streetController: streetController,
-              postalCodeController: postalCodeController,
+              extraPhoneNumberController: extraPhoneNumberController,
               cityController: cityController,
               stateController: stateController,
               countryController: countryController,
@@ -65,9 +65,9 @@ class EditCustomerForm extends ConsumerWidget {
                     street: streetController.text.isEmpty
                         ? const drift.Value(null)
                         : drift.Value(streetController.text),
-                    postalCode: postalCodeController.text.isEmpty
+                    extraPhoneNumber: extraPhoneNumberController.text.isEmpty
                         ? const drift.Value(null)
-                        : drift.Value(postalCodeController.text),
+                        : drift.Value(extraPhoneNumberController.text),
                     city: cityController.text.isEmpty
                         ? const drift.Value(null)
                         : drift.Value(cityController.text),

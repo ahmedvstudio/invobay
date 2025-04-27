@@ -24,7 +24,7 @@ class VItemTitleTextWithIcon extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: VSizes.iconSm,
-          backgroundColor: VColors.kPrimary,
+          backgroundColor: iconColor,
           child: Text(
             title[0],
             style: const TextStyle(color: VColors.white),

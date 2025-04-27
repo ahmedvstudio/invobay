@@ -9,6 +9,29 @@ class ItemDao {
   // Insert a new item into the database
   Future<int> insertItem(ItemsCompanion item) => db.into(db.items).insert(item);
 
+  // Insert a new item into the database
+  Future<int> insertNewItem({
+    required String name,
+    required double buyingPrice,
+    required double sellingPrice,
+    required double quantity,
+    required String? unit,
+    required String? barcode,
+    required String? description,
+  }) async {
+    return await db.into(db.items).insert(
+          ItemsCompanion(
+            name: drift.Value(name),
+            buyingPrice: drift.Value(buyingPrice),
+            sellingPrice: drift.Value(sellingPrice),
+            quantity: drift.Value(quantity),
+            itemUnit: drift.Value(unit),
+            description: drift.Value(description),
+            barcode: drift.Value(barcode),
+          ),
+        );
+  }
+
   // Get all items from the database
   Future<List<Item>> getAllItems() => db.select(db.items).get();
 
