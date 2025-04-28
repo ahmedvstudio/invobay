@@ -28,9 +28,11 @@ class BuyCheckoutNotifier {
     final itemNotifier = ref.read(itemNotifierProvider.notifier);
     final buyNotifier = ref.read(buyNotifierProvider.notifier);
 
-    // Step 1: Insert temporary items into inventory first
-    List<BuyItem> updatedBoughtItems = [];
+    // Track newly inserted item IDs
+    final List<int> newlyInsertedItemIds = [];
 
+    // Step 1: Insert new items into inventory if needed
+    final List<BuyItem> updatedBoughtItems = [];
     for (final item in boughtItems) {
       if (item.item.id.isNegative) {
         // Temporary item -> insert into inventory
@@ -43,6 +45,7 @@ class BuyCheckoutNotifier {
           barcode: '',
           description: '',
         );
+        newlyInsertedItemIds.add(newItemId);
 
         updatedBoughtItems.add(
           BuyItem(
@@ -52,11 +55,12 @@ class BuyCheckoutNotifier {
           ),
         );
       } else {
+        // Existing item -> keep as is
         updatedBoughtItems.add(item);
       }
     }
 
-    // Step 2: Save receipt with updatedBoughtItems
+    // Step 2: Save the buy receipt
     await buyReceiptDao.saveBuyReceipt(
       boughtItems: updatedBoughtItems,
       subTotalPrice: subTotalPrice,
@@ -71,9 +75,11 @@ class BuyCheckoutNotifier {
       totalPrice: totalPrice,
     );
 
-    // Step 3: Increase stock quantities for existing items
+    // Step 3: Update stock quantities for existing items only
     for (final item in updatedBoughtItems) {
-      await itemDao.increaseStockQuantity(item.item.id, item.quantity);
+      if (!newlyInsertedItemIds.contains(item.item.id)) {
+        await itemDao.increaseStockQuantity(item.item.id, item.quantity);
+      }
     }
 
     // Step 4: Refresh UI

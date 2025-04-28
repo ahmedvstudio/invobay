@@ -5,7 +5,6 @@ import '../../../database/drift/app_database.dart';
 
 pw.Widget invoCustomerInfo({CustomerData? customerData}) {
   final customerComponents = [
-    customerData?.extraPhoneNumber,
     customerData?.street,
     customerData?.city,
     customerData?.state,
@@ -22,7 +21,18 @@ pw.Widget invoCustomerInfo({CustomerData? customerData}) {
         customerData?.name ?? '',
         style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
       ),
-      pw.Text(VFormatters.formatPhoneNumber(customerData?.phoneNumber ?? '')),
+      pw.Row(
+        children: [
+          pw.Text(
+              VFormatters.formatPhoneNumber(customerData?.phoneNumber ?? '')),
+          if (customerData?.extraPhoneNumber != null &&
+              customerData?.extraPhoneNumber != '') ...[
+            pw.Text(', '),
+            pw.Text(VFormatters.formatPhoneNumber(
+                customerData?.extraPhoneNumber ?? '')),
+          ],
+        ],
+      ),
       pw.Text(address),
     ],
   );

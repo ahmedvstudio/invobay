@@ -7,6 +7,10 @@ final appbarColorProvider = StateProvider<Color>((ref) {
   return VColors.kPrimary;
 });
 
+// --> is Address selected
+final addressSelectedProvider =
+    StateProvider.family<bool, String>((ref, id) => false);
+
 // --> Receipts Navigation Provider
 final receiptsNavigationProvider = StateProvider<int>((ref) {
   return 0;

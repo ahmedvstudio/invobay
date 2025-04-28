@@ -32,6 +32,7 @@ class VSupplierAndClear extends StatelessWidget {
             return TextButton(
               onPressed: () async {
                 final selectedSupplier = await showModalBottomSheet<String>(
+                  enableDrag: true,
                   context: context,
                   builder: (context) {
                     return Container(
@@ -68,7 +69,6 @@ class VSupplierAndClear extends StatelessWidget {
                                     supplier.street,
                                     supplier.city,
                                     supplier.state,
-                                    supplier.extraPhoneNumber,
                                     supplier.country,
                                   ];
 
@@ -83,7 +83,15 @@ class VSupplierAndClear extends StatelessWidget {
                                         VColors.kPrimary.withValues(alpha: 0.2),
                                     child: ListTile(
                                       title: Text(supplier.name),
-                                      subtitle: Text(address),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if (supplier.phoneNumber != null)
+                                            Text(supplier.phoneNumber ?? ''),
+                                          if (address.isNotEmpty) Text(address),
+                                        ],
+                                      ),
                                       onTap: () {
                                         ref
                                             .read(supplierNameProvider.notifier)

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/colors.dart';
 
@@ -179,5 +180,11 @@ class VHelperFunctions {
     final total = discountedAmount + taxAmount + shippingFee;
     final formattedTotal = VFormatters.formatPrice(total);
     return formattedTotal;
+  }
+
+  static Future<void> makePhoneCall(String? phoneNumber) async {
+    if (phoneNumber == null || phoneNumber.isEmpty) return;
+    final Uri launchUri = Uri(scheme: 'tel', path: phoneNumber);
+    await launchUrl(launchUri);
   }
 }

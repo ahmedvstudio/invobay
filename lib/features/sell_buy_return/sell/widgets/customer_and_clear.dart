@@ -32,6 +32,7 @@ class VCustomerAndClear extends StatelessWidget {
             return TextButton(
               onPressed: () async {
                 final selectedCustomer = await showModalBottomSheet<String>(
+                  enableDrag: true,
                   context: context,
                   builder: (context) {
                     return Container(
@@ -68,7 +69,6 @@ class VCustomerAndClear extends StatelessWidget {
                                     customer.street,
                                     customer.city,
                                     customer.state,
-                                    customer.extraPhoneNumber,
                                     customer.country,
                                   ];
 
@@ -83,7 +83,15 @@ class VCustomerAndClear extends StatelessWidget {
                                         VColors.kPrimary.withValues(alpha: 0.2),
                                     child: ListTile(
                                       title: Text(customer.name),
-                                      subtitle: Text(address),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if (customer.phoneNumber != null)
+                                            Text(customer.phoneNumber ?? ''),
+                                          if (address.isNotEmpty) Text(address),
+                                        ],
+                                      ),
                                       onTap: () {
                                         ref
                                             .read(customerNameProvider.notifier)

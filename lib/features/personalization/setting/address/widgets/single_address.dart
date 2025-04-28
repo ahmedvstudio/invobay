@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
@@ -16,19 +15,18 @@ class VSingleAddress extends StatelessWidget {
     required this.address,
     required this.onTap,
     required this.isCustomer,
-    this.deleteOnPressed,
   });
   final String name;
   final String phoneNumber;
   final String extraPhoneNumber;
   final String address;
   final VoidCallback onTap;
-  final VoidCallback? deleteOnPressed;
   final bool isCustomer;
 
   @override
   Widget build(BuildContext context) {
     final isDark = VHelperFunctions.isDarkMode(context);
+
     return GestureDetector(
       onTap: onTap,
       child: VRoundedContainer(
@@ -40,40 +38,22 @@ class VSingleAddress extends StatelessWidget {
             : VColors.secondary.withValues(alpha: 0.3),
         borderColor: isDark ? VColors.darkerGrey : VColors.grey,
         margin: const EdgeInsets.only(bottom: VSizes.spaceBtwItems),
-        child: Stack(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Positioned(
-              right: -15,
-              top: -15,
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                icon: Icon(
-                  Iconsax.trash,
-                  color: isDark
-                      ? VColors.light
-                      : VColors.dark.withValues(alpha: 0.6),
-                ),
-                onPressed: deleteOnPressed,
-              ),
+            Text(
+              name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: VSizes.sm / 2),
-                Text(VFormatters.formatPhoneNumber(phoneNumber),
-                    maxLines: 1, overflow: TextOverflow.ellipsis),
-                Text(VFormatters.formatPhoneNumber(extraPhoneNumber),
-                    maxLines: 1, overflow: TextOverflow.ellipsis),
-                const SizedBox(height: VSizes.sm / 2),
-                Text(address, softWrap: true),
-              ],
-            ),
+            const SizedBox(height: VSizes.sm / 2),
+            Text(VFormatters.formatPhoneNumber(phoneNumber),
+                maxLines: 1, overflow: TextOverflow.ellipsis),
+            Text(VFormatters.formatPhoneNumber(extraPhoneNumber),
+                maxLines: 1, overflow: TextOverflow.ellipsis),
+            const SizedBox(height: VSizes.sm / 2),
+            Text(address, softWrap: true),
           ],
         ),
       ),

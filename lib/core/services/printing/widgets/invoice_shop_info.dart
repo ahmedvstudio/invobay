@@ -13,7 +13,17 @@ pw.Widget invoShopInfo({
         pw.Text(shopDetail?.name ?? 'Your Shop',
             style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
         pw.SizedBox(height: 1 * PdfPageFormat.mm),
-        pw.Text(VFormatters.formatPhoneNumber(shopDetail?.phone ?? '')),
+        pw.Row(
+          children: [
+            pw.Text(VFormatters.formatPhoneNumber(shopDetail?.phone ?? '')),
+            if (shopDetail?.extraPhone != '' &&
+                shopDetail?.extraPhone != null) ...[
+              pw.Text(', '),
+              pw.Text(
+                  VFormatters.formatPhoneNumber(shopDetail?.extraPhone ?? '')),
+            ],
+          ],
+        ),
         pw.Text(shopDetail?.description ?? ''),
       ],
     );

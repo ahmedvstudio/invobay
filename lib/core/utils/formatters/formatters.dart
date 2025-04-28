@@ -27,4 +27,8 @@ class VFormatters {
     // Add more formatting if needed
     return phoneNumber;
   }
+
+  static String buildFullAddress(List<String?> components) {
+    return components.where((e) => e != null && e.isNotEmpty).join(', ');
+  }
 }
