@@ -136,7 +136,7 @@ void showItemsBottomSheet({
                                       context.pop();
                                     },
                               itemName: item.name,
-                              itemStock: item.quantity.toString(),
+                              itemStock: item.quantity,
                               itemPrice: isSell
                                   ? item.sellingPrice.toString()
                                   : item.buyingPrice.toString(),

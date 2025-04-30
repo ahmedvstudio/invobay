@@ -9,121 +9,143 @@ import '../../../../core/utils/helpers/helper_functions.dart';
 class VReceiptCardList extends StatelessWidget {
   final List<Map<String, String>> items;
   final void Function(String) onTap;
+  final bool isEditMode;
+  final Set<String> selectedItems;
 
   const VReceiptCardList({
     super.key,
     required this.items,
     required this.onTap,
+    this.isEditMode = false,
+    this.selectedItems = const {},
   });
 
   @override
   Widget build(BuildContext context) {
     final isDark = VHelperFunctions.isDarkMode(context);
+
     return ListView.separated(
       padding: const EdgeInsets.only(
-          right: VSizes.defaultSpace,
-          left: VSizes.defaultSpace,
-          bottom: VSizes.defaultSpace),
+        right: VSizes.defaultSpace,
+        left: VSizes.defaultSpace,
+        bottom: VSizes.defaultSpace,
+      ),
       itemCount: items.length,
       shrinkWrap: true,
       separatorBuilder: (_, __) => const SizedBox(height: VSizes.spaceBtwItems),
       itemBuilder: (_, index) {
         final item = items[index];
-        return VRoundedContainer(
-          showBorder: true,
-          backgroundColor: isDark ? VColors.dark : VColors.light,
-          padding: const EdgeInsets.all(VSizes.md),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  const Icon(Iconsax.calendar),
-                  const SizedBox(width: VSizes.spaceBtwItems / 2),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item['paymentStatus'] ?? 'Unknown',
-                          style: Theme.of(context).textTheme.bodyLarge!.apply(
-                                color: item['paymentStatus'] == 'Completed'
-                                    ? VColors.success
-                                    : VColors.error,
-                                fontSizeDelta: 1,
-                              ),
-                        ),
-                        Text(
-                          item['date'] ?? '## ### ####',
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () => onTap(item['id'] ?? ''),
-                    icon: const Icon(
-                      Icons.arrow_forward_ios_outlined,
-                      size: VSizes.iconSm,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: VSizes.spaceBtwItems),
-              Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        const Icon(Iconsax.tag),
-                        const SizedBox(width: VSizes.spaceBtwItems / 2),
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Receipt No.',
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ),
-                              Text(
-                                item['receiptId'] ?? '[####]',
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ],
+        final isSelected = selectedItems.contains(item['id']);
+
+        return GestureDetector(
+          onTap: () => onTap(item['id'] ?? ''),
+          child: VRoundedContainer(
+            showBorder: true,
+            backgroundColor: isDark ? VColors.dark : VColors.light,
+            padding: const EdgeInsets.all(VSizes.md),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(Iconsax.calendar),
+                    const SizedBox(width: VSizes.spaceBtwItems / 2),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item['paymentStatus'] ?? 'Unknown',
+                            style: Theme.of(context).textTheme.bodyLarge!.apply(
+                                  color: item['paymentStatus'] == 'Completed'
+                                      ? VColors.success
+                                      : VColors.error,
+                                  fontSizeDelta: 1,
+                                ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        const Icon(Iconsax.dollar_square),
-                        const SizedBox(width: VSizes.spaceBtwItems / 2),
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Total',
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ),
-                              Text(
-                                item['total'] ?? '####',
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ],
+                          Text(
+                            item['date'] ?? '## ### ####',
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    if (isEditMode)
+                      Checkbox(
+                        value: isSelected,
+                        onChanged: (_) => onTap(item['id'] ?? ''),
+                      ),
+                    if (!isEditMode)
+                      IconButton(
+                        onPressed: () => onTap(item['id'] ?? ''),
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          size: VSizes.iconSm,
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: VSizes.spaceBtwItems),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          const Icon(Iconsax.tag),
+                          const SizedBox(width: VSizes.spaceBtwItems / 2),
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Receipt No.',
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                                Text(
+                                  item['receiptId'] ?? '[####]',
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          const Icon(Iconsax.dollar_square),
+                          const SizedBox(width: VSizes.spaceBtwItems / 2),
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Total',
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                                Text(
+                                  item['total'] ?? '####',
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },

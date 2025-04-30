@@ -103,7 +103,7 @@ void showReturnItemsBottomSheet({
                                 context.pop();
                               },
                               itemName: item.name,
-                              itemStock: item.quantity.toString(),
+                              itemStock: item.quantity,
                               itemPrice: item.sellingPrice.toString(),
                               stockIconColor: lowStockColor,
                             );

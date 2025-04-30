@@ -44,7 +44,7 @@ class ItemListView extends StatelessWidget {
             children: [
               VItemCardHorizontal(
                 itemName: item.name,
-                itemStock: '${item.quantity}',
+                itemStock: item.quantity,
                 itemPrice: '${item.sellingPrice}',
                 onTapItemDetails: () {
                   context.goNamed(VRouter.itemDetail,

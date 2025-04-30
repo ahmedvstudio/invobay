@@ -31,6 +31,7 @@ class VHomeBody extends StatelessWidget {
             icon: Iconsax.shop5,
             iconSize: 70,
             bgColor: VColors.secondary,
+            labelBgColor: VColors.onSecondary,
             borderColor: isDark ? VColors.darkerGrey : VColors.coldSteel,
             onPressed: () => context.pushNamed(VRouter.inventory),
           ),

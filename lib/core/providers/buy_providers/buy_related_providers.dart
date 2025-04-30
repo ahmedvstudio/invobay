@@ -11,7 +11,7 @@ import 'buy_notifier.dart';
 import 'buy_receipt_notifier.dart';
 
 final buyNotifierProvider =
-    StateNotifierProvider<BuyNotifier, List<BuyItem>>((ref) {
+    StateNotifierProvider.autoDispose<BuyNotifier, List<BuyItem>>((ref) {
   final itemDao = ref.read(itemDaoProvider);
   return BuyNotifier(ref, itemDao);
 });

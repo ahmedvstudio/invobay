@@ -4,6 +4,7 @@ import 'package:invobay/common/widgets/text/item_quantity_text_with_icon.dart';
 
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
+import '../../../core/utils/formatters/formatters.dart';
 import '../../../core/utils/helpers/helper_functions.dart';
 import '../text/item_title_text_with_icon.dart';
 
@@ -19,7 +20,7 @@ class VItemCardHorizontal extends StatelessWidget {
   });
 
   final String itemName;
-  final String itemStock;
+  final double itemStock;
   final String itemPrice;
   final VoidCallback? onTapItemDetails;
   final Color? stockIconColor;
@@ -53,7 +54,7 @@ class VItemCardHorizontal extends StatelessWidget {
                 children: [
                   Flexible(
                       child: VItemQuantityTextWithIcon(
-                    title: itemStock,
+                    title: VFormatters.formatPrice(itemStock),
                     iconColor: stockIconColor,
                   )),
 

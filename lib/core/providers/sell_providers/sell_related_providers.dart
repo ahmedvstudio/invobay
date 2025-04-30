@@ -12,7 +12,7 @@ import 'sell_receipts_notifier.dart';
 
 // Sell Notifier Provider
 final sellNotifierProvider =
-    StateNotifierProvider<SellNotifier, List<SellItem>>((ref) {
+    StateNotifierProvider.autoDispose<SellNotifier, List<SellItem>>((ref) {
   final itemDao = ref.read(itemDaoProvider);
   return SellNotifier(ref, itemDao);
 });

@@ -10,6 +10,7 @@ import '../../common/widgets/appbar/custom_appbar.dart';
 import '../../common/widgets/dialogs/add_quantity_dialog.dart';
 import '../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../core/providers/item_providers/item_related_providers.dart';
+import '../../core/utils/formatters/formatters.dart';
 import '../../core/utils/helpers/low_stock_helper.dart';
 import '../inventory/item_details/widgets/meta_data_section.dart';
 
@@ -90,7 +91,7 @@ class LowStockScreen extends ConsumerWidget {
                                 tagTextColor: VColors.white,
                                 showIcon: false,
                                 child: Text(
-                                  '${item.quantity}',
+                                  VFormatters.formatPrice(item.quantity),
                                   style:
                                       Theme.of(context).textTheme.titleMedium,
                                 ),

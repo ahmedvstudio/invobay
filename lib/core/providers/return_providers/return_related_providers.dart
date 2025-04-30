@@ -12,7 +12,7 @@ import '../item_providers/item_related_providers.dart';
 
 // Return Notifier Provider
 final returnNotifierProvider =
-    StateNotifierProvider<ReturnNotifier, List<ReturnItem>>((ref) {
+    StateNotifierProvider.autoDispose<ReturnNotifier, List<ReturnItem>>((ref) {
   final itemDao = ref.read(itemDaoProvider);
   return ReturnNotifier(ref, itemDao);
 });
