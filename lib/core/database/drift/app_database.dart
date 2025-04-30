@@ -3,6 +3,7 @@ import 'package:drift/native.dart';
 import 'package:invobay/core/database/drift/tables/buy_receipts_tables.dart';
 import 'package:invobay/core/database/drift/tables/customers_table.dart';
 import 'package:invobay/core/database/drift/tables/items_table.dart';
+import 'package:invobay/core/database/drift/tables/return_receipt_table.dart';
 import 'package:invobay/core/database/drift/tables/sell_receipts_tables.dart';
 import 'package:invobay/core/database/drift/tables/suppliers_table.dart';
 
@@ -22,6 +23,9 @@ part 'app_database.g.dart';
     BuyReceipts,
     BuyReceiptItems,
     BuyPayments,
+    ReturnReceipts,
+    ReturnReceiptItems,
+    ReturnPayments,
     Customers,
     Suppliers,
   ],

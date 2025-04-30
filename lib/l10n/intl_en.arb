@@ -1,5 +1,9 @@
 {
   "@@locale": "en",
   "appTitle": "InvoBay",
-  "welcome" :"Welcome"
+  "welcome" :"Welcome",
+  "searchInStock" : "Search in stock",
+  "itemStockLooksGood" : "Items stock looks good",
+  "lowStockItems" : "Low stock items: {count}"
+
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/theme/custom_themes/appbar_theme.dart';
 import 'package:invobay/theme/custom_themes/bottom_navigation_bar_theme.dart';
 import 'package:invobay/theme/custom_themes/bottom_sheets_theme.dart';
@@ -17,46 +18,46 @@ class VAppTheme {
   VAppTheme._();
 
   /// Light Mode Theme
-  static ThemeData lightTheme = ThemeData(
-    fontFamily: 'Poppins',
-    useMaterial3: true,
-    brightness: Brightness.light,
-    scaffoldBackgroundColor: Colors.white,
-    primaryColor: Colors.blue,
-    textTheme: VTextTheme.lightTextTheme,
-    elevatedButtonTheme: VElevatedButtonTheme.lightElevatedButtonTheme,
-    appBarTheme: VAppBarTheme.lightAppBarTheme,
-    bottomSheetTheme: VBottomSheetTheme.lightBottomSheetTheme,
-    checkboxTheme: VCheckBoxTheme.lightCheckBoxTheme,
-    chipTheme: VChipTheme.lightChipTheme,
-    inputDecorationTheme: VTextFormFiledTheme.lightInputDecorationTheme,
-    floatingActionButtonTheme: VFloatingActionButtonTheme.lightFABTheme,
-    outlinedButtonTheme: VOutlinedButtonTheme.lightOutlineButtonTheme,
-    textButtonTheme: VTextButtonTheme.lightTextButtonTheme,
-    bottomNavigationBarTheme:
-        VBottomNavigationBarTheme.lightBottomNavigationBarTheme,
-    segmentedButtonTheme: VSegmentedButtonTheme.lightSegmentedButtonTheme,
-  );
+  static ThemeData lightTheme({required String fontFamily}) => ThemeData(
+        fontFamily: fontFamily,
+        useMaterial3: true,
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: VColors.coldSteel,
+        primaryColor: VColors.primary,
+        textTheme: VTextTheme.lightTextTheme,
+        elevatedButtonTheme: VElevatedButtonTheme.lightElevatedButtonTheme,
+        appBarTheme: VAppBarTheme.lightAppBarTheme,
+        bottomSheetTheme: VBottomSheetTheme.lightBottomSheetTheme,
+        checkboxTheme: VCheckBoxTheme.lightCheckBoxTheme,
+        chipTheme: VChipTheme.lightChipTheme,
+        inputDecorationTheme: VTextFormFiledTheme.lightInputDecorationTheme,
+        floatingActionButtonTheme: VFloatingActionButtonTheme.lightFABTheme,
+        outlinedButtonTheme: VOutlinedButtonTheme.lightOutlineButtonTheme,
+        textButtonTheme: VTextButtonTheme.lightTextButtonTheme,
+        bottomNavigationBarTheme:
+            VBottomNavigationBarTheme.lightBottomNavigationBarTheme,
+        segmentedButtonTheme: VSegmentedButtonTheme.lightSegmentedButtonTheme,
+      );
 
   /// Dark Mode Theme
-  static ThemeData darkTheme = ThemeData(
-    fontFamily: 'Poppins',
-    useMaterial3: true,
-    brightness: Brightness.dark,
-    scaffoldBackgroundColor: Colors.black,
-    primaryColor: Colors.blue,
-    textTheme: VTextTheme.darkTextTheme,
-    elevatedButtonTheme: VElevatedButtonTheme.darkElevatedButtonTheme,
-    appBarTheme: VAppBarTheme.darkAppBarTheme,
-    bottomSheetTheme: VBottomSheetTheme.darkBottomSheetTheme,
-    checkboxTheme: VCheckBoxTheme.darkCheckBoxTheme,
-    chipTheme: VChipTheme.darkChipTheme,
-    inputDecorationTheme: VTextFormFiledTheme.darkInputDecorationTheme,
-    floatingActionButtonTheme: VFloatingActionButtonTheme.darkFABTheme,
-    outlinedButtonTheme: VOutlinedButtonTheme.darkOutlineButtonTheme,
-    textButtonTheme: VTextButtonTheme.darkTextButtonTheme,
-    bottomNavigationBarTheme:
-        VBottomNavigationBarTheme.darkBottomNavigationBarTheme,
-    segmentedButtonTheme: VSegmentedButtonTheme.darkSegmentedButtonTheme,
-  );
+  static ThemeData darkTheme({required String fontFamily}) => ThemeData(
+        fontFamily: fontFamily,
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: VColors.dark,
+        primaryColor: VColors.primaryDark,
+        textTheme: VTextTheme.darkTextTheme,
+        elevatedButtonTheme: VElevatedButtonTheme.darkElevatedButtonTheme,
+        appBarTheme: VAppBarTheme.darkAppBarTheme,
+        bottomSheetTheme: VBottomSheetTheme.darkBottomSheetTheme,
+        checkboxTheme: VCheckBoxTheme.darkCheckBoxTheme,
+        chipTheme: VChipTheme.darkChipTheme,
+        inputDecorationTheme: VTextFormFiledTheme.darkInputDecorationTheme,
+        floatingActionButtonTheme: VFloatingActionButtonTheme.darkFABTheme,
+        outlinedButtonTheme: VOutlinedButtonTheme.darkOutlineButtonTheme,
+        textButtonTheme: VTextButtonTheme.darkTextButtonTheme,
+        bottomNavigationBarTheme:
+            VBottomNavigationBarTheme.darkBottomNavigationBarTheme,
+        segmentedButtonTheme: VSegmentedButtonTheme.darkSegmentedButtonTheme,
+      );
 }

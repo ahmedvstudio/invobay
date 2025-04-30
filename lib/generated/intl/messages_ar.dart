@@ -20,9 +20,16 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
+  static String m0(count) => "مواد على وشك النفاذ: ${count}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appTitle": MessageLookupByLibrary.simpleMessage("InvoBay"),
+    "itemStockLooksGood": MessageLookupByLibrary.simpleMessage(
+      "لا توجد مواد على وشك النفاذ",
+    ),
+    "lowStockItems": m0,
+    "searchInStock": MessageLookupByLibrary.simpleMessage("البحث في المخزن"),
     "welcome": MessageLookupByLibrary.simpleMessage("اهلا وسهلا"),
   };
 }

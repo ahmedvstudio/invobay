@@ -109,6 +109,17 @@ flutter:
         - asset: assets\fonts\poppins\Poppins-Bold.ttf
           weight: 800
 
+    - family: Dubai
+      fonts:
+        - asset: assets\fonts\dubai\Dubai-Light.ttf
+          weight: 300
+        - asset: assets\fonts\dubai\Dubai-Regular.ttf
+          weight: 400
+        - asset: assets\fonts\dubai\Dubai-Medium.ttf
+          weight: 500
+        - asset: assets\fonts\dubai\Dubai-Bold.ttf
+          weight: 800
+
     - family: Cairo
       fonts:
         - asset: assets\fonts\cairo\Cairo-Light.ttf

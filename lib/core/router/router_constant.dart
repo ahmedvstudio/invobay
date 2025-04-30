@@ -33,6 +33,13 @@ class VRouter {
   static const String buyReceiptsDetails = 'buyReceiptsDetails';
   static const String buyReceiptsSuccess = 'buyReceiptsSuccess';
 
+  // - Return
+  static const String returns = 'returns';
+  static const String returnsCheckout = 'returnsCheckout';
+  static const String returnsReceipts = 'returnsReceipts';
+  static const String returnsReceiptsDetails = 'returnsReceiptsDetails';
+  static const String returnsReceiptsSuccess = 'returnsReceiptsSuccess';
+
   // - Receipts
   static const String receipts = 'receipts';
   static const String returnReceipts = 'returnReceipts';
@@ -59,7 +66,6 @@ class VRouter {
   static const String orders = 'orders';
 
   // -
-  static const String returns = 'returns';
   static const String reports = 'reports';
   static const String notification = 'notification';
 }

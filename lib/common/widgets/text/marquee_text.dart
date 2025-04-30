@@ -1,4 +1,3 @@
-import 'package:arabic_font/arabic_font.dart';
 import 'package:flutter/material.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:marquee/marquee.dart';
@@ -9,14 +8,12 @@ class MarqueeText extends StatelessWidget {
   const MarqueeText({
     super.key,
     required this.longText,
-    this.isArabic = false,
     this.textColor = VColors.white,
     this.onTap,
-    this.backgroundColor = VColors.error,
+    this.backgroundColor = VColors.onPrimary,
   });
 
   final String longText;
-  final bool isArabic;
   final Color textColor;
   final VoidCallback? onTap;
   final Color backgroundColor;
@@ -26,14 +23,16 @@ class MarqueeText extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        color: backgroundColor,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          border: Border.all(color: VColors.primary),
+        ),
         width: double.infinity,
         height: VSizes.defaultSpace,
         child: Marquee(
           text: longText,
-          style: isArabic
-              ? ArabicTextStyle(arabicFont: ArabicFont.dubai, color: textColor)
-              : Theme.of(context).textTheme.bodyMedium!.apply(color: textColor),
+          style:
+              Theme.of(context).textTheme.bodyMedium!.apply(color: textColor),
           scrollAxis: Axis.horizontal,
           textDirection: TextDirection.ltr,
           crossAxisAlignment: CrossAxisAlignment.start,

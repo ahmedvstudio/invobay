@@ -6,6 +6,7 @@ import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/colors.dart';
+import '../constants/font_strings.dart';
 
 class VHelperFunctions {
   VHelperFunctions._();
@@ -49,6 +50,7 @@ class VHelperFunctions {
       Color messageColor = VColors.white,
       Color closeIconColor = VColors.white,
       bool showCloseIcon = false}) {
+    ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
       dismissDirection: DismissDirection.horizontal,
@@ -186,5 +188,16 @@ class VHelperFunctions {
     if (phoneNumber == null || phoneNumber.isEmpty) return;
     final Uri launchUri = Uri(scheme: 'tel', path: phoneNumber);
     await launchUrl(launchUri);
+  }
+
+  static String getFontFamilyForLocale(Locale locale) {
+    switch (locale.languageCode) {
+      case 'ar':
+        return VFonts.dubaiFamily; // Arabic
+      case 'zh':
+        return VFonts.sansFamily; // Chinese
+      default:
+        return VFonts.poppinsFamily; // Default
+    }
   }
 }

@@ -64,6 +64,36 @@ class S {
   String get welcome {
     return Intl.message('Welcome', name: 'welcome', desc: '', args: []);
   }
+
+  /// `Search in stock`
+  String get searchInStock {
+    return Intl.message(
+      'Search in stock',
+      name: 'searchInStock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Items stock looks good`
+  String get itemStockLooksGood {
+    return Intl.message(
+      'Items stock looks good',
+      name: 'itemStockLooksGood',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Low stock items: {count}`
+  String lowStockItems(Object count) {
+    return Intl.message(
+      'Low stock items: $count',
+      name: 'lowStockItems',
+      desc: '',
+      args: [count],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

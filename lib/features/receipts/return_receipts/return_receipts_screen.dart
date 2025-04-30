@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 
 import '../../../common/widgets/appbar/main_appbar.dart';
 import '../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
+import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import '../../../core/providers/return_providers/return_related_providers.dart';
+import '../../../core/router/router_constant.dart';
 import '../../../core/utils/constants/sizes.dart';
+import '../../../core/utils/formatters/formatters.dart';
+import '../../../core/utils/helpers/helper_functions.dart';
+import '../widgets/receipt_card_list.dart';
 
-class ReturnReceiptsScreen extends StatelessWidget {
+class ReturnReceiptsScreen extends ConsumerWidget {
   const ReturnReceiptsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final returnReceiptData = ref.watch(returnReceiptsProvider);
+    final currencySign = ref.watch(currencySignProvider);
+
+    return Scaffold(
       body: Column(
         children: [
-          VPrimaryHeaderContainer(
+          const VPrimaryHeaderContainer(
             child: Column(
               children: [
                 VMainAppBar(
@@ -24,9 +36,32 @@ class ReturnReceiptsScreen extends StatelessWidget {
               ],
             ),
           ),
-          // Flexible(
-          //   child: VReceiptItemsList(),
-          // ),
+          Expanded(
+            child: returnReceiptData.when(
+              data: (receipts) {
+                final items = receipts.map((receipt) {
+                  return {
+                    'id': receipt.id.toString(),
+                    'paymentStatus': receipt.paymentStatus,
+                    'date': DateFormat.yMMMd().format(receipt.date),
+                    'receiptId': VHelperFunctions.receiptNo(receipt.id),
+                    'total':
+                        '$currencySign ${VFormatters.formatPrice(receipt.totalPrice)}',
+                  };
+                }).toList();
+
+                return VReceiptCardList(
+                  items: items,
+                  onTap: (id) => context.pushNamed(
+                      VRouter.returnsReceiptsDetails,
+                      pathParameters: {'id': id}),
+                );
+              },
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, stackTrace) =>
+                  Center(child: Text("Error: $error")),
+            ),
+          ),
         ],
       ),
     );

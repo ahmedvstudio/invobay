@@ -7,6 +7,7 @@ import 'package:invobay/features/receipts/return_receipts/return_receipts_screen
 import '../../../features/receipts/buy_receipts/buy_receipts_detail_screen.dart';
 import '../../../features/receipts/buy_receipts/buy_receipts_screen.dart';
 import '../../../features/receipts/receipts_screen.dart';
+import '../../../features/receipts/return_receipts/return_receipt_detail_screen.dart';
 import '../../../features/receipts/sell_receipts/sell_receipt_detail_screen.dart';
 import '../../../features/receipts/sell_receipts/sell_receipts_screen.dart';
 
@@ -53,6 +54,16 @@ List<GoRoute> receiptsRoutes = [
         path: '/returnReceipts',
         pageBuilder: (context, state) =>
             const MaterialPage(child: ReturnReceiptsScreen()),
+        routes: [
+          GoRoute(
+            name: VRouter.returnsReceiptsDetails,
+            path: '/returnsReceiptsDetails/:id',
+            builder: (context, state) {
+              final id = int.parse(state.pathParameters['id']!);
+              return ReturnReceiptDetailScreen(receiptId: id);
+            },
+          ),
+        ],
       ),
     ],
   ),

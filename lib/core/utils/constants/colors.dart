@@ -50,7 +50,7 @@ class VColors {
   static const Color darkContainer = Color(0xFFF6F6F6);
 
   // Button Colors
-  static const Color buttonPrimary = Colors.blue;
+  static const Color buttonPrimary = primary;
   static const Color buttonSecondary = Color(0xFF6c757d);
   static const Color buttonDisabled = Color(0xFFc4c4c4);
 

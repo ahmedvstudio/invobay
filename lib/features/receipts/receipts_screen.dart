@@ -4,7 +4,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/features/receipts/return_receipts/return_receipts_screen.dart';
 import 'package:invobay/features/receipts/sell_receipts/sell_receipts_screen.dart';
 import '../../core/providers/common_providers/default_providers.dart';
-import '../../core/utils/constants/colors.dart';
 import 'buy_receipts/buy_receipts_screen.dart';
 
 class ReceiptsScreen extends ConsumerWidget {
@@ -13,7 +12,7 @@ class ReceiptsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(receiptsNavigationProvider);
-
+    final bgColor = ref.watch(appbarColorProvider);
     return Scaffold(
       body: Column(
         children: [
@@ -35,26 +34,26 @@ class ReceiptsScreen extends ConsumerWidget {
         onTap: (index) {
           ref.read(receiptsNavigationProvider.notifier).state = index;
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.tag),
+            icon: const Icon(Iconsax.tag),
             label: 'Sell',
-            activeIcon: Icon(
+            activeIcon: const Icon(
               Iconsax.tag5,
             ),
-            backgroundColor: VColors.kPrimary,
+            backgroundColor: bgColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.shopping_cart),
+            icon: const Icon(Iconsax.shopping_cart),
             label: 'Buy',
-            activeIcon: Icon(Iconsax.shopping_cart5),
-            backgroundColor: VColors.kPrimary,
+            activeIcon: const Icon(Iconsax.shopping_cart5),
+            backgroundColor: bgColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.directbox_receive),
+            icon: const Icon(Iconsax.directbox_receive),
             label: 'Return',
-            activeIcon: Icon(Iconsax.directbox_receive5),
-            backgroundColor: VColors.kPrimary,
+            activeIcon: const Icon(Iconsax.directbox_receive5),
+            backgroundColor: bgColor,
           ),
         ],
       ),

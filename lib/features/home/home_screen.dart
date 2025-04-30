@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/home/widgets/home_appbar.dart';
 import 'package:invobay/features/home/widgets/home_body.dart';
 
@@ -23,10 +24,9 @@ class HomeScreen extends ConsumerWidget {
     final threshold = ref.watch(lowStockThresholdProvider);
     final lowStockItems =
         items.where((item) => item.quantity <= threshold).toList();
-
     final marqueeText = lowStockItems.isEmpty
-        ? "Items stock looks good"
-        : "Low stock item${lowStockItems.length > 1 ? 's' : ''}: ${lowStockItems.length}";
+        ? context.loc.itemStockLooksGood
+        : context.loc.lowStockItems(lowStockItems.length);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -43,7 +43,7 @@ class HomeScreen extends ConsumerWidget {
 
                   // SearchBar
                   VSearchContainer(
-                    text: 'Search in stock',
+                    text: context.loc.searchInStock,
                     onTap: () => context.pushNamed(VRouter.inventory),
                   ),
                   const SizedBox(height: VSizes.spaceBtwSections),
@@ -53,7 +53,7 @@ class HomeScreen extends ConsumerWidget {
                     longText: marqueeText,
                     backgroundColor: lowStockItems.isEmpty
                         ? Colors.transparent
-                        : VColors.info,
+                        : VColors.onPrimary,
                     onTap: () => context.pushNamed(VRouter.lowStockScreen),
                   ),
                   const SizedBox(height: VSizes.spaceBtwSections * 1.5),

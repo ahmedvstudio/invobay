@@ -5,23 +5,20 @@ import 'package:invobay/common/widgets/item_cards/item_card_horizontal.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
-import '../../../core/providers/buy_providers/buy_related_providers.dart';
-import '../dialogs/add_new_item_dialog.dart';
+import '../../../core/providers/return_providers/return_related_providers.dart';
 import '../text_field/search_bar.dart';
 import '../../../core/database/drift/app_database.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
-import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/low_stock_helper.dart';
 
 // Provider to manage filtered items
 final filteredItemsProvider = StateProvider<List<Item>>((ref) => []);
 
-void showItemsBottomSheet({
+void showReturnItemsBottomSheet({
   required BuildContext context,
   required WidgetRef ref,
   required TextEditingController searchController,
-  required bool isSell,
 }) {
   final itemNotifier = ref.read(itemNotifierProvider.notifier);
 
@@ -81,32 +78,10 @@ void showItemsBottomSheet({
                 ),
                 const SizedBox(height: VSizes.spaceBtwSections),
                 filteredItems.isEmpty
-                    ? isSell
-                        ? const Padding(
-                            padding: EdgeInsets.all(VSizes.defaultSpace),
-                            child: Text("No items found"),
-                          )
-                        : searchController.text.isNotEmpty
-                            ? Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: VSizes.defaultSpace),
-                                child: Column(
-                                  spacing: VSizes.defaultSpace,
-                                  children: [
-                                    Text("${searchController.text} Not found!"),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      child: OutlinedButton(
-                                          onPressed: () => showAddNewItemDialog(
-                                              context,
-                                              ref,
-                                              searchController.text),
-                                          child: const Text('Add New')),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : const Text('Your Inventory is Empty')
+                    ? const Padding(
+                        padding: EdgeInsets.all(VSizes.defaultSpace),
+                        child: Text("No items found"),
+                      )
                     : Flexible(
                         child: ListView.separated(
                           padding: const EdgeInsets.symmetric(
@@ -120,26 +95,16 @@ void showItemsBottomSheet({
                                     .getThreeColor();
 
                             return VItemCardHorizontal(
-                              onTapItemDetails: isSell
-                                  ? () async {
-                                      await ref
-                                          .read(sellNotifierProvider.notifier)
-                                          .addItem(item);
-                                      if (!context.mounted) return;
-                                      context.pop();
-                                    }
-                                  : () async {
-                                      await ref
-                                          .read(buyNotifierProvider.notifier)
-                                          .addItem(item);
-                                      if (!context.mounted) return;
-                                      context.pop();
-                                    },
+                              onTapItemDetails: () async {
+                                await ref
+                                    .read(returnNotifierProvider.notifier)
+                                    .addItem(item);
+                                if (!context.mounted) return;
+                                context.pop();
+                              },
                               itemName: item.name,
                               itemStock: item.quantity.toString(),
-                              itemPrice: isSell
-                                  ? item.sellingPrice.toString()
-                                  : item.buyingPrice.toString(),
+                              itemPrice: item.sellingPrice.toString(),
                               stockIconColor: lowStockColor,
                             );
                           },

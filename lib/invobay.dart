@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/router/app_router.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/generated/l10n.dart';
 import 'package:invobay/theme/theme.dart';
 
@@ -15,6 +16,9 @@ class InvoBay extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(localProvider);
+    final fontFamily = VHelperFunctions.getFontFamilyForLocale(locale);
+    final lightTheme = VAppTheme.lightTheme(fontFamily: fontFamily);
+    final darkTheme = VAppTheme.darkTheme(fontFamily: fontFamily);
 
     return MaterialApp.router(
       locale: locale,
@@ -28,8 +32,8 @@ class InvoBay extends ConsumerWidget {
       title: 'InvoBay',
       routerConfig: invoRouter,
       themeMode: themeMode,
-      theme: VAppTheme.lightTheme,
-      darkTheme: VAppTheme.darkTheme,
+      theme: lightTheme,
+      darkTheme: darkTheme,
     );
   }
 }

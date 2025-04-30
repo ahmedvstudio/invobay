@@ -43,11 +43,13 @@ class SellReceiptsScreen extends ConsumerWidget {
                             VReceiptQRScan.scanQRCode(context, receipts),
                         label: Text(
                           'Scan QR Code',
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: Theme.of(context).textTheme.bodyMedium!.apply(
+                                color: VColors.white.withValues(alpha: 0.8),
+                              ),
                         ),
-                        icon: const Icon(
+                        icon: Icon(
                           Iconsax.scan_barcode,
-                          color: VColors.white,
+                          color: VColors.white.withValues(alpha: 0.8),
                         ),
                       ),
                       loading: () => TextButton.icon(
@@ -71,11 +73,13 @@ class SellReceiptsScreen extends ConsumerWidget {
                       onPressed: () {},
                       label: Text(
                         'Edit',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium!.apply(
+                              color: VColors.white.withValues(alpha: 0.8),
+                            ),
                       ),
-                      icon: const Icon(
+                      icon: Icon(
                         Iconsax.edit,
-                        color: VColors.white,
+                        color: VColors.white.withValues(alpha: 0.8),
                       ),
                     ),
                   ],

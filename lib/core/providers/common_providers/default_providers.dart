@@ -4,7 +4,7 @@ import 'package:invobay/core/utils/constants/colors.dart';
 
 // --> AppBar Color Provider
 final appbarColorProvider = StateProvider<Color>((ref) {
-  return VColors.kPrimary;
+  return VColors.primary;
 });
 
 // --> is Address selected
