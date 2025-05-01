@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invobay/core/utils/constants/colors.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
+import 'package:invobay/core/utils/messages/toast.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../core/database/hive/shop_details/shop_details.dart';
@@ -130,11 +129,7 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
                     await ref
                         .read(shopDetailProvider.notifier)
                         .updateShopDetails(shopDetail);
-
-                    VHelperFunctions.showToasty(
-                      message: 'Shop details saved',
-                      backgroundColor: VColors.info,
-                    );
+                    VToast.info(message: 'Shop details saved');
 
                     if (!context.mounted) return;
                     context.pop();

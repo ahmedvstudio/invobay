@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../core/database/drift/app_database.dart';
 import '../../../../../core/providers/customer_providers/customer_related_providers.dart';
 import '../../../../../core/providers/supplier_providers/supplier_related_providers.dart';
 import '../../../../../core/utils/constants/sizes.dart';
+import '../../../../../core/utils/messages/snackbar.dart';
 import '../widgets/address_form.dart';
 
 class AddNewAddress extends ConsumerWidget {
@@ -88,7 +88,7 @@ class AddNewAddress extends ConsumerWidget {
                           if (!context.mounted) return;
                           context.pop();
                         } catch (e) {
-                          VHelperFunctions.showSnackBar(
+                          VSnackbar.error(
                               context: context,
                               message:
                                   'Customer with this name already exists.');
@@ -128,7 +128,7 @@ class AddNewAddress extends ConsumerWidget {
                           if (!context.mounted) return;
                           context.pop();
                         } catch (e) {
-                          VHelperFunctions.showSnackBar(
+                          VSnackbar.error(
                               context: context,
                               message:
                                   'Supplier with this name already exists.');

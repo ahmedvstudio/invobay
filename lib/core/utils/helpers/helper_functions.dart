@@ -1,11 +1,9 @@
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../constants/colors.dart';
 import '../constants/font_strings.dart';
 
 class VHelperFunctions {
@@ -43,41 +41,6 @@ class VHelperFunctions {
     return capitalizedText;
   }
 
-  static void showSnackBar(
-      {required BuildContext context,
-      required String message,
-      Color bgColor = VColors.error,
-      Color messageColor = VColors.white,
-      Color closeIconColor = VColors.white,
-      bool showCloseIcon = false}) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      behavior: SnackBarBehavior.floating,
-      dismissDirection: DismissDirection.horizontal,
-      showCloseIcon: showCloseIcon,
-      closeIconColor: closeIconColor,
-      content: Text(
-        message,
-        style: const TextStyle().apply(color: messageColor),
-      ),
-      backgroundColor: bgColor,
-    ));
-  }
-
-  static void showToasty(
-          {required String message,
-          Color backgroundColor = VColors.black,
-          Color textColor = VColors.white,
-          ToastGravity? gravity}) =>
-      Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: gravity,
-        timeInSecForIosWeb: 1,
-        backgroundColor: backgroundColor,
-        textColor: textColor,
-        fontSize: 14.0,
-      );
   static void showAlert(BuildContext context, String title, String message) {
     showDialog(
         context: context,

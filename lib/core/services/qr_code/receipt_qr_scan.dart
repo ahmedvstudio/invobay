@@ -2,10 +2,9 @@ import 'package:barcode_scan2/gen/protos/protos.pbenum.dart';
 import 'package:barcode_scan2/platform_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/messages/toast.dart';
 
 import '../../router/router_constant.dart';
-import '../../utils/constants/colors.dart';
-import '../../utils/helpers/helper_functions.dart';
 
 class VReceiptQRScan {
   static Future<void> scanQRCode(BuildContext context, List receipts) async {
@@ -24,10 +23,8 @@ class VReceiptQRScan {
             // Optional: Validate yearPart matches current year or acceptable range
             final currentYear = DateTime.now().year.toString();
             if (yearPart != currentYear) {
-              VHelperFunctions.showToasty(
-                message: 'Receipt year not found!',
-                backgroundColor: VColors.warning,
-              );
+              VToast.warning(message: 'Receipt year not found!');
+
               return;
             }
 
@@ -45,24 +42,17 @@ class VReceiptQRScan {
                 pathParameters: {'id': receiptId},
               );
             } else {
-              VHelperFunctions.showToasty(
-                  message: 'Receipt not found',
-                  backgroundColor: VColors.warning);
+              VToast.warning(message: 'Receipt not found');
             }
           } else {
-            VHelperFunctions.showToasty(
-                message: 'Invalid QR code format',
-                backgroundColor: VColors.warning);
+            VToast.warning(message: 'Invalid QR code format');
           }
         } else {
-          VHelperFunctions.showToasty(
-              message: 'No QR code detected', backgroundColor: VColors.warning);
+          VToast.warning(message: 'No QR code detected');
         }
       }
     } catch (e) {
-      VHelperFunctions.showToasty(
-          message: 'Failed to scan QR code: $e',
-          backgroundColor: VColors.error);
+      VToast.error(message: 'Failed to scan QR code: $e');
     }
   }
 }

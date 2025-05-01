@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/database/drift/app_database.dart';
 import 'package:invobay/core/repository/item_dao.dart';
-import 'package:invobay/core/utils/constants/colors.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
+import 'package:invobay/core/utils/messages/snackbar.dart';
+import 'package:invobay/core/utils/messages/toast.dart';
 import '../../models/return_related_model/return_model.dart';
 import '../../utils/constants/numbers.dart';
 import '../common_providers/default_providers.dart';
@@ -48,10 +48,7 @@ class ReturnNotifier extends StateNotifier<List<ReturnItem>> {
       if (availableStock >= minStep) {
         state = [...state, ReturnItem(item: item, quantity: minStep)];
       } else {
-        VHelperFunctions.showToasty(
-          backgroundColor: VColors.error,
-          message: 'Item out of stock.',
-        );
+        VToast.error(message: 'Item out of stock.');
       }
     }
 
@@ -109,10 +106,9 @@ class ReturnNotifier extends StateNotifier<List<ReturnItem>> {
     final fetchedItem = await itemDao.getItemById(itemId);
     if (fetchedItem == null) {
       if (!context.mounted) return;
-      VHelperFunctions.showSnackBar(
-        context: context,
-        message: "Item not found in the inventory.",
-      );
+      VSnackbar.error(
+          context: context, message: "Item not found in the inventory.");
+
       return;
     }
 
@@ -126,11 +122,9 @@ class ReturnNotifier extends StateNotifier<List<ReturnItem>> {
       }).toList();
     } else {
       if (!context.mounted) return;
-      VHelperFunctions.showSnackBar(
-        context: context,
-        message: '${fetchedItem.name}\n In stock: $availableStock',
-        showCloseIcon: true,
-      );
+      VSnackbar.error(
+          context: context,
+          message: '${fetchedItem.name}\n In stock: $availableStock');
     }
 
     updateSubtotal(); // Update subtotal after quantity change

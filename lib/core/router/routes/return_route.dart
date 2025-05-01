@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/core/router/router_constant.dart';
 
 import '../../../features/sell_buy_return/checkout/return_checkout/return_checkout_screen.dart';
-import '../../../features/sell_buy_return/returns/returns_screen.dart';
+import '../../../features/sell_buy_return/initial/return/returns_screen.dart';
 import '../../models/return_related_model/return_model.dart';
 
 List<GoRoute> returnsRoutes = [

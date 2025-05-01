@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
+import 'package:invobay/core/utils/messages/snackbar.dart';
 
 import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/providers/return_providers/return_related_providers.dart';
@@ -48,20 +48,18 @@ class VReturnedQuantityInputDialog extends ConsumerWidget {
             final validNumberRegex = RegExp(r'^\d+(\.\d{1,2})?$');
 
             if (!validNumberRegex.hasMatch(inputText)) {
-              VHelperFunctions.showSnackBar(
-                context: context,
-                message:
-                    "Invalid quantity. Enter a number with max 2 decimals.",
-              );
+              VSnackbar.error(
+                  context: context,
+                  message:
+                      "Invalid quantity. Enter a number with max 2 decimals.");
+
               return;
             }
 
             double? newQuantity = double.tryParse(inputText);
             if (newQuantity == null || newQuantity <= 0) {
-              VHelperFunctions.showSnackBar(
-                context: context,
-                message: "Invalid quantity",
-              );
+              VSnackbar.error(context: context, message: "Invalid quantity.");
+
               return;
             }
             await ref

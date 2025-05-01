@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/appbar/custom_appbar.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:drift/drift.dart' as drift;
+import 'package:invobay/core/utils/messages/snackbar.dart';
 import '../../../core/database/drift/app_database.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/utils/constants/colors.dart';
-import '../../../core/utils/helpers/helper_functions.dart';
 import '../widgets/item_form.dart';
 
 class AddItemScreen extends ConsumerStatefulWidget {
@@ -79,7 +79,7 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
 
       if (errorMessage != null) {
         if (!mounted) return;
-        VHelperFunctions.showSnackBar(context: context, message: errorMessage);
+        VSnackbar.error(context: context, message: errorMessage);
         return;
       }
 

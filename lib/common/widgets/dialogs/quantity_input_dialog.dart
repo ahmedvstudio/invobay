@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
+import 'package:invobay/core/utils/messages/snackbar.dart';
 
 import '../../../core/providers/buy_providers/buy_related_providers.dart';
 import '../../../core/providers/common_providers/default_providers.dart';
@@ -68,20 +68,18 @@ class VQuantityInputDialog extends ConsumerWidget {
             final validNumberRegex = RegExp(r'^\d+(\.\d{1,2})?$');
 
             if (!validNumberRegex.hasMatch(inputText)) {
-              VHelperFunctions.showSnackBar(
-                context: context,
-                message:
-                    "Invalid quantity. Enter a number with max 2 decimals.",
-              );
+              VSnackbar.error(
+                  context: context,
+                  message:
+                      "Invalid quantity. Enter a number with max 2 decimals.");
+
               return;
             }
 
             double? newQuantity = double.tryParse(inputText);
             if (newQuantity == null || newQuantity <= 0) {
-              VHelperFunctions.showSnackBar(
-                context: context,
-                message: "Invalid quantity",
-              );
+              VSnackbar.error(context: context, message: "Invalid quantity.");
+
               return;
             }
 
@@ -94,10 +92,9 @@ class VQuantityInputDialog extends ConsumerWidget {
               double? newBuyPrice = double.tryParse(buyPriceText);
 
               if (newBuyPrice == null || newBuyPrice <= 0) {
-                VHelperFunctions.showSnackBar(
-                  context: context,
-                  message: "Invalid buying price",
-                );
+                VSnackbar.error(
+                    context: context, message: "Invalid buying price");
+
                 return;
               }
 

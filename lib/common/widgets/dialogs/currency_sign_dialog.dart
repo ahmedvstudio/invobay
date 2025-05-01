@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/extensions/app_setting_extension.dart';
+import 'package:invobay/core/utils/messages/toast.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/helpers/helper_functions.dart';
@@ -40,11 +41,7 @@ Future<void> showCurrencySignDialog(BuildContext context, WidgetRef ref) async {
         final updated = old.copyWith(currencySign: newCurrency);
 
         await ref.read(appSettingsProvider.notifier).updateSettings(updated);
-
-        VHelperFunctions.showToasty(
-          message: 'Currency sign updated and saved',
-          backgroundColor: VColors.info,
-        );
+        VToast.info(message: 'Currency sign updated and saved');
       }
 
       if (!context.mounted) return;

@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import 'package:invobay/core/router/router_constant.dart';
 
-import '../../../features/sell_buy_return/buy/buy_screen.dart';
 import '../../../features/sell_buy_return/checkout/buy_checkout/buy_checkout_screen.dart';
+import '../../../features/sell_buy_return/initial/buy/buy_screen.dart';
 import '../../models/buy_related_model/buy_model.dart';
 
 List<GoRoute> buyRoutes = [

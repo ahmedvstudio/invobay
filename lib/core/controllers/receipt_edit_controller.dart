@@ -25,4 +25,17 @@ class ReceiptEditController extends StateNotifier<ReceiptEditState> {
   void clearSelection() {
     state = state.copyWith(selectedItems: {});
   }
+
+  void selectAll(List<String> allIds) {
+    state = state.copyWith(selectedItems: allIds.toSet());
+  }
+
+  void deselectAll() {
+    clearSelection();
+  }
+
+  bool isAllSelected(List<String> allIds) {
+    final selected = state.selectedItems;
+    return allIds.every((id) => selected.contains(id)) && allIds.isNotEmpty;
+  }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
+import 'package:invobay/core/utils/messages/toast.dart';
 
 import '../../../core/providers/buy_providers/buy_receipt_detail_provider.dart';
 import '../../../core/providers/buy_providers/buy_related_providers.dart';
@@ -81,10 +81,9 @@ void showEditReceiptPayment({
                       if (!context.mounted) return;
                       context.pop();
                     } else {
-                      VHelperFunctions.showToasty(
+                      VToast.error(
                           message:
-                              'The amount exceeded Total $currencySign $total',
-                          backgroundColor: VColors.error);
+                              'The amount exceeded Total $currencySign $total');
                     }
                   }
                 : () async {
@@ -105,10 +104,9 @@ void showEditReceiptPayment({
                       if (!context.mounted) return;
                       context.pop();
                     } else {
-                      VHelperFunctions.showToasty(
+                      VToast.error(
                           message:
-                              'The amount exceeded Total $currencySign $total',
-                          backgroundColor: VColors.error);
+                              'The amount exceeded Total $currencySign $total');
                     }
                   },
             child: const Text('Save'),

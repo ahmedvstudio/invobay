@@ -18,7 +18,8 @@ import '../../../../core/providers/common_providers/total_amount_provider.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/helpers/helper_functions.dart';
-import '../../returns/widgets/returned_item_list.dart';
+import '../../../../core/utils/messages/snackbar.dart';
+import '../../initial/return/widgets/returned_item_list.dart';
 import '../widgets/billing_amount_section.dart';
 import '../widgets/billing_payment_section.dart';
 
@@ -128,10 +129,11 @@ class ReturnCheckoutScreen extends ConsumerWidget {
                   final debtAmount = total - paidAmount;
                   if (paidAmount > total) {
                     // Show error message
-                    VHelperFunctions.showSnackBar(
+                    VSnackbar.error(
                         context: context,
                         message:
                             'Exceed total amount: $currencySign${VFormatters.formatPrice(total)}');
+
                     return;
                   }
                   String paymentStatus = _determinePaymentStatus(debtAmount);

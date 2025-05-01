@@ -87,6 +87,44 @@ class ReturnReceiptDao {
     });
   }
 
+  Future<void> deleteReceiptsByIds(List<int> ids) async {
+    await db.transaction(() async {
+      final receiptItems = await (db.select(db.returnReceiptItems)
+            ..where((tbl) => tbl.receiptId.isIn(ids)))
+          .get();
+
+      // Group items by itemId to update stock in batch
+      final Map<int, double> quantityToRestore = {};
+      for (final item in receiptItems) {
+        quantityToRestore.update(item.itemId, (qty) => qty - item.quantity,
+            ifAbsent: () => item.quantity);
+      }
+
+      // Update stock for each affected item
+      for (final entry in quantityToRestore.entries) {
+        final current = await (db.select(db.items)
+              ..where((tbl) => tbl.id.equals(entry.key)))
+            .getSingleOrNull();
+
+        if (current != null) {
+          final newQty = current.quantity - entry.value;
+          await (db.update(db.items)..where((tbl) => tbl.id.equals(entry.key)))
+              .write(ItemsCompanion(quantity: drift.Value(newQty)));
+        }
+      }
+
+      // Delete in batch
+      await (db.delete(db.returnReceiptItems)
+            ..where((tbl) => tbl.receiptId.isIn(ids)))
+          .go();
+      await (db.delete(db.returnPayments)
+            ..where((tbl) => tbl.receiptId.isIn(ids)))
+          .go();
+      await (db.delete(db.returnReceipts)..where((tbl) => tbl.id.isIn(ids)))
+          .go();
+    });
+  }
+
   Future<void> deleteReceipt(int id) async {
     // Fetch sold items associated with the receipt
     final returnedItems = await (db.select(db.returnReceiptItems)

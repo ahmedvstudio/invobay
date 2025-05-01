@@ -6,6 +6,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/extensions/app_setting_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
+import 'package:invobay/core/utils/messages/snackbar.dart';
+import 'package:invobay/core/utils/messages/toast.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 
 Future<void> showTaxEditDialog(BuildContext context, WidgetRef ref) async {
@@ -38,10 +40,10 @@ Future<void> showTaxEditDialog(BuildContext context, WidgetRef ref) async {
       final parsed = double.tryParse(input);
 
       if (parsed == null || parsed < 0) {
-        VHelperFunctions.showSnackBar(
-          context: context,
-          message: "Please enter a valid positive tax percentage.",
-        );
+        VSnackbar.error(
+            context: context,
+            message: "Please enter a valid positive tax percentage.");
+
         return;
       }
 
@@ -50,11 +52,7 @@ Future<void> showTaxEditDialog(BuildContext context, WidgetRef ref) async {
         final updated = old.copyWith(taxPercentage: parsed);
 
         await ref.read(appSettingsProvider.notifier).updateSettings(updated);
-
-        VHelperFunctions.showToasty(
-          message: 'Tax percentage updated and saved',
-          backgroundColor: VColors.info,
-        );
+        VToast.info(message: 'Tax percentage updated and saved');
       }
 
       if (!context.mounted) return;

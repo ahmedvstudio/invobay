@@ -6,7 +6,7 @@ import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
+import 'package:invobay/core/utils/messages/snackbar.dart';
 import 'package:invobay/features/personalization/setting/address/widgets/single_address.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
@@ -72,13 +72,12 @@ class SupplierAddressScreen extends ConsumerWidget {
                                 .read(supplierNotifierProvider.notifier)
                                 .deleteSupplier(supplier.id);
                             if (!context.mounted) return;
-                            VHelperFunctions.showSnackBar(
+                            VSnackbar.success(
                                 context: context,
-                                message: 'Supplier deleted successfully',
-                                bgColor: VColors.success);
+                                message: 'Supplier deleted successfully');
                           } catch (e) {
                             if (!context.mounted) return;
-                            VHelperFunctions.showSnackBar(
+                            VSnackbar.error(
                                 context: context,
                                 message:
                                     'Error deleting supplier: ${e.toString()}');

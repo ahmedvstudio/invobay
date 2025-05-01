@@ -7,7 +7,7 @@ import 'package:invobay/core/database/drift/tables/return_receipt_table.dart';
 import 'package:invobay/core/database/drift/tables/sell_receipts_tables.dart';
 import 'package:invobay/core/database/drift/tables/suppliers_table.dart';
 
-import 'package:invobay/core/utils/helpers/logger.dart';
+import 'package:invobay/core/utils/messages/logger.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';

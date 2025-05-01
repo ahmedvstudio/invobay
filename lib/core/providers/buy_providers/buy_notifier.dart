@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/database/drift/app_database.dart';
 import 'package:invobay/core/repository/item_dao.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import '../../models/buy_related_model/buy_model.dart';
 import '../../utils/constants/numbers.dart';
+import '../../utils/messages/snackbar.dart';
 import '../common_providers/default_providers.dart';
 
 class BuyNotifier extends StateNotifier<List<BuyItem>> {
@@ -130,11 +130,8 @@ class BuyNotifier extends StateNotifier<List<BuyItem>> {
       }).toList();
     } else {
       if (!context.mounted) return;
-      VHelperFunctions.showSnackBar(
-        context: context,
-        message: "Quantity must be greater than 0",
-        showCloseIcon: true,
-      );
+      VSnackbar.error(
+          context: context, message: "Quantity must be greater than 0");
     }
 
     updateSubtotal();

@@ -2,12 +2,12 @@ import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
+import 'package:invobay/core/utils/messages/toast.dart';
 
 import '../../../core/database/drift/app_database.dart';
 import '../../../core/providers/customer_providers/customer_related_providers.dart';
 import '../../../core/providers/common_providers/default_providers.dart';
-import '../../../core/utils/constants/colors.dart';
+import '../../../core/utils/messages/snackbar.dart';
 
 Future<void> addNewCustomerDialog(BuildContext context, WidgetRef ref) async {
   String? newCustomerName;
@@ -35,15 +35,9 @@ Future<void> addNewCustomerDialog(BuildContext context, WidgetRef ref) async {
               if (input.isNotEmpty) {
                 newCustomerName = input;
                 context.pop();
-                VHelperFunctions.showToasty(
-                  message: 'Customer added successfully',
-                  backgroundColor: VColors.success,
-                );
+                VToast.success(message: 'Customer added successfully');
               } else {
-                VHelperFunctions.showToasty(
-                  message: 'Customer name cannot be empty',
-                  backgroundColor: VColors.error,
-                );
+                VToast.error(message: 'Customer name cannot be empty');
               }
             },
             child: const Text('Add'),
@@ -70,10 +64,8 @@ Future<void> addNewCustomerDialog(BuildContext context, WidgetRef ref) async {
       ref.read(customerAddressProvider.notifier).state = '';
     } catch (e) {
       if (!context.mounted) return;
-      VHelperFunctions.showSnackBar(
-        context: context,
-        message: 'Error adding customer: ${e.toString()}',
-      );
+      VSnackbar.error(
+          context: context, message: 'Error adding customer: ${e.toString()}');
     }
   }
 }

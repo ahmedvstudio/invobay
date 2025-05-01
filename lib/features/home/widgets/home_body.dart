@@ -5,6 +5,7 @@ import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
+import '../../../common/widgets/dialogs/receipt_type_selection_data.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/helper_functions.dart';
 import 'home_button.dart';
@@ -53,7 +54,9 @@ class VHomeBody extends StatelessWidget {
           VHomeButton(
             title: 'Receipts',
             icon: Iconsax.receipt_15,
-            onPressed: () => context.pushNamed(VRouter.receipts),
+            onPressed: () => showDialog(
+                context: context,
+                builder: (_) => const VReceiptTypeSelectionDialog()),
           ),
           VHomeButton(
             title: 'Reports',

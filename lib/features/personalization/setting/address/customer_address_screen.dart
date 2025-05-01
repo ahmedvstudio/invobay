@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/personalization/setting/address/widgets/single_address.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
@@ -13,6 +12,7 @@ import '../../../../core/providers/customer_providers/customer_related_providers
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/formatters/formatters.dart';
+import '../../../../core/utils/messages/snackbar.dart';
 
 class CustomerAddressScreen extends ConsumerWidget {
   const CustomerAddressScreen({
@@ -76,13 +76,12 @@ class CustomerAddressScreen extends ConsumerWidget {
                                   .read(customerNotifierProvider.notifier)
                                   .deleteCustomer(customer.id);
                               if (!context.mounted) return;
-                              VHelperFunctions.showSnackBar(
+                              VSnackbar.success(
                                   context: context,
-                                  message: 'Customer deleted successfully',
-                                  bgColor: VColors.success);
+                                  message: 'Customer deleted successfully');
                             } catch (e) {
                               if (!context.mounted) return;
-                              VHelperFunctions.showSnackBar(
+                              VSnackbar.error(
                                   context: context,
                                   message:
                                       'Error deleting customer: ${e.toString()}');

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/providers/common_providers/reset_default_providers.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
+import 'package:invobay/core/utils/messages/snackbar.dart';
 
 import '../../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
@@ -18,7 +19,7 @@ import '../../../../core/providers/common_providers/total_amount_provider.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/helpers/helper_functions.dart';
-import '../../buy/widgets/buy_item_list.dart';
+import '../../initial/buy/widgets/buy_item_list.dart';
 import '../widgets/add_fees_button.dart';
 import '../widgets/billing_address_section.dart';
 import '../widgets/billing_amount_section.dart';
@@ -138,10 +139,11 @@ class BuyCheckoutScreen extends ConsumerWidget {
                   final debtAmount = total - paidAmount;
                   if (paidAmount > total) {
                     // Show error message
-                    VHelperFunctions.showSnackBar(
+                    VSnackbar.error(
                         context: context,
                         message:
                             'Exceed total amount: $currencySign${VFormatters.formatPrice(total)}');
+
                     return;
                   }
                   String paymentStatus =

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
+import '../../../core/utils/messages/snackbar.dart';
 
 class VAddQuantityDialog extends ConsumerWidget {
   final int? itemId;
@@ -45,10 +45,7 @@ class VAddQuantityDialog extends ConsumerWidget {
                   if (!context.mounted) return;
                   if (error != null) {
                     // Show error message and keep the dialog open
-                    VHelperFunctions.showSnackBar(
-                      context: context,
-                      message: error,
-                    );
+                    VSnackbar.error(context: context, message: error);
                   } else {
                     // Close the dialog only if there's no error
                     quantityState.state = ''; // Reset the provider state
