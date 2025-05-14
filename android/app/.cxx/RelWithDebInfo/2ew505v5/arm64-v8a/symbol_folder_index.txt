@@ -1,0 +1,1 @@
+C:\my_projects\invobay\build\app\intermediates\cxx\RelWithDebInfo\2ew505v5\obj\arm64-v8a

@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 import '../../../core/utils/constants/image_strings.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/constants/text_strings.dart';
-import '../../../core/utils/helpers/helper_functions.dart';
+import '../../../core/utils/device/device_utility.dart';
 
 class ResetPassword extends StatelessWidget {
   const ResetPassword({super.key});
@@ -29,7 +29,7 @@ class ResetPassword extends StatelessWidget {
             // image
             Lottie.asset(
               VImages.verifyEmail,
-              width: VHelperFunctions.screenWidth(context) * 0.6,
+              width: VDeviceUtils.getScreenWidth(context) * 0.6,
             ),
             const SizedBox(height: VSizes.spaceBtwSections),
 

@@ -6,16 +6,13 @@ import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
 import '../../../core/providers/buy_providers/buy_related_providers.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
 import '../dialogs/add_new_item_dialog.dart';
 import '../text_field/search_bar.dart';
-import '../../../core/database/drift/app_database.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/low_stock_helper.dart';
-
-// Provider to manage filtered items
-final filteredItemsProvider = StateProvider<List<Item>>((ref) => []);
 
 void showItemsBottomSheet({
   required BuildContext context,

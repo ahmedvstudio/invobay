@@ -30,18 +30,21 @@ class VGeneralSection extends ConsumerWidget {
           title: const Text('Currency Sign.'),
           leading: const Icon(Iconsax.dollar_circle),
           trailing: Text(currencySign),
+          tileColor: Colors.transparent,
         ),
         ListTile(
           onTap: () => showTaxEditDialog(context, ref),
           title: const Text('Tax Percentage.'),
           leading: const Icon(Iconsax.discount_circle),
           trailing: Text('% $currentTax'),
+          tileColor: Colors.transparent,
         ),
         ListTile(
           onTap: () => showLowStockThresholdDialog(context, ref),
           title: const Text('Low Stock Threshold.'),
           leading: const Icon(Iconsax.arrange_circle),
           trailing: Text('$threshold'),
+          tileColor: Colors.transparent,
         ),
       ],
     );

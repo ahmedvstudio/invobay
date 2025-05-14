@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import '../../common/styles/spacing_style.dart';
 import '../../core/utils/constants/sizes.dart';
 import '../../core/utils/constants/text_strings.dart';
-import '../../core/utils/helpers/helper_functions.dart';
+import '../../core/utils/device/device_utility.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen(
@@ -20,13 +20,13 @@ class SuccessScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: VSpacingStyle.paddingWithAppBarHeight * 2,
+          padding: VSpacingStyle.withAppBarHeight * 2,
           child: Column(
             children: [
               // image
               Lottie.asset(
                 image,
-                width: VHelperFunctions.screenWidth(context) * 0.6,
+                width: VDeviceUtils.getScreenWidth(context) * 0.6,
               ),
               const SizedBox(height: VSizes.spaceBtwSections),
 

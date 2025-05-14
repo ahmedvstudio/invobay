@@ -12,7 +12,7 @@ class VItemPriceTextWithIcon extends ConsumerWidget {
     this.maxLines = 1,
     this.isLarge = false,
     this.lineThrough = false,
-    this.iconColor = VColors.kPrimary,
+    this.iconColor = VColors.primary,
   });
 
   final String price;

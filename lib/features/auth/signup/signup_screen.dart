@@ -5,8 +5,11 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('signup')),
+    return Scaffold(
+      appBar: AppBar(),
+      body: const Center(
+        child: Text('signup'),
+      ),
     );
   }
 }

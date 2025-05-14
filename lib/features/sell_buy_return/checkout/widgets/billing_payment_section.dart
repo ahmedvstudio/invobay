@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/common/styles/spacing_style.dart';
 
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../common/widgets/text/section_heading.dart';
@@ -24,25 +25,29 @@ class VBillingPaymentSection extends ConsumerWidget {
         context: context,
         builder: (context) {
           return SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text("Select Payment Method",
-                    style: Theme.of(context).textTheme.headlineSmall),
-                const Divider(),
-                for (var method in paymentMethods)
-                  ListTile(
-                    leading: SvgPicture.asset(method.imagePath, width: 30),
-                    title: Text(method.name),
-                    onTap: () {
-                      ref
-                          .read(selectedPaymentProvider.notifier)
-                          .selectPayment(method);
-                      context.pop();
-                    },
-                  ),
-                const SizedBox(height: VSizes.defaultSpace),
-              ],
+            child: Padding(
+              padding: VSpacingStyle.horizontal,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Select Payment Method",
+                      style: Theme.of(context).textTheme.headlineSmall),
+                  const Divider(),
+                  for (var method in paymentMethods)
+                    ListTile(
+                      tileColor: Colors.transparent,
+                      leading: SvgPicture.asset(method.imagePath, width: 30),
+                      title: Text(method.name),
+                      onTap: () {
+                        ref
+                            .read(selectedPaymentProvider.notifier)
+                            .selectPayment(method);
+                        context.pop();
+                      },
+                    ),
+                  const SizedBox(height: VSizes.defaultSpace),
+                ],
+              ),
             ),
           );
         },

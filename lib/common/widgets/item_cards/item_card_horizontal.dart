@@ -16,7 +16,7 @@ class VItemCardHorizontal extends StatelessWidget {
     required this.itemPrice,
     this.onTapItemDetails,
     this.stockIconColor = VColors.success,
-    this.nameIconColor = VColors.kPrimary,
+    this.nameIconColor = VColors.primary,
   });
 
   final String itemName;

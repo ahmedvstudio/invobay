@@ -1,0 +1,2 @@
+C:/my_projects/invobay/android/app/.cxx/RelWithDebInfo/2ew505v5/x86/CMakeFiles/edit_cache.dir
+C:/my_projects/invobay/android/app/.cxx/RelWithDebInfo/2ew505v5/x86/CMakeFiles/rebuild_cache.dir

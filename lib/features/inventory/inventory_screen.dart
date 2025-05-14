@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/primary_header_container.dart';
+import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/common/widgets/appbar/main_appbar.dart';
 import '../../common/widgets/item_cards/item_listview.dart';
@@ -106,11 +108,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
           VPrimaryHeaderContainer(
             child: Column(
               children: [
-                VMainAppBar(
-                  title: VText.inventoryAppBarSubTitle,
-                  onPressed: () => context.pushNamed(VRouter.addItem,
-                      pathParameters: {'itemName': 'itemName'}),
-                ),
+                const VMainAppBar(title: VText.inventoryAppBarSubTitle),
                 const SizedBox(height: VSizes.spaceBtwItems),
                 VSearchBar(
                   searchController: _searchController,
@@ -142,6 +140,12 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
             ref: ref,
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: VColors.primary,
+        onPressed: () => context.pushNamed(VRouter.addItem,
+            pathParameters: {'itemName': 'itemName'}),
+        child: const Icon(Iconsax.add),
       ),
     );
   }

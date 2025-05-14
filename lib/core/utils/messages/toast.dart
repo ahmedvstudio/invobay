@@ -5,6 +5,28 @@ import '../constants/colors.dart';
 class VToast {
   VToast._();
 
+  /// --> white Toast
+  static void white({required String message, ToastGravity? gravity}) {
+    Fluttertoast.cancel();
+    Fluttertoast.showToast(
+      msg: message,
+      gravity: gravity,
+      backgroundColor: VColors.white,
+      textColor: VColors.black,
+    );
+  }
+
+  /// --> black Toast
+  static void black({required String message, ToastGravity? gravity}) {
+    Fluttertoast.cancel();
+    Fluttertoast.showToast(
+      msg: message,
+      gravity: gravity,
+      backgroundColor: VColors.black,
+      textColor: VColors.white,
+    );
+  }
+
   /// --> success Toast
   static void success({required String message, ToastGravity? gravity}) {
     Fluttertoast.cancel();

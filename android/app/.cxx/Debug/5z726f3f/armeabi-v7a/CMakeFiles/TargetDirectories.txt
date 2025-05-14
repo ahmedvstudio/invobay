@@ -1,0 +1,2 @@
+C:/my_projects/invobay/android/app/.cxx/Debug/5z726f3f/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/my_projects/invobay/android/app/.cxx/Debug/5z726f3f/armeabi-v7a/CMakeFiles/rebuild_cache.dir

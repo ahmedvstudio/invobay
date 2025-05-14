@@ -32,6 +32,7 @@ class AppLanguageScreen extends ConsumerWidget {
           final langLabel = lang['label']!;
 
           return RadioListTile<String>(
+            tileColor: Colors.transparent,
             value: langCode,
             groupValue: currentLocale.languageCode,
             title: Text(langLabel),

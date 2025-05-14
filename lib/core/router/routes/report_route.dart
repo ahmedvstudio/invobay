@@ -9,5 +9,8 @@ List<GoRoute> reportRoutes = [
     name: VRouter.reports,
     path: '/reports',
     builder: (context, state) => const ReportsScreen(),
+    routes: const [
+      ///
+    ],
   ),
 ];

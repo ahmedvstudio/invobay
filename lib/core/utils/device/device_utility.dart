@@ -33,6 +33,10 @@ class VDeviceUtils {
         enable ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge);
   }
 
+  static Size getScreenSize(BuildContext context) {
+    return MediaQuery.of(context).size;
+  }
+
   static double getScreenHeight(BuildContext context) {
     return MediaQuery.of(context).size.height;
   }
@@ -100,13 +104,11 @@ class VDeviceUtils {
     }
   }
 
-  static bool isIOS() {
-    return Platform.isIOS;
-  }
-
-  static bool isAndroid() {
-    return Platform.isAndroid;
-  }
+  static bool get isIOS => Platform.isIOS;
+  static bool get isAndroid => Platform.isAndroid;
+  static bool get isLinux => Platform.isLinux;
+  static bool get isWindows => Platform.isWindows;
+  static bool get isMacOS => Platform.isMacOS;
 
   static void launchUrl(String url) async {
     if (await canLaunchUrlString(url)) {

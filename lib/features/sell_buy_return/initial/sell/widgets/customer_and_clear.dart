@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:invobay/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
 import '../../../../../common/widgets/dialogs/add_new_customer_dialog.dart';
@@ -78,38 +77,33 @@ class VCustomerAndClear extends StatelessWidget {
                                           component.isNotEmpty)
                                       .join(', ');
 
-                                  return VRoundedContainer(
-                                    backgroundColor:
-                                        VColors.kPrimary.withValues(alpha: 0.2),
-                                    child: ListTile(
-                                      title: Text(customer.name),
-                                      subtitle: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          if (customer.phoneNumber != null)
-                                            Text(customer.phoneNumber ?? ''),
-                                          if (address.isNotEmpty) Text(address),
-                                        ],
-                                      ),
-                                      onTap: () {
-                                        ref
-                                            .read(customerNameProvider.notifier)
-                                            .state = customer.name;
-                                        ref
-                                            .read(
-                                                customerPhoneProvider.notifier)
-                                            .state = customer.phoneNumber ?? '';
-                                        ref
-                                            .read(customerAddressProvider
-                                                .notifier)
-                                            .state = address;
-                                        ref
-                                            .read(customerIDProvider.notifier)
-                                            .state = customer.id;
-                                        context.pop(customer.name);
-                                      },
+                                  return ListTile(
+                                    title: Text(customer.name),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        if (customer.phoneNumber != null)
+                                          Text(customer.phoneNumber ?? ''),
+                                        if (address.isNotEmpty) Text(address),
+                                      ],
                                     ),
+                                    onTap: () {
+                                      ref
+                                          .read(customerNameProvider.notifier)
+                                          .state = customer.name;
+                                      ref
+                                          .read(customerPhoneProvider.notifier)
+                                          .state = customer.phoneNumber ?? '';
+                                      ref
+                                          .read(
+                                              customerAddressProvider.notifier)
+                                          .state = address;
+                                      ref
+                                          .read(customerIDProvider.notifier)
+                                          .state = customer.id;
+                                      context.pop(customer.name);
+                                    },
                                   );
                                 }
                                 return Container();

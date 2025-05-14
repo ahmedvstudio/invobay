@@ -62,10 +62,9 @@ class VRouter {
   static const String addNewSupplier = 'addNewSupplier';
   static const String editSupplier = 'editSupplier';
 
-  ///
-  static const String orders = 'orders';
+  // - Reports
+  static const String reports = 'reports';
 
   // -
-  static const String reports = 'reports';
   static const String notification = 'notification';
 }

@@ -21,6 +21,7 @@ class VDisplaySection extends StatelessWidget {
           onTap: () => context.pushNamed(VRouter.appLanguage),
           title: const Text('App Language.'),
           leading: const Icon(Iconsax.global),
+          tileColor: Colors.transparent,
         ),
         const SizedBox(height: VSizes.spaceBtwItems),
       ],

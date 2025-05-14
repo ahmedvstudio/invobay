@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 import 'appbar.dart';
 import 'appbar_icon.dart';
@@ -10,7 +10,7 @@ class VMainAppBar extends StatelessWidget {
     super.key,
     this.onPressed,
     required this.title,
-    this.appbarIcon = CupertinoIcons.plus,
+    this.appbarIcon = Iconsax.shop5,
     this.showAppbarIcon = true,
     this.textColor = VColors.white,
   });

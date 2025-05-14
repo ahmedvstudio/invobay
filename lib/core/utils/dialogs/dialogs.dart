@@ -1,0 +1,129 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../constants/sizes.dart';
+
+class VDialogs {
+  VDialogs._();
+
+  /// --> OK
+  static Future<void> ok(BuildContext context, String title, String message) {
+    return showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => context.pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// --> Yes No
+  static Future<bool> confirm(
+      BuildContext context, String title, String message) async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
+    return result ?? false;
+  }
+
+  ///
+  static Future<int?> action(
+    BuildContext context,
+    String title,
+    String message,
+    List<String> actionsLabels,
+  ) async {
+    return showDialog<int>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: List.generate(actionsLabels.length, (i) {
+          return TextButton(
+            onPressed: () => context.pop(actionsLabels[i]),
+            child: Text(
+              actionsLabels[i],
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  ///
+  static Future<String?> input(
+    BuildContext context,
+    String title, {
+    String hint = '',
+    String initialValue = '',
+    TextInputType keyboardType = TextInputType.text,
+  }) async {
+    final controller = TextEditingController(text: initialValue);
+    return showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: TextField(
+          controller: controller,
+          keyboardType: keyboardType,
+          autofocus: true,
+          decoration: InputDecoration(hintText: hint),
+        ),
+        actions: [
+          TextButton(
+              onPressed: () => context.pop(), child: const Text('Cancel')),
+          TextButton(
+              onPressed: () => context.pop(controller.text),
+              child: const Text('OK')),
+        ],
+      ),
+    );
+  }
+
+  ///
+  static void showLoading(BuildContext context, {String? message}) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => PopScope(
+        canPop: false,
+        child: AlertDialog(
+          content: Row(
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(width: VSizes.spaceBtwItems),
+              Flexible(
+                child: Text(message ?? 'Loading...'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  ///
+  static void dismissLoading(BuildContext context) {
+    Navigator.of(context, rootNavigator: true).maybePop();
+  }
+}

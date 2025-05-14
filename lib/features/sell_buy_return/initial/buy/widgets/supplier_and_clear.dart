@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:invobay/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
 import '../../../../../common/widgets/dialogs/add_new_supplier_dialog.dart';
@@ -78,38 +77,33 @@ class VSupplierAndClear extends StatelessWidget {
                                           component.isNotEmpty)
                                       .join(', ');
 
-                                  return VRoundedContainer(
-                                    backgroundColor:
-                                        VColors.kPrimary.withValues(alpha: 0.2),
-                                    child: ListTile(
-                                      title: Text(supplier.name),
-                                      subtitle: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          if (supplier.phoneNumber != null)
-                                            Text(supplier.phoneNumber ?? ''),
-                                          if (address.isNotEmpty) Text(address),
-                                        ],
-                                      ),
-                                      onTap: () {
-                                        ref
-                                            .read(supplierNameProvider.notifier)
-                                            .state = supplier.name;
-                                        ref
-                                            .read(
-                                                supplierPhoneProvider.notifier)
-                                            .state = supplier.phoneNumber ?? '';
-                                        ref
-                                            .read(supplierAddressProvider
-                                                .notifier)
-                                            .state = address;
-                                        ref
-                                            .read(supplierIDProvider.notifier)
-                                            .state = supplier.id;
-                                        context.pop(supplier.name);
-                                      },
+                                  return ListTile(
+                                    title: Text(supplier.name),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        if (supplier.phoneNumber != null)
+                                          Text(supplier.phoneNumber ?? ''),
+                                        if (address.isNotEmpty) Text(address),
+                                      ],
                                     ),
+                                    onTap: () {
+                                      ref
+                                          .read(supplierNameProvider.notifier)
+                                          .state = supplier.name;
+                                      ref
+                                          .read(supplierPhoneProvider.notifier)
+                                          .state = supplier.phoneNumber ?? '';
+                                      ref
+                                          .read(
+                                              supplierAddressProvider.notifier)
+                                          .state = address;
+                                      ref
+                                          .read(supplierIDProvider.notifier)
+                                          .state = supplier.id;
+                                      context.pop(supplier.name);
+                                    },
                                   );
                                 }
                                 return Container();

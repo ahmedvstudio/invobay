@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
-import 'package:invobay/core/utils/constants/colors.dart';
-import 'package:invobay/core/utils/device/device_utility.dart';
 
-import '../../../common/widgets/dialogs/receipt_type_selection_data.dart';
+import '../../../common/widgets/sheet/receipt_type_selection_sheet.dart';
 import '../../../core/utils/constants/sizes.dart';
-import '../../../core/utils/helpers/helper_functions.dart';
-import 'home_button.dart';
+import 'rounded_button.dart';
 
 class VHomeBody extends StatelessWidget {
   const VHomeBody({
@@ -17,7 +14,6 @@ class VHomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = VHelperFunctions.isDarkMode(context);
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: Wrap(
@@ -25,48 +21,51 @@ class VHomeBody extends StatelessWidget {
         runSpacing: VSizes.defaultSpace,
         alignment: WrapAlignment.center,
         children: [
-          VHomeButton(
-            width: VDeviceUtils.getScreenWidth(context) * 0.9,
-            height: 120,
+          VRoundedButton(
+            width: double.infinity,
+            onTap: () => context.pushNamed(VRouter.inventory),
             title: 'Inventory',
-            icon: Iconsax.shop5,
-            iconSize: 70,
-            bgColor: VColors.secondary,
-            labelBgColor: VColors.onSecondary,
-            borderColor: isDark ? VColors.darkerGrey : VColors.coldSteel,
-            onPressed: () => context.pushNamed(VRouter.inventory),
+            icon: Icons.shopping_basket,
+            iconColor: Colors.amber,
           ),
-          VHomeButton(
+          VRoundedButton(
+            onTap: () => context.pushNamed(VRouter.sell),
             title: 'Sell',
             icon: Iconsax.tag5,
-            onPressed: () => context.pushNamed(VRouter.sell),
           ),
-          VHomeButton(
+          VRoundedButton(
+            onTap: () => context.pushNamed(VRouter.buy),
             title: 'Buy',
             icon: Iconsax.shopping_cart5,
-            onPressed: () => context.pushNamed(VRouter.buy),
           ),
-          VHomeButton(
+          VRoundedButton(
+            onTap: () => context.pushNamed(VRouter.returns),
             title: 'Return',
             icon: Iconsax.shopping_bag5,
-            onPressed: () => context.pushNamed(VRouter.returns),
           ),
-          VHomeButton(
+          VRoundedButton(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(VSizes.defaultSpace)),
+                ),
+                builder: (_) => const VReceiptTypeSelectionBottomSheet(),
+              );
+            },
             title: 'Receipts',
             icon: Iconsax.receipt_15,
-            onPressed: () => showDialog(
-                context: context,
-                builder: (_) => const VReceiptTypeSelectionDialog()),
           ),
-          VHomeButton(
+          VRoundedButton(
+            onTap: () => context.pushNamed(VRouter.reports),
             title: 'Reports',
             icon: Iconsax.receipt_item5,
-            onPressed: () => context.pushNamed(VRouter.reports),
           ),
-          VHomeButton(
+          VRoundedButton(
+            onTap: () => context.pushNamed(VRouter.settings),
             title: 'Settings',
-            icon: Iconsax.cpu_setting5,
-            onPressed: () => context.pushNamed(VRouter.settings),
+            icon: Icons.settings,
           ),
         ],
       ),

@@ -5,15 +5,12 @@ import 'package:invobay/common/widgets/item_cards/item_card_horizontal.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
+import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/providers/return_providers/return_related_providers.dart';
 import '../text_field/search_bar.dart';
-import '../../../core/database/drift/app_database.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/low_stock_helper.dart';
-
-// Provider to manage filtered items
-final filteredItemsProvider = StateProvider<List<Item>>((ref) => []);
 
 void showReturnItemsBottomSheet({
   required BuildContext context,
