@@ -42,3 +42,10 @@ final sellCheckoutProvider = Provider((ref) {
   final sellReceiptDao = ref.watch(sellReceiptDaoProvider);
   return SellCheckoutNotifier(sellReceiptDao);
 });
+
+// Sold Item With Cost Provider
+final soldItemsWithCostProvider =
+    StreamProvider<List<SellReceiptItemsModel>>((ref) {
+  final dao = ref.watch(sellReceiptDaoProvider);
+  return dao.watchSoldItemsWithCost();
+});

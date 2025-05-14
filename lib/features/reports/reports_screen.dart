@@ -12,7 +12,6 @@ import 'package:invobay/features/reports/widgets/sell_section.dart';
 
 import '../../common/widgets/appbar/main_appbar.dart';
 import '../../common/widgets/custom_shapes/containers/primary_header_container.dart';
-import '../../core/services/printing/sdsdsds.dart';
 import '../../core/utils/constants/sizes.dart';
 
 class ReportsScreen extends StatelessWidget {
@@ -20,53 +19,22 @@ class ReportsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Column(
         children: [
           VPrimaryHeaderContainer(
             child: Column(
               children: [
-                const VMainAppBar(
+                VMainAppBar(
                   title: 'Reports',
                   appbarIcon: Iconsax.receipt_item5,
                 ),
-                const SizedBox(height: VSizes.spaceBtwItems),
+                SizedBox(height: VSizes.spaceBtwSections),
                 // Filter and Export buttons
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: VSizes.defaultSpace),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(Iconsax.filter),
-                        label: const Text('Filter'),
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          //TODO handle later
-                          // Trigger the PDF export
-                          generateAndPrintReportPDF(
-                              salesSummary: '',
-                              purchaseSummary: '',
-                              profitSummary: '',
-                              topItems: [],
-                              lowStockItems: [],
-                              returnSummary: '');
-                        },
-                        icon: const Icon(Iconsax.export),
-                        label: const Text('Export PDF'),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: VSizes.spaceBtwSections),
               ],
             ),
           ),
-          const Expanded(
+          Expanded(
             child: SingleChildScrollView(
               padding: VSpacingStyle.withoutTop,
               child: Column(

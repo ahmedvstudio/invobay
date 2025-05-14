@@ -22,6 +22,11 @@ class VSellSection extends StatelessWidget {
           onTap: () {},
         ),
         VReportListTile(
+          title: 'Costumers Debt',
+          icon: Iconsax.money_remove,
+          onTap: () {},
+        ),
+        VReportListTile(
           title: 'Most Sold Items',
           icon: Iconsax.money_send,
           onTap: () {},

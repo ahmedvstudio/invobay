@@ -22,6 +22,11 @@ class VBuySection extends StatelessWidget {
           onTap: () {},
         ),
         VReportListTile(
+          title: 'Debt to the Supplier',
+          icon: Iconsax.money_change,
+          onTap: () {},
+        ),
+        VReportListTile(
           title: 'Most Bought Items',
           icon: Iconsax.money_recive,
           onTap: () {},

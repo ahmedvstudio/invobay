@@ -8,7 +8,7 @@ part of 'app_theme.dart';
 
 class AppThemeAdapter extends TypeAdapter<AppTheme> {
   @override
-  final int typeId = 1;
+  final typeId = 1;
 
   @override
   AppTheme read(BinaryReader reader) {

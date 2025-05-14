@@ -44,6 +44,7 @@ class SellReceiptDao {
                 itemId: drift.Value(item.item.id),
                 quantity: drift.Value(item.quantity),
                 price: drift.Value(item.item.sellingPrice),
+                costPrice: drift.Value(item.item.buyingPrice),
               ),
             );
       }
@@ -176,6 +177,35 @@ class SellReceiptDao {
           status: drift.Value(newPaymentStatus),
         ),
       );
+    });
+  }
+
+  Stream<List<SellReceiptItemsModel>> watchSoldItemsWithCost() {
+    final query = db.select(db.sellReceiptItems).join([
+      drift.innerJoin(
+        db.items,
+        db.items.id.equalsExp(db.sellReceiptItems.itemId),
+      ),
+      drift.innerJoin(
+        db.sellReceipts,
+        db.sellReceipts.id.equalsExp(db.sellReceiptItems.receiptId),
+      ),
+    ]);
+
+    return query.watch().map((rows) {
+      return rows.map((row) {
+        final soldItem = row.readTable(db.sellReceiptItems);
+        final item = row.readTable(db.items);
+        final receipt = row.readTable(db.sellReceipts);
+        return SellReceiptItemsModel(
+          id: soldItem.id,
+          quantity: soldItem.quantity,
+          receiptId: receipt.id,
+          itemId: item.id,
+          price: soldItem.price,
+          costPrice: soldItem.costPrice,
+        );
+      }).toList();
     });
   }
 }

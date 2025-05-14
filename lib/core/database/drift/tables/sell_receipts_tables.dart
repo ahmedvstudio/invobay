@@ -23,6 +23,7 @@ class SellReceiptItems extends Table {
       .customConstraint('NOT NULL REFERENCES items(id) ON DELETE CASCADE')();
   RealColumn get quantity => real()();
   RealColumn get price => real()();
+  RealColumn get costPrice => real()();
 }
 
 @DataClassName('SellPaymentsModel')

@@ -905,9 +905,15 @@ class $SellReceiptItemsTable extends SellReceiptItems
   late final GeneratedColumn<double> price = GeneratedColumn<double>(
       'price', aliasedName, false,
       type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _costPriceMeta =
+      const VerificationMeta('costPrice');
+  @override
+  late final GeneratedColumn<double> costPrice = GeneratedColumn<double>(
+      'cost_price', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, receiptId, itemId, quantity, price];
+      [id, receiptId, itemId, quantity, price, costPrice];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -946,6 +952,12 @@ class $SellReceiptItemsTable extends SellReceiptItems
     } else if (isInserting) {
       context.missing(_priceMeta);
     }
+    if (data.containsKey('cost_price')) {
+      context.handle(_costPriceMeta,
+          costPrice.isAcceptableOrUnknown(data['cost_price']!, _costPriceMeta));
+    } else if (isInserting) {
+      context.missing(_costPriceMeta);
+    }
     return context;
   }
 
@@ -965,6 +977,8 @@ class $SellReceiptItemsTable extends SellReceiptItems
           .read(DriftSqlType.double, data['${effectivePrefix}quantity'])!,
       price: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}price'])!,
+      costPrice: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}cost_price'])!,
     );
   }
 
@@ -981,12 +995,14 @@ class SellReceiptItemsModel extends DataClass
   final int itemId;
   final double quantity;
   final double price;
+  final double costPrice;
   const SellReceiptItemsModel(
       {required this.id,
       required this.receiptId,
       required this.itemId,
       required this.quantity,
-      required this.price});
+      required this.price,
+      required this.costPrice});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -995,6 +1011,7 @@ class SellReceiptItemsModel extends DataClass
     map['item_id'] = Variable<int>(itemId);
     map['quantity'] = Variable<double>(quantity);
     map['price'] = Variable<double>(price);
+    map['cost_price'] = Variable<double>(costPrice);
     return map;
   }
 
@@ -1005,6 +1022,7 @@ class SellReceiptItemsModel extends DataClass
       itemId: Value(itemId),
       quantity: Value(quantity),
       price: Value(price),
+      costPrice: Value(costPrice),
     );
   }
 
@@ -1017,6 +1035,7 @@ class SellReceiptItemsModel extends DataClass
       itemId: serializer.fromJson<int>(json['itemId']),
       quantity: serializer.fromJson<double>(json['quantity']),
       price: serializer.fromJson<double>(json['price']),
+      costPrice: serializer.fromJson<double>(json['costPrice']),
     );
   }
   @override
@@ -1028,6 +1047,7 @@ class SellReceiptItemsModel extends DataClass
       'itemId': serializer.toJson<int>(itemId),
       'quantity': serializer.toJson<double>(quantity),
       'price': serializer.toJson<double>(price),
+      'costPrice': serializer.toJson<double>(costPrice),
     };
   }
 
@@ -1036,13 +1056,15 @@ class SellReceiptItemsModel extends DataClass
           int? receiptId,
           int? itemId,
           double? quantity,
-          double? price}) =>
+          double? price,
+          double? costPrice}) =>
       SellReceiptItemsModel(
         id: id ?? this.id,
         receiptId: receiptId ?? this.receiptId,
         itemId: itemId ?? this.itemId,
         quantity: quantity ?? this.quantity,
         price: price ?? this.price,
+        costPrice: costPrice ?? this.costPrice,
       );
   SellReceiptItemsModel copyWithCompanion(SellReceiptItemsCompanion data) {
     return SellReceiptItemsModel(
@@ -1051,6 +1073,7 @@ class SellReceiptItemsModel extends DataClass
       itemId: data.itemId.present ? data.itemId.value : this.itemId,
       quantity: data.quantity.present ? data.quantity.value : this.quantity,
       price: data.price.present ? data.price.value : this.price,
+      costPrice: data.costPrice.present ? data.costPrice.value : this.costPrice,
     );
   }
 
@@ -1061,13 +1084,15 @@ class SellReceiptItemsModel extends DataClass
           ..write('receiptId: $receiptId, ')
           ..write('itemId: $itemId, ')
           ..write('quantity: $quantity, ')
-          ..write('price: $price')
+          ..write('price: $price, ')
+          ..write('costPrice: $costPrice')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, receiptId, itemId, quantity, price);
+  int get hashCode =>
+      Object.hash(id, receiptId, itemId, quantity, price, costPrice);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1076,7 +1101,8 @@ class SellReceiptItemsModel extends DataClass
           other.receiptId == this.receiptId &&
           other.itemId == this.itemId &&
           other.quantity == this.quantity &&
-          other.price == this.price);
+          other.price == this.price &&
+          other.costPrice == this.costPrice);
 }
 
 class SellReceiptItemsCompanion extends UpdateCompanion<SellReceiptItemsModel> {
@@ -1085,12 +1111,14 @@ class SellReceiptItemsCompanion extends UpdateCompanion<SellReceiptItemsModel> {
   final Value<int> itemId;
   final Value<double> quantity;
   final Value<double> price;
+  final Value<double> costPrice;
   const SellReceiptItemsCompanion({
     this.id = const Value.absent(),
     this.receiptId = const Value.absent(),
     this.itemId = const Value.absent(),
     this.quantity = const Value.absent(),
     this.price = const Value.absent(),
+    this.costPrice = const Value.absent(),
   });
   SellReceiptItemsCompanion.insert({
     this.id = const Value.absent(),
@@ -1098,16 +1126,19 @@ class SellReceiptItemsCompanion extends UpdateCompanion<SellReceiptItemsModel> {
     required int itemId,
     required double quantity,
     required double price,
+    required double costPrice,
   })  : receiptId = Value(receiptId),
         itemId = Value(itemId),
         quantity = Value(quantity),
-        price = Value(price);
+        price = Value(price),
+        costPrice = Value(costPrice);
   static Insertable<SellReceiptItemsModel> custom({
     Expression<int>? id,
     Expression<int>? receiptId,
     Expression<int>? itemId,
     Expression<double>? quantity,
     Expression<double>? price,
+    Expression<double>? costPrice,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1115,6 +1146,7 @@ class SellReceiptItemsCompanion extends UpdateCompanion<SellReceiptItemsModel> {
       if (itemId != null) 'item_id': itemId,
       if (quantity != null) 'quantity': quantity,
       if (price != null) 'price': price,
+      if (costPrice != null) 'cost_price': costPrice,
     });
   }
 
@@ -1123,13 +1155,15 @@ class SellReceiptItemsCompanion extends UpdateCompanion<SellReceiptItemsModel> {
       Value<int>? receiptId,
       Value<int>? itemId,
       Value<double>? quantity,
-      Value<double>? price}) {
+      Value<double>? price,
+      Value<double>? costPrice}) {
     return SellReceiptItemsCompanion(
       id: id ?? this.id,
       receiptId: receiptId ?? this.receiptId,
       itemId: itemId ?? this.itemId,
       quantity: quantity ?? this.quantity,
       price: price ?? this.price,
+      costPrice: costPrice ?? this.costPrice,
     );
   }
 
@@ -1151,6 +1185,9 @@ class SellReceiptItemsCompanion extends UpdateCompanion<SellReceiptItemsModel> {
     if (price.present) {
       map['price'] = Variable<double>(price.value);
     }
+    if (costPrice.present) {
+      map['cost_price'] = Variable<double>(costPrice.value);
+    }
     return map;
   }
 
@@ -1161,7 +1198,8 @@ class SellReceiptItemsCompanion extends UpdateCompanion<SellReceiptItemsModel> {
           ..write('receiptId: $receiptId, ')
           ..write('itemId: $itemId, ')
           ..write('quantity: $quantity, ')
-          ..write('price: $price')
+          ..write('price: $price, ')
+          ..write('costPrice: $costPrice')
           ..write(')'))
         .toString();
   }
@@ -5110,6 +5148,7 @@ typedef $$SellReceiptItemsTableCreateCompanionBuilder
   required int itemId,
   required double quantity,
   required double price,
+  required double costPrice,
 });
 typedef $$SellReceiptItemsTableUpdateCompanionBuilder
     = SellReceiptItemsCompanion Function({
@@ -5118,6 +5157,7 @@ typedef $$SellReceiptItemsTableUpdateCompanionBuilder
   Value<int> itemId,
   Value<double> quantity,
   Value<double> price,
+  Value<double> costPrice,
 });
 
 class $$SellReceiptItemsTableFilterComposer
@@ -5143,6 +5183,9 @@ class $$SellReceiptItemsTableFilterComposer
 
   ColumnFilters<double> get price => $composableBuilder(
       column: $table.price, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get costPrice => $composableBuilder(
+      column: $table.costPrice, builder: (column) => ColumnFilters(column));
 }
 
 class $$SellReceiptItemsTableOrderingComposer
@@ -5168,6 +5211,9 @@ class $$SellReceiptItemsTableOrderingComposer
 
   ColumnOrderings<double> get price => $composableBuilder(
       column: $table.price, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get costPrice => $composableBuilder(
+      column: $table.costPrice, builder: (column) => ColumnOrderings(column));
 }
 
 class $$SellReceiptItemsTableAnnotationComposer
@@ -5193,6 +5239,9 @@ class $$SellReceiptItemsTableAnnotationComposer
 
   GeneratedColumn<double> get price =>
       $composableBuilder(column: $table.price, builder: (column) => column);
+
+  GeneratedColumn<double> get costPrice =>
+      $composableBuilder(column: $table.costPrice, builder: (column) => column);
 }
 
 class $$SellReceiptItemsTableTableManager extends RootTableManager<
@@ -5228,6 +5277,7 @@ class $$SellReceiptItemsTableTableManager extends RootTableManager<
             Value<int> itemId = const Value.absent(),
             Value<double> quantity = const Value.absent(),
             Value<double> price = const Value.absent(),
+            Value<double> costPrice = const Value.absent(),
           }) =>
               SellReceiptItemsCompanion(
             id: id,
@@ -5235,6 +5285,7 @@ class $$SellReceiptItemsTableTableManager extends RootTableManager<
             itemId: itemId,
             quantity: quantity,
             price: price,
+            costPrice: costPrice,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -5242,6 +5293,7 @@ class $$SellReceiptItemsTableTableManager extends RootTableManager<
             required int itemId,
             required double quantity,
             required double price,
+            required double costPrice,
           }) =>
               SellReceiptItemsCompanion.insert(
             id: id,
@@ -5249,6 +5301,7 @@ class $$SellReceiptItemsTableTableManager extends RootTableManager<
             itemId: itemId,
             quantity: quantity,
             price: price,
+            costPrice: costPrice,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

@@ -8,7 +8,7 @@ part of 'shop_details.dart';
 
 class ShopDetailAdapter extends TypeAdapter<ShopDetail> {
   @override
-  final int typeId = 0;
+  final typeId = 0;
 
   @override
   ShopDetail read(BinaryReader reader) {
