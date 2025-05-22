@@ -64,6 +64,7 @@ class BuyReceiptsDetailScreen extends ConsumerWidget {
                         isSell: false,
                         subTotalPrice: receipt.subTotalPrice,
                         currencySign: currencySign,
+                        discountType: receipt.discountType,
                       ),
                       const SizedBox(height: VSizes.spaceBtwSections),
 

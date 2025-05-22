@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../models/report_related_models/customer_spend_model.dart';
+import '../../models/report_related_models/top_supplier_model.dart';
 import '../../models/state_models/report_profit_state_model.dart';
 import '../buy_providers/buy_related_providers.dart';
 import '../item_providers/item_related_providers.dart';
@@ -87,3 +89,51 @@ final profitStatsProvider = Provider<ProfitStats>((ref) {
     error: (_, __) => const ProfitStats.error(),
   );
 });
+//-------------------------------------------------------
+final topCustomersProvider =
+    StreamProvider.autoDispose<List<CustomerSpendModel>>((ref) {
+  final dao = ref.watch(sellReceiptDaoProvider);
+  return dao.watchTopCustomers();
+});
+
+final customerDebtsProvider =
+    StreamProvider.autoDispose<List<CustomerDebtModel>>((ref) {
+  final dao = ref.watch(sellReceiptDaoProvider);
+  return dao.watchCustomerDebts();
+});
+
+final mostSoldItemsProvider =
+    StreamProvider.autoDispose<List<MostSoldItemModel>>((ref) {
+  final dao = ref.watch(sellReceiptDaoProvider);
+  return dao.watchMostSoldItems();
+});
+//---------------------------
+final topSuppliersProvider =
+    StreamProvider.autoDispose<List<SupplierSpendModel>>((ref) {
+  final dao = ref.watch(buyReceiptDaoProvider);
+  return dao.watchTopSuppliers();
+});
+
+final supplierDebtsProvider =
+    StreamProvider.autoDispose<List<SupplierDebtModel>>((ref) {
+  final dao = ref.watch(buyReceiptDaoProvider);
+  return dao.watchSupplierDebts();
+});
+
+final mostBoughtItemsProvider =
+    StreamProvider.autoDispose<List<MostBoughtItemModel>>((ref) {
+  final dao = ref.watch(buyReceiptDaoProvider);
+  return dao.watchMostBoughtItems();
+});
+
+final averageItemCostProvider =
+    StreamProvider.autoDispose<List<ItemAverageCostModel>>((ref) {
+  final dao = ref.watch(buyReceiptDaoProvider);
+  return dao.watchAverageCostPerItem();
+});
+//----------------------------------------
+final mostReturnedItemsProvider = StreamProvider.autoDispose((ref) {
+  final dao = ref.watch(returnReceiptDaoProvider);
+  return dao.watchMostReturnedItems();
+});
+//------------------------------------------

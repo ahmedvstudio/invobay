@@ -64,6 +64,9 @@ class VRouter {
 
   // - Reports
   static const String reports = 'reports';
+  static const String newStockItems = 'newStockItems';
+  static const String lowStockItems = 'lowStockItems';
+  static const String outOfStockItems = 'outOfStockItems';
 
   // -
   static const String notification = 'notification';

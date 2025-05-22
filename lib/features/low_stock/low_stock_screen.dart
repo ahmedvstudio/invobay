@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -26,38 +25,15 @@ class LowStockScreen extends ConsumerWidget {
 
     return Scaffold(
       body: lowStockItems.isEmpty
-          ? Column(
+          ? const Column(
               children: [
-                VCustomAppBar(
-                  text: 'Low Stock Items',
-                  showBackArrow: false,
-                  actions: [
-                    IconButton(
-                        onPressed: () => context.pop(),
-                        icon: const Icon(
-                          CupertinoIcons.xmark,
-                          color: VColors.white,
-                        ))
-                  ],
-                ),
-                const Flexible(
-                    child: Center(child: Text("All items are in stock!"))),
+                VCustomAppBar(text: 'Low Stock Items'),
+                Flexible(child: Center(child: Text("All items are in stock!"))),
               ],
             )
           : Column(
               children: [
-                VCustomAppBar(
-                  text: 'Low Stock Items',
-                  showBackArrow: false,
-                  actions: [
-                    IconButton(
-                        onPressed: () => context.pop(),
-                        icon: const Icon(
-                          CupertinoIcons.xmark,
-                          color: VColors.white,
-                        ))
-                  ],
-                ),
+                const VCustomAppBar(text: 'Low Stock Items'),
                 Flexible(
                   child: ListView.separated(
                     shrinkWrap: true,
@@ -75,6 +51,7 @@ class LowStockScreen extends ConsumerWidget {
                           LowStockHelper(item.quantity, ref).getTwoText();
 
                       return ListTile(
+                        tileColor: Colors.transparent,
                         onTap: () => context.pushNamed(
                           VRouter.itemDetail,
                           pathParameters: {'id': item.id.toString()},

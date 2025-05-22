@@ -1,4 +1,4 @@
-import 'package:invobay/core/services/printing/widgets/text_widget.dart';
+import 'package:invobay/core/services/printing/sell_receipt_print/widgets/text_widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 

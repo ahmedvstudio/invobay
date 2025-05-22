@@ -2,7 +2,7 @@ import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../database/drift/app_database.dart';
+import '../../../../database/drift/app_database.dart';
 
 pw.Widget invoiceItems(List<SellReceiptItemsModel> items,
     List<Item?> itemDetailsList, String currencySign) {

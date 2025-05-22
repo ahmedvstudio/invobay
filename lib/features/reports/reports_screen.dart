@@ -19,10 +19,15 @@ class ReportsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final today = DateTime.now();
+    final startOfWeek =
+        today.subtract(Duration(days: today.weekday - 1)); // Monday
+    final endOfWeek = startOfWeek.add(const Duration(days: 6)); // Sunday
+
+    return Scaffold(
       body: Column(
         children: [
-          VPrimaryHeaderContainer(
+          const VPrimaryHeaderContainer(
             child: Column(
               children: [
                 VMainAppBar(
@@ -41,31 +46,33 @@ class ReportsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// Summary Cards
-                  VSummaryCards(),
-                  SizedBox(height: VSizes.spaceBtwSections),
+                  const VSummaryCards(),
+                  const SizedBox(height: VSizes.spaceBtwSections),
 
                   /// Inventory Section
-                  VInventorySection(),
-                  SizedBox(height: VSizes.spaceBtwSections),
+                  const VInventorySection(),
+                  const SizedBox(height: VSizes.spaceBtwSections),
 
                   /// Sell Section
-                  VSellSection(),
-                  SizedBox(height: VSizes.spaceBtwSections),
+                  const VSellSection(),
+                  const SizedBox(height: VSizes.spaceBtwSections),
 
                   /// Buy Section
-                  VBuySection(),
-                  SizedBox(height: VSizes.spaceBtwSections),
+                  const VBuySection(),
+                  const SizedBox(height: VSizes.spaceBtwSections),
 
                   /// Returns Section
-                  VReturnsSection(),
-                  SizedBox(height: VSizes.spaceBtwSections),
+                  const VReturnsSection(),
+                  const SizedBox(height: VSizes.spaceBtwSections),
 
                   /// Sales VS Buy Chart
-                  VSalesVsBuyCharts(),
-                  SizedBox(height: VSizes.spaceBtwSections),
+                  VSalesVsBuyCharts(
+                      dateRange:
+                          DateTimeRange(start: startOfWeek, end: endOfWeek)),
+                  const SizedBox(height: VSizes.spaceBtwSections),
 
                   /// Profit & Loss
-                  VProfitAndLoss(),
+                  const VProfitAndLoss(),
                 ],
               ),
             ),

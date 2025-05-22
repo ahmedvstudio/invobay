@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:invobay/core/database/drift/app_database.dart';
 
+import '../models/report_related_models/most_return_item_model.dart';
 import '../models/return_related_model/return_model.dart';
 import '../models/return_related_model/return_with_payment_model.dart';
 
@@ -16,6 +17,7 @@ class ReturnReceiptDao {
     required double discount,
     required double shippingFee,
     required double taxFee,
+    required String discountType,
     required String paymentMethod,
     required String paymentStatus,
     required double amountPaid,
@@ -27,6 +29,7 @@ class ReturnReceiptDao {
             ReturnReceiptsCompanion(
               subTotalPrice: drift.Value(subTotalPrice),
               discount: drift.Value(discount),
+              discountType: drift.Value(discountType),
               shippingFee: drift.Value(shippingFee),
               taxFee: drift.Value(taxFee),
               totalPrice: drift.Value(totalPrice),
@@ -174,6 +177,30 @@ class ReturnReceiptDao {
           status: drift.Value(newPaymentStatus),
         ),
       );
+    });
+  }
+
+  Stream<List<MostReturnedItemModel>> watchMostReturnedItems() {
+    final query = db.customSelect(
+      '''
+    SELECT i.id AS item_id, i.name AS item_name, SUM(rri.quantity) AS total_returned
+    FROM return_receipt_items rri
+    JOIN items i ON i.id = rri.item_id
+    GROUP BY rri.item_id
+    ORDER BY total_returned DESC
+    LIMIT 5
+    ''',
+      readsFrom: {db.returnReceiptItems, db.items},
+    );
+
+    return query.watch().map((rows) {
+      return rows
+          .map((row) => MostReturnedItemModel(
+                itemId: row.read<int>('item_id'),
+                itemName: row.read<String>('item_name'),
+                totalReturned: row.read<double>('total_returned'),
+              ))
+          .toList();
     });
   }
 }

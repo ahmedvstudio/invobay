@@ -45,6 +45,12 @@ class VDeviceUtils {
     return MediaQuery.of(context).size.width;
   }
 
+  static double getResponsiveWidth(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final dialogWidth = screenWidth < 600 ? screenWidth * 0.9 : 500.0;
+    return dialogWidth;
+  }
+
   static double getPixelRatio(BuildContext context) {
     return MediaQuery.of(context).devicePixelRatio;
   }

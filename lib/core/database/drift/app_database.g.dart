@@ -477,6 +477,14 @@ class $SellReceiptsTable extends SellReceipts
       type: DriftSqlType.double,
       requiredDuringInsert: false,
       defaultValue: const Constant(0.00));
+  static const VerificationMeta _discountTypeMeta =
+      const VerificationMeta('discountType');
+  @override
+  late final GeneratedColumn<String> discountType = GeneratedColumn<String>(
+      'discount_type', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: Constant(DiscountType.percentage.name));
   static const VerificationMeta _shippingFeeMeta =
       const VerificationMeta('shippingFee');
   @override
@@ -505,6 +513,7 @@ class $SellReceiptsTable extends SellReceipts
         customerId,
         subTotalPrice,
         discount,
+        discountType,
         shippingFee,
         taxFee,
         totalPrice
@@ -544,6 +553,12 @@ class $SellReceiptsTable extends SellReceipts
       context.handle(_discountMeta,
           discount.isAcceptableOrUnknown(data['discount']!, _discountMeta));
     }
+    if (data.containsKey('discount_type')) {
+      context.handle(
+          _discountTypeMeta,
+          discountType.isAcceptableOrUnknown(
+              data['discount_type']!, _discountTypeMeta));
+    }
     if (data.containsKey('shipping_fee')) {
       context.handle(
           _shippingFeeMeta,
@@ -581,6 +596,8 @@ class $SellReceiptsTable extends SellReceipts
           DriftSqlType.double, data['${effectivePrefix}sub_total_price'])!,
       discount: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}discount'])!,
+      discountType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}discount_type'])!,
       shippingFee: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}shipping_fee'])!,
       taxFee: attachedDatabase.typeMapping
@@ -603,6 +620,7 @@ class SellReceiptsModel extends DataClass
   final int? customerId;
   final double subTotalPrice;
   final double discount;
+  final String discountType;
   final double shippingFee;
   final double taxFee;
   final double totalPrice;
@@ -612,6 +630,7 @@ class SellReceiptsModel extends DataClass
       this.customerId,
       required this.subTotalPrice,
       required this.discount,
+      required this.discountType,
       required this.shippingFee,
       required this.taxFee,
       required this.totalPrice});
@@ -625,6 +644,7 @@ class SellReceiptsModel extends DataClass
     }
     map['sub_total_price'] = Variable<double>(subTotalPrice);
     map['discount'] = Variable<double>(discount);
+    map['discount_type'] = Variable<String>(discountType);
     map['shipping_fee'] = Variable<double>(shippingFee);
     map['tax_fee'] = Variable<double>(taxFee);
     map['total_price'] = Variable<double>(totalPrice);
@@ -640,6 +660,7 @@ class SellReceiptsModel extends DataClass
           : Value(customerId),
       subTotalPrice: Value(subTotalPrice),
       discount: Value(discount),
+      discountType: Value(discountType),
       shippingFee: Value(shippingFee),
       taxFee: Value(taxFee),
       totalPrice: Value(totalPrice),
@@ -655,6 +676,7 @@ class SellReceiptsModel extends DataClass
       customerId: serializer.fromJson<int?>(json['customerId']),
       subTotalPrice: serializer.fromJson<double>(json['subTotalPrice']),
       discount: serializer.fromJson<double>(json['discount']),
+      discountType: serializer.fromJson<String>(json['discountType']),
       shippingFee: serializer.fromJson<double>(json['shippingFee']),
       taxFee: serializer.fromJson<double>(json['taxFee']),
       totalPrice: serializer.fromJson<double>(json['totalPrice']),
@@ -669,6 +691,7 @@ class SellReceiptsModel extends DataClass
       'customerId': serializer.toJson<int?>(customerId),
       'subTotalPrice': serializer.toJson<double>(subTotalPrice),
       'discount': serializer.toJson<double>(discount),
+      'discountType': serializer.toJson<String>(discountType),
       'shippingFee': serializer.toJson<double>(shippingFee),
       'taxFee': serializer.toJson<double>(taxFee),
       'totalPrice': serializer.toJson<double>(totalPrice),
@@ -681,6 +704,7 @@ class SellReceiptsModel extends DataClass
           Value<int?> customerId = const Value.absent(),
           double? subTotalPrice,
           double? discount,
+          String? discountType,
           double? shippingFee,
           double? taxFee,
           double? totalPrice}) =>
@@ -690,6 +714,7 @@ class SellReceiptsModel extends DataClass
         customerId: customerId.present ? customerId.value : this.customerId,
         subTotalPrice: subTotalPrice ?? this.subTotalPrice,
         discount: discount ?? this.discount,
+        discountType: discountType ?? this.discountType,
         shippingFee: shippingFee ?? this.shippingFee,
         taxFee: taxFee ?? this.taxFee,
         totalPrice: totalPrice ?? this.totalPrice,
@@ -704,6 +729,9 @@ class SellReceiptsModel extends DataClass
           ? data.subTotalPrice.value
           : this.subTotalPrice,
       discount: data.discount.present ? data.discount.value : this.discount,
+      discountType: data.discountType.present
+          ? data.discountType.value
+          : this.discountType,
       shippingFee:
           data.shippingFee.present ? data.shippingFee.value : this.shippingFee,
       taxFee: data.taxFee.present ? data.taxFee.value : this.taxFee,
@@ -720,6 +748,7 @@ class SellReceiptsModel extends DataClass
           ..write('customerId: $customerId, ')
           ..write('subTotalPrice: $subTotalPrice, ')
           ..write('discount: $discount, ')
+          ..write('discountType: $discountType, ')
           ..write('shippingFee: $shippingFee, ')
           ..write('taxFee: $taxFee, ')
           ..write('totalPrice: $totalPrice')
@@ -729,7 +758,7 @@ class SellReceiptsModel extends DataClass
 
   @override
   int get hashCode => Object.hash(id, date, customerId, subTotalPrice, discount,
-      shippingFee, taxFee, totalPrice);
+      discountType, shippingFee, taxFee, totalPrice);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -739,6 +768,7 @@ class SellReceiptsModel extends DataClass
           other.customerId == this.customerId &&
           other.subTotalPrice == this.subTotalPrice &&
           other.discount == this.discount &&
+          other.discountType == this.discountType &&
           other.shippingFee == this.shippingFee &&
           other.taxFee == this.taxFee &&
           other.totalPrice == this.totalPrice);
@@ -750,6 +780,7 @@ class SellReceiptsCompanion extends UpdateCompanion<SellReceiptsModel> {
   final Value<int?> customerId;
   final Value<double> subTotalPrice;
   final Value<double> discount;
+  final Value<String> discountType;
   final Value<double> shippingFee;
   final Value<double> taxFee;
   final Value<double> totalPrice;
@@ -759,6 +790,7 @@ class SellReceiptsCompanion extends UpdateCompanion<SellReceiptsModel> {
     this.customerId = const Value.absent(),
     this.subTotalPrice = const Value.absent(),
     this.discount = const Value.absent(),
+    this.discountType = const Value.absent(),
     this.shippingFee = const Value.absent(),
     this.taxFee = const Value.absent(),
     this.totalPrice = const Value.absent(),
@@ -769,6 +801,7 @@ class SellReceiptsCompanion extends UpdateCompanion<SellReceiptsModel> {
     this.customerId = const Value.absent(),
     required double subTotalPrice,
     this.discount = const Value.absent(),
+    this.discountType = const Value.absent(),
     this.shippingFee = const Value.absent(),
     this.taxFee = const Value.absent(),
     required double totalPrice,
@@ -780,6 +813,7 @@ class SellReceiptsCompanion extends UpdateCompanion<SellReceiptsModel> {
     Expression<int>? customerId,
     Expression<double>? subTotalPrice,
     Expression<double>? discount,
+    Expression<String>? discountType,
     Expression<double>? shippingFee,
     Expression<double>? taxFee,
     Expression<double>? totalPrice,
@@ -790,6 +824,7 @@ class SellReceiptsCompanion extends UpdateCompanion<SellReceiptsModel> {
       if (customerId != null) 'customer_id': customerId,
       if (subTotalPrice != null) 'sub_total_price': subTotalPrice,
       if (discount != null) 'discount': discount,
+      if (discountType != null) 'discount_type': discountType,
       if (shippingFee != null) 'shipping_fee': shippingFee,
       if (taxFee != null) 'tax_fee': taxFee,
       if (totalPrice != null) 'total_price': totalPrice,
@@ -802,6 +837,7 @@ class SellReceiptsCompanion extends UpdateCompanion<SellReceiptsModel> {
       Value<int?>? customerId,
       Value<double>? subTotalPrice,
       Value<double>? discount,
+      Value<String>? discountType,
       Value<double>? shippingFee,
       Value<double>? taxFee,
       Value<double>? totalPrice}) {
@@ -811,6 +847,7 @@ class SellReceiptsCompanion extends UpdateCompanion<SellReceiptsModel> {
       customerId: customerId ?? this.customerId,
       subTotalPrice: subTotalPrice ?? this.subTotalPrice,
       discount: discount ?? this.discount,
+      discountType: discountType ?? this.discountType,
       shippingFee: shippingFee ?? this.shippingFee,
       taxFee: taxFee ?? this.taxFee,
       totalPrice: totalPrice ?? this.totalPrice,
@@ -835,6 +872,9 @@ class SellReceiptsCompanion extends UpdateCompanion<SellReceiptsModel> {
     if (discount.present) {
       map['discount'] = Variable<double>(discount.value);
     }
+    if (discountType.present) {
+      map['discount_type'] = Variable<String>(discountType.value);
+    }
     if (shippingFee.present) {
       map['shipping_fee'] = Variable<double>(shippingFee.value);
     }
@@ -855,6 +895,7 @@ class SellReceiptsCompanion extends UpdateCompanion<SellReceiptsModel> {
           ..write('customerId: $customerId, ')
           ..write('subTotalPrice: $subTotalPrice, ')
           ..write('discount: $discount, ')
+          ..write('discountType: $discountType, ')
           ..write('shippingFee: $shippingFee, ')
           ..write('taxFee: $taxFee, ')
           ..write('totalPrice: $totalPrice')
@@ -1643,6 +1684,14 @@ class $BuyReceiptsTable extends BuyReceipts
       type: DriftSqlType.double,
       requiredDuringInsert: false,
       defaultValue: const Constant(0.00));
+  static const VerificationMeta _discountTypeMeta =
+      const VerificationMeta('discountType');
+  @override
+  late final GeneratedColumn<String> discountType = GeneratedColumn<String>(
+      'discount_type', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: Constant(DiscountType.percentage.name));
   static const VerificationMeta _shippingFeeMeta =
       const VerificationMeta('shippingFee');
   @override
@@ -1671,6 +1720,7 @@ class $BuyReceiptsTable extends BuyReceipts
         supplierId,
         subTotalPrice,
         discount,
+        discountType,
         shippingFee,
         taxFee,
         totalPrice
@@ -1710,6 +1760,12 @@ class $BuyReceiptsTable extends BuyReceipts
       context.handle(_discountMeta,
           discount.isAcceptableOrUnknown(data['discount']!, _discountMeta));
     }
+    if (data.containsKey('discount_type')) {
+      context.handle(
+          _discountTypeMeta,
+          discountType.isAcceptableOrUnknown(
+              data['discount_type']!, _discountTypeMeta));
+    }
     if (data.containsKey('shipping_fee')) {
       context.handle(
           _shippingFeeMeta,
@@ -1747,6 +1803,8 @@ class $BuyReceiptsTable extends BuyReceipts
           DriftSqlType.double, data['${effectivePrefix}sub_total_price'])!,
       discount: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}discount'])!,
+      discountType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}discount_type'])!,
       shippingFee: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}shipping_fee'])!,
       taxFee: attachedDatabase.typeMapping
@@ -1769,6 +1827,7 @@ class BuyReceiptsModel extends DataClass
   final int? supplierId;
   final double subTotalPrice;
   final double discount;
+  final String discountType;
   final double shippingFee;
   final double taxFee;
   final double totalPrice;
@@ -1778,6 +1837,7 @@ class BuyReceiptsModel extends DataClass
       this.supplierId,
       required this.subTotalPrice,
       required this.discount,
+      required this.discountType,
       required this.shippingFee,
       required this.taxFee,
       required this.totalPrice});
@@ -1791,6 +1851,7 @@ class BuyReceiptsModel extends DataClass
     }
     map['sub_total_price'] = Variable<double>(subTotalPrice);
     map['discount'] = Variable<double>(discount);
+    map['discount_type'] = Variable<String>(discountType);
     map['shipping_fee'] = Variable<double>(shippingFee);
     map['tax_fee'] = Variable<double>(taxFee);
     map['total_price'] = Variable<double>(totalPrice);
@@ -1806,6 +1867,7 @@ class BuyReceiptsModel extends DataClass
           : Value(supplierId),
       subTotalPrice: Value(subTotalPrice),
       discount: Value(discount),
+      discountType: Value(discountType),
       shippingFee: Value(shippingFee),
       taxFee: Value(taxFee),
       totalPrice: Value(totalPrice),
@@ -1821,6 +1883,7 @@ class BuyReceiptsModel extends DataClass
       supplierId: serializer.fromJson<int?>(json['supplierId']),
       subTotalPrice: serializer.fromJson<double>(json['subTotalPrice']),
       discount: serializer.fromJson<double>(json['discount']),
+      discountType: serializer.fromJson<String>(json['discountType']),
       shippingFee: serializer.fromJson<double>(json['shippingFee']),
       taxFee: serializer.fromJson<double>(json['taxFee']),
       totalPrice: serializer.fromJson<double>(json['totalPrice']),
@@ -1835,6 +1898,7 @@ class BuyReceiptsModel extends DataClass
       'supplierId': serializer.toJson<int?>(supplierId),
       'subTotalPrice': serializer.toJson<double>(subTotalPrice),
       'discount': serializer.toJson<double>(discount),
+      'discountType': serializer.toJson<String>(discountType),
       'shippingFee': serializer.toJson<double>(shippingFee),
       'taxFee': serializer.toJson<double>(taxFee),
       'totalPrice': serializer.toJson<double>(totalPrice),
@@ -1847,6 +1911,7 @@ class BuyReceiptsModel extends DataClass
           Value<int?> supplierId = const Value.absent(),
           double? subTotalPrice,
           double? discount,
+          String? discountType,
           double? shippingFee,
           double? taxFee,
           double? totalPrice}) =>
@@ -1856,6 +1921,7 @@ class BuyReceiptsModel extends DataClass
         supplierId: supplierId.present ? supplierId.value : this.supplierId,
         subTotalPrice: subTotalPrice ?? this.subTotalPrice,
         discount: discount ?? this.discount,
+        discountType: discountType ?? this.discountType,
         shippingFee: shippingFee ?? this.shippingFee,
         taxFee: taxFee ?? this.taxFee,
         totalPrice: totalPrice ?? this.totalPrice,
@@ -1870,6 +1936,9 @@ class BuyReceiptsModel extends DataClass
           ? data.subTotalPrice.value
           : this.subTotalPrice,
       discount: data.discount.present ? data.discount.value : this.discount,
+      discountType: data.discountType.present
+          ? data.discountType.value
+          : this.discountType,
       shippingFee:
           data.shippingFee.present ? data.shippingFee.value : this.shippingFee,
       taxFee: data.taxFee.present ? data.taxFee.value : this.taxFee,
@@ -1886,6 +1955,7 @@ class BuyReceiptsModel extends DataClass
           ..write('supplierId: $supplierId, ')
           ..write('subTotalPrice: $subTotalPrice, ')
           ..write('discount: $discount, ')
+          ..write('discountType: $discountType, ')
           ..write('shippingFee: $shippingFee, ')
           ..write('taxFee: $taxFee, ')
           ..write('totalPrice: $totalPrice')
@@ -1895,7 +1965,7 @@ class BuyReceiptsModel extends DataClass
 
   @override
   int get hashCode => Object.hash(id, date, supplierId, subTotalPrice, discount,
-      shippingFee, taxFee, totalPrice);
+      discountType, shippingFee, taxFee, totalPrice);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1905,6 +1975,7 @@ class BuyReceiptsModel extends DataClass
           other.supplierId == this.supplierId &&
           other.subTotalPrice == this.subTotalPrice &&
           other.discount == this.discount &&
+          other.discountType == this.discountType &&
           other.shippingFee == this.shippingFee &&
           other.taxFee == this.taxFee &&
           other.totalPrice == this.totalPrice);
@@ -1916,6 +1987,7 @@ class BuyReceiptsCompanion extends UpdateCompanion<BuyReceiptsModel> {
   final Value<int?> supplierId;
   final Value<double> subTotalPrice;
   final Value<double> discount;
+  final Value<String> discountType;
   final Value<double> shippingFee;
   final Value<double> taxFee;
   final Value<double> totalPrice;
@@ -1925,6 +1997,7 @@ class BuyReceiptsCompanion extends UpdateCompanion<BuyReceiptsModel> {
     this.supplierId = const Value.absent(),
     this.subTotalPrice = const Value.absent(),
     this.discount = const Value.absent(),
+    this.discountType = const Value.absent(),
     this.shippingFee = const Value.absent(),
     this.taxFee = const Value.absent(),
     this.totalPrice = const Value.absent(),
@@ -1935,6 +2008,7 @@ class BuyReceiptsCompanion extends UpdateCompanion<BuyReceiptsModel> {
     this.supplierId = const Value.absent(),
     required double subTotalPrice,
     this.discount = const Value.absent(),
+    this.discountType = const Value.absent(),
     this.shippingFee = const Value.absent(),
     this.taxFee = const Value.absent(),
     required double totalPrice,
@@ -1946,6 +2020,7 @@ class BuyReceiptsCompanion extends UpdateCompanion<BuyReceiptsModel> {
     Expression<int>? supplierId,
     Expression<double>? subTotalPrice,
     Expression<double>? discount,
+    Expression<String>? discountType,
     Expression<double>? shippingFee,
     Expression<double>? taxFee,
     Expression<double>? totalPrice,
@@ -1956,6 +2031,7 @@ class BuyReceiptsCompanion extends UpdateCompanion<BuyReceiptsModel> {
       if (supplierId != null) 'supplier_id': supplierId,
       if (subTotalPrice != null) 'sub_total_price': subTotalPrice,
       if (discount != null) 'discount': discount,
+      if (discountType != null) 'discount_type': discountType,
       if (shippingFee != null) 'shipping_fee': shippingFee,
       if (taxFee != null) 'tax_fee': taxFee,
       if (totalPrice != null) 'total_price': totalPrice,
@@ -1968,6 +2044,7 @@ class BuyReceiptsCompanion extends UpdateCompanion<BuyReceiptsModel> {
       Value<int?>? supplierId,
       Value<double>? subTotalPrice,
       Value<double>? discount,
+      Value<String>? discountType,
       Value<double>? shippingFee,
       Value<double>? taxFee,
       Value<double>? totalPrice}) {
@@ -1977,6 +2054,7 @@ class BuyReceiptsCompanion extends UpdateCompanion<BuyReceiptsModel> {
       supplierId: supplierId ?? this.supplierId,
       subTotalPrice: subTotalPrice ?? this.subTotalPrice,
       discount: discount ?? this.discount,
+      discountType: discountType ?? this.discountType,
       shippingFee: shippingFee ?? this.shippingFee,
       taxFee: taxFee ?? this.taxFee,
       totalPrice: totalPrice ?? this.totalPrice,
@@ -2001,6 +2079,9 @@ class BuyReceiptsCompanion extends UpdateCompanion<BuyReceiptsModel> {
     if (discount.present) {
       map['discount'] = Variable<double>(discount.value);
     }
+    if (discountType.present) {
+      map['discount_type'] = Variable<String>(discountType.value);
+    }
     if (shippingFee.present) {
       map['shipping_fee'] = Variable<double>(shippingFee.value);
     }
@@ -2021,6 +2102,7 @@ class BuyReceiptsCompanion extends UpdateCompanion<BuyReceiptsModel> {
           ..write('supplierId: $supplierId, ')
           ..write('subTotalPrice: $subTotalPrice, ')
           ..write('discount: $discount, ')
+          ..write('discountType: $discountType, ')
           ..write('shippingFee: $shippingFee, ')
           ..write('taxFee: $taxFee, ')
           ..write('totalPrice: $totalPrice')
@@ -2763,6 +2845,14 @@ class $ReturnReceiptsTable extends ReturnReceipts
       type: DriftSqlType.double,
       requiredDuringInsert: false,
       defaultValue: const Constant(0.00));
+  static const VerificationMeta _discountTypeMeta =
+      const VerificationMeta('discountType');
+  @override
+  late final GeneratedColumn<String> discountType = GeneratedColumn<String>(
+      'discount_type', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: Constant(DiscountType.percentage.name));
   static const VerificationMeta _shippingFeeMeta =
       const VerificationMeta('shippingFee');
   @override
@@ -2785,8 +2875,16 @@ class $ReturnReceiptsTable extends ReturnReceipts
       'total_price', aliasedName, false,
       type: DriftSqlType.double, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, date, subTotalPrice, discount, shippingFee, taxFee, totalPrice];
+  List<GeneratedColumn> get $columns => [
+        id,
+        date,
+        subTotalPrice,
+        discount,
+        discountType,
+        shippingFee,
+        taxFee,
+        totalPrice
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -2816,6 +2914,12 @@ class $ReturnReceiptsTable extends ReturnReceipts
     if (data.containsKey('discount')) {
       context.handle(_discountMeta,
           discount.isAcceptableOrUnknown(data['discount']!, _discountMeta));
+    }
+    if (data.containsKey('discount_type')) {
+      context.handle(
+          _discountTypeMeta,
+          discountType.isAcceptableOrUnknown(
+              data['discount_type']!, _discountTypeMeta));
     }
     if (data.containsKey('shipping_fee')) {
       context.handle(
@@ -2852,6 +2956,8 @@ class $ReturnReceiptsTable extends ReturnReceipts
           DriftSqlType.double, data['${effectivePrefix}sub_total_price'])!,
       discount: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}discount'])!,
+      discountType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}discount_type'])!,
       shippingFee: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}shipping_fee'])!,
       taxFee: attachedDatabase.typeMapping
@@ -2873,6 +2979,7 @@ class ReturnReceiptsModel extends DataClass
   final DateTime date;
   final double subTotalPrice;
   final double discount;
+  final String discountType;
   final double shippingFee;
   final double taxFee;
   final double totalPrice;
@@ -2881,6 +2988,7 @@ class ReturnReceiptsModel extends DataClass
       required this.date,
       required this.subTotalPrice,
       required this.discount,
+      required this.discountType,
       required this.shippingFee,
       required this.taxFee,
       required this.totalPrice});
@@ -2891,6 +2999,7 @@ class ReturnReceiptsModel extends DataClass
     map['date'] = Variable<DateTime>(date);
     map['sub_total_price'] = Variable<double>(subTotalPrice);
     map['discount'] = Variable<double>(discount);
+    map['discount_type'] = Variable<String>(discountType);
     map['shipping_fee'] = Variable<double>(shippingFee);
     map['tax_fee'] = Variable<double>(taxFee);
     map['total_price'] = Variable<double>(totalPrice);
@@ -2903,6 +3012,7 @@ class ReturnReceiptsModel extends DataClass
       date: Value(date),
       subTotalPrice: Value(subTotalPrice),
       discount: Value(discount),
+      discountType: Value(discountType),
       shippingFee: Value(shippingFee),
       taxFee: Value(taxFee),
       totalPrice: Value(totalPrice),
@@ -2917,6 +3027,7 @@ class ReturnReceiptsModel extends DataClass
       date: serializer.fromJson<DateTime>(json['date']),
       subTotalPrice: serializer.fromJson<double>(json['subTotalPrice']),
       discount: serializer.fromJson<double>(json['discount']),
+      discountType: serializer.fromJson<String>(json['discountType']),
       shippingFee: serializer.fromJson<double>(json['shippingFee']),
       taxFee: serializer.fromJson<double>(json['taxFee']),
       totalPrice: serializer.fromJson<double>(json['totalPrice']),
@@ -2930,6 +3041,7 @@ class ReturnReceiptsModel extends DataClass
       'date': serializer.toJson<DateTime>(date),
       'subTotalPrice': serializer.toJson<double>(subTotalPrice),
       'discount': serializer.toJson<double>(discount),
+      'discountType': serializer.toJson<String>(discountType),
       'shippingFee': serializer.toJson<double>(shippingFee),
       'taxFee': serializer.toJson<double>(taxFee),
       'totalPrice': serializer.toJson<double>(totalPrice),
@@ -2941,6 +3053,7 @@ class ReturnReceiptsModel extends DataClass
           DateTime? date,
           double? subTotalPrice,
           double? discount,
+          String? discountType,
           double? shippingFee,
           double? taxFee,
           double? totalPrice}) =>
@@ -2949,6 +3062,7 @@ class ReturnReceiptsModel extends DataClass
         date: date ?? this.date,
         subTotalPrice: subTotalPrice ?? this.subTotalPrice,
         discount: discount ?? this.discount,
+        discountType: discountType ?? this.discountType,
         shippingFee: shippingFee ?? this.shippingFee,
         taxFee: taxFee ?? this.taxFee,
         totalPrice: totalPrice ?? this.totalPrice,
@@ -2961,6 +3075,9 @@ class ReturnReceiptsModel extends DataClass
           ? data.subTotalPrice.value
           : this.subTotalPrice,
       discount: data.discount.present ? data.discount.value : this.discount,
+      discountType: data.discountType.present
+          ? data.discountType.value
+          : this.discountType,
       shippingFee:
           data.shippingFee.present ? data.shippingFee.value : this.shippingFee,
       taxFee: data.taxFee.present ? data.taxFee.value : this.taxFee,
@@ -2976,6 +3093,7 @@ class ReturnReceiptsModel extends DataClass
           ..write('date: $date, ')
           ..write('subTotalPrice: $subTotalPrice, ')
           ..write('discount: $discount, ')
+          ..write('discountType: $discountType, ')
           ..write('shippingFee: $shippingFee, ')
           ..write('taxFee: $taxFee, ')
           ..write('totalPrice: $totalPrice')
@@ -2984,8 +3102,8 @@ class ReturnReceiptsModel extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, date, subTotalPrice, discount, shippingFee, taxFee, totalPrice);
+  int get hashCode => Object.hash(id, date, subTotalPrice, discount,
+      discountType, shippingFee, taxFee, totalPrice);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2994,6 +3112,7 @@ class ReturnReceiptsModel extends DataClass
           other.date == this.date &&
           other.subTotalPrice == this.subTotalPrice &&
           other.discount == this.discount &&
+          other.discountType == this.discountType &&
           other.shippingFee == this.shippingFee &&
           other.taxFee == this.taxFee &&
           other.totalPrice == this.totalPrice);
@@ -3004,6 +3123,7 @@ class ReturnReceiptsCompanion extends UpdateCompanion<ReturnReceiptsModel> {
   final Value<DateTime> date;
   final Value<double> subTotalPrice;
   final Value<double> discount;
+  final Value<String> discountType;
   final Value<double> shippingFee;
   final Value<double> taxFee;
   final Value<double> totalPrice;
@@ -3012,6 +3132,7 @@ class ReturnReceiptsCompanion extends UpdateCompanion<ReturnReceiptsModel> {
     this.date = const Value.absent(),
     this.subTotalPrice = const Value.absent(),
     this.discount = const Value.absent(),
+    this.discountType = const Value.absent(),
     this.shippingFee = const Value.absent(),
     this.taxFee = const Value.absent(),
     this.totalPrice = const Value.absent(),
@@ -3021,6 +3142,7 @@ class ReturnReceiptsCompanion extends UpdateCompanion<ReturnReceiptsModel> {
     this.date = const Value.absent(),
     required double subTotalPrice,
     this.discount = const Value.absent(),
+    this.discountType = const Value.absent(),
     this.shippingFee = const Value.absent(),
     this.taxFee = const Value.absent(),
     required double totalPrice,
@@ -3031,6 +3153,7 @@ class ReturnReceiptsCompanion extends UpdateCompanion<ReturnReceiptsModel> {
     Expression<DateTime>? date,
     Expression<double>? subTotalPrice,
     Expression<double>? discount,
+    Expression<String>? discountType,
     Expression<double>? shippingFee,
     Expression<double>? taxFee,
     Expression<double>? totalPrice,
@@ -3040,6 +3163,7 @@ class ReturnReceiptsCompanion extends UpdateCompanion<ReturnReceiptsModel> {
       if (date != null) 'date': date,
       if (subTotalPrice != null) 'sub_total_price': subTotalPrice,
       if (discount != null) 'discount': discount,
+      if (discountType != null) 'discount_type': discountType,
       if (shippingFee != null) 'shipping_fee': shippingFee,
       if (taxFee != null) 'tax_fee': taxFee,
       if (totalPrice != null) 'total_price': totalPrice,
@@ -3051,6 +3175,7 @@ class ReturnReceiptsCompanion extends UpdateCompanion<ReturnReceiptsModel> {
       Value<DateTime>? date,
       Value<double>? subTotalPrice,
       Value<double>? discount,
+      Value<String>? discountType,
       Value<double>? shippingFee,
       Value<double>? taxFee,
       Value<double>? totalPrice}) {
@@ -3059,6 +3184,7 @@ class ReturnReceiptsCompanion extends UpdateCompanion<ReturnReceiptsModel> {
       date: date ?? this.date,
       subTotalPrice: subTotalPrice ?? this.subTotalPrice,
       discount: discount ?? this.discount,
+      discountType: discountType ?? this.discountType,
       shippingFee: shippingFee ?? this.shippingFee,
       taxFee: taxFee ?? this.taxFee,
       totalPrice: totalPrice ?? this.totalPrice,
@@ -3080,6 +3206,9 @@ class ReturnReceiptsCompanion extends UpdateCompanion<ReturnReceiptsModel> {
     if (discount.present) {
       map['discount'] = Variable<double>(discount.value);
     }
+    if (discountType.present) {
+      map['discount_type'] = Variable<String>(discountType.value);
+    }
     if (shippingFee.present) {
       map['shipping_fee'] = Variable<double>(shippingFee.value);
     }
@@ -3099,6 +3228,7 @@ class ReturnReceiptsCompanion extends UpdateCompanion<ReturnReceiptsModel> {
           ..write('date: $date, ')
           ..write('subTotalPrice: $subTotalPrice, ')
           ..write('discount: $discount, ')
+          ..write('discountType: $discountType, ')
           ..write('shippingFee: $shippingFee, ')
           ..write('taxFee: $taxFee, ')
           ..write('totalPrice: $totalPrice')
@@ -4935,6 +5065,7 @@ typedef $$SellReceiptsTableCreateCompanionBuilder = SellReceiptsCompanion
   Value<int?> customerId,
   required double subTotalPrice,
   Value<double> discount,
+  Value<String> discountType,
   Value<double> shippingFee,
   Value<double> taxFee,
   required double totalPrice,
@@ -4946,6 +5077,7 @@ typedef $$SellReceiptsTableUpdateCompanionBuilder = SellReceiptsCompanion
   Value<int?> customerId,
   Value<double> subTotalPrice,
   Value<double> discount,
+  Value<String> discountType,
   Value<double> shippingFee,
   Value<double> taxFee,
   Value<double> totalPrice,
@@ -4974,6 +5106,9 @@ class $$SellReceiptsTableFilterComposer
 
   ColumnFilters<double> get discount => $composableBuilder(
       column: $table.discount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get discountType => $composableBuilder(
+      column: $table.discountType, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<double> get shippingFee => $composableBuilder(
       column: $table.shippingFee, builder: (column) => ColumnFilters(column));
@@ -5010,6 +5145,10 @@ class $$SellReceiptsTableOrderingComposer
   ColumnOrderings<double> get discount => $composableBuilder(
       column: $table.discount, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get discountType => $composableBuilder(
+      column: $table.discountType,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<double> get shippingFee => $composableBuilder(
       column: $table.shippingFee, builder: (column) => ColumnOrderings(column));
 
@@ -5043,6 +5182,9 @@ class $$SellReceiptsTableAnnotationComposer
 
   GeneratedColumn<double> get discount =>
       $composableBuilder(column: $table.discount, builder: (column) => column);
+
+  GeneratedColumn<String> get discountType => $composableBuilder(
+      column: $table.discountType, builder: (column) => column);
 
   GeneratedColumn<double> get shippingFee => $composableBuilder(
       column: $table.shippingFee, builder: (column) => column);
@@ -5085,6 +5227,7 @@ class $$SellReceiptsTableTableManager extends RootTableManager<
             Value<int?> customerId = const Value.absent(),
             Value<double> subTotalPrice = const Value.absent(),
             Value<double> discount = const Value.absent(),
+            Value<String> discountType = const Value.absent(),
             Value<double> shippingFee = const Value.absent(),
             Value<double> taxFee = const Value.absent(),
             Value<double> totalPrice = const Value.absent(),
@@ -5095,6 +5238,7 @@ class $$SellReceiptsTableTableManager extends RootTableManager<
             customerId: customerId,
             subTotalPrice: subTotalPrice,
             discount: discount,
+            discountType: discountType,
             shippingFee: shippingFee,
             taxFee: taxFee,
             totalPrice: totalPrice,
@@ -5105,6 +5249,7 @@ class $$SellReceiptsTableTableManager extends RootTableManager<
             Value<int?> customerId = const Value.absent(),
             required double subTotalPrice,
             Value<double> discount = const Value.absent(),
+            Value<String> discountType = const Value.absent(),
             Value<double> shippingFee = const Value.absent(),
             Value<double> taxFee = const Value.absent(),
             required double totalPrice,
@@ -5115,6 +5260,7 @@ class $$SellReceiptsTableTableManager extends RootTableManager<
             customerId: customerId,
             subTotalPrice: subTotalPrice,
             discount: discount,
+            discountType: discountType,
             shippingFee: shippingFee,
             taxFee: taxFee,
             totalPrice: totalPrice,
@@ -5531,6 +5677,7 @@ typedef $$BuyReceiptsTableCreateCompanionBuilder = BuyReceiptsCompanion
   Value<int?> supplierId,
   required double subTotalPrice,
   Value<double> discount,
+  Value<String> discountType,
   Value<double> shippingFee,
   Value<double> taxFee,
   required double totalPrice,
@@ -5542,6 +5689,7 @@ typedef $$BuyReceiptsTableUpdateCompanionBuilder = BuyReceiptsCompanion
   Value<int?> supplierId,
   Value<double> subTotalPrice,
   Value<double> discount,
+  Value<String> discountType,
   Value<double> shippingFee,
   Value<double> taxFee,
   Value<double> totalPrice,
@@ -5570,6 +5718,9 @@ class $$BuyReceiptsTableFilterComposer
 
   ColumnFilters<double> get discount => $composableBuilder(
       column: $table.discount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get discountType => $composableBuilder(
+      column: $table.discountType, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<double> get shippingFee => $composableBuilder(
       column: $table.shippingFee, builder: (column) => ColumnFilters(column));
@@ -5606,6 +5757,10 @@ class $$BuyReceiptsTableOrderingComposer
   ColumnOrderings<double> get discount => $composableBuilder(
       column: $table.discount, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get discountType => $composableBuilder(
+      column: $table.discountType,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<double> get shippingFee => $composableBuilder(
       column: $table.shippingFee, builder: (column) => ColumnOrderings(column));
 
@@ -5639,6 +5794,9 @@ class $$BuyReceiptsTableAnnotationComposer
 
   GeneratedColumn<double> get discount =>
       $composableBuilder(column: $table.discount, builder: (column) => column);
+
+  GeneratedColumn<String> get discountType => $composableBuilder(
+      column: $table.discountType, builder: (column) => column);
 
   GeneratedColumn<double> get shippingFee => $composableBuilder(
       column: $table.shippingFee, builder: (column) => column);
@@ -5681,6 +5839,7 @@ class $$BuyReceiptsTableTableManager extends RootTableManager<
             Value<int?> supplierId = const Value.absent(),
             Value<double> subTotalPrice = const Value.absent(),
             Value<double> discount = const Value.absent(),
+            Value<String> discountType = const Value.absent(),
             Value<double> shippingFee = const Value.absent(),
             Value<double> taxFee = const Value.absent(),
             Value<double> totalPrice = const Value.absent(),
@@ -5691,6 +5850,7 @@ class $$BuyReceiptsTableTableManager extends RootTableManager<
             supplierId: supplierId,
             subTotalPrice: subTotalPrice,
             discount: discount,
+            discountType: discountType,
             shippingFee: shippingFee,
             taxFee: taxFee,
             totalPrice: totalPrice,
@@ -5701,6 +5861,7 @@ class $$BuyReceiptsTableTableManager extends RootTableManager<
             Value<int?> supplierId = const Value.absent(),
             required double subTotalPrice,
             Value<double> discount = const Value.absent(),
+            Value<String> discountType = const Value.absent(),
             Value<double> shippingFee = const Value.absent(),
             Value<double> taxFee = const Value.absent(),
             required double totalPrice,
@@ -5711,6 +5872,7 @@ class $$BuyReceiptsTableTableManager extends RootTableManager<
             supplierId: supplierId,
             subTotalPrice: subTotalPrice,
             discount: discount,
+            discountType: discountType,
             shippingFee: shippingFee,
             taxFee: taxFee,
             totalPrice: totalPrice,
@@ -6109,6 +6271,7 @@ typedef $$ReturnReceiptsTableCreateCompanionBuilder = ReturnReceiptsCompanion
   Value<DateTime> date,
   required double subTotalPrice,
   Value<double> discount,
+  Value<String> discountType,
   Value<double> shippingFee,
   Value<double> taxFee,
   required double totalPrice,
@@ -6119,6 +6282,7 @@ typedef $$ReturnReceiptsTableUpdateCompanionBuilder = ReturnReceiptsCompanion
   Value<DateTime> date,
   Value<double> subTotalPrice,
   Value<double> discount,
+  Value<String> discountType,
   Value<double> shippingFee,
   Value<double> taxFee,
   Value<double> totalPrice,
@@ -6144,6 +6308,9 @@ class $$ReturnReceiptsTableFilterComposer
 
   ColumnFilters<double> get discount => $composableBuilder(
       column: $table.discount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get discountType => $composableBuilder(
+      column: $table.discountType, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<double> get shippingFee => $composableBuilder(
       column: $table.shippingFee, builder: (column) => ColumnFilters(column));
@@ -6177,6 +6344,10 @@ class $$ReturnReceiptsTableOrderingComposer
   ColumnOrderings<double> get discount => $composableBuilder(
       column: $table.discount, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get discountType => $composableBuilder(
+      column: $table.discountType,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<double> get shippingFee => $composableBuilder(
       column: $table.shippingFee, builder: (column) => ColumnOrderings(column));
 
@@ -6207,6 +6378,9 @@ class $$ReturnReceiptsTableAnnotationComposer
 
   GeneratedColumn<double> get discount =>
       $composableBuilder(column: $table.discount, builder: (column) => column);
+
+  GeneratedColumn<String> get discountType => $composableBuilder(
+      column: $table.discountType, builder: (column) => column);
 
   GeneratedColumn<double> get shippingFee => $composableBuilder(
       column: $table.shippingFee, builder: (column) => column);
@@ -6249,6 +6423,7 @@ class $$ReturnReceiptsTableTableManager extends RootTableManager<
             Value<DateTime> date = const Value.absent(),
             Value<double> subTotalPrice = const Value.absent(),
             Value<double> discount = const Value.absent(),
+            Value<String> discountType = const Value.absent(),
             Value<double> shippingFee = const Value.absent(),
             Value<double> taxFee = const Value.absent(),
             Value<double> totalPrice = const Value.absent(),
@@ -6258,6 +6433,7 @@ class $$ReturnReceiptsTableTableManager extends RootTableManager<
             date: date,
             subTotalPrice: subTotalPrice,
             discount: discount,
+            discountType: discountType,
             shippingFee: shippingFee,
             taxFee: taxFee,
             totalPrice: totalPrice,
@@ -6267,6 +6443,7 @@ class $$ReturnReceiptsTableTableManager extends RootTableManager<
             Value<DateTime> date = const Value.absent(),
             required double subTotalPrice,
             Value<double> discount = const Value.absent(),
+            Value<String> discountType = const Value.absent(),
             Value<double> shippingFee = const Value.absent(),
             Value<double> taxFee = const Value.absent(),
             required double totalPrice,
@@ -6276,6 +6453,7 @@ class $$ReturnReceiptsTableTableManager extends RootTableManager<
             date: date,
             subTotalPrice: subTotalPrice,
             discount: discount,
+            discountType: discountType,
             shippingFee: shippingFee,
             taxFee: taxFee,
             totalPrice: totalPrice,

@@ -1,11 +1,15 @@
 import 'package:drift/drift.dart';
 
+import '../../../utils/constants/enums.dart';
+
 @DataClassName('ReturnReceiptsModel')
 class ReturnReceipts extends Table {
   IntColumn get id => integer().autoIncrement()();
   DateTimeColumn get date => dateTime().withDefault(currentDateAndTime)();
   RealColumn get subTotalPrice => real()();
   RealColumn get discount => real().withDefault(const Constant(0.00))();
+  TextColumn get discountType =>
+      text().withDefault(Constant(DiscountType.percentage.name))();
   RealColumn get shippingFee => real().withDefault(const Constant(0.00))();
   RealColumn get taxFee => real().withDefault(const Constant(0.00))();
   RealColumn get totalPrice => real()();

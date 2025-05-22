@@ -1,8 +1,8 @@
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../database/drift/app_database.dart';
-import '../../../database/hive/shop_details/shop_details.dart';
+import '../../../../database/drift/app_database.dart';
+import '../../../../database/hive/shop_details/shop_details.dart';
 import 'invoice_customer_info.dart';
 import 'invoice_info.dart';
 import 'invoice_shop_info.dart';

@@ -18,6 +18,7 @@ class BuyCheckoutNotifier {
     required double shippingFee,
     required double taxFee,
     required String paymentMethod,
+    required String discountType,
     required String paymentStatus,
     required double amountPaid,
     required double amountDebt,
@@ -73,6 +74,7 @@ class BuyCheckoutNotifier {
       amountDebt: amountDebt,
       paymentStatus: paymentStatus,
       totalPrice: totalPrice,
+      discountType: discountType,
     );
 
     // Step 3: Update stock quantities for existing items only

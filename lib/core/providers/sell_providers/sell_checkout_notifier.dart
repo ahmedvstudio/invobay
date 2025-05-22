@@ -19,6 +19,7 @@ class SellCheckoutNotifier {
     required double taxFee,
     required String paymentMethod,
     required String paymentStatus,
+    required String discountType,
     required double amountPaid,
     required double amountDebt,
     int? customerId,
@@ -40,6 +41,7 @@ class SellCheckoutNotifier {
       amountDebt: amountDebt,
       paymentStatus: paymentStatus,
       totalPrice: totalPrice,
+      discountType: discountType,
     );
 
     // Reduce stock quantity for each sold item

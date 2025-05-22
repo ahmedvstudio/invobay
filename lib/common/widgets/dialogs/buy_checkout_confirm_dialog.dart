@@ -5,6 +5,7 @@ import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../core/models/buy_related_model/buy_model.dart';
 import '../../../core/providers/buy_providers/buy_related_providers.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/payment_providers/payment_provider.dart';
 import '../../../core/providers/common_providers/reset_default_providers.dart';
@@ -45,6 +46,7 @@ class VBuyCheckoutConfirmDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currencySign = ref.watch(currencySignProvider);
     final checkoutController = ref.read(buyCheckoutProvider);
+    final discountType = ref.watch(discountTypeProvider);
 
     return AlertDialog(
       title: const Text('Checkout Summary'),
@@ -120,6 +122,7 @@ class VBuyCheckoutConfirmDialog extends ConsumerWidget {
               amountDebt: debtAmount,
               paymentStatus: paymentStatus,
               totalPrice: totalPrice,
+              discountType: discountType.name,
             );
 
             if (!context.mounted) return;

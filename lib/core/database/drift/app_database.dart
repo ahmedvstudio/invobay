@@ -12,6 +12,8 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
+import '../../utils/constants/enums.dart';
+
 part 'app_database.g.dart';
 
 @DriftDatabase(

@@ -9,6 +9,7 @@ import '../../../../core/providers/common_providers/total_amount_provider.dart';
 import '../../../../../core/utils/constants/sizes.dart';
 import '../../../../../core/utils/validators/validation.dart';
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import '../../../../core/utils/constants/enums.dart';
 
 class VBillingAmountSection extends ConsumerWidget {
   const VBillingAmountSection({
@@ -27,6 +28,7 @@ class VBillingAmountSection extends ConsumerWidget {
     final paidAmountController = ref.watch(paidAmountControllerProvider);
     final subtotal = ref.watch(subtotalPriceProvider);
     final total = ref.watch(totalAmountProvider);
+    final discountType = ref.watch(discountTypeProvider);
 
     return Column(
       children: [
@@ -49,7 +51,10 @@ class VBillingAmountSection extends ConsumerWidget {
                         .textTheme
                         .bodyMedium!
                         .copyWith(color: VColors.success)),
-                Text('%${discountController.text}',
+                Text(
+                    discountType == DiscountType.percentage
+                        ? '%${discountController.text}'
+                        : '$currencySign${discountController.text}',
                     style: Theme.of(context).textTheme.labelLarge),
               ],
             ),

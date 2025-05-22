@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/constants/enums.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
@@ -21,6 +22,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
     required this.receiptId,
     required this.paymentMethod,
     required this.currencySign,
+    required this.discountType,
     required this.isSell,
   });
   final DateTime receiptDate;
@@ -31,6 +33,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
   final int receiptPersonId;
   final int receiptId;
   final String paymentMethod;
+  final String discountType;
   final String currencySign;
   final bool isSell;
   @override
@@ -81,7 +84,10 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
               children: [
                 Text("Discount:",
                     style: Theme.of(context).textTheme.bodyMedium),
-                Text('% $receiptDiscount',
+                Text(
+                    discountType == DiscountType.percentage.name
+                        ? '% $receiptDiscount'
+                        : '$currencySign $receiptDiscount',
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),

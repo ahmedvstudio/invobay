@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../utils/constants/font_strings.dart';
+import '../../../../utils/constants/font_strings.dart';
 
 class InvoFonts {
   final pw.Font regularFont;

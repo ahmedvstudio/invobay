@@ -3,6 +3,7 @@ import 'package:invobay/core/database/drift/app_database.dart';
 
 import '../models/buy_related_model/buy_model.dart';
 import '../models/buy_related_model/buy_with_payment_model.dart';
+import '../models/report_related_models/top_supplier_model.dart';
 
 class BuyReceiptDao {
   final AppDatabase db;
@@ -18,6 +19,7 @@ class BuyReceiptDao {
     required double taxFee,
     required String paymentMethod,
     required String paymentStatus,
+    required String discountType,
     required double amountPaid,
     required double amountDebt,
     int? supplierId,
@@ -29,6 +31,7 @@ class BuyReceiptDao {
               supplierId: drift.Value(supplierId),
               subTotalPrice: drift.Value(subTotalPrice),
               discount: drift.Value(discount),
+              discountType: drift.Value(discountType),
               shippingFee: drift.Value(shippingFee),
               taxFee: drift.Value(taxFee),
               totalPrice: drift.Value(totalPrice),
@@ -172,6 +175,106 @@ class BuyReceiptDao {
           status: drift.Value(newPaymentStatus),
         ),
       );
+    });
+  }
+
+  Stream<List<SupplierSpendModel>> watchTopSuppliers() {
+    final query = db.customSelect(
+      '''
+    SELECT s.id, s.name, SUM(bp.paid_amount) AS total_spent
+    FROM buy_receipts br
+    JOIN suppliers s ON s.id = br.supplier_id
+    JOIN buy_payments bp ON bp.receipt_id = br.id
+    GROUP BY s.id
+    ORDER BY total_spent DESC
+    LIMIT 5
+    ''',
+      readsFrom: {db.buyReceipts, db.buyPayments, db.suppliers},
+    );
+
+    return query.watch().map((rows) {
+      return rows.map((row) {
+        return SupplierSpendModel(
+          id: row.read<int>('id'),
+          name: row.read<String>('name'),
+          totalSpent: row.read<double>('total_spent'),
+        );
+      }).toList();
+    });
+  }
+
+  Stream<List<SupplierDebtModel>> watchSupplierDebts() {
+    final query = db.customSelect(
+      '''
+    SELECT s.id, s.name, SUM(bp.debt_amount) AS total_debt
+    FROM buy_receipts br
+    JOIN suppliers s ON s.id = br.supplier_id
+    JOIN buy_payments bp ON bp.receipt_id = br.id
+    GROUP BY s.id
+    HAVING total_debt > 0
+    ORDER BY total_debt DESC
+    ''',
+      readsFrom: {db.buyReceipts, db.buyPayments, db.suppliers},
+    );
+
+    return query.watch().map((rows) {
+      return rows.map((row) {
+        return SupplierDebtModel(
+          id: row.read<int>('id'),
+          name: row.read<String>('name'),
+          totalDebt: row.read<double>('total_debt'),
+        );
+      }).toList();
+    });
+  }
+
+  Stream<List<MostBoughtItemModel>> watchMostBoughtItems() {
+    final query = db.customSelect(
+      '''
+    SELECT i.id, i.name, 
+           SUM(bri.quantity) AS total_quantity,
+           SUM(bri.quantity * bri.price) AS total_spent
+    FROM buy_receipt_items bri
+    JOIN items i ON i.id = bri.item_id
+    GROUP BY i.id
+    ORDER BY total_spent DESC
+    LIMIT 5
+    ''',
+      readsFrom: {db.buyReceiptItems, db.items},
+    );
+
+    return query.watch().map((rows) {
+      return rows
+          .map((row) => MostBoughtItemModel(
+                id: row.read<int>('id'),
+                name: row.read<String>('name'),
+                totalQuantity: row.read<double>('total_quantity'),
+                totalSpent: row.read<double>('total_spent'),
+              ))
+          .toList();
+    });
+  }
+
+  Stream<List<ItemAverageCostModel>> watchAverageCostPerItem() {
+    final query = db.customSelect(
+      '''
+    SELECT i.id, i.name, AVG(bri.price) AS avg_cost
+    FROM buy_receipt_items bri
+    JOIN items i ON i.id = bri.item_id
+    GROUP BY i.id
+    ORDER BY avg_cost DESC
+    ''',
+      readsFrom: {db.buyReceiptItems, db.items},
+    );
+
+    return query.watch().map((rows) {
+      return rows.map((row) {
+        return ItemAverageCostModel(
+          id: row.read<int>('id'),
+          name: row.read<String>('name'),
+          averageCost: row.read<double>('avg_cost'),
+        );
+      }).toList();
     });
   }
 }

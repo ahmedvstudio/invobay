@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../core/models/sell_related_model/sell_model.dart';
+import '../../../core/providers/common_providers/default_providers.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/payment_providers/payment_provider.dart';
 import '../../../core/providers/common_providers/reset_default_providers.dart';
@@ -48,6 +49,7 @@ class VSellCheckoutConfirmDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currencySign = ref.watch(currencySignProvider);
     final checkoutController = ref.read(sellCheckoutProvider);
+    final discountType = ref.watch(discountTypeProvider);
 
     return AlertDialog(
       title: const Text('Checkout Summary'),
@@ -123,6 +125,7 @@ class VSellCheckoutConfirmDialog extends ConsumerWidget {
               amountDebt: debtAmount,
               paymentStatus: paymentStatus,
               totalPrice: totalPrice,
+              discountType: discountType.name,
             );
 
             if (!context.mounted) return;

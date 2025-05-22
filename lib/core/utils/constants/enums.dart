@@ -7,3 +7,5 @@ enum PaymentMethods { paypal, googlePay, visa, masterCard, creditCard }
 enum SortCategory { name, stock, price }
 
 enum SortOrder { ascending, descending }
+
+enum DiscountType { percentage, amount }

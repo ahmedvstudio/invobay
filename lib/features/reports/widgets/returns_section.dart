@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../common/widgets/dialogs/most_returned_items_dialog.dart';
 import '../../../common/widgets/list_tiles/report_list_tile.dart';
 import '../../../common/widgets/text/section_heading.dart';
 import '../../../core/utils/constants/sizes.dart';
@@ -19,7 +20,12 @@ class VReturnsSection extends StatelessWidget {
         VReportListTile(
           title: 'Most returned items',
           icon: Iconsax.info_circle,
-          onTap: () {},
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (_) => const MostReturnedItemsDialog(),
+            );
+          },
         ),
       ],
     );

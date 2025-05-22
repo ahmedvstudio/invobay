@@ -13,7 +13,7 @@ import '../../../../core/providers/db_providers/hive_providers/shop_detail_provi
 import '../../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../../core/providers/sell_providers/sell_receipt_detail_provider.dart';
 import '../../../../core/providers/sell_providers/sell_related_providers.dart';
-import '../../../../core/services/printing/print_receipt_api.dart';
+import '../../../../core/services/printing/sell_receipt_print/print_receipt_api.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../widgets/receipt_item.dart';
 import '../widgets/receipt_bottom_edit.dart';
@@ -62,6 +62,7 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                         paymentMethod: payment.paymentMethod,
                         isSell: true,
                         subTotalPrice: receipt.subTotalPrice,
+                        discountType: receipt.discountType,
                         currencySign: currencySign,
                       ),
                       const SizedBox(height: VSizes.spaceBtwSections),

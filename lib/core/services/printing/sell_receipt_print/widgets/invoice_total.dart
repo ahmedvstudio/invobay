@@ -1,9 +1,9 @@
-import 'package:invobay/core/services/printing/widgets/text_widget.dart';
+import 'package:invobay/core/services/printing/sell_receipt_print/widgets/text_widget.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../database/drift/app_database.dart';
+import '../../../../database/drift/app_database.dart';
 
 pw.Widget invoTotalSection({
   required SellReceiptsModel receipt,

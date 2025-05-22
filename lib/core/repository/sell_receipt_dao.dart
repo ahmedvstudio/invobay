@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:invobay/core/database/drift/app_database.dart';
 
+import '../models/report_related_models/customer_spend_model.dart';
 import '../models/sell_related_model/sell_model.dart';
 import '../models/sell_related_model/sell_with_payment_model.dart';
 
@@ -17,6 +18,7 @@ class SellReceiptDao {
     required double shippingFee,
     required double taxFee,
     required String paymentMethod,
+    required String discountType,
     required String paymentStatus,
     required double amountPaid,
     required double amountDebt,
@@ -30,6 +32,7 @@ class SellReceiptDao {
               // paymentMethod: drift.Value(paymentMethod),
               subTotalPrice: drift.Value(subTotalPrice),
               discount: drift.Value(discount),
+              discountType: drift.Value(discountType),
               shippingFee: drift.Value(shippingFee),
               taxFee: drift.Value(taxFee),
               totalPrice: drift.Value(totalPrice),
@@ -208,4 +211,80 @@ class SellReceiptDao {
       }).toList();
     });
   }
+
+  Stream<List<CustomerSpendModel>> watchTopCustomers() {
+    final query = db.customSelect(
+      '''
+    SELECT c.id, c.name, SUM(sp.paid_amount) as total_spent
+    FROM sell_receipts sr
+    JOIN customers c ON c.id = sr.customer_id
+    JOIN sell_payments sp ON sp.receipt_id = sr.id
+    GROUP BY c.id
+    ORDER BY total_spent DESC
+    LIMIT 5
+    ''',
+      readsFrom: {db.sellReceipts, db.sellPayments, db.customers},
+    );
+
+    return query.watch().map((rows) {
+      return rows
+          .map((row) => CustomerSpendModel(
+                id: row.read<int>('id'),
+                name: row.read<String>('name'),
+                totalSpent: row.read<double>('total_spent'),
+              ))
+          .toList();
+    });
+  }
+
+  Stream<List<CustomerDebtModel>> watchCustomerDebts() {
+    final query = db.customSelect(
+      '''
+    SELECT c.id, c.name, SUM(sp.debt_amount) as total_debt
+    FROM sell_receipts sr
+    JOIN customers c ON c.id = sr.customer_id
+    JOIN sell_payments sp ON sp.receipt_id = sr.id
+    GROUP BY c.id
+    HAVING total_debt > 0
+    ORDER BY total_debt DESC
+    ''',
+      readsFrom: {db.sellReceipts, db.sellPayments, db.customers},
+    );
+
+    return query.watch().map((rows) {
+      return rows.map((row) {
+        return CustomerDebtModel(
+          id: row.read<int>('id'),
+          name: row.read<String>('name'),
+          totalDebt: row.read<double>('total_debt'),
+        );
+      }).toList();
+    });
+  }
+
+  Stream<List<MostSoldItemModel>> watchMostSoldItems() {
+    final query = db.customSelect(
+      '''
+    SELECT i.id, i.name, SUM(sri.quantity) as total_quantity, SUM(sri.price * sri.quantity) as total_revenue
+    FROM sell_receipt_items sri
+    JOIN items i ON i.id = sri.item_id
+    GROUP BY i.id
+    ORDER BY total_quantity DESC
+    LIMIT 10
+    ''',
+      readsFrom: {db.sellReceiptItems, db.items},
+    );
+
+    return query.watch().map((rows) {
+      return rows.map((row) {
+        return MostSoldItemModel(
+          id: row.read<int>('id'),
+          name: row.read<String>('name'),
+          totalQuantity: row.read<int>('total_quantity'),
+          totalRevenue: row.read<double>('total_revenue'),
+        );
+      }).toList();
+    });
+  }
+  // ...
 }

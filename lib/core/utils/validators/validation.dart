@@ -81,6 +81,7 @@ class VValidator {
     return null;
   }
 
+  //----------------------- Validate discount
   static String? validateDiscountNumber(String? value) {
     if (value == null || value.isEmpty) {
       return 'This field is required';

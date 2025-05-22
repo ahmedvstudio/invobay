@@ -78,6 +78,8 @@ class VSupplierAndClear extends StatelessWidget {
                                       .join(', ');
 
                                   return ListTile(
+                                    tileColor:
+                                        Colors.orange.withValues(alpha: 0.3),
                                     title: Text(supplier.name),
                                     subtitle: Column(
                                       crossAxisAlignment:

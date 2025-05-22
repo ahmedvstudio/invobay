@@ -11,3 +11,11 @@ extension HiveRegistrar on HiveInterface {
     registerAdapter(AppSettingsAdapter());
   }
 }
+
+extension IsolatedHiveRegistrar on IsolatedHiveInterface {
+  void registerAdapters() {
+    registerAdapter(AppSettingsAdapter());
+    registerAdapter(AppThemeAdapter());
+    registerAdapter(ShopDetailAdapter());
+  }
+}

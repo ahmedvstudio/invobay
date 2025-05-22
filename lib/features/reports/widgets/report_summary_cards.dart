@@ -4,7 +4,9 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../common/widgets/item_cards/summary_card.dart';
 import '../../../common/widgets/text/section_heading.dart';
+import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/report_providers/report_related_providers.dart';
+import '../../../core/services/printing/reports/summary_print/summary_print.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 
@@ -20,11 +22,24 @@ class VSummaryCards extends ConsumerWidget {
     final totalBuy = ref.watch(totalBuyProvider);
     final totalReturn = ref.watch(totalReturnProvider);
     final profitStats = ref.watch(profitStatsProvider);
+    final currencySign = ref.watch(currencySignProvider);
 
     return Column(
       children: [
-        const VSectionHeading(title: 'Summary', showActionButton: false),
-        const SizedBox(height: VSizes.spaceBtwItems * 1.5),
+        VSectionHeading(
+          title: 'Summary',
+          buttonTitle: 'Print',
+          onPressed: () => summaryPrint(
+            context,
+            inventoryValue: inventoryValue,
+            totalSales: totalSales,
+            totalBuy: totalBuy,
+            totalReturn: totalReturn,
+            profit: profitStats.profit,
+            currencySign: currencySign,
+          ),
+        ),
+        const SizedBox(height: VSizes.spaceBtwItems / 2),
         Row(
           spacing: VSizes.spaceBtwItems,
           children: [
@@ -45,10 +60,10 @@ class VSummaryCards extends ConsumerWidget {
                 icon: Iconsax.trend_up,
                 color: VColors.info),
             VSummaryCard(
-                title: 'Purchases',
+                title: 'Buy',
                 amount: totalBuy,
                 icon: Iconsax.truck,
-                color: Colors.lightGreen),
+                color: Colors.pink),
           ],
         ),
         const SizedBox(height: VSizes.spaceBtwItems),

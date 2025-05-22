@@ -17,6 +17,7 @@ class ReturnCheckoutNotifier {
     required double discount,
     required double shippingFee,
     required double taxFee,
+    required String discountType,
     required String paymentMethod,
     required String paymentStatus,
     required double amountPaid,
@@ -38,6 +39,7 @@ class ReturnCheckoutNotifier {
       amountDebt: amountDebt,
       paymentStatus: paymentStatus,
       totalPrice: totalPrice,
+      discountType: discountType,
     );
 
     // Reduce stock quantity for each sold item

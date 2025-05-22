@@ -1,8 +1,8 @@
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../database/hive/shop_details/shop_details.dart';
-import '../../../utils/formatters/formatters.dart';
+import '../../../../database/hive/shop_details/shop_details.dart';
+import '../../../../utils/formatters/formatters.dart';
 
 pw.Widget invoShopInfo({
   ShopDetail? shopDetail,

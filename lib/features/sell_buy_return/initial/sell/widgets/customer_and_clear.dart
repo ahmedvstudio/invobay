@@ -78,6 +78,8 @@ class VCustomerAndClear extends StatelessWidget {
                                       .join(', ');
 
                                   return ListTile(
+                                    tileColor:
+                                        Colors.teal.withValues(alpha: 0.3),
                                     title: Text(customer.name),
                                     subtitle: Column(
                                       crossAxisAlignment:

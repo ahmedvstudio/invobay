@@ -1,20 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:invobay/core/services/printing/widgets/invoice_footer.dart';
-import 'package:invobay/core/services/printing/widgets/invoice_header.dart';
-import 'package:invobay/core/services/printing/widgets/font_utils.dart';
-import 'package:invobay/core/services/printing/widgets/invoice_items.dart';
-import 'package:invobay/core/services/printing/widgets/invoice_title.dart';
-import 'package:invobay/core/services/printing/widgets/invoice_total.dart';
-import 'package:invobay/core/services/printing/widgets/watermark.dart';
+import 'package:invobay/core/services/printing/sell_receipt_print/widgets/font_utils.dart';
+import 'package:invobay/core/services/printing/sell_receipt_print/widgets/invoice_footer.dart';
+import 'package:invobay/core/services/printing/sell_receipt_print/widgets/invoice_header.dart';
+import 'package:invobay/core/services/printing/sell_receipt_print/widgets/invoice_items.dart';
+import 'package:invobay/core/services/printing/sell_receipt_print/widgets/invoice_title.dart';
+import 'package:invobay/core/services/printing/sell_receipt_print/widgets/invoice_total.dart';
+import 'package:invobay/core/services/printing/sell_receipt_print/widgets/watermark.dart';
+
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-import '../../database/drift/app_database.dart';
-import '../../database/hive/shop_details/shop_details.dart';
-import '../../providers/customer_providers/customer_related_providers.dart';
-import '../../providers/db_providers/hive_providers/app_settings_provider.dart';
-import '../../providers/item_providers/item_related_providers.dart';
+import '../../../database/drift/app_database.dart';
+import '../../../database/hive/shop_details/shop_details.dart';
+import '../../../providers/customer_providers/customer_related_providers.dart';
+import '../../../providers/db_providers/hive_providers/app_settings_provider.dart';
+import '../../../providers/item_providers/item_related_providers.dart';
 
 class PrintReceiptApi {
   static Future<void> printReceipt({
