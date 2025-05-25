@@ -14,7 +14,9 @@ List<GoRoute> inventoryRoutes = [
   GoRoute(
     name: VRouter.inventory,
     path: '/inventory',
-    builder: (context, state) => const InventoryScreen(),
+    builder: (context, state) => InventoryScreen(
+      openSearch: state.uri.queryParameters['openSearch'] == 'true',
+    ),
     routes: [
       GoRoute(
         name: VRouter.addItem,

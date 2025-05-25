@@ -6,7 +6,7 @@ import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../common/widgets/appbar/custom_appbar.dart';
-import '../../common/widgets/dialogs/add_quantity_dialog.dart';
+import '../../common/widgets/sheet/add_sheets/add_quantity_sheet.dart';
 import '../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../core/providers/item_providers/item_related_providers.dart';
 import '../../core/utils/formatters/formatters.dart';
@@ -76,13 +76,9 @@ class LowStockScreen extends ConsumerWidget {
                             ),
                             IconButton(
                               icon: const Icon(Icons.add_shopping_cart),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      VAddQuantityDialog(itemId: item.id),
-                                );
-                              },
+                              onPressed: () => showAddQuantityBottomSheet(
+                                  context, ref,
+                                  itemId: item.id),
                             ),
                           ],
                         ),

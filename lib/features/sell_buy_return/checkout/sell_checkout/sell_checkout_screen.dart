@@ -9,7 +9,7 @@ import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../../common/widgets/dialogs/sell_checkout_confirm_dialog.dart';
+import '../../../../common/widgets/sheet/checkout/sell_checkout_sheet.dart';
 import '../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/providers/payment_providers/payment_provider.dart';
@@ -154,25 +154,21 @@ class SellCheckoutScreen extends ConsumerWidget {
                   }
                   String paymentStatus = _determinePaymentStatus(debtAmount);
 
-                  // Show confirmation dialog
-                  showDialog(
+                  showSellCheckoutBottomSheet(
                     context: context,
-                    builder: (BuildContext context) {
-                      return VSellCheckoutConfirmDialog(
-                        paidAmount: paidAmount,
-                        debtAmount: debtAmount,
-                        checkoutController: checkoutController,
-                        soldItems: soldItems,
-                        subtotal: subtotal,
-                        discountAmount: discountAmount,
-                        shippingFee: shippingFee,
-                        taxFee: taxFee,
-                        selectedPayment: selectedPayment,
-                        customerId: customerId,
-                        paymentStatus: paymentStatus,
-                        totalPrice: total,
-                      );
-                    },
+                    ref: ref,
+                    paidAmount: paidAmount,
+                    debtAmount: debtAmount,
+                    checkoutController: checkoutController,
+                    soldItems: soldItems,
+                    subtotal: subtotal,
+                    totalPrice: total,
+                    discountAmount: discountAmount,
+                    shippingFee: shippingFee,
+                    taxFee: taxFee,
+                    selectedPayment: selectedPayment,
+                    customerId: customerId,
+                    paymentStatus: paymentStatus,
                   );
                 }
               },

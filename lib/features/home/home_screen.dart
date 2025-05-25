@@ -33,7 +33,8 @@ class HomeScreen extends StatelessWidget {
                   // SearchBar
                   VSearchContainer(
                     text: context.loc.searchInStock,
-                    onTap: () => context.pushNamed(VRouter.inventory),
+                    onTap: () => context.pushNamed(VRouter.inventory,
+                        queryParameters: {'openSearch': 'true'}),
                   ),
                   const SizedBox(height: VSizes.spaceBtwItems * 1.5),
                   const VInventoryStatus(),

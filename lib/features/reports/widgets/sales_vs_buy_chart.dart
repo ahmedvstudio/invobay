@@ -49,10 +49,7 @@ class VSalesVsBuyCharts extends ConsumerWidget {
                         showTitles: true,
                         getTitlesWidget: (value, _) {
                           final days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Text(days[value.toInt() % 7]),
-                          );
+                          return Text(days[value.toInt() % 7]);
                         },
                       ),
                     ),

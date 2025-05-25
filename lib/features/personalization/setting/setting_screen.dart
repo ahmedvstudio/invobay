@@ -54,8 +54,8 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(height: VSizes.spaceBtwItems),
                   VSettingsMenuTile(
                     icon: Iconsax.dollar_square,
-                    title: 'Vault',
-                    subTitle: 'Add your vault details.',
+                    title: 'Vault / Expense',
+                    subTitle: 'Add your vault and expense details.',
                     onTap: () {},
                   ),
                   VSettingsMenuTile(
@@ -77,11 +77,6 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () => context.pushNamed(VRouter.suppliers),
                   ),
 
-                  const VSettingsMenuTile(
-                      icon: Iconsax.notification,
-                      title: 'Notifications',
-                      subTitle: 'Set any kind of notification message.'),
-
                   const SizedBox(height: VSizes.spaceBtwSections),
                   const VSectionHeading(
                       title: 'App Settings', showActionButton: false),
@@ -93,6 +88,11 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'Personalize the app to your liking.',
                     onTap: () => context.pushNamed(VRouter.appearance),
                   ),
+                  const VSettingsMenuTile(
+                      icon: Iconsax.notification,
+                      title: 'Notifications',
+                      subTitle: 'Set any kind of notification message.'),
+
                   VSettingsMenuTile(
                     icon: Iconsax.location,
                     title: 'Geolocation',

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/features/reports/widgets/return_section/widgets/most_returned_sheet.dart';
 
-import '../../../common/widgets/dialogs/most_returned_items_dialog.dart';
-import '../../../common/widgets/list_tiles/report_list_tile.dart';
-import '../../../common/widgets/text/section_heading.dart';
-import '../../../core/utils/constants/sizes.dart';
+import '../../../../common/widgets/list_tiles/report_list_tile.dart';
+import '../../../../common/widgets/text/section_heading.dart';
+import '../../../../core/utils/constants/sizes.dart';
 
 class VReturnsSection extends StatelessWidget {
   const VReturnsSection({
@@ -21,9 +21,10 @@ class VReturnsSection extends StatelessWidget {
           title: 'Most returned items',
           icon: Iconsax.info_circle,
           onTap: () {
-            showDialog(
+            showModalBottomSheet(
               context: context,
-              builder: (_) => const MostReturnedItemsDialog(),
+              isScrollControlled: true,
+              builder: (_) => const MostReturnedItemsBottomSheet(),
             );
           },
         ),

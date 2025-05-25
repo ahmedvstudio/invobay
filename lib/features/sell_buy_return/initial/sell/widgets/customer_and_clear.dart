@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
-import '../../../../../common/widgets/dialogs/add_new_customer_dialog.dart';
+import '../../../../../common/widgets/sheet/add_sheets/add_new_customer_sheet.dart';
 import '../../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../../core/providers/customer_providers/customer_related_providers.dart';
 import '../../../../../core/utils/constants/colors.dart';
@@ -50,7 +50,7 @@ class VCustomerAndClear extends StatelessWidget {
                               IconButton(
                                 onPressed: () async {
                                   context.pop();
-                                  await addNewCustomerDialog(context, ref);
+                                  await addNewCustomerBottomSheet(context, ref);
                                 },
                                 icon: const Icon(Iconsax.add_circle5),
                               )

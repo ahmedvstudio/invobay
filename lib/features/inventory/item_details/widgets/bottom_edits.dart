@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../common/widgets/dialogs/add_quantity_dialog.dart';
 import '../../../../common/widgets/icons/circular_icon.dart';
 import '../../../../common/widgets/icons/circular_icon_with_conformation.dart';
+import '../../../../common/widgets/sheet/add_sheets/add_quantity_sheet.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/helpers/helper_functions.dart';
@@ -49,12 +49,8 @@ class VBottomEdits extends ConsumerWidget {
               ),
               const SizedBox(width: VSizes.spaceBtwItems),
               VCircularIcon(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => VAddQuantityDialog(itemId: itemId),
-                  );
-                },
+                onPressed: () =>
+                    showAddQuantityBottomSheet(context, ref, itemId: itemId),
                 icon: Iconsax.add,
                 backgroundColor: VColors.black,
                 width: 40,

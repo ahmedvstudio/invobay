@@ -11,12 +11,13 @@ class VSearchBar extends StatelessWidget {
     this.searchController,
     this.suffixIcon,
     this.onChanged,
+    this.focusNode,
   });
 
   final TextEditingController? searchController;
   final Widget? suffixIcon;
   final Function(String)? onChanged;
-
+  final FocusNode? focusNode;
   @override
   Widget build(BuildContext context) {
     final isDark = VHelperFunctions.isDarkMode(context);
@@ -26,6 +27,7 @@ class VSearchBar extends StatelessWidget {
       child: TextField(
         onChanged: onChanged,
         controller: searchController,
+        focusNode: focusNode,
         decoration: InputDecoration(
           hintText: 'Search in stock',
           hintStyle: Theme.of(context).textTheme.bodySmall,

@@ -18,10 +18,10 @@ dependencies:
   google_fonts: ^6.2.1
 
   # Internationalization
-  intl: ^0.19.0
+  intl: ^0.20.2
   flutter_localizations:
     sdk: flutter
-  world_countries: ^3.5.0
+  world_countries: ^3.6.0
 
   # State Management
   flutter_riverpod: ^2.6.1
@@ -30,13 +30,13 @@ dependencies:
   flutter_dotenv: ^5.2.1
 
   # Permissions
-  permission_handler: ^11.4.0
+  permission_handler: ^12.0.0+1
 
   # Local Storage
   drift: ^2.26.0
-  sqlite3_flutter_libs: ^0.5.31
-  hive_ce: ^2.10.1
-  hive_ce_flutter: ^2.2.0
+  sqlite3_flutter_libs: ^0.5.33
+  hive_ce: ^2.11.2
+  hive_ce_flutter: ^2.3.1
 
   # Online
   supabase_flutter: ^2.8.3
@@ -48,13 +48,14 @@ dependencies:
   readmore: ^3.0.0
 
   # Pickers
-  file_picker: ^10.1.2
+  file_picker: ^10.1.9
   image_picker: ^1.1.2
+  currency_picker: ^2.0.21
 
   # Utility
   flutter_svg: ^2.0.17
   fluttertoast: ^8.2.11
-  go_router: ^14.8.1
+  go_router: ^15.1.2
   logger: ^2.5.0
   lottie: ^3.3.1
   marquee: ^2.3.0
@@ -67,7 +68,7 @@ dependencies:
   flutter_native_splash: ^2.4.4
   barcode_scan2: ^4.5.0
   open_file: ^3.5.10
-  fl_chart: ^0.71.0
+  fl_chart: ^1.0.0
 
 # ---------------- END OF PACKAGES ----------------#
 dev_dependencies:

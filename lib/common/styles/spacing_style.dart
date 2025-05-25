@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/utils/constants/sizes.dart';
+import '../../core/utils/device/device_utility.dart';
 
 class VSpacingStyle {
   VSpacingStyle._();
@@ -21,6 +22,15 @@ class VSpacingStyle {
     top: VSizes.defaultSpace,
     right: VSizes.defaultSpace,
   );
+
+  static EdgeInsetsGeometry responseKeyboard(BuildContext context) {
+    return EdgeInsets.only(
+      left: VSizes.defaultSpace,
+      right: VSizes.defaultSpace,
+      bottom: VDeviceUtils.getKeyboardHeight(context) + VSizes.spaceBtwItems,
+    );
+  }
+
   static const EdgeInsetsGeometry all = EdgeInsets.all(VSizes.defaultSpace);
 
   static const EdgeInsetsGeometry horizontal =

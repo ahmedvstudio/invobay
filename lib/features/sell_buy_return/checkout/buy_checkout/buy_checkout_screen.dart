@@ -9,7 +9,7 @@ import 'package:invobay/core/utils/messages/snackbar.dart';
 
 import '../../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../../common/widgets/dialogs/buy_checkout_confirm_dialog.dart';
+import '../../../../common/widgets/sheet/checkout/buy_checkout_sheet.dart';
 import '../../../../core/models/buy_related_model/buy_model.dart';
 import '../../../../core/providers/buy_providers/buy_related_providers.dart';
 import '../../../../core/providers/common_providers/default_providers.dart';
@@ -48,6 +48,8 @@ class BuyCheckoutScreen extends ConsumerWidget {
     final discountAmount = ref.watch(discountProvider);
     final buyNotifier = ref.read(buyNotifierProvider.notifier);
     final total = ref.watch(totalAmountProvider);
+    final checkoutController = ref.read(buyCheckoutProvider);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -149,24 +151,21 @@ class BuyCheckoutScreen extends ConsumerWidget {
                   String paymentStatus =
                       VHelperFunctions.paymentStatus(debtAmount);
 
-                  // Show confirmation dialog
-                  showDialog(
+                  showBuyCheckoutBottomSheet(
+                    paidAmount: paidAmount,
+                    debtAmount: debtAmount,
+                    boughtItems: boughtItems,
+                    subtotal: subtotal,
+                    discountAmount: discountAmount,
+                    shippingFee: shippingFee,
+                    taxFee: taxFee,
+                    selectedPayment: selectedPayment,
+                    supplierId: supplierId,
+                    paymentStatus: paymentStatus,
+                    totalPrice: total,
                     context: context,
-                    builder: (BuildContext context) {
-                      return VBuyCheckoutConfirmDialog(
-                        paidAmount: paidAmount,
-                        debtAmount: debtAmount,
-                        boughtItems: boughtItems,
-                        subtotal: subtotal,
-                        discountAmount: discountAmount,
-                        shippingFee: shippingFee,
-                        taxFee: taxFee,
-                        selectedPayment: selectedPayment,
-                        supplierId: supplierId,
-                        paymentStatus: paymentStatus,
-                        totalPrice: total,
-                      );
-                    },
+                    ref: ref,
+                    checkoutController: checkoutController,
                   );
                 }
               },

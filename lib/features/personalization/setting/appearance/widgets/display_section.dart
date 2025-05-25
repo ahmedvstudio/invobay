@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:invobay/core/router/router_constant.dart';
 
+import '../../../../../common/widgets/sheet/settings/app_language_sheet.dart';
 import '../../../../../core/utils/constants/sizes.dart';
 
-class VDisplaySection extends StatelessWidget {
+class VDisplaySection extends ConsumerWidget {
   const VDisplaySection({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('Display:'),
         const SizedBox(height: VSizes.spaceBtwItems / 2),
         ListTile(
-          onTap: () => context.pushNamed(VRouter.appLanguage),
+          onTap: () => showLanguageSelectionBottomSheet(context, ref),
           title: const Text('App Language.'),
           leading: const Icon(Iconsax.global),
           tileColor: Colors.transparent,

@@ -16,20 +16,30 @@ import '../../core/utils/constants/text_strings.dart';
 import 'widgets/sorting_menu.dart';
 
 class InventoryScreen extends ConsumerStatefulWidget {
-  const InventoryScreen({super.key});
+  const InventoryScreen({
+    super.key,
+    this.openSearch = false,
+  });
 
+  final bool openSearch;
   @override
   ConsumerState<InventoryScreen> createState() => _InventoryScreenState();
 }
 
 class _InventoryScreenState extends ConsumerState<InventoryScreen> {
   final TextEditingController _searchController = TextEditingController();
+  final FocusNode _searchFocusNode = FocusNode();
   SortCategory _selectedSortCategory = SortCategory.name; // Default: Name
   SortOrder _selectedSortOrder = SortOrder.ascending; // Default: Ascending
 
   @override
   void initState() {
     super.initState();
+    if (widget.openSearch) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _searchFocusNode.requestFocus();
+      });
+    }
     _searchController.addListener(() {
       setState(() {});
     });
@@ -39,6 +49,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
   void dispose() {
     _searchController.removeListener(_onSearchChanged);
     _searchController.dispose();
+    _searchFocusNode.dispose();
     super.dispose();
   }
 
@@ -112,6 +123,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
                 const SizedBox(height: VSizes.spaceBtwItems),
                 VSearchBar(
                   searchController: _searchController,
+                  focusNode: _searchFocusNode,
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.filter_list_sharp),
                     onPressed: () {

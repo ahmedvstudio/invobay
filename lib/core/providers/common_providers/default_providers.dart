@@ -48,7 +48,7 @@ final isCustomerProvider = StateProvider<bool>((ref) => true);
 final shippingFeeProvider = StateProvider<double>((ref) => 0.0);
 
 // --> Temporary Quantity Provider
-final addQuantityProvider = StateProvider.autoDispose<String>((ref) => '');
+final addQuantityProvider = StateProvider<String>((ref) => '');
 final quantityProvider = StateProvider.autoDispose<String>((ref) => '');
 final buyPriceProvider = StateProvider.autoDispose<String>((ref) => '');
 

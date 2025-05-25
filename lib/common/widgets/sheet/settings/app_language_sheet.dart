@@ -1,0 +1,67 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../core/providers/localization_related_providers/local_provider.dart';
+import '../../../../core/utils/constants/sizes.dart';
+import '../../../styles/spacing_style.dart';
+
+Future<void> showLanguageSelectionBottomSheet(
+    BuildContext context, WidgetRef ref) async {
+  final currentLocale = ref.watch(localProvider);
+  final localeNotifier = ref.read(localProvider.notifier);
+
+  final languages = [
+    {'code': 'en', 'label': 'English'},
+    {'code': 'ar', 'label': 'العربية'},
+  ];
+
+  await showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    shape: const RoundedRectangleBorder(
+      borderRadius:
+          BorderRadius.vertical(top: Radius.circular(VSizes.defaultSpace)),
+    ),
+    builder: (context) {
+      return Padding(
+        padding: VSpacingStyle.withoutTop,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Select App Language',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: VSizes.spaceBtwItems),
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: languages.length,
+              separatorBuilder: (_, __) => const Divider(),
+              itemBuilder: (context, index) {
+                final lang = languages[index];
+                final langCode = lang['code']!;
+                final langLabel = lang['label']!;
+
+                return RadioListTile<String>(
+                  tileColor: Colors.transparent,
+                  value: langCode,
+                  groupValue: currentLocale.languageCode,
+                  title: Text(langLabel),
+                  onChanged: (value) {
+                    if (value != null) {
+                      localeNotifier.setLocale(value);
+                      context.pop();
+                    }
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: VSizes.spaceBtwItems),
+          ],
+        ),
+      );
+    },
+  );
+}

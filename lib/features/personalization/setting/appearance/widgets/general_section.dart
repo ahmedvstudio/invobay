@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../../common/widgets/dialogs/currency_sign_dialog.dart';
-import '../../../../../common/widgets/dialogs/edit_tax_dialog.dart';
-import '../../../../../common/widgets/dialogs/low_stock_threshold_dialog.dart';
+import '../../../../../common/widgets/sheet/settings/currency_picker_sheet.dart';
+import '../../../../../common/widgets/sheet/settings/low_stock_threshold_sheet.dart';
+import '../../../../../common/widgets/sheet/settings/tax_fee_sheet.dart';
 import '../../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../../core/utils/constants/sizes.dart';
 
@@ -26,21 +26,21 @@ class VGeneralSection extends ConsumerWidget {
         const Text('General:'),
         const SizedBox(height: VSizes.spaceBtwItems / 2),
         ListTile(
-          onTap: () => showCurrencySignDialog(context, ref),
-          title: const Text('Currency Sign.'),
+          onTap: () => showCurrencySignBottomSheet(context, ref),
+          title: const Text('Currency.'),
           leading: const Icon(Iconsax.dollar_circle),
           trailing: Text(currencySign),
           tileColor: Colors.transparent,
         ),
         ListTile(
-          onTap: () => showTaxEditDialog(context, ref),
+          onTap: () => showTaxEditBottomSheet(context, ref),
           title: const Text('Tax Percentage.'),
           leading: const Icon(Iconsax.discount_circle),
           trailing: Text('% $currentTax'),
           tileColor: Colors.transparent,
         ),
         ListTile(
-          onTap: () => showLowStockThresholdDialog(context, ref),
+          onTap: () => showLowStockThresholdBottomSheet(context, ref),
           title: const Text('Low Stock Threshold.'),
           leading: const Icon(Iconsax.arrange_circle),
           trailing: Text('$threshold'),

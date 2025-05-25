@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
-import 'package:invobay/features/reports/widgets/buy_section.dart';
-import 'package:invobay/features/reports/widgets/inventory_section.dart';
+import 'package:invobay/features/reports/widgets/buy_section/buy_section.dart';
+import 'package:invobay/features/reports/widgets/inventory_section/inventory_section.dart';
 import 'package:invobay/features/reports/widgets/profile_and_loss.dart';
 
 import 'package:invobay/features/reports/widgets/report_summary_cards.dart';
-import 'package:invobay/features/reports/widgets/returns_section.dart';
+import 'package:invobay/features/reports/widgets/return_section/returns_section.dart';
 import 'package:invobay/features/reports/widgets/sales_vs_buy_chart.dart';
-import 'package:invobay/features/reports/widgets/sell_section.dart';
+import 'package:invobay/features/reports/widgets/sell_section/sell_section.dart';
 
 import '../../common/widgets/appbar/main_appbar.dart';
 import '../../common/widgets/custom_shapes/containers/primary_header_container.dart';

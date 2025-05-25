@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../common/widgets/list_tiles/report_list_tile.dart';
-import '../../../common/widgets/sheet/stock_preview_sheet.dart';
-import '../../../common/widgets/text/section_heading.dart';
-import '../../../core/database/drift/app_database.dart';
-import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
-import '../../../core/providers/item_providers/item_related_providers.dart';
-import '../../../core/utils/constants/sizes.dart';
+import '../../../../common/widgets/list_tiles/report_list_tile.dart';
+import 'widgets/stock_preview_sheet.dart';
+import '../../../../common/widgets/text/section_heading.dart';
+import '../../../../core/database/drift/app_database.dart';
+import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import '../../../../core/providers/item_providers/item_related_providers.dart';
+import '../../../../core/utils/constants/sizes.dart';
 
 class VInventorySection extends ConsumerWidget {
   const VInventorySection({super.key});
