@@ -9,3 +9,5 @@ enum SortCategory { name, stock, price }
 enum SortOrder { ascending, descending }
 
 enum DiscountType { percentage, amount }
+
+enum ReceiptType { sell, buy, returns }

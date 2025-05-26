@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
 
-import '../../../common/widgets/sheet/receipt_type_selection_sheet.dart';
+import '../../../common/widgets/sheet/receipt/receipt_type_selection_sheet.dart';
 import '../../../core/utils/constants/sizes.dart';
 import 'rounded_button.dart';
 

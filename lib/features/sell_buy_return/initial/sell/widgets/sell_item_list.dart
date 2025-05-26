@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../common/widgets/dialogs/quantity_input_dialog.dart';
+import '../../../../../common/widgets/sheet/sell_buy_return/quantity_input_sheet.dart';
 import '../../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../../core/providers/sell_providers/sell_related_providers.dart';
+import '../../../../../core/utils/constants/enums.dart';
 import '../../../../../core/utils/constants/sizes.dart';
 import 'dismissible_sell_items.dart';
 
@@ -35,12 +36,14 @@ class SellItemList extends ConsumerWidget {
               : () {
                   ref.read(quantityProvider.notifier).state =
                       sellItem.quantity.toString();
-                  showDialog(
+
+                  showModalBottomSheet(
                     context: context,
-                    builder: (context) => VQuantityInputDialog(
+                    isScrollControlled: true,
+                    builder: (_) => QuantityInputBottomSheet(
                       initialQuantity: sellItem.quantity,
                       itemId: sellItem.item.id,
-                      isSell: true,
+                      type: ReceiptType.sell,
                     ),
                   );
                 },

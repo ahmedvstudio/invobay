@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/common/styles/spacing_style.dart';
+import '../../../../core/utils/constants/colors.dart';
+import '../../../../core/utils/constants/sizes.dart';
+import '../../../../features/inventory/item_details/widgets/meta_data_section.dart';
 
-import '../../../core/utils/constants/colors.dart';
-import '../../../core/utils/constants/sizes.dart';
-import '../../../features/inventory/item_details/widgets/meta_data_section.dart';
-
-class VMoreItemInfoDialog extends StatelessWidget {
-  const VMoreItemInfoDialog({
+class MoreItemInfoSheet extends StatelessWidget {
+  const MoreItemInfoSheet({
     super.key,
     required this.currencySign,
     required this.buyPrice,
@@ -21,29 +21,38 @@ class VMoreItemInfoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('More info'),
-      content: Column(
-        spacing: VSizes.spaceBtwItems,
+    final buyTotal = buyPrice * stock;
+    final sellTotal = sellPrice * stock;
+    final profit = sellTotal - buyTotal;
+
+    return Padding(
+      padding: VSpacingStyle.withoutTop,
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Text(
+            'More Info',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: VSizes.spaceBtwItems),
           VMetaDataSection(
             tag: 'Buying Total',
             tagBackgroundColor: VColors.info,
             tagTextColor: VColors.white,
             showIcon: false,
             child: Text(
-              '$currencySign ${buyPrice * stock}',
+              '$currencySign ${buyTotal.toStringAsFixed(2)}',
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
+          const SizedBox(height: VSizes.spaceBtwItems),
           VMetaDataSection(
             tag: 'Selling Total',
             tagBackgroundColor: VColors.info,
             tagTextColor: VColors.white,
             showIcon: false,
             child: Text(
-              '$currencySign ${sellPrice * stock}',
+              '$currencySign ${sellTotal.toStringAsFixed(2)}',
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
@@ -54,18 +63,20 @@ class VMoreItemInfoDialog extends StatelessWidget {
             tagTextColor: VColors.white,
             showIcon: false,
             child: Text(
-              '$currencySign ${(sellPrice * stock) - (buyPrice * stock)}',
+              '$currencySign ${profit.toStringAsFixed(2)}',
               style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          const SizedBox(height: VSizes.spaceBtwSections),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: () => context.pop(),
+              child: const Text('Close'),
             ),
           ),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: const Text('Close'),
-        ),
-      ],
     );
   }
 }

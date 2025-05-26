@@ -4,8 +4,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
-import '../../../../common/widgets/dialogs/update_buying_price_dialog.dart';
-import '../../../../common/widgets/dialogs/update_selling_price_dialog.dart';
+import '../../../../common/widgets/sheet/inventory/update_buying_price_sheet.dart';
+import '../../../../common/widgets/sheet/inventory/update_selling_price_sheet.dart';
 import '../../../../common/widgets/text/item_price_text.dart';
 import '../../../../common/widgets/text/item_title_text.dart';
 import '../../../../common/widgets/text/section_heading.dart';
@@ -127,7 +127,7 @@ class VItemMetaData extends ConsumerWidget {
 
                     return VFixButton(
                       onTap: () {
-                        showUpdateBuyingPriceDialog(
+                        showUpdateBuyingPriceBottomSheet(
                           context: context,
                           highPriceReceipts: highPriceReceipts,
                           currentBuyingPrice: item.buyingPrice,
@@ -163,16 +163,16 @@ class VItemMetaData extends ConsumerWidget {
               ),
               if (item.sellingPrice <= item.buyingPrice)
                 VFixButton(
-                  onTap: () {
-                    showUpdateSellingPriceDialog(
+                  onTap: () async {
+                    await showUpdateSellingPriceBottomSheet(
                       context: context,
                       currentSellingPrice: item.sellingPrice,
+                      buyingPrice: buyingPrice,
                       onUpdate: (newSellingPrice) {
                         ref
                             .read(itemNotifierProvider.notifier)
                             .updateSellingPrice(item.id, newSellingPrice);
                       },
-                      buyingPrice: item.buyingPrice,
                     );
                   },
                 ),

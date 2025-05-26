@@ -19,11 +19,6 @@ class ReportsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final today = DateTime.now();
-    final startOfWeek =
-        today.subtract(Duration(days: today.weekday - 1)); // Monday
-    final endOfWeek = startOfWeek.add(const Duration(days: 6)); // Sunday
-
     return Scaffold(
       body: Column(
         children: [
@@ -66,9 +61,7 @@ class ReportsScreen extends StatelessWidget {
                   const SizedBox(height: VSizes.spaceBtwSections),
 
                   /// Sales VS Buy Chart
-                  VSalesVsBuyCharts(
-                      dateRange:
-                          DateTimeRange(start: startOfWeek, end: endOfWeek)),
+                  VSalesVsBuyCharts(),
                   const SizedBox(height: VSizes.spaceBtwSections),
 
                   /// Profit & Loss

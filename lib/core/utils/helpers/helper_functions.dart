@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../constants/enums.dart';
 import '../constants/font_strings.dart';
 
 class VHelperFunctions {
@@ -151,4 +152,17 @@ class VHelperFunctions {
         return VFonts.poppinsFamily; // Default
     }
   }
+
+  static String getReceiptTitle(ReceiptType type) {
+    switch (type) {
+      case ReceiptType.sell:
+        return 'Edit Sale Payment';
+      case ReceiptType.buy:
+        return 'Edit Buy Payment';
+      case ReceiptType.returns:
+        return 'Edit Return Payment';
+    }
+  }
+
+  ///
 }

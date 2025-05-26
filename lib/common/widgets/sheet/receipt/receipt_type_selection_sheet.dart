@@ -5,7 +5,7 @@ import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 
-import '../../../core/utils/constants/sizes.dart';
+import '../../../../core/utils/constants/sizes.dart';
 
 class VReceiptTypeSelectionBottomSheet extends StatelessWidget {
   const VReceiptTypeSelectionBottomSheet({super.key});

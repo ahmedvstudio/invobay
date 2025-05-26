@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
+import 'package:invobay/core/utils/constants/enums.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../../common/widgets/dialogs/delete_confirm_dialog.dart';
-import '../../../../common/widgets/dialogs/edit_receipt_payment.dart';
+import '../../../../common/widgets/sheet/receipt/edit_receipt_payment_sheet.dart';
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/providers/db_providers/hive_providers/shop_detail_provider.dart';
 import '../../../../core/providers/item_providers/item_related_providers.dart';
@@ -156,13 +157,13 @@ class SellReceiptDetailScreen extends ConsumerWidget {
 
                   // Now you have both shopDetail and receiptDetails available
                   return VReceiptBottomEdit(
-                    changePayment: () => showEditReceiptPayment(
+                    changePayment: () => showEditReceiptPaymentSheet(
                       context: context,
                       ref: ref,
                       receiptId: receiptId,
                       total: receipt.totalPrice,
                       paidAmount: payment.paidAmount,
-                      isSell: true,
+                      receiptType: ReceiptType.sell,
                     ),
                     statusIconColor: payment.status == 'Pending'
                         ? VColors.warning

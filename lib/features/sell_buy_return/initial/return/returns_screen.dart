@@ -1,4 +1,5 @@
 import 'package:barcode_scan2/platform_wrapper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -10,12 +11,14 @@ import 'package:invobay/features/sell_buy_return/initial/return/widgets/returned
 import '../../../../common/widgets/appbar/main_appbar.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
-import '../../../../common/widgets/sheet/return_item_sheet.dart';
+import '../../../../common/widgets/sheet/sell_buy_return/select_item_sheet.dart';
 import '../../../../core/providers/buy_providers/buy_related_providers.dart';
 import '../../../../core/providers/common_providers/update_subtotal_provider.dart';
 import '../../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../../core/router/router_constant.dart';
+import '../../../../core/utils/buttons/buttons.dart';
 import '../../../../core/utils/constants/colors.dart';
+import '../../../../core/utils/constants/enums.dart';
 import '../../../../core/utils/constants/sizes.dart';
 
 class ReturnsScreen extends ConsumerWidget {
@@ -41,10 +44,11 @@ class ReturnsScreen extends ConsumerWidget {
                 VSearchContainer(
                   text: 'Search and Add Items',
                   showPrefixIcon: true,
-                  onTap: () => showReturnItemsBottomSheet(
+                  onTap: () => showItemsBottomSheet(
                     context: context,
                     ref: ref,
                     searchController: _searchController,
+                    receiptType: ReceiptType.returns,
                   ),
                   prefixOnTap: () async {
                     // Start the barcode scan
@@ -95,29 +99,25 @@ class ReturnsScreen extends ConsumerWidget {
           ),
         ],
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(
-            bottom: VSizes.defaultSpace,
-            left: VSizes.defaultSpace,
-            right: VSizes.defaultSpace),
-        child: ElevatedButton(
-          onPressed: () {
-            if (returnItems.isNotEmpty) {
-              final totalPrice = calculateReturnTotalPrice(
-                  ref, returnItems); // Update subtotal
-              context.pushNamed(
-                VRouter.returnCheckout,
-                extra: {
-                  'returnedItems': returnItems,
-                  'totalPrice': totalPrice,
-                },
-              );
-            } else {
-              VToast.warning(message: 'Your list is Empty!');
-            }
-          },
-          child: const Text('Proceed to checkout'),
-        ),
+      floatingActionButton: VButtons.fab(
+        tooltip: 'Proceed to checkout',
+        icon: CupertinoIcons.cart_badge_plus,
+        color: VColors.primary,
+        onPressed: () {
+          if (returnItems.isNotEmpty) {
+            final totalPrice =
+                calculateReturnTotalPrice(ref, returnItems); // Update subtotal
+            context.pushNamed(
+              VRouter.returnCheckout,
+              extra: {
+                'returnedItems': returnItems,
+                'totalPrice': totalPrice,
+              },
+            );
+          } else {
+            VToast.warning(message: 'Your list is Empty!');
+          }
+        },
       ),
     );
   }

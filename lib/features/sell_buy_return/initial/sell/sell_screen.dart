@@ -1,19 +1,23 @@
 import 'package:barcode_scan2/platform_wrapper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/widgets/appbar/main_appbar.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/search_container.dart';
-import 'package:invobay/common/widgets/sheet/items_bottom_sheet.dart';
 import 'package:invobay/features/sell_buy_return/initial/sell/widgets/customer_and_clear.dart';
 import 'package:invobay/features/sell_buy_return/initial/sell/widgets/sell_item_list.dart';
 
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
+import '../../../../common/widgets/sheet/sell_buy_return/select_item_sheet.dart';
 import '../../../../core/providers/common_providers/update_subtotal_provider.dart';
 import '../../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../../core/providers/sell_providers/sell_related_providers.dart';
 import '../../../../core/router/router_constant.dart';
+import '../../../../core/utils/buttons/buttons.dart';
+import '../../../../core/utils/constants/colors.dart';
+import '../../../../core/utils/constants/enums.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/messages/toast.dart';
 
@@ -44,7 +48,7 @@ class SellScreen extends ConsumerWidget {
                     context: context,
                     ref: ref,
                     searchController: _searchController,
-                    isSell: true,
+                    receiptType: ReceiptType.sell,
                   ),
                   prefixOnTap: () async {
                     // Start the barcode scan
@@ -91,29 +95,25 @@ class SellScreen extends ConsumerWidget {
           ),
         ],
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(
-            bottom: VSizes.defaultSpace,
-            left: VSizes.defaultSpace,
-            right: VSizes.defaultSpace),
-        child: ElevatedButton(
-          onPressed: () {
-            if (sellItems.isNotEmpty) {
-              final totalPrice =
-                  calculateSellTotalPrice(ref, sellItems); // Update subtotal
-              context.pushNamed(
-                VRouter.sellCheckout,
-                extra: {
-                  'soldItems': sellItems,
-                  'totalPrice': totalPrice,
-                },
-              );
-            } else {
-              VToast.warning(message: 'Your list is Empty!');
-            }
-          },
-          child: const Text('Proceed to checkout'),
-        ),
+      floatingActionButton: VButtons.fab(
+        tooltip: 'Proceed to checkout',
+        icon: CupertinoIcons.cart_badge_plus,
+        color: VColors.primary,
+        onPressed: () {
+          if (sellItems.isNotEmpty) {
+            final totalPrice =
+                calculateSellTotalPrice(ref, sellItems); // Update subtotal
+            context.pushNamed(
+              VRouter.sellCheckout,
+              extra: {
+                'soldItems': sellItems,
+                'totalPrice': totalPrice,
+              },
+            );
+          } else {
+            VToast.warning(message: 'Your list is Empty!');
+          }
+        },
       ),
     );
   }

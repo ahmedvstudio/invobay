@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../common/widgets/dialogs/edit_fees_dialog.dart';
-import '../../../../core/providers/common_providers/default_providers.dart';
-import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import '../../../../common/widgets/sheet/add_sheets/add_fees_sheet.dart';
 import '../../../../core/utils/constants/colors.dart';
 
 class VAddFeesButton extends ConsumerWidget {
@@ -12,10 +10,8 @@ class VAddFeesButton extends ConsumerWidget {
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final shippingFee = ref.watch(shippingFeeProvider);
-    final taxFee = ref.watch(taxFeeProvider);
     return GestureDetector(
-      onTap: () => showEditFeeDialog(context, ref, shippingFee, taxFee),
+      onTap: () => showEditFeeBottomSheet(context, ref),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(

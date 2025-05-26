@@ -151,6 +151,7 @@ class VButtons {
     required VoidCallback onPressed,
     IconData? icon = Icons.add,
     String? label,
+    String? tooltip,
     Color? color,
     bool mini = false,
   }) {
@@ -167,6 +168,7 @@ class VButtons {
       onPressed: onPressed,
       mini: mini,
       backgroundColor: color,
+      tooltip: tooltip,
       child: Icon(icon),
     );
   }

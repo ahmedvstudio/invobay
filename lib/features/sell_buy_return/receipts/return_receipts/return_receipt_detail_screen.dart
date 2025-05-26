@@ -5,15 +5,17 @@ import 'package:invobay/common/widgets/text/section_heading.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
+import '../../../../common/styles/spacing_style.dart';
 import '../../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../../common/widgets/dialogs/delete_confirm_dialog.dart';
-import '../../../../common/widgets/dialogs/edit_return_receipt_payment_dialog.dart';
+import '../../../../common/widgets/sheet/receipt/edit_receipt_payment_sheet.dart';
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/providers/db_providers/hive_providers/shop_detail_provider.dart';
 import '../../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../../core/providers/return_providers/return_receipt_detail_provider.dart';
 import '../../../../core/providers/return_providers/return_related_providers.dart';
 import '../../../../core/utils/constants/colors.dart';
+import '../../../../core/utils/constants/enums.dart';
 import '../widgets/receipt_item.dart';
 import '../widgets/receipt_bottom_edit.dart';
 import '../widgets/receipt_detail_footer_section.dart';
@@ -44,10 +46,7 @@ class ReturnReceiptDetailScreen extends ConsumerWidget {
                   showBackArrow: true,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: VSizes.defaultSpace,
-                      right: VSizes.defaultSpace,
-                      bottom: VSizes.defaultSpace),
+                  padding: VSpacingStyle.withoutTop,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -155,13 +154,16 @@ class ReturnReceiptDetailScreen extends ConsumerWidget {
 
                   // Now you have both shopDetail and receiptDetails available
                   return VReceiptBottomEdit(
-                    changePayment: () => showReturnEditReceiptPayment(
-                      context: context,
-                      ref: ref,
-                      receiptId: receiptId,
-                      total: receipt.totalPrice,
-                      paidAmount: payment.paidAmount,
-                    ),
+                    changePayment: () async {
+                      await showEditReceiptPaymentSheet(
+                        context: context,
+                        ref: ref,
+                        receiptId: receiptId,
+                        total: receipt.totalPrice,
+                        paidAmount: payment.paidAmount,
+                        receiptType: ReceiptType.returns,
+                      );
+                    },
                     withPrint: false,
                     statusIconColor: payment.status == 'Pending'
                         ? VColors.warning

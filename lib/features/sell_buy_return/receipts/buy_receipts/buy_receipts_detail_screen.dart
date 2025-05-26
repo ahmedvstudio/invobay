@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../../common/widgets/dialogs/delete_confirm_dialog.dart';
-import '../../../../common/widgets/dialogs/edit_receipt_payment.dart';
+import '../../../../common/widgets/sheet/receipt/edit_receipt_payment_sheet.dart';
 import '../../../../common/widgets/text/section_heading.dart';
 import '../../../../core/providers/buy_providers/buy_receipt_detail_provider.dart';
 import '../../../../core/providers/buy_providers/buy_related_providers.dart';
@@ -12,6 +12,7 @@ import '../../../../core/providers/db_providers/hive_providers/app_settings_prov
 import '../../../../core/providers/db_providers/hive_providers/shop_detail_provider.dart';
 import '../../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../../core/utils/constants/colors.dart';
+import '../../../../core/utils/constants/enums.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/formatters/formatters.dart';
 import '../widgets/receipt_bottom_edit.dart';
@@ -157,13 +158,13 @@ class BuyReceiptsDetailScreen extends ConsumerWidget {
 
                   // Now you have both shopDetail and receiptDetails available
                   return VReceiptBottomEdit(
-                    changePayment: () => showEditReceiptPayment(
+                    changePayment: () => showEditReceiptPaymentSheet(
                       context: context,
                       ref: ref,
                       receiptId: receiptId,
                       total: receipt.totalPrice,
                       paidAmount: payment.paidAmount,
-                      isSell: false,
+                      receiptType: ReceiptType.buy,
                     ),
                     statusIconColor: payment.status == 'Pending'
                         ? VColors.warning

@@ -68,3 +68,10 @@ final supplierPhoneProvider = StateProvider<String>((ref) => '');
 final supplierAddressProvider = StateProvider<String>((ref) => '');
 
 //
+final dateRangeProvider = StateProvider<DateTimeRange>((ref) {
+  final now = DateTime.now();
+  return DateTimeRange(
+    start: now.subtract(const Duration(days: 6)),
+    end: now,
+  );
+});

@@ -9,7 +9,7 @@ import 'package:invobay/features/inventory/item_details/widgets/bottom_edits.dar
 import 'package:invobay/features/inventory/item_details/widgets/item_meta_data.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../../common/widgets/dialogs/more_item_info_dialog.dart';
+import '../../../common/widgets/sheet/inventory/more_info_sheet.dart';
 import '../../../common/widgets/text/section_heading.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
@@ -62,16 +62,20 @@ class ItemDetailsScreen extends ConsumerWidget {
               actions: [
                 IconButton(
                   onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return VMoreItemInfoDialog(
-                            currencySign: currencySign,
-                            buyPrice: buyPrice,
-                            stock: stock,
-                            sellPrice: sellPrice,
-                          );
-                        });
+                    showModalBottomSheet(
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(VSizes.spaceBtwItems)),
+                      ),
+                      isScrollControlled: true,
+                      builder: (_) => MoreItemInfoSheet(
+                        currencySign: currencySign,
+                        buyPrice: buyPrice,
+                        sellPrice: sellPrice,
+                        stock: stock,
+                      ),
+                    );
                   },
                   icon: const Icon(
                     Iconsax.information,

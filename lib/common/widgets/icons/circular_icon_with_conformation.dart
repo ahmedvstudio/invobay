@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/helper_functions.dart';
+import '../dialogs/delete_confirm_dialog.dart';
 
 class VCircularIconWithConfirmation extends StatelessWidget {
   const VCircularIconWithConfirmation({
@@ -45,34 +45,17 @@ class VCircularIconWithConfirmation extends StatelessWidget {
     );
   }
 
-  void _showDeleteConfirmationDialog(BuildContext context) {
-    showDialog(
+  Future<void> _showDeleteConfirmationDialog(BuildContext context) async {
+    final confirm = await showDialog<bool>(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirm Deletion'),
-          content: const Text('Are you sure you want to delete this item?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                context.pop();
-              },
-              child: const Text('No'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                onPressed();
-                context.pop();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: VColors.error,
-                side: const BorderSide(color: Colors.transparent),
-              ),
-              child: const Text('Yes'),
-            ),
-          ],
-        );
-      },
+      builder: (context) => const VDeleteConfirmDialog(
+        isCustomer: false,
+        isGeneral: true,
+        contentText: 'Are you sure you want to delete this item?',
+      ),
     );
+    if (confirm == true) {
+      onPressed();
+    }
   }
 }

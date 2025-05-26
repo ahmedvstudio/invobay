@@ -5,17 +5,22 @@ import 'package:invobay/common/widgets/item_cards/item_card_horizontal.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 
-import '../../../core/providers/common_providers/default_providers.dart';
-import '../../../core/providers/return_providers/return_related_providers.dart';
-import '../text_field/search_bar.dart';
-import '../../../core/providers/item_providers/item_related_providers.dart';
-import '../../../core/utils/constants/sizes.dart';
-import '../../../core/utils/helpers/low_stock_helper.dart';
+import '../../../../core/providers/buy_providers/buy_related_providers.dart';
+import '../../../../core/providers/common_providers/default_providers.dart';
+import '../../../../core/providers/return_providers/return_related_providers.dart';
+import '../../../../core/utils/constants/enums.dart';
+import '../../text_field/search_bar.dart';
+import '../../../../core/providers/item_providers/item_related_providers.dart';
+import '../../../../core/providers/sell_providers/sell_related_providers.dart';
+import '../../../../core/utils/constants/sizes.dart';
+import '../../../../core/utils/helpers/low_stock_helper.dart';
+import '../add_sheets/add_new_item_sheet.dart';
 
-void showReturnItemsBottomSheet({
+void showItemsBottomSheet({
   required BuildContext context,
   required WidgetRef ref,
   required TextEditingController searchController,
+  required ReceiptType receiptType,
 }) {
   final itemNotifier = ref.read(itemNotifierProvider.notifier);
 
@@ -75,10 +80,35 @@ void showReturnItemsBottomSheet({
                 ),
                 const SizedBox(height: VSizes.spaceBtwSections),
                 filteredItems.isEmpty
-                    ? const Padding(
-                        padding: EdgeInsets.all(VSizes.defaultSpace),
-                        child: Text("No items found"),
-                      )
+                    ? switch (receiptType) {
+                        ReceiptType.sell => const Padding(
+                            padding: EdgeInsets.all(VSizes.defaultSpace),
+                            child: Text("No items found"),
+                          ),
+                        ReceiptType.buy => searchController.text.isNotEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: VSizes.defaultSpace),
+                                child: Column(
+                                  children: [
+                                    Text("${searchController.text} Not found!"),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: OutlinedButton(
+                                        onPressed: () {
+                                          showAddNewItemBottomSheet(context,
+                                              ref, searchController.text);
+                                        },
+                                        child: const Text('Add New'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const Text('Your Inventory is Empty'),
+                        ReceiptType.returns =>
+                          const Text("No returnable items found"),
+                      }
                     : Flexible(
                         child: ListView.separated(
                           padding: const EdgeInsets.symmetric(
@@ -92,16 +122,39 @@ void showReturnItemsBottomSheet({
                                     .getThreeColor();
 
                             return VItemCardHorizontal(
+                              // Instead of isSell ? add to sell : add to buy
                               onTapItemDetails: () async {
-                                await ref
-                                    .read(returnNotifierProvider.notifier)
-                                    .addItem(item);
+                                switch (receiptType) {
+                                  case ReceiptType.sell:
+                                    await ref
+                                        .read(sellNotifierProvider.notifier)
+                                        .addItem(item);
+                                    break;
+                                  case ReceiptType.buy:
+                                    await ref
+                                        .read(buyNotifierProvider.notifier)
+                                        .addItem(item);
+                                    break;
+                                  case ReceiptType.returns:
+                                    await ref
+                                        .read(returnNotifierProvider.notifier)
+                                        .addItem(item);
+                                    break;
+                                }
                                 if (!context.mounted) return;
                                 context.pop();
                               },
+
                               itemName: item.name,
                               itemStock: item.quantity,
-                              itemPrice: item.sellingPrice.toString(),
+                              itemPrice: switch (receiptType) {
+                                ReceiptType.sell =>
+                                  item.sellingPrice.toString(),
+                                ReceiptType.buy => item.buyingPrice.toString(),
+                                ReceiptType.returns =>
+                                  item.sellingPrice.toString(),
+                              },
+
                               stockIconColor: lowStockColor,
                             );
                           },
