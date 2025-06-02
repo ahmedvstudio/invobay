@@ -52,18 +52,7 @@ class SettingsScreen extends StatelessWidget {
                   const VSectionHeading(
                       title: 'Account Settings', showActionButton: false),
                   const SizedBox(height: VSizes.spaceBtwItems),
-                  VSettingsMenuTile(
-                    icon: Iconsax.dollar_square,
-                    title: 'Vault / Expense',
-                    subTitle: 'Add your vault and expense details.',
-                    onTap: () {},
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.shop,
-                    title: 'Shop Details',
-                    subTitle: 'Add Shop Details.',
-                    onTap: () => context.pushNamed(VRouter.shopDetails),
-                  ),
+
                   VSettingsMenuTile(
                     icon: Iconsax.personalcard,
                     title: 'Customers',
@@ -76,7 +65,18 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'Add Your Suppliers Details.',
                     onTap: () => context.pushNamed(VRouter.suppliers),
                   ),
-
+                  VSettingsMenuTile(
+                    icon: Iconsax.dollar_square,
+                    title: 'Vault / Expense',
+                    subTitle: 'Add your vault and expense details.',
+                    onTap: () => context.pushNamed(VRouter.vault),
+                  ),
+                  VSettingsMenuTile(
+                    icon: Iconsax.shop,
+                    title: 'Shop Details',
+                    subTitle: 'Add Shop Details.',
+                    onTap: () => context.pushNamed(VRouter.shopDetails),
+                  ),
                   const SizedBox(height: VSizes.spaceBtwSections),
                   const VSectionHeading(
                       title: 'App Settings', showActionButton: false),

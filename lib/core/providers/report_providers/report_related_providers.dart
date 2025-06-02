@@ -7,6 +7,7 @@ import '../buy_providers/buy_related_providers.dart';
 import '../item_providers/item_related_providers.dart';
 import '../return_providers/return_related_providers.dart';
 import '../sell_providers/sell_related_providers.dart';
+import '../vault_providers/vault_related_providers.dart';
 
 // Inventory Value Provider
 final inventoryValueProvider = Provider<double>((ref) {
@@ -137,3 +138,39 @@ final mostReturnedItemsProvider = StreamProvider.autoDispose((ref) {
   return dao.watchMostReturnedItems();
 });
 //------------------------------------------
+final receiptsBalanceProvider = Provider<double>((ref) {
+  final totalSales = ref.watch(totalSaleProvider);
+  final totalBuy = ref.watch(totalBuyProvider);
+  final totalReturn = ref.watch(totalReturnProvider);
+  final currentBalance = ref.watch(currentBalanceProvider);
+
+  return currentBalance + totalSales - totalBuy - totalReturn;
+});
+
+///------------------------------------
+final currentBalanceProvider = Provider<double>((ref) {
+  final vaultState = ref.watch(vaultDetailNotifierProvider(1));
+  if (vaultState.isLoading) {
+    return 0.0;
+  } else if (vaultState.hasError) {
+    return 0.0;
+  }
+
+  final vault = vaultState.value;
+  final currentBalance = vault?.currentBalance ?? 0;
+  return currentBalance;
+});
+
+///------------------------------------
+final expenseBalanceProvider = Provider<double>((ref) {
+  final vaultState = ref.watch(vaultDetailNotifierProvider(1));
+  if (vaultState.isLoading) {
+    return 0.0;
+  } else if (vaultState.hasError) {
+    return 0.0;
+  }
+
+  final vault = vaultState.value;
+  final expenseBalance = vault?.totalReduced ?? 0;
+  return expenseBalance;
+});

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 
@@ -30,11 +31,7 @@ class ItemListView extends StatelessWidget {
     return Expanded(
       child: ListView.separated(
         shrinkWrap: true,
-        padding: const EdgeInsets.only(
-          left: VSizes.defaultSpace,
-          right: VSizes.defaultSpace,
-          bottom: VSizes.defaultSpace,
-        ),
+        padding: VSpacingStyle.withoutTop,
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];

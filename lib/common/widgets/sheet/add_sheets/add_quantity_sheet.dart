@@ -12,7 +12,7 @@ import '../../../../core/utils/messages/snackbar.dart';
 Future<void> showAddQuantityBottomSheet(BuildContext context, WidgetRef ref,
     {required int? itemId}) async {
   final quantityState = ref.read(addQuantityProvider.notifier);
-  quantityState.state = ''; // Reset before opening
+  quantityState.state = '';
 
   await showModalBottomSheet(
     context: context,

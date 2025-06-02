@@ -4816,6 +4816,874 @@ class SuppliersCompanion extends UpdateCompanion<SupplierData> {
   }
 }
 
+class $VaultTable extends Vault with TableInfo<$VaultTable, VaultModel> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $VaultTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _amountOnHandMeta =
+      const VerificationMeta('amountOnHand');
+  @override
+  late final GeneratedColumn<double> amountOnHand = GeneratedColumn<double>(
+      'amount_on_hand', aliasedName, false,
+      type: DriftSqlType.double,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0.00));
+  @override
+  List<GeneratedColumn> get $columns => [id, amountOnHand];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'vault';
+  @override
+  VerificationContext validateIntegrity(Insertable<VaultModel> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('amount_on_hand')) {
+      context.handle(
+          _amountOnHandMeta,
+          amountOnHand.isAcceptableOrUnknown(
+              data['amount_on_hand']!, _amountOnHandMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  VaultModel map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return VaultModel(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      amountOnHand: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}amount_on_hand'])!,
+    );
+  }
+
+  @override
+  $VaultTable createAlias(String alias) {
+    return $VaultTable(attachedDatabase, alias);
+  }
+}
+
+class VaultModel extends DataClass implements Insertable<VaultModel> {
+  final int id;
+  final double amountOnHand;
+  const VaultModel({required this.id, required this.amountOnHand});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['amount_on_hand'] = Variable<double>(amountOnHand);
+    return map;
+  }
+
+  VaultCompanion toCompanion(bool nullToAbsent) {
+    return VaultCompanion(
+      id: Value(id),
+      amountOnHand: Value(amountOnHand),
+    );
+  }
+
+  factory VaultModel.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return VaultModel(
+      id: serializer.fromJson<int>(json['id']),
+      amountOnHand: serializer.fromJson<double>(json['amountOnHand']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'amountOnHand': serializer.toJson<double>(amountOnHand),
+    };
+  }
+
+  VaultModel copyWith({int? id, double? amountOnHand}) => VaultModel(
+        id: id ?? this.id,
+        amountOnHand: amountOnHand ?? this.amountOnHand,
+      );
+  VaultModel copyWithCompanion(VaultCompanion data) {
+    return VaultModel(
+      id: data.id.present ? data.id.value : this.id,
+      amountOnHand: data.amountOnHand.present
+          ? data.amountOnHand.value
+          : this.amountOnHand,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaultModel(')
+          ..write('id: $id, ')
+          ..write('amountOnHand: $amountOnHand')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, amountOnHand);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is VaultModel &&
+          other.id == this.id &&
+          other.amountOnHand == this.amountOnHand);
+}
+
+class VaultCompanion extends UpdateCompanion<VaultModel> {
+  final Value<int> id;
+  final Value<double> amountOnHand;
+  const VaultCompanion({
+    this.id = const Value.absent(),
+    this.amountOnHand = const Value.absent(),
+  });
+  VaultCompanion.insert({
+    this.id = const Value.absent(),
+    this.amountOnHand = const Value.absent(),
+  });
+  static Insertable<VaultModel> custom({
+    Expression<int>? id,
+    Expression<double>? amountOnHand,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (amountOnHand != null) 'amount_on_hand': amountOnHand,
+    });
+  }
+
+  VaultCompanion copyWith({Value<int>? id, Value<double>? amountOnHand}) {
+    return VaultCompanion(
+      id: id ?? this.id,
+      amountOnHand: amountOnHand ?? this.amountOnHand,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (amountOnHand.present) {
+      map['amount_on_hand'] = Variable<double>(amountOnHand.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaultCompanion(')
+          ..write('id: $id, ')
+          ..write('amountOnHand: $amountOnHand')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AddedToVaultTable extends AddedToVault
+    with TableInfo<$AddedToVaultTable, AddedToVaultModel> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AddedToVaultTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _vaultIdMeta =
+      const VerificationMeta('vaultId');
+  @override
+  late final GeneratedColumn<int> vaultId = GeneratedColumn<int>(
+      'vault_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES vault(id) ON DELETE CASCADE');
+  static const VerificationMeta _amountMeta = const VerificationMeta('amount');
+  @override
+  late final GeneratedColumn<double> amount = GeneratedColumn<double>(
+      'amount', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+      'note', aliasedName, true,
+      additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 50),
+      type: DriftSqlType.string,
+      requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, date, vaultId, amount, description, note];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'added_to_vault';
+  @override
+  VerificationContext validateIntegrity(Insertable<AddedToVaultModel> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    }
+    if (data.containsKey('vault_id')) {
+      context.handle(_vaultIdMeta,
+          vaultId.isAcceptableOrUnknown(data['vault_id']!, _vaultIdMeta));
+    } else if (isInserting) {
+      context.missing(_vaultIdMeta);
+    }
+    if (data.containsKey('amount')) {
+      context.handle(_amountMeta,
+          amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
+    } else if (isInserting) {
+      context.missing(_amountMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+          _noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AddedToVaultModel map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AddedToVaultModel(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      vaultId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}vault_id'])!,
+      amount: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}amount'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      note: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}note']),
+    );
+  }
+
+  @override
+  $AddedToVaultTable createAlias(String alias) {
+    return $AddedToVaultTable(attachedDatabase, alias);
+  }
+}
+
+class AddedToVaultModel extends DataClass
+    implements Insertable<AddedToVaultModel> {
+  final int id;
+  final DateTime date;
+  final int vaultId;
+  final double amount;
+  final String description;
+  final String? note;
+  const AddedToVaultModel(
+      {required this.id,
+      required this.date,
+      required this.vaultId,
+      required this.amount,
+      required this.description,
+      this.note});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['date'] = Variable<DateTime>(date);
+    map['vault_id'] = Variable<int>(vaultId);
+    map['amount'] = Variable<double>(amount);
+    map['description'] = Variable<String>(description);
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    return map;
+  }
+
+  AddedToVaultCompanion toCompanion(bool nullToAbsent) {
+    return AddedToVaultCompanion(
+      id: Value(id),
+      date: Value(date),
+      vaultId: Value(vaultId),
+      amount: Value(amount),
+      description: Value(description),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+    );
+  }
+
+  factory AddedToVaultModel.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AddedToVaultModel(
+      id: serializer.fromJson<int>(json['id']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      vaultId: serializer.fromJson<int>(json['vaultId']),
+      amount: serializer.fromJson<double>(json['amount']),
+      description: serializer.fromJson<String>(json['description']),
+      note: serializer.fromJson<String?>(json['note']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'date': serializer.toJson<DateTime>(date),
+      'vaultId': serializer.toJson<int>(vaultId),
+      'amount': serializer.toJson<double>(amount),
+      'description': serializer.toJson<String>(description),
+      'note': serializer.toJson<String?>(note),
+    };
+  }
+
+  AddedToVaultModel copyWith(
+          {int? id,
+          DateTime? date,
+          int? vaultId,
+          double? amount,
+          String? description,
+          Value<String?> note = const Value.absent()}) =>
+      AddedToVaultModel(
+        id: id ?? this.id,
+        date: date ?? this.date,
+        vaultId: vaultId ?? this.vaultId,
+        amount: amount ?? this.amount,
+        description: description ?? this.description,
+        note: note.present ? note.value : this.note,
+      );
+  AddedToVaultModel copyWithCompanion(AddedToVaultCompanion data) {
+    return AddedToVaultModel(
+      id: data.id.present ? data.id.value : this.id,
+      date: data.date.present ? data.date.value : this.date,
+      vaultId: data.vaultId.present ? data.vaultId.value : this.vaultId,
+      amount: data.amount.present ? data.amount.value : this.amount,
+      description:
+          data.description.present ? data.description.value : this.description,
+      note: data.note.present ? data.note.value : this.note,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AddedToVaultModel(')
+          ..write('id: $id, ')
+          ..write('date: $date, ')
+          ..write('vaultId: $vaultId, ')
+          ..write('amount: $amount, ')
+          ..write('description: $description, ')
+          ..write('note: $note')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, date, vaultId, amount, description, note);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AddedToVaultModel &&
+          other.id == this.id &&
+          other.date == this.date &&
+          other.vaultId == this.vaultId &&
+          other.amount == this.amount &&
+          other.description == this.description &&
+          other.note == this.note);
+}
+
+class AddedToVaultCompanion extends UpdateCompanion<AddedToVaultModel> {
+  final Value<int> id;
+  final Value<DateTime> date;
+  final Value<int> vaultId;
+  final Value<double> amount;
+  final Value<String> description;
+  final Value<String?> note;
+  const AddedToVaultCompanion({
+    this.id = const Value.absent(),
+    this.date = const Value.absent(),
+    this.vaultId = const Value.absent(),
+    this.amount = const Value.absent(),
+    this.description = const Value.absent(),
+    this.note = const Value.absent(),
+  });
+  AddedToVaultCompanion.insert({
+    this.id = const Value.absent(),
+    this.date = const Value.absent(),
+    required int vaultId,
+    required double amount,
+    required String description,
+    this.note = const Value.absent(),
+  })  : vaultId = Value(vaultId),
+        amount = Value(amount),
+        description = Value(description);
+  static Insertable<AddedToVaultModel> custom({
+    Expression<int>? id,
+    Expression<DateTime>? date,
+    Expression<int>? vaultId,
+    Expression<double>? amount,
+    Expression<String>? description,
+    Expression<String>? note,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (date != null) 'date': date,
+      if (vaultId != null) 'vault_id': vaultId,
+      if (amount != null) 'amount': amount,
+      if (description != null) 'description': description,
+      if (note != null) 'note': note,
+    });
+  }
+
+  AddedToVaultCompanion copyWith(
+      {Value<int>? id,
+      Value<DateTime>? date,
+      Value<int>? vaultId,
+      Value<double>? amount,
+      Value<String>? description,
+      Value<String?>? note}) {
+    return AddedToVaultCompanion(
+      id: id ?? this.id,
+      date: date ?? this.date,
+      vaultId: vaultId ?? this.vaultId,
+      amount: amount ?? this.amount,
+      description: description ?? this.description,
+      note: note ?? this.note,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (vaultId.present) {
+      map['vault_id'] = Variable<int>(vaultId.value);
+    }
+    if (amount.present) {
+      map['amount'] = Variable<double>(amount.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AddedToVaultCompanion(')
+          ..write('id: $id, ')
+          ..write('date: $date, ')
+          ..write('vaultId: $vaultId, ')
+          ..write('amount: $amount, ')
+          ..write('description: $description, ')
+          ..write('note: $note')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ReducedFromVaultTable extends ReducedFromVault
+    with TableInfo<$ReducedFromVaultTable, ReducedFromVaultModel> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ReducedFromVaultTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _vaultIdMeta =
+      const VerificationMeta('vaultId');
+  @override
+  late final GeneratedColumn<int> vaultId = GeneratedColumn<int>(
+      'vault_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES vault(id) ON DELETE CASCADE');
+  static const VerificationMeta _amountMeta = const VerificationMeta('amount');
+  @override
+  late final GeneratedColumn<double> amount = GeneratedColumn<double>(
+      'amount', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+      'note', aliasedName, true,
+      additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 50),
+      type: DriftSqlType.string,
+      requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, date, vaultId, amount, description, note];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'reduced_from_vault';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ReducedFromVaultModel> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    }
+    if (data.containsKey('vault_id')) {
+      context.handle(_vaultIdMeta,
+          vaultId.isAcceptableOrUnknown(data['vault_id']!, _vaultIdMeta));
+    } else if (isInserting) {
+      context.missing(_vaultIdMeta);
+    }
+    if (data.containsKey('amount')) {
+      context.handle(_amountMeta,
+          amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
+    } else if (isInserting) {
+      context.missing(_amountMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+          _noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ReducedFromVaultModel map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ReducedFromVaultModel(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      vaultId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}vault_id'])!,
+      amount: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}amount'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      note: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}note']),
+    );
+  }
+
+  @override
+  $ReducedFromVaultTable createAlias(String alias) {
+    return $ReducedFromVaultTable(attachedDatabase, alias);
+  }
+}
+
+class ReducedFromVaultModel extends DataClass
+    implements Insertable<ReducedFromVaultModel> {
+  final int id;
+  final DateTime date;
+  final int vaultId;
+  final double amount;
+  final String description;
+  final String? note;
+  const ReducedFromVaultModel(
+      {required this.id,
+      required this.date,
+      required this.vaultId,
+      required this.amount,
+      required this.description,
+      this.note});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['date'] = Variable<DateTime>(date);
+    map['vault_id'] = Variable<int>(vaultId);
+    map['amount'] = Variable<double>(amount);
+    map['description'] = Variable<String>(description);
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    return map;
+  }
+
+  ReducedFromVaultCompanion toCompanion(bool nullToAbsent) {
+    return ReducedFromVaultCompanion(
+      id: Value(id),
+      date: Value(date),
+      vaultId: Value(vaultId),
+      amount: Value(amount),
+      description: Value(description),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+    );
+  }
+
+  factory ReducedFromVaultModel.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ReducedFromVaultModel(
+      id: serializer.fromJson<int>(json['id']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      vaultId: serializer.fromJson<int>(json['vaultId']),
+      amount: serializer.fromJson<double>(json['amount']),
+      description: serializer.fromJson<String>(json['description']),
+      note: serializer.fromJson<String?>(json['note']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'date': serializer.toJson<DateTime>(date),
+      'vaultId': serializer.toJson<int>(vaultId),
+      'amount': serializer.toJson<double>(amount),
+      'description': serializer.toJson<String>(description),
+      'note': serializer.toJson<String?>(note),
+    };
+  }
+
+  ReducedFromVaultModel copyWith(
+          {int? id,
+          DateTime? date,
+          int? vaultId,
+          double? amount,
+          String? description,
+          Value<String?> note = const Value.absent()}) =>
+      ReducedFromVaultModel(
+        id: id ?? this.id,
+        date: date ?? this.date,
+        vaultId: vaultId ?? this.vaultId,
+        amount: amount ?? this.amount,
+        description: description ?? this.description,
+        note: note.present ? note.value : this.note,
+      );
+  ReducedFromVaultModel copyWithCompanion(ReducedFromVaultCompanion data) {
+    return ReducedFromVaultModel(
+      id: data.id.present ? data.id.value : this.id,
+      date: data.date.present ? data.date.value : this.date,
+      vaultId: data.vaultId.present ? data.vaultId.value : this.vaultId,
+      amount: data.amount.present ? data.amount.value : this.amount,
+      description:
+          data.description.present ? data.description.value : this.description,
+      note: data.note.present ? data.note.value : this.note,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReducedFromVaultModel(')
+          ..write('id: $id, ')
+          ..write('date: $date, ')
+          ..write('vaultId: $vaultId, ')
+          ..write('amount: $amount, ')
+          ..write('description: $description, ')
+          ..write('note: $note')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, date, vaultId, amount, description, note);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ReducedFromVaultModel &&
+          other.id == this.id &&
+          other.date == this.date &&
+          other.vaultId == this.vaultId &&
+          other.amount == this.amount &&
+          other.description == this.description &&
+          other.note == this.note);
+}
+
+class ReducedFromVaultCompanion extends UpdateCompanion<ReducedFromVaultModel> {
+  final Value<int> id;
+  final Value<DateTime> date;
+  final Value<int> vaultId;
+  final Value<double> amount;
+  final Value<String> description;
+  final Value<String?> note;
+  const ReducedFromVaultCompanion({
+    this.id = const Value.absent(),
+    this.date = const Value.absent(),
+    this.vaultId = const Value.absent(),
+    this.amount = const Value.absent(),
+    this.description = const Value.absent(),
+    this.note = const Value.absent(),
+  });
+  ReducedFromVaultCompanion.insert({
+    this.id = const Value.absent(),
+    this.date = const Value.absent(),
+    required int vaultId,
+    required double amount,
+    required String description,
+    this.note = const Value.absent(),
+  })  : vaultId = Value(vaultId),
+        amount = Value(amount),
+        description = Value(description);
+  static Insertable<ReducedFromVaultModel> custom({
+    Expression<int>? id,
+    Expression<DateTime>? date,
+    Expression<int>? vaultId,
+    Expression<double>? amount,
+    Expression<String>? description,
+    Expression<String>? note,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (date != null) 'date': date,
+      if (vaultId != null) 'vault_id': vaultId,
+      if (amount != null) 'amount': amount,
+      if (description != null) 'description': description,
+      if (note != null) 'note': note,
+    });
+  }
+
+  ReducedFromVaultCompanion copyWith(
+      {Value<int>? id,
+      Value<DateTime>? date,
+      Value<int>? vaultId,
+      Value<double>? amount,
+      Value<String>? description,
+      Value<String?>? note}) {
+    return ReducedFromVaultCompanion(
+      id: id ?? this.id,
+      date: date ?? this.date,
+      vaultId: vaultId ?? this.vaultId,
+      amount: amount ?? this.amount,
+      description: description ?? this.description,
+      note: note ?? this.note,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (vaultId.present) {
+      map['vault_id'] = Variable<int>(vaultId.value);
+    }
+    if (amount.present) {
+      map['amount'] = Variable<double>(amount.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReducedFromVaultCompanion(')
+          ..write('id: $id, ')
+          ..write('date: $date, ')
+          ..write('vaultId: $vaultId, ')
+          ..write('amount: $amount, ')
+          ..write('description: $description, ')
+          ..write('note: $note')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -4834,6 +5702,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ReturnPaymentsTable returnPayments = $ReturnPaymentsTable(this);
   late final $CustomersTable customers = $CustomersTable(this);
   late final $SuppliersTable suppliers = $SuppliersTable(this);
+  late final $VaultTable vault = $VaultTable(this);
+  late final $AddedToVaultTable addedToVault = $AddedToVaultTable(this);
+  late final $ReducedFromVaultTable reducedFromVault =
+      $ReducedFromVaultTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -4850,8 +5722,30 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         returnReceiptItems,
         returnPayments,
         customers,
-        suppliers
+        suppliers,
+        vault,
+        addedToVault,
+        reducedFromVault
       ];
+  @override
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
+        [
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('vault',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('added_to_vault', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('vault',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('reduced_from_vault', kind: UpdateKind.delete),
+            ],
+          ),
+        ],
+      );
 }
 
 typedef $$ItemsTableCreateCompanionBuilder = ItemsCompanion Function({
@@ -7274,6 +8168,852 @@ typedef $$SuppliersTableProcessedTableManager = ProcessedTableManager<
     ),
     SupplierData,
     PrefetchHooks Function()>;
+typedef $$VaultTableCreateCompanionBuilder = VaultCompanion Function({
+  Value<int> id,
+  Value<double> amountOnHand,
+});
+typedef $$VaultTableUpdateCompanionBuilder = VaultCompanion Function({
+  Value<int> id,
+  Value<double> amountOnHand,
+});
+
+final class $$VaultTableReferences
+    extends BaseReferences<_$AppDatabase, $VaultTable, VaultModel> {
+  $$VaultTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$AddedToVaultTable, List<AddedToVaultModel>>
+      _addedToVaultRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.addedToVault,
+              aliasName:
+                  $_aliasNameGenerator(db.vault.id, db.addedToVault.vaultId));
+
+  $$AddedToVaultTableProcessedTableManager get addedToVaultRefs {
+    final manager = $$AddedToVaultTableTableManager($_db, $_db.addedToVault)
+        .filter((f) => f.vaultId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_addedToVaultRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$ReducedFromVaultTable,
+      List<ReducedFromVaultModel>> _reducedFromVaultRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.reducedFromVault,
+          aliasName:
+              $_aliasNameGenerator(db.vault.id, db.reducedFromVault.vaultId));
+
+  $$ReducedFromVaultTableProcessedTableManager get reducedFromVaultRefs {
+    final manager =
+        $$ReducedFromVaultTableTableManager($_db, $_db.reducedFromVault)
+            .filter((f) => f.vaultId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache =
+        $_typedResult.readTableOrNull(_reducedFromVaultRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$VaultTableFilterComposer extends Composer<_$AppDatabase, $VaultTable> {
+  $$VaultTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get amountOnHand => $composableBuilder(
+      column: $table.amountOnHand, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> addedToVaultRefs(
+      Expression<bool> Function($$AddedToVaultTableFilterComposer f) f) {
+    final $$AddedToVaultTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.addedToVault,
+        getReferencedColumn: (t) => t.vaultId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$AddedToVaultTableFilterComposer(
+              $db: $db,
+              $table: $db.addedToVault,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> reducedFromVaultRefs(
+      Expression<bool> Function($$ReducedFromVaultTableFilterComposer f) f) {
+    final $$ReducedFromVaultTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.reducedFromVault,
+        getReferencedColumn: (t) => t.vaultId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ReducedFromVaultTableFilterComposer(
+              $db: $db,
+              $table: $db.reducedFromVault,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$VaultTableOrderingComposer
+    extends Composer<_$AppDatabase, $VaultTable> {
+  $$VaultTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get amountOnHand => $composableBuilder(
+      column: $table.amountOnHand,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$VaultTableAnnotationComposer
+    extends Composer<_$AppDatabase, $VaultTable> {
+  $$VaultTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<double> get amountOnHand => $composableBuilder(
+      column: $table.amountOnHand, builder: (column) => column);
+
+  Expression<T> addedToVaultRefs<T extends Object>(
+      Expression<T> Function($$AddedToVaultTableAnnotationComposer a) f) {
+    final $$AddedToVaultTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.addedToVault,
+        getReferencedColumn: (t) => t.vaultId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$AddedToVaultTableAnnotationComposer(
+              $db: $db,
+              $table: $db.addedToVault,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> reducedFromVaultRefs<T extends Object>(
+      Expression<T> Function($$ReducedFromVaultTableAnnotationComposer a) f) {
+    final $$ReducedFromVaultTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.reducedFromVault,
+        getReferencedColumn: (t) => t.vaultId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ReducedFromVaultTableAnnotationComposer(
+              $db: $db,
+              $table: $db.reducedFromVault,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$VaultTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $VaultTable,
+    VaultModel,
+    $$VaultTableFilterComposer,
+    $$VaultTableOrderingComposer,
+    $$VaultTableAnnotationComposer,
+    $$VaultTableCreateCompanionBuilder,
+    $$VaultTableUpdateCompanionBuilder,
+    (VaultModel, $$VaultTableReferences),
+    VaultModel,
+    PrefetchHooks Function(
+        {bool addedToVaultRefs, bool reducedFromVaultRefs})> {
+  $$VaultTableTableManager(_$AppDatabase db, $VaultTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$VaultTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$VaultTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$VaultTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<double> amountOnHand = const Value.absent(),
+          }) =>
+              VaultCompanion(
+            id: id,
+            amountOnHand: amountOnHand,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<double> amountOnHand = const Value.absent(),
+          }) =>
+              VaultCompanion.insert(
+            id: id,
+            amountOnHand: amountOnHand,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$VaultTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: (
+              {addedToVaultRefs = false, reducedFromVaultRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (addedToVaultRefs) db.addedToVault,
+                if (reducedFromVaultRefs) db.reducedFromVault
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (addedToVaultRefs)
+                    await $_getPrefetchedData<VaultModel, $VaultTable,
+                            AddedToVaultModel>(
+                        currentTable: table,
+                        referencedTable:
+                            $$VaultTableReferences._addedToVaultRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$VaultTableReferences(db, table, p0)
+                                .addedToVaultRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.vaultId == item.id),
+                        typedResults: items),
+                  if (reducedFromVaultRefs)
+                    await $_getPrefetchedData<VaultModel, $VaultTable,
+                            ReducedFromVaultModel>(
+                        currentTable: table,
+                        referencedTable: $$VaultTableReferences
+                            ._reducedFromVaultRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$VaultTableReferences(db, table, p0)
+                                .reducedFromVaultRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.vaultId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$VaultTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $VaultTable,
+    VaultModel,
+    $$VaultTableFilterComposer,
+    $$VaultTableOrderingComposer,
+    $$VaultTableAnnotationComposer,
+    $$VaultTableCreateCompanionBuilder,
+    $$VaultTableUpdateCompanionBuilder,
+    (VaultModel, $$VaultTableReferences),
+    VaultModel,
+    PrefetchHooks Function({bool addedToVaultRefs, bool reducedFromVaultRefs})>;
+typedef $$AddedToVaultTableCreateCompanionBuilder = AddedToVaultCompanion
+    Function({
+  Value<int> id,
+  Value<DateTime> date,
+  required int vaultId,
+  required double amount,
+  required String description,
+  Value<String?> note,
+});
+typedef $$AddedToVaultTableUpdateCompanionBuilder = AddedToVaultCompanion
+    Function({
+  Value<int> id,
+  Value<DateTime> date,
+  Value<int> vaultId,
+  Value<double> amount,
+  Value<String> description,
+  Value<String?> note,
+});
+
+final class $$AddedToVaultTableReferences extends BaseReferences<_$AppDatabase,
+    $AddedToVaultTable, AddedToVaultModel> {
+  $$AddedToVaultTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $VaultTable _vaultIdTable(_$AppDatabase db) => db.vault
+      .createAlias($_aliasNameGenerator(db.addedToVault.vaultId, db.vault.id));
+
+  $$VaultTableProcessedTableManager get vaultId {
+    final $_column = $_itemColumn<int>('vault_id')!;
+
+    final manager = $$VaultTableTableManager($_db, $_db.vault)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_vaultIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$AddedToVaultTableFilterComposer
+    extends Composer<_$AppDatabase, $AddedToVaultTable> {
+  $$AddedToVaultTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get date => $composableBuilder(
+      column: $table.date, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get amount => $composableBuilder(
+      column: $table.amount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get note => $composableBuilder(
+      column: $table.note, builder: (column) => ColumnFilters(column));
+
+  $$VaultTableFilterComposer get vaultId {
+    final $$VaultTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.vaultId,
+        referencedTable: $db.vault,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$VaultTableFilterComposer(
+              $db: $db,
+              $table: $db.vault,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$AddedToVaultTableOrderingComposer
+    extends Composer<_$AppDatabase, $AddedToVaultTable> {
+  $$AddedToVaultTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get date => $composableBuilder(
+      column: $table.date, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get amount => $composableBuilder(
+      column: $table.amount, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get note => $composableBuilder(
+      column: $table.note, builder: (column) => ColumnOrderings(column));
+
+  $$VaultTableOrderingComposer get vaultId {
+    final $$VaultTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.vaultId,
+        referencedTable: $db.vault,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$VaultTableOrderingComposer(
+              $db: $db,
+              $table: $db.vault,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$AddedToVaultTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AddedToVaultTable> {
+  $$AddedToVaultTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get date =>
+      $composableBuilder(column: $table.date, builder: (column) => column);
+
+  GeneratedColumn<double> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => column);
+
+  GeneratedColumn<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => column);
+
+  $$VaultTableAnnotationComposer get vaultId {
+    final $$VaultTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.vaultId,
+        referencedTable: $db.vault,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$VaultTableAnnotationComposer(
+              $db: $db,
+              $table: $db.vault,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$AddedToVaultTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $AddedToVaultTable,
+    AddedToVaultModel,
+    $$AddedToVaultTableFilterComposer,
+    $$AddedToVaultTableOrderingComposer,
+    $$AddedToVaultTableAnnotationComposer,
+    $$AddedToVaultTableCreateCompanionBuilder,
+    $$AddedToVaultTableUpdateCompanionBuilder,
+    (AddedToVaultModel, $$AddedToVaultTableReferences),
+    AddedToVaultModel,
+    PrefetchHooks Function({bool vaultId})> {
+  $$AddedToVaultTableTableManager(_$AppDatabase db, $AddedToVaultTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AddedToVaultTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AddedToVaultTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AddedToVaultTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<int> vaultId = const Value.absent(),
+            Value<double> amount = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<String?> note = const Value.absent(),
+          }) =>
+              AddedToVaultCompanion(
+            id: id,
+            date: date,
+            vaultId: vaultId,
+            amount: amount,
+            description: description,
+            note: note,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            required int vaultId,
+            required double amount,
+            required String description,
+            Value<String?> note = const Value.absent(),
+          }) =>
+              AddedToVaultCompanion.insert(
+            id: id,
+            date: date,
+            vaultId: vaultId,
+            amount: amount,
+            description: description,
+            note: note,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$AddedToVaultTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({vaultId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (vaultId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.vaultId,
+                    referencedTable:
+                        $$AddedToVaultTableReferences._vaultIdTable(db),
+                    referencedColumn:
+                        $$AddedToVaultTableReferences._vaultIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$AddedToVaultTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $AddedToVaultTable,
+    AddedToVaultModel,
+    $$AddedToVaultTableFilterComposer,
+    $$AddedToVaultTableOrderingComposer,
+    $$AddedToVaultTableAnnotationComposer,
+    $$AddedToVaultTableCreateCompanionBuilder,
+    $$AddedToVaultTableUpdateCompanionBuilder,
+    (AddedToVaultModel, $$AddedToVaultTableReferences),
+    AddedToVaultModel,
+    PrefetchHooks Function({bool vaultId})>;
+typedef $$ReducedFromVaultTableCreateCompanionBuilder
+    = ReducedFromVaultCompanion Function({
+  Value<int> id,
+  Value<DateTime> date,
+  required int vaultId,
+  required double amount,
+  required String description,
+  Value<String?> note,
+});
+typedef $$ReducedFromVaultTableUpdateCompanionBuilder
+    = ReducedFromVaultCompanion Function({
+  Value<int> id,
+  Value<DateTime> date,
+  Value<int> vaultId,
+  Value<double> amount,
+  Value<String> description,
+  Value<String?> note,
+});
+
+final class $$ReducedFromVaultTableReferences extends BaseReferences<
+    _$AppDatabase, $ReducedFromVaultTable, ReducedFromVaultModel> {
+  $$ReducedFromVaultTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $VaultTable _vaultIdTable(_$AppDatabase db) => db.vault.createAlias(
+      $_aliasNameGenerator(db.reducedFromVault.vaultId, db.vault.id));
+
+  $$VaultTableProcessedTableManager get vaultId {
+    final $_column = $_itemColumn<int>('vault_id')!;
+
+    final manager = $$VaultTableTableManager($_db, $_db.vault)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_vaultIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$ReducedFromVaultTableFilterComposer
+    extends Composer<_$AppDatabase, $ReducedFromVaultTable> {
+  $$ReducedFromVaultTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get date => $composableBuilder(
+      column: $table.date, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get amount => $composableBuilder(
+      column: $table.amount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get note => $composableBuilder(
+      column: $table.note, builder: (column) => ColumnFilters(column));
+
+  $$VaultTableFilterComposer get vaultId {
+    final $$VaultTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.vaultId,
+        referencedTable: $db.vault,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$VaultTableFilterComposer(
+              $db: $db,
+              $table: $db.vault,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$ReducedFromVaultTableOrderingComposer
+    extends Composer<_$AppDatabase, $ReducedFromVaultTable> {
+  $$ReducedFromVaultTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get date => $composableBuilder(
+      column: $table.date, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get amount => $composableBuilder(
+      column: $table.amount, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get note => $composableBuilder(
+      column: $table.note, builder: (column) => ColumnOrderings(column));
+
+  $$VaultTableOrderingComposer get vaultId {
+    final $$VaultTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.vaultId,
+        referencedTable: $db.vault,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$VaultTableOrderingComposer(
+              $db: $db,
+              $table: $db.vault,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$ReducedFromVaultTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ReducedFromVaultTable> {
+  $$ReducedFromVaultTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get date =>
+      $composableBuilder(column: $table.date, builder: (column) => column);
+
+  GeneratedColumn<double> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => column);
+
+  GeneratedColumn<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => column);
+
+  $$VaultTableAnnotationComposer get vaultId {
+    final $$VaultTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.vaultId,
+        referencedTable: $db.vault,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$VaultTableAnnotationComposer(
+              $db: $db,
+              $table: $db.vault,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$ReducedFromVaultTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ReducedFromVaultTable,
+    ReducedFromVaultModel,
+    $$ReducedFromVaultTableFilterComposer,
+    $$ReducedFromVaultTableOrderingComposer,
+    $$ReducedFromVaultTableAnnotationComposer,
+    $$ReducedFromVaultTableCreateCompanionBuilder,
+    $$ReducedFromVaultTableUpdateCompanionBuilder,
+    (ReducedFromVaultModel, $$ReducedFromVaultTableReferences),
+    ReducedFromVaultModel,
+    PrefetchHooks Function({bool vaultId})> {
+  $$ReducedFromVaultTableTableManager(
+      _$AppDatabase db, $ReducedFromVaultTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ReducedFromVaultTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ReducedFromVaultTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ReducedFromVaultTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<int> vaultId = const Value.absent(),
+            Value<double> amount = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<String?> note = const Value.absent(),
+          }) =>
+              ReducedFromVaultCompanion(
+            id: id,
+            date: date,
+            vaultId: vaultId,
+            amount: amount,
+            description: description,
+            note: note,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            required int vaultId,
+            required double amount,
+            required String description,
+            Value<String?> note = const Value.absent(),
+          }) =>
+              ReducedFromVaultCompanion.insert(
+            id: id,
+            date: date,
+            vaultId: vaultId,
+            amount: amount,
+            description: description,
+            note: note,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$ReducedFromVaultTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({vaultId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (vaultId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.vaultId,
+                    referencedTable:
+                        $$ReducedFromVaultTableReferences._vaultIdTable(db),
+                    referencedColumn:
+                        $$ReducedFromVaultTableReferences._vaultIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$ReducedFromVaultTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $ReducedFromVaultTable,
+    ReducedFromVaultModel,
+    $$ReducedFromVaultTableFilterComposer,
+    $$ReducedFromVaultTableOrderingComposer,
+    $$ReducedFromVaultTableAnnotationComposer,
+    $$ReducedFromVaultTableCreateCompanionBuilder,
+    $$ReducedFromVaultTableUpdateCompanionBuilder,
+    (ReducedFromVaultModel, $$ReducedFromVaultTableReferences),
+    ReducedFromVaultModel,
+    PrefetchHooks Function({bool vaultId})>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -7302,4 +9042,10 @@ class $AppDatabaseManager {
       $$CustomersTableTableManager(_db, _db.customers);
   $$SuppliersTableTableManager get suppliers =>
       $$SuppliersTableTableManager(_db, _db.suppliers);
+  $$VaultTableTableManager get vault =>
+      $$VaultTableTableManager(_db, _db.vault);
+  $$AddedToVaultTableTableManager get addedToVault =>
+      $$AddedToVaultTableTableManager(_db, _db.addedToVault);
+  $$ReducedFromVaultTableTableManager get reducedFromVault =>
+      $$ReducedFromVaultTableTableManager(_db, _db.reducedFromVault);
 }

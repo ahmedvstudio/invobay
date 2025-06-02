@@ -48,6 +48,14 @@ class AppSettingsNotifier extends StateNotifier<AsyncValue<AppSettings?>> {
     await updateSettings(updated);
   }
 
+  Future<void> updateVault(double amount) async {
+    final current = state.value;
+    if (current == null) return;
+
+    final updated = current.copyWith(amountOnHand: amount);
+    await updateSettings(updated);
+  }
+
   Future<void> resetSettings() async {
     final defaultSettings = AppSettings(
       currencySign: '\$',

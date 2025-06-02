@@ -95,9 +95,11 @@ void showItemsBottomSheet({
                                     SizedBox(
                                       width: double.infinity,
                                       child: OutlinedButton(
-                                        onPressed: () {
-                                          showAddNewItemBottomSheet(context,
-                                              ref, searchController.text);
+                                        onPressed: () async {
+                                          await showAddNewItemBottomSheet(
+                                              context,
+                                              ref,
+                                              searchController.text);
                                         },
                                         child: const Text('Add New'),
                                       ),

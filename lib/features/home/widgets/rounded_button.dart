@@ -9,12 +9,14 @@ class VRoundedButton extends StatelessWidget {
     super.key,
     required this.title,
     this.onTap,
+    this.onLongPress,
     required this.icon,
     this.iconColor = VColors.info,
     this.width = 100,
   });
   final String title;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final IconData icon;
   final Color iconColor;
   final double width;
@@ -24,6 +26,7 @@ class VRoundedButton extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(VSizes.borderRadiusXl),
       onTap: onTap,
+      onLongPress: onLongPress,
       child: Container(
         height: 100,
         width: width,

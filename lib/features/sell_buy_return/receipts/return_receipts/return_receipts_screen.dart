@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:invobay/features/sell_buy_return/receipts/return_receipts/widgets/return_floating_select_all_and_delete.dart';
+import 'package:invobay/features/sell_buy_return/receipts/return_receipts/widgets/return_bottom_appbar_select_all_and_delete.dart';
 
 import '../../../../common/widgets/appbar/main_appbar.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
@@ -81,6 +81,7 @@ class ReturnReceiptsScreen extends ConsumerWidget {
                           pathParameters: {'id': id});
                     }
                   },
+                  onLongPressed: editController.toggleEditMode,
                   isEditMode: editState.isEditMode,
                   selectedItems: editState.selectedItems,
                 );
@@ -92,8 +93,8 @@ class ReturnReceiptsScreen extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: editState.isEditMode
-          ? VReturnFloatingSelectAllAndDelete(
+      bottomNavigationBar: editState.isEditMode
+          ? VReturnBottomAppBarSelectAllAndDelete(
               editController: editController,
               returnReceiptData: returnReceiptData,
               editState: editState,

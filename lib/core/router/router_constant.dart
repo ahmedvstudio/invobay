@@ -68,6 +68,9 @@ class VRouter {
   static const String lowStockItems = 'lowStockItems';
   static const String outOfStockItems = 'outOfStockItems';
 
+  // - Vault / Expenses
+  static const String vault = 'vault';
+
   // -
   static const String notification = 'notification';
 }

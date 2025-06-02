@@ -33,7 +33,7 @@ class _AddNewSupplierBottomSheetState
 
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
-    Navigator.of(context).pop(input.trim());
+    context.pop(input.trim());
     VToast.success(message: 'Supplier added successfully');
   }
 

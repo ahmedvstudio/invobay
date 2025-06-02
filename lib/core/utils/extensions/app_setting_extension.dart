@@ -6,6 +6,7 @@ extension AppSettingsCopy on AppSettings {
     double? taxPercentage,
     int? lowStockThreshold,
     String? languageCode,
+    double? amountOnHand,
   }) {
     return AppSettings(
       currencySign: currencySign ?? this.currencySign,

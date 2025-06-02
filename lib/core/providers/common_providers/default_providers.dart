@@ -75,3 +75,7 @@ final dateRangeProvider = StateProvider<DateTimeRange>((ref) {
     end: now,
   );
 });
+
+//
+final selectedDateProvider =
+    StateProvider.autoDispose<DateTime?>((ref) => null);

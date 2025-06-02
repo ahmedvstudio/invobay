@@ -59,7 +59,7 @@ class VSalesVsBuyCharts extends ConsumerWidget {
           children: [
             VSectionHeading(
               title: 'Sales vs Purchases',
-              buttonTitle: 'Date',
+              buttonTitle: 'change range',
               onPressed: () async {
                 final picked = await showDateRangePicker(
                   context: context,

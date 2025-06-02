@@ -4,6 +4,7 @@ import 'package:currency_picker/currency_picker.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/device/device_utility.dart';
 import 'package:invobay/core/utils/extensions/app_setting_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/core/utils/messages/toast.dart';
@@ -22,7 +23,7 @@ Future<void> showCurrencySignBottomSheet(
       subtitleTextStyle: Theme.of(context).textTheme.labelMedium,
       currencySignTextStyle: Theme.of(context).textTheme.labelSmall,
       flagSize: VSizes.lg,
-      bottomSheetHeight: 500,
+      bottomSheetHeight: VDeviceUtils.getScreenHeight(context) * 0.6,
       inputDecoration: InputDecoration(
         hintText: 'Search',
         hintStyle: Theme.of(context).textTheme.bodySmall,

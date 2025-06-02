@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/common/styles/spacing_style.dart';
 
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../core/utils/constants/colors.dart';
@@ -11,6 +12,7 @@ class VReceiptCardList extends StatelessWidget {
   final void Function(String) onTap;
   final bool isEditMode;
   final Set<String> selectedItems;
+  final VoidCallback? onLongPressed;
 
   const VReceiptCardList({
     super.key,
@@ -18,6 +20,7 @@ class VReceiptCardList extends StatelessWidget {
     required this.onTap,
     this.isEditMode = false,
     this.selectedItems = const {},
+    this.onLongPressed,
   });
 
   @override
@@ -25,11 +28,7 @@ class VReceiptCardList extends StatelessWidget {
     final isDark = VHelperFunctions.isDarkMode(context);
 
     return ListView.separated(
-      padding: const EdgeInsets.only(
-        right: VSizes.defaultSpace,
-        left: VSizes.defaultSpace,
-        bottom: VSizes.defaultSpace,
-      ),
+      padding: VSpacingStyle.withoutTop,
       itemCount: items.length,
       shrinkWrap: true,
       separatorBuilder: (_, __) => const SizedBox(height: VSizes.spaceBtwItems),
@@ -39,6 +38,7 @@ class VReceiptCardList extends StatelessWidget {
 
         return GestureDetector(
           onTap: () => onTap(item['id'] ?? ''),
+          onLongPress: onLongPressed,
           child: VRoundedContainer(
             showBorder: true,
             backgroundColor: isDark ? VColors.dark : VColors.light,

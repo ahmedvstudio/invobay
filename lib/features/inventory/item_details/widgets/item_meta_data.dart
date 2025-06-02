@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:invobay/core/router/router_constant.dart';
+import 'package:invobay/core/utils/device/device_utility.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
+import '../../../../common/widgets/sheet/inventory/item_buy_receipts_sheet.dart';
 import '../../../../common/widgets/sheet/inventory/update_buying_price_sheet.dart';
 import '../../../../common/widgets/sheet/inventory/update_selling_price_sheet.dart';
 import '../../../../common/widgets/text/item_price_text.dart';
@@ -202,11 +202,16 @@ class VItemMetaData extends ConsumerWidget {
               ),
             ),
             VMetaDataSection(
-              onTap: () => context.pushNamed(
-                VRouter.itemBuyReceipts,
-                pathParameters: {'id': item.id.toString()},
-                extra: {'title': title},
-              ),
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) => SizedBox(
+                      height: VDeviceUtils.getScreenHeight(context) * 0.7,
+                      child: ItemBuyReceiptsBottomSheet(
+                          itemId: item.id, title: title)),
+                );
+              },
               tag: 'More',
               tagBackgroundColor: VColors.info,
               tagTextColor: VColors.white,

@@ -5,7 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:intl/intl.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
-import 'package:invobay/features/sell_buy_return/receipts/sell_receipts/widgets/sell_floating_select_all_and_delete.dart';
+import 'package:invobay/features/sell_buy_return/receipts/sell_receipts/widgets/sell_bottom_appbar_select_all_and_delete.dart';
 
 import '../../../../common/widgets/appbar/main_appbar.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
@@ -127,6 +127,7 @@ class SellReceiptsScreen extends ConsumerWidget {
                       );
                     }
                   },
+                  onLongPressed: editController.toggleEditMode,
                   isEditMode: editState.isEditMode,
                   selectedItems: editState.selectedItems,
                 );
@@ -138,8 +139,8 @@ class SellReceiptsScreen extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: editState.isEditMode
-          ? VSellFloatingSelectAllAndDelete(
+      bottomNavigationBar: editState.isEditMode
+          ? VSellBottomAppBarSelectAllAndDelete(
               editController: editController,
               sellReceiptData: sellReceiptData,
               editState: editState,

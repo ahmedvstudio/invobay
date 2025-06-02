@@ -25,6 +25,7 @@ dependencies:
 
   # State Management
   flutter_riverpod: ^2.6.1
+  rxdart: ^0.28.0
 
   # Secrets
   flutter_dotenv: ^5.2.1

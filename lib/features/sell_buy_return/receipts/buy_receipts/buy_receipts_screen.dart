@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:invobay/features/sell_buy_return/receipts/buy_receipts/widgets/buy_floating_select_all_and_delete.dart';
+import 'package:invobay/features/sell_buy_return/receipts/buy_receipts/widgets/buy_bottom_appbar_select_all_and_delete.dart';
 
 import '../../../../common/widgets/appbar/main_appbar.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
@@ -80,6 +80,7 @@ class BuyReceiptsScreen extends ConsumerWidget {
                           pathParameters: {'id': id});
                     }
                   },
+                  onLongPressed: editController.toggleEditMode,
                   isEditMode: editState.isEditMode,
                   selectedItems: editState.selectedItems,
                 );
@@ -91,8 +92,8 @@ class BuyReceiptsScreen extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: editState.isEditMode
-          ? VBuyFloatingSelectAllAndDelete(
+      bottomNavigationBar: editState.isEditMode
+          ? VBuyBottomAppBarSelectAllAndDelete(
               editController: editController,
               buyReceiptData: buyReceiptData,
               editState: editState,

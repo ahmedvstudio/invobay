@@ -13,7 +13,7 @@ final itemDaoProvider = Provider<ItemDao>((ref) {
 
 // Item Notifier provider
 final itemNotifierProvider =
-    StateNotifierProvider<ItemNotifier, List<Item>>((ref) {
+    StateNotifierProvider.autoDispose<ItemNotifier, List<Item>>((ref) {
   final itemDao = ref.watch(itemDaoProvider);
   return ItemNotifier(itemDao);
 });

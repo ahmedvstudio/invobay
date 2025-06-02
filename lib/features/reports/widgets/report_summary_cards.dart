@@ -23,6 +23,8 @@ class VSummaryCards extends ConsumerWidget {
     final totalReturn = ref.watch(totalReturnProvider);
     final profitStats = ref.watch(profitStatsProvider);
     final currencySign = ref.watch(currencySignProvider);
+    final receiptsBalance = ref.watch(receiptsBalanceProvider);
+    final expenseBalance = ref.watch(expenseBalanceProvider);
 
     return Column(
       children: [
@@ -43,43 +45,73 @@ class VSummaryCards extends ConsumerWidget {
         Row(
           spacing: VSizes.spaceBtwItems,
           children: [
-            VSummaryCard(
-                title: 'Inventory Value',
-                amount: inventoryValue,
-                icon: Iconsax.archive,
-                color: VColors.warning),
+            Expanded(
+              child: VSummaryCard(
+                  title: 'Vault Balance',
+                  amount: receiptsBalance,
+                  icon: Iconsax.archive,
+                  color: Colors.teal),
+            ),
           ],
         ),
         const SizedBox(height: VSizes.spaceBtwItems),
         Row(
           spacing: VSizes.spaceBtwItems,
           children: [
-            VSummaryCard(
-                title: 'Sales',
-                amount: totalSales,
-                icon: Iconsax.trend_up,
-                color: VColors.info),
-            VSummaryCard(
-                title: 'Buy',
-                amount: totalBuy,
-                icon: Iconsax.truck,
-                color: Colors.pink),
+            Expanded(
+              child: VSummaryCard(
+                  title: 'Inventory Value',
+                  amount: inventoryValue,
+                  icon: Iconsax.archive,
+                  color: VColors.warning),
+            ),
+            Expanded(
+              child: VSummaryCard(
+                  title: 'Sales',
+                  amount: totalSales,
+                  icon: Iconsax.trend_up,
+                  color: VColors.info),
+            ),
           ],
         ),
         const SizedBox(height: VSizes.spaceBtwItems),
         Row(
           spacing: VSizes.spaceBtwItems,
           children: [
-            VSummaryCard(
-                title: 'Returns',
-                amount: totalReturn,
-                icon: Iconsax.undo,
-                color: Colors.purple),
-            VSummaryCard(
-              title: 'Profit / Loss',
-              amount: profitStats.profit,
-              icon: Iconsax.money,
-              color: profitStats.profit > 0 ? VColors.success : VColors.error,
+            Expanded(
+              child: VSummaryCard(
+                  title: 'Buy',
+                  amount: totalBuy,
+                  icon: Iconsax.truck,
+                  color: Colors.pink),
+            ),
+            Expanded(
+              child: VSummaryCard(
+                  title: 'Returns',
+                  amount: totalReturn,
+                  icon: Iconsax.undo,
+                  color: Colors.purple),
+            ),
+          ],
+        ),
+        const SizedBox(height: VSizes.spaceBtwItems),
+        Row(
+          spacing: VSizes.spaceBtwItems,
+          children: [
+            Expanded(
+              child: VSummaryCard(
+                  title: 'Expenses',
+                  amount: expenseBalance,
+                  icon: Iconsax.money_send,
+                  color: VColors.darkGrey),
+            ),
+            Expanded(
+              child: VSummaryCard(
+                title: 'Profit / Loss',
+                amount: profitStats.profit,
+                icon: Iconsax.money,
+                color: profitStats.profit > 0 ? VColors.success : VColors.error,
+              ),
             ),
           ],
         ),

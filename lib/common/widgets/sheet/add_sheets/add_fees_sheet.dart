@@ -63,12 +63,12 @@ Future<void> showEditFeeBottomSheet(BuildContext context, WidgetRef ref) async {
               Row(
                 children: [
                   Expanded(
-                    child: TextButton(
+                    child: OutlinedButton(
                       onPressed: () => context.pop(),
                       child: const Text('Cancel'),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: VSizes.spaceBtwItems),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
@@ -88,6 +88,7 @@ Future<void> showEditFeeBottomSheet(BuildContext context, WidgetRef ref) async {
                   ),
                 ],
               ),
+              const SizedBox(height: VSizes.spaceBtwItems),
             ],
           ),
         ),

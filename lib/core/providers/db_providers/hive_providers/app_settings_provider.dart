@@ -26,6 +26,16 @@ final taxFeeProvider = StateNotifierProvider<TaxFeeNotifier, double>((ref) {
   return TaxFeeNotifier(hiveTax);
 });
 
+/// --> Vault Amount Provider
+// final vaultAmountProvider =
+//     StateNotifierProvider<VaultAmountNotifier, double>((ref) {
+//   final hiveVault = ref.watch(appSettingsProvider).maybeWhen(
+//         data: (settings) => settings?.amountOnHand ?? 0.0,
+//         orElse: () => 0.0,
+//       );
+//   return VaultAmountNotifier(hiveVault);
+// });
+
 /// --> Low Stock Threshold Provider
 final lowStockThresholdProvider = StateProvider<int>((ref) {
   final threshold = ref.watch(appSettingsProvider).maybeWhen(

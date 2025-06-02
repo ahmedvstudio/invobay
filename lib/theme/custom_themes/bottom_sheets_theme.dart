@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:invobay/core/utils/constants/sizes.dart';
+
+import '../../core/utils/constants/colors.dart';
 
 class VBottomSheetTheme {
   VBottomSheetTheme._();
@@ -6,18 +9,20 @@ class VBottomSheetTheme {
   /// Light Bottom Sheet Theme
   static BottomSheetThemeData lightBottomSheetTheme = BottomSheetThemeData(
     showDragHandle: true,
-    backgroundColor: Colors.white,
-    modalBackgroundColor: Colors.white,
+    backgroundColor: VColors.white,
+    modalBackgroundColor: VColors.white,
     constraints: const BoxConstraints(minWidth: double.infinity),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(VSizes.borderRadiusXl)),
   );
 
   /// Dark Bottom Sheet Theme
   static BottomSheetThemeData darkBottomSheetTheme = BottomSheetThemeData(
     showDragHandle: true,
-    backgroundColor: Colors.black,
-    modalBackgroundColor: Colors.black,
+    backgroundColor: VColors.black,
+    modalBackgroundColor: VColors.black,
     constraints: const BoxConstraints(minWidth: double.infinity),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(VSizes.borderRadiusXl)),
   );
 }

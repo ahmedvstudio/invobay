@@ -15,6 +15,7 @@ import 'package:invobay/features/error/not_found_screen.dart';
 
 import '../../features/home/home_screen.dart';
 import '../../features/low_stock/low_stock_screen.dart';
+import '../../features/vault/vault_screen.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -37,6 +38,11 @@ final GoRouter invoRouter = GoRouter(
         ...notificationRoutes,
         ...returnsRoutes,
         ...successFailRoute,
+        GoRoute(
+          name: VRouter.vault,
+          path: '/vault',
+          builder: (context, state) => const VaultScreen(),
+        ),
         GoRoute(
           name: VRouter.lowStockScreen,
           path: '/lowStock',

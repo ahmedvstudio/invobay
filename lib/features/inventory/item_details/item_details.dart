@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/appbar/custom_appbar.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
@@ -78,17 +79,14 @@ class ItemDetailsScreen extends ConsumerWidget {
                     );
                   },
                   icon: const Icon(
-                    Iconsax.information,
+                    Iconsax.info_circle,
                     color: VColors.white,
                   ),
                 )
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  right: VSizes.defaultSpace,
-                  left: VSizes.defaultSpace,
-                  bottom: VSizes.defaultSpace),
+              padding: VSpacingStyle.withoutTop,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

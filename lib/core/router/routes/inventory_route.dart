@@ -7,7 +7,6 @@ import 'package:invobay/features/inventory/screens/edit_item_screen.dart';
 import 'package:invobay/core/router/router_constant.dart';
 
 import '../../../features/inventory/item_details/item_details.dart';
-import '../../../features/inventory/item_details/widgets/item_buy_receipts.dart';
 import '../../providers/item_providers/item_related_providers.dart';
 
 List<GoRoute> inventoryRoutes = [
@@ -76,32 +75,6 @@ List<GoRoute> inventoryRoutes = [
             ),
           );
         },
-        routes: [
-          GoRoute(
-            name: VRouter.itemBuyReceipts,
-            path: 'itemBuyReceipts',
-            pageBuilder: (context, state) {
-              final itemId = int.parse(state.pathParameters['id']!);
-              final extra = state.extra as Map<String, dynamic>?;
-
-              final title = extra?['title'] as String?;
-
-              if (title == null) {
-                // Handle error or provide fallback
-                return const MaterialPage(
-                  child:
-                      Scaffold(body: Center(child: Text("Title is missing!"))),
-                  fullscreenDialog: true,
-                );
-              }
-
-              return MaterialPage(
-                child: ItemBuyReceiptsScreen(itemId: itemId, title: title),
-                fullscreenDialog: true,
-              );
-            },
-          ),
-        ],
       ),
     ],
   ),
