@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../core/utils/constants/sizes.dart';
 import '../../../../../core/utils/validators/validation.dart';
@@ -38,18 +39,18 @@ class AddressForm extends ConsumerWidget {
       children: [
         TextFormField(
           controller: nameController,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Iconsax.user),
-            labelText: 'Name',
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Iconsax.user),
+            labelText: context.loc.name,
           ),
           validator: VValidator.validateEmpty,
         ),
         const SizedBox(height: VSizes.spaceBtwInputFields),
         TextFormField(
           controller: phoneController,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Iconsax.mobile),
-            labelText: 'Phone Number',
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Iconsax.mobile),
+            labelText: context.loc.phoneNumber,
             counterText: '',
           ),
           keyboardType: TextInputType.number,
@@ -58,9 +59,9 @@ class AddressForm extends ConsumerWidget {
         const SizedBox(height: VSizes.spaceBtwInputFields),
         TextFormField(
           controller: extraPhoneNumberController,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Iconsax.mobile5),
-            labelText: 'Phone Number (Optional)',
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Iconsax.mobile5),
+            labelText: context.loc.phoneNumberOptional,
             counterText: '',
           ),
           keyboardType: TextInputType.number,
@@ -69,9 +70,9 @@ class AddressForm extends ConsumerWidget {
         const SizedBox(height: VSizes.spaceBtwInputFields),
         TextFormField(
           controller: streetController,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Iconsax.building_31),
-            labelText: 'Street',
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Iconsax.building_31),
+            labelText: context.loc.street,
           ),
         ),
         const SizedBox(height: VSizes.spaceBtwInputFields),
@@ -80,9 +81,9 @@ class AddressForm extends ConsumerWidget {
             Expanded(
               child: TextFormField(
                 controller: cityController,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Iconsax.building),
-                  labelText: 'City',
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Iconsax.building),
+                  labelText: context.loc.city,
                 ),
               ),
             ),
@@ -90,9 +91,9 @@ class AddressForm extends ConsumerWidget {
             Expanded(
               child: TextFormField(
                 controller: stateController,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Iconsax.activity),
-                  labelText: 'State',
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Iconsax.activity),
+                  labelText: context.loc.state,
                 ),
               ),
             ),
@@ -101,18 +102,18 @@ class AddressForm extends ConsumerWidget {
         const SizedBox(height: VSizes.spaceBtwInputFields),
         TextFormField(
           controller: countryController,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Iconsax.global),
-            labelText: 'Country',
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Iconsax.global),
+            labelText: context.loc.country,
           ),
         ),
         const SizedBox(height: VSizes.spaceBtwInputFields),
         if (withDescription) ...[
           TextFormField(
             controller: descriptionController,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Iconsax.note),
-              labelText: 'Description',
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Iconsax.note),
+              labelText: context.loc.description,
             ),
             minLines: 5,
             maxLines: 7,

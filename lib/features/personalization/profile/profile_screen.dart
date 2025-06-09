@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/personalization/profile/widgets/profile_menu.dart';
 
 import '../../../../common/widgets/images/circular_image.dart';
 import '../../../common/widgets/appbar/appbar.dart';
 import '../../../common/widgets/text/section_heading.dart';
+import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/image_strings.dart';
 import '../../../core/utils/constants/sizes.dart';
 
@@ -14,8 +16,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const VAppBar(
-        title: Text('Profile'),
+      appBar: VAppBar(
+        title: Text(context.loc.profile),
         showBackArrow: true,
       ),
       body: SingleChildScrollView(
@@ -32,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
                         image: VImages.darkAppLogo, height: 80, width: 80),
                     TextButton(
                         onPressed: () {},
-                        child: const Text('Change Profile Picture')),
+                        child: Text(context.loc.changeProfilePicture)),
                   ],
                 ),
               ),
@@ -41,36 +43,44 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: VSizes.spaceBtwItems / 2),
               const Divider(),
               const SizedBox(height: VSizes.spaceBtwItems),
-              const VSectionHeading(
-                  title: 'Profile Information', showActionButton: false),
+              VSectionHeading(
+                  title: context.loc.profileInformation,
+                  showActionButton: false),
               const SizedBox(height: VSizes.spaceBtwItems),
 
               VProfileMenu(
-                  title: 'Name', value: 'Ahmed Adnan', onPressed: () {}),
+                  title: context.loc.name,
+                  value: 'Ahmed Adnan',
+                  onPressed: () {}),
               VProfileMenu(
-                  title: 'Username', value: 'ahmed47v', onPressed: () {}),
+                  title: context.loc.username,
+                  value: 'ahmed47v',
+                  onPressed: () {}),
               const SizedBox(height: VSizes.spaceBtwItems),
               const Divider(),
               const SizedBox(height: VSizes.spaceBtwItems),
 
               // personal info
-              const VSectionHeading(
-                  title: 'Personal Information', showActionButton: false),
+              VSectionHeading(
+                  title: context.loc.personalInformation,
+                  showActionButton: false),
               const SizedBox(height: VSizes.spaceBtwItems),
 
               VProfileMenu(
-                  title: 'User ID',
+                  title: context.loc.userId,
                   value: '44432',
                   icon: Iconsax.copy,
                   onPressed: () {}),
-              VProfileMenu(title: 'E-mail', value: 'example', onPressed: () {}),
               VProfileMenu(
-                  title: 'Phone Number',
+                  title: context.loc.email, value: 'example', onPressed: () {}),
+              VProfileMenu(
+                  title: context.loc.phoneNumber,
                   value: '+964 7701234567',
                   onPressed: () {}),
-              VProfileMenu(title: 'Gender', value: 'Male', onPressed: () {}),
               VProfileMenu(
-                  title: 'Date of Birth',
+                  title: context.loc.gender, value: 'Male', onPressed: () {}),
+              VProfileMenu(
+                  title: context.loc.dateOfBirth,
                   value: '01 Jan 1992',
                   onPressed: () {}),
               const Divider(),
@@ -78,9 +88,9 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: TextButton(
                   onPressed: () {},
-                  child: const Text(
-                    'Delete Account',
-                    style: TextStyle(color: Colors.red),
+                  child: Text(
+                    context.loc.deleteAccount,
+                    style: const TextStyle(color: VColors.error),
                   ),
                 ),
               ),

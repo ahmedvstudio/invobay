@@ -369,14 +369,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  fading_edge_scrollview:
-    dependency: transitive
-    description:
-      name: fading_edge_scrollview
-      sha256: "1f84fe3ea8e251d00d5735e27502a6a250e4aa3d3b330d3fdcb475af741464ef"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.1.1"
   fake_async:
     dependency: transitive
     description:
@@ -478,6 +470,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  flutter_local_notifications:
+    dependency: "direct main"
+    description:
+      name: flutter_local_notifications
+      sha256: b94a50aabbe56ef254f95f3be75640f99120429f0a153b2dc30143cffc9bfdf3
+      url: "https://pub.dev"
+    source: hosted
+    version: "19.2.1"
+  flutter_local_notifications_linux:
+    dependency: transitive
+    description:
+      name: flutter_local_notifications_linux
+      sha256: e3c277b2daab8e36ac5a6820536668d07e83851aeeb79c446e525a70710770a5
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.0"
+  flutter_local_notifications_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_local_notifications_platform_interface
+      sha256: "2569b973fc9d1f63a37410a9f7c1c552081226c597190cb359ef5d5762d1631c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.0.0"
+  flutter_local_notifications_windows:
+    dependency: transitive
+    description:
+      name: flutter_local_notifications_windows
+      sha256: f8fc0652a601f83419d623c85723a3e82ad81f92b33eaa9bcc21ea1b94773e6e
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -487,10 +511,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_native_splash
-      sha256: "7062602e0dbd29141fb8eb19220b5871ca650be5197ab9c1f193a28b17537bc7"
+      sha256: "8321a6d11a8d13977fa780c89de8d257cce3d841eecfb7a4cadffcc4f12d82dc"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "2.4.6"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -561,10 +585,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "0b1e06223bee260dee31a171fb1153e306907563a0b0225e8c1733211911429a"
+      sha256: b453934c36e289cef06525734d1e676c1f91da9e22e2017d9dcab6ce0f999175
       url: "https://pub.dev"
     source: hosted
-    version: "15.1.2"
+    version: "15.1.3"
   google_fonts:
     dependency: "direct main"
     description:
@@ -601,10 +625,10 @@ packages:
     dependency: "direct main"
     description:
       name: hive_ce
-      sha256: "192b7334299e3672efa1f85d544fef0091c5c592be5caada61417e37723addc6"
+      sha256: "708bb39050998707c5d422752159f91944d3c81ab42d80e1bd0ee37d8e130658"
       url: "https://pub.dev"
     source: hosted
-    version: "2.11.2"
+    version: "2.11.3"
   hive_ce_flutter:
     dependency: "direct main"
     description:
@@ -781,30 +805,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.1"
-  l10n_countries:
-    dependency: transitive
-    description:
-      name: l10n_countries
-      sha256: "82a647f01ce1a3a4c9c5d7211d6e557dfb38773a59f635d6e788e1a607427cbb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
-  l10n_currencies:
-    dependency: transitive
-    description:
-      name: l10n_currencies
-      sha256: "1ee719027b2a822bd5cbd422ffe4c2ec0e1b7df0ede75ef815bf1c20b93f72bc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
-  l10n_languages:
-    dependency: transitive
-    description:
-      name: l10n_languages
-      sha256: "2360da28a5e2d9eaec5ac93151f27b2173338871b5486f757d088fc92a3a2b62"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -861,14 +861,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.1"
-  marquee:
-    dependency: "direct main"
-    description:
-      name: marquee
-      sha256: a87e7e80c5d21434f90ad92add9f820cf68be374b226404fe881d2bba7be0862
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.0"
   matcher:
     dependency: transitive
     description:
@@ -1245,30 +1237,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.28.0"
-  sealed_countries:
-    dependency: transitive
-    description:
-      name: sealed_countries
-      sha256: "3f639409d246b706b2ad925070345776864733f3cd9aaa2a4fe4cbbc5f26ebe4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.0"
-  sealed_currencies:
-    dependency: transitive
-    description:
-      name: sealed_currencies
-      sha256: "8665d27c0d9470fb3ce19f540cde404fa444fb52dae12b28cd172def042e8a91"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.0"
-  sealed_languages:
-    dependency: transitive
-    description:
-      name: sealed_languages
-      sha256: cd8b4b6ee911b00a95a5f760fa51527497e23a35b120f8ed50442b17a4524ec8
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.0"
   shared_preferences:
     dependency: transitive
     description:
@@ -1474,6 +1442,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
+  timezone:
+    dependency: "direct main"
+    description:
+      name: timezone
+      sha256: dd14a3b83cfd7cb19e7888f1cbc20f258b8d71b54c06f79ac585f14093a287d1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.1"
   timing:
     dependency: transitive
     description:
@@ -1594,14 +1570,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-  very_good_analysis:
-    dependency: "direct dev"
-    description:
-      name: very_good_analysis
-      sha256: "62d2b86d183fb81b2edc22913d9f155d26eb5cf3855173adb1f59fac85035c63"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.0.0"
   vm_service:
     dependency: transitive
     description:
@@ -1650,22 +1618,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.10.1"
-  world_countries:
-    dependency: "direct main"
-    description:
-      name: world_countries
-      sha256: "2fdc05a7ea9cb083312d508d2da1bde454a6f15b9f8235690e842442abe53f3b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.6.0"
-  world_flags:
-    dependency: transitive
-    description:
-      name: world_flags
-      sha256: "95bfc43b2a13f4a3efab4e6f705ce5b20f94e11b4b69efc1bd430bf3893ad938"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.1"
   xdg_directories:
     dependency: transitive
     description:
@@ -1707,5 +1659,5 @@ packages:
     source: hosted
     version: "2.1.0"
 sdks:
-  dart: ">=3.8.0 <4.0.0"
+  dart: ">=3.7.0-0 <4.0.0"
   flutter: ">=3.27.4"

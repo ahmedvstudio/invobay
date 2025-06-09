@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
@@ -45,7 +46,7 @@ class VItemBuyReceiptDetails extends StatelessWidget {
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Receipt No. #${receipt.receiptId}'),
+                Text('${context.loc.receiptNo}. #${receipt.receiptId}'),
                 Consumer(
                   builder: (context, ref, child) {
                     final supplierAsync =
@@ -53,12 +54,12 @@ class VItemBuyReceiptDetails extends StatelessWidget {
                     return supplierAsync.when(
                       data: (supplier) {
                         return VBrandTitleTextWithVerificationIcon(
-                          title: supplier?.name ?? "Supplier",
+                          title: supplier?.name ?? context.loc.supplier,
                         );
                       },
-                      loading: () => const Text("Loading..."),
+                      loading: () => Text("${context.loc.loading}..."),
                       error: (error, stackTrace) =>
-                          const Text("Error loading supplier"),
+                          Text(context.loc.errorLoadingSupplier),
                     );
                   },
                 ),

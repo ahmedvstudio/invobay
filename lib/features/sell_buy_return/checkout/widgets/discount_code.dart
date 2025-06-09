@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import 'package:invobay/core/utils/messages/snackbar.dart';
 
@@ -9,6 +8,7 @@ import '../../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/sizes.dart';
 import '../../../../../core/utils/helpers/helper_functions.dart';
+import '../../../../common/widgets/dialogs/discount_type_dialog.dart';
 import '../../../../core/utils/constants/enums.dart';
 
 class VDiscountCode extends ConsumerWidget {
@@ -86,21 +86,8 @@ class VDiscountCode extends ConsumerWidget {
                   final typeNotifier = ref.read(discountTypeProvider.notifier);
                   final selectedType = await showDialog<DiscountType>(
                     context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Change Discount Type'),
-                      content: const Text(
-                          'Switch between percentage and fixed amount.'),
-                      actions: [
-                        TextButton(
-                          onPressed: () => context.pop(DiscountType.percentage),
-                          child: const Text('Percentage %'),
-                        ),
-                        TextButton(
-                          onPressed: () => context.pop(DiscountType.amount),
-                          child: Text('Amount $currencySign'),
-                        ),
-                      ],
-                    ),
+                    builder: (context) =>
+                        VDiscountTypeDialog(currencySign: currencySign),
                   );
 
                   if (selectedType != null && context.mounted) {

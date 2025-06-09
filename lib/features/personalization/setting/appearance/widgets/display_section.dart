@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../../common/widgets/sheet/settings/app_language_sheet.dart';
-import '../../../../../core/utils/constants/sizes.dart';
+import 'package:invobay/common/widgets/sheet/settings/app_language_sheet.dart';
+import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 class VDisplaySection extends ConsumerWidget {
   const VDisplaySection({
@@ -15,11 +16,11 @@ class VDisplaySection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Display:'),
+        Text('${context.loc.display}:'),
         const SizedBox(height: VSizes.spaceBtwItems / 2),
         ListTile(
           onTap: () => showLanguageSelectionBottomSheet(context, ref),
-          title: const Text('App Language.'),
+          title: Text(context.loc.appLanguage),
           leading: const Icon(Iconsax.global),
           tileColor: Colors.transparent,
         ),

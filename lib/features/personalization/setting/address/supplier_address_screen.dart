@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/core/utils/messages/snackbar.dart';
 import 'package:invobay/features/personalization/setting/address/widgets/single_address.dart';
@@ -29,9 +30,9 @@ class SupplierAddressScreen extends ConsumerWidget {
         backgroundColor: VColors.primary,
         child: const Icon(Iconsax.add, color: VColors.white),
       ),
-      appBar: const VAppBar(
+      appBar: VAppBar(
         showBackArrow: true,
-        title: Text('Suppliers'),
+        title: Text(context.loc.suppliers),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -74,13 +75,14 @@ class SupplierAddressScreen extends ConsumerWidget {
                             if (!context.mounted) return;
                             VSnackbar.success(
                                 context: context,
-                                message: 'Supplier deleted successfully');
+                                message:
+                                    context.loc.supplierDeletedSuccessfully);
                           } catch (e) {
                             if (!context.mounted) return;
                             VSnackbar.error(
                                 context: context,
                                 message:
-                                    'Error deleting supplier: ${e.toString()}');
+                                    '${context.loc.errorDeletingSupplier}: ${e.toString()}');
                           }
                         }
                       },

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/enums.dart';
@@ -28,12 +29,12 @@ class SortFilterDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildSortOption(context, 'Name', SortCategory.name),
+          _buildSortOption(context, context.loc.name, SortCategory.name),
           const SizedBox(height: VSizes.spaceBtwItems),
 
-          _buildSortOption(context, 'Stock', SortCategory.stock),
+          _buildSortOption(context, context.loc.stock, SortCategory.stock),
           const SizedBox(height: VSizes.spaceBtwItems),
-          _buildSortOption(context, 'Price', SortCategory.price),
+          _buildSortOption(context, context.loc.price, SortCategory.price),
           const SizedBox(height: VSizes.spaceBtwItems),
           // Clear Filter Button
           TextButton.icon(
@@ -42,7 +43,7 @@ class SortFilterDialog extends StatelessWidget {
               context.pop();
             },
             icon: const Icon(Icons.clear, color: VColors.error),
-            label: const Text('Clear Filters'),
+            label: Text(context.loc.clearFilters),
             style: TextButton.styleFrom(
               foregroundColor: VColors.error,
             ),

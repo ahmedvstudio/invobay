@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../core/database/hive/theme/app_theme.dart';
 import '../../../../../core/providers/common_providers/theme_provider.dart';
@@ -26,15 +27,18 @@ class VThemeSection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Theme:'),
+        Text(context.loc.theme),
         const SizedBox(height: VSizes.spaceBtwItems),
         SizedBox(
           width: double.infinity,
           child: SegmentedButton<AppTheme>(
-            segments: const [
-              ButtonSegment(value: AppTheme.system, label: Text('System')),
-              ButtonSegment(value: AppTheme.light, label: Text('Light')),
-              ButtonSegment(value: AppTheme.dark, label: Text('Dark')),
+            segments: [
+              ButtonSegment(
+                  value: AppTheme.system, label: Text(context.loc.system)),
+              ButtonSegment(
+                  value: AppTheme.light, label: Text(context.loc.light)),
+              ButtonSegment(
+                  value: AppTheme.dark, label: Text(context.loc.dark)),
             ],
             selected: <AppTheme>{selectedTheme},
             onSelectionChanged: (newSelection) {

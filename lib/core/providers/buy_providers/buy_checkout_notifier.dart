@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/buy_related_model/buy_model.dart';
 import '../../repository/buy_receipt_dao.dart';
+import '../../services/notification/notification_services.dart';
 import '../item_providers/item_related_providers.dart';
 import 'buy_related_providers.dart';
 
@@ -28,6 +29,7 @@ class BuyCheckoutNotifier {
     final itemDao = ref.read(itemDaoProvider);
     final itemNotifier = ref.read(itemNotifierProvider.notifier);
     final buyNotifier = ref.read(buyNotifierProvider.notifier);
+    final notificationService = NotificationServices();
 
     // Track newly inserted item IDs
     final List<int> newlyInsertedItemIds = [];
@@ -87,5 +89,6 @@ class BuyCheckoutNotifier {
     // Step 4: Refresh UI
     await itemNotifier.fetchItems();
     buyNotifier.clearCart();
+    await notificationService.showBuyCheckoutNotification(totalPrice);
   }
 }

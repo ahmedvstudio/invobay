@@ -36,6 +36,9 @@ class VSpacingStyle {
   static const EdgeInsetsGeometry horizontal =
       EdgeInsets.symmetric(horizontal: VSizes.defaultSpace);
 
+  static const EdgeInsetsGeometry halfHorizontal =
+      EdgeInsets.symmetric(horizontal: VSizes.defaultSpace / 2);
+
   static const EdgeInsetsGeometry vertical =
       EdgeInsets.symmetric(vertical: VSizes.defaultSpace);
 

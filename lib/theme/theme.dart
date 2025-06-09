@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/theme/custom_themes/appbar_theme.dart';
 import 'package:invobay/theme/custom_themes/bottom_navigation_bar_theme.dart';
 import 'package:invobay/theme/custom_themes/bottom_sheets_theme.dart';
@@ -8,11 +9,10 @@ import 'package:invobay/theme/custom_themes/elevated_button_theme.dart';
 import 'package:invobay/theme/custom_themes/floating_action_button_theme.dart';
 import 'package:invobay/theme/custom_themes/list_tile_theme.dart';
 import 'package:invobay/theme/custom_themes/outline_button_theme.dart';
+import 'package:invobay/theme/custom_themes/segmented_button_theme.dart';
 import 'package:invobay/theme/custom_themes/text_theme.dart';
-import 'package:invobay/theme/custom_themes/textformfield_theme.dart';
+import 'package:invobay/theme/custom_themes/text_form_field_theme.dart';
 
-import '../core/utils/constants/colors.dart';
-import 'custom_themes/segmented_button_theme.dart';
 import 'custom_themes/text_button_theme.dart';
 
 class VAppTheme {

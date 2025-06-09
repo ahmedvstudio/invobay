@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../common/widgets/icons/circular_icon.dart';
 import '../../../../common/widgets/icons/circular_icon_with_conformation.dart';
@@ -66,7 +67,7 @@ class VBottomEdits extends ConsumerWidget {
               backgroundColor: VColors.black,
               side: const BorderSide(color: VColors.black),
             ),
-            label: const Text('Edit'),
+            label: Text(context.loc.edit),
             icon: const Icon(Iconsax.edit),
           )
         ],

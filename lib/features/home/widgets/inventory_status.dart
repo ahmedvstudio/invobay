@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../common/styles/spacing_style.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
@@ -35,7 +36,7 @@ class VInventoryStatus extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Stock Status',
+                Text(context.loc.stockStatus,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -56,8 +57,8 @@ class VInventoryStatus extends ConsumerWidget {
                         const SizedBox(width: VSizes.xs),
                         Text(
                           lowStockItems.isEmpty
-                              ? 'No Low Stock'
-                              : 'Low Stock: ${lowStockItems.length}',
+                              ? context.loc.noLowStock
+                              : '${context.loc.lowStock}: ${lowStockItems.length}',
                           style: Theme.of(context).textTheme.labelLarge!.apply(
                               color: lowStockItems.isEmpty
                                   ? VColors.success
@@ -78,8 +79,8 @@ class VInventoryStatus extends ConsumerWidget {
                         const SizedBox(width: VSizes.xs),
                         Text(
                           outOfStockItems.isEmpty
-                              ? 'No Out of Stock'
-                              : 'Out of Stock: ${outOfStockItems.length}',
+                              ? context.loc.noOutOfStock
+                              : '${context.loc.outOfStock}: ${outOfStockItems.length}',
                           style: Theme.of(context).textTheme.labelLarge!.apply(
                               color: outOfStockItems.isEmpty
                                   ? VColors.success

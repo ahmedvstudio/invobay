@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../core/database/drift/app_database.dart';
@@ -33,7 +34,7 @@ class EditSupplierForm extends ConsumerWidget {
 
     return Scaffold(
       appBar: VAppBar(
-        title: const Text('Edit Supplier'),
+        title: Text(context.loc.editSupplier),
         actions: [
           IconButton(
               onPressed: () => context.pop(),
@@ -53,7 +54,7 @@ class EditSupplierForm extends ConsumerWidget {
               stateController: stateController,
               countryController: countryController,
               extraPhoneNumberController: extraPhoneNumberController,
-              buttonText: 'Update Supplier',
+              buttonText: context.loc.updateSupplier,
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   final updatedSupplier = SuppliersCompanion(

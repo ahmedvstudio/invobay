@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../common/widgets/appbar/appbar.dart';
 import '../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
@@ -26,7 +27,7 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   VAppBar(
                     title: Text(
-                      'Account',
+                      context.loc.account,
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
@@ -49,49 +50,50 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 children: [
                   // account settings
-                  const VSectionHeading(
-                      title: 'Account Settings', showActionButton: false),
+                  VSectionHeading(
+                      title: context.loc.accountSettings,
+                      showActionButton: false),
                   const SizedBox(height: VSizes.spaceBtwItems),
 
                   VSettingsMenuTile(
                     icon: Iconsax.personalcard,
-                    title: 'Customers',
-                    subTitle: 'Add Loyal Customers Details.',
+                    title: context.loc.customers,
+                    subTitle: context.loc.addLoyalCustomersDetails,
                     onTap: () => context.pushNamed(VRouter.customers),
                   ),
                   VSettingsMenuTile(
                     icon: Iconsax.people,
-                    title: 'Suppliers',
-                    subTitle: 'Add Your Suppliers Details.',
+                    title: context.loc.suppliers,
+                    subTitle: context.loc.addYourSuppliersDetails,
                     onTap: () => context.pushNamed(VRouter.suppliers),
                   ),
                   VSettingsMenuTile(
                     icon: Iconsax.dollar_square,
-                    title: 'Vault / Expense',
-                    subTitle: 'Add your vault and expense details.',
+                    title: context.loc.vaultExpense,
+                    subTitle: context.loc.addYourVaultAndExpenseDetails,
                     onTap: () => context.pushNamed(VRouter.vault),
                   ),
                   VSettingsMenuTile(
                     icon: Iconsax.shop,
-                    title: 'Shop Details',
-                    subTitle: 'Add Shop Details.',
+                    title: context.loc.shopDetails,
+                    subTitle: context.loc.addShopDetails,
                     onTap: () => context.pushNamed(VRouter.shopDetails),
                   ),
                   const SizedBox(height: VSizes.spaceBtwSections),
-                  const VSectionHeading(
-                      title: 'App Settings', showActionButton: false),
+                  VSectionHeading(
+                      title: context.loc.appSettings, showActionButton: false),
                   const SizedBox(height: VSizes.spaceBtwItems),
 
                   VSettingsMenuTile(
                     icon: Iconsax.brush,
-                    title: 'Appearance',
-                    subTitle: 'Personalize the app to your liking.',
+                    title: context.loc.appearance,
+                    subTitle: context.loc.personalizeTheAppToYourLiking,
                     onTap: () => context.pushNamed(VRouter.appearance),
                   ),
-                  const VSettingsMenuTile(
+                  VSettingsMenuTile(
                       icon: Iconsax.notification,
-                      title: 'Notifications',
-                      subTitle: 'Set any kind of notification message.'),
+                      title: context.loc.notifications,
+                      subTitle: context.loc.setAnyKindOfNotificationMessage),
 
                   VSettingsMenuTile(
                     icon: Iconsax.location,
@@ -102,42 +104,24 @@ class SettingsScreen extends StatelessWidget {
                       onChanged: (value) {},
                     ),
                   ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.security_user,
-                    title: 'Safe Mode',
-                    subTitle: 'Search result is safe for all ages.',
-                    trailing: Switch(
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.image,
-                    title: 'HD Image Quality',
-                    subTitle: 'Set image quality to be seen.',
-                    trailing: Switch(
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                  ),
                   const SizedBox(height: VSizes.spaceBtwSections),
-                  const VSectionHeading(
-                      title: 'Data Settings', showActionButton: false),
+                  VSectionHeading(
+                      title: context.loc.dataSettings, showActionButton: false),
                   const SizedBox(height: VSizes.spaceBtwItems),
-                  const VSettingsMenuTile(
+                  VSettingsMenuTile(
                     icon: Iconsax.document_download,
-                    title: 'Backup Data',
-                    subTitle: 'Backup Data to your local Storage.',
+                    title: context.loc.backupData,
+                    subTitle: context.loc.backupDataToYourLocalStorage,
                   ),
-                  const VSettingsMenuTile(
+                  VSettingsMenuTile(
                     icon: Iconsax.document_upload,
-                    title: 'Load Data',
-                    subTitle: 'Load Data from your local Storage.',
+                    title: context.loc.loadData,
+                    subTitle: context.loc.loadDataFromYourLocalStorage,
                   ),
-                  const VSettingsMenuTile(
+                  VSettingsMenuTile(
                     icon: Iconsax.document_text,
-                    title: 'Delete Data',
-                    subTitle: 'Delete Data from your local Storage.',
+                    title: context.loc.deleteData,
+                    subTitle: context.loc.deleteDataFromYourLocalStorage,
                   ),
 
                   // logout
@@ -145,7 +129,7 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                        onPressed: () {}, child: const Text('Logout')),
+                        onPressed: () {}, child: Text(context.loc.logout)),
                   ),
                   const SizedBox(height: VSizes.spaceBtwSections * 2.5),
                 ],

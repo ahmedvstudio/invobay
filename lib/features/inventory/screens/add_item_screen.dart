@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/appbar/custom_appbar.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:drift/drift.dart' as drift;
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/messages/snackbar.dart';
 import '../../../core/database/drift/app_database.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
@@ -104,7 +105,7 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
         child: Column(
           children: [
             VCustomAppBar(
-              text: 'Add Item',
+              text: context.loc.addItem,
               showBackArrow: false,
               actions: [
                 IconButton(
@@ -131,7 +132,7 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
                       descriptionController: _descriptionController,
                       itemUnitController: _itemUnitController,
                       onPressed: _addItem,
-                      buttonText: 'Add Item',
+                      buttonText: context.loc.addItem,
                     ),
                   ],
                 ),

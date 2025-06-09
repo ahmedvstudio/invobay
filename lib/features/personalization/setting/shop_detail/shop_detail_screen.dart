@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/messages/toast.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
@@ -64,9 +65,9 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
     final shopDetailAsync = ref.watch(shopDetailProvider);
 
     return Scaffold(
-      appBar: const VAppBar(
+      appBar: VAppBar(
         showBackArrow: true,
-        title: Text('Shop Details'),
+        title: Text(context.loc.shopDetails),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(VSizes.defaultSpace),
@@ -74,7 +75,8 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
           key: _formKey,
           child: shopDetailAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (err, stack) => Center(child: Text('Error: $err')),
+            error: (err, stack) =>
+                Center(child: Text('${context.loc.error}: $err')),
             data: (savedDetail) {
               if (nameController.text.isEmpty) {
                 nameController.text = savedDetail?.name ?? '';
@@ -112,7 +114,7 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
                 countryController: countryController,
                 descriptionController: descriptionController,
                 extraPhoneNumberController: extraPhoneController,
-                buttonText: 'Save',
+                buttonText: context.loc.save,
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     final shopDetail = ShopDetail(
@@ -129,10 +131,11 @@ class _ShopDetailScreenState extends ConsumerState<ShopDetailScreen> {
                     await ref
                         .read(shopDetailProvider.notifier)
                         .updateShopDetails(shopDetail);
-                    VToast.info(message: 'Shop details saved');
+                    if (context.mounted) {
+                      VToast.info(message: context.loc.shopDetailsSaved);
 
-                    if (!context.mounted) return;
-                    context.pop();
+                      context.pop();
+                    }
                   }
                 },
               );

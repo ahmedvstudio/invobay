@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../common/widgets/appbar/custom_appbar.dart';
 import '../../common/widgets/sheet/add_sheets/add_quantity_sheet.dart';
@@ -25,15 +26,16 @@ class LowStockScreen extends ConsumerWidget {
 
     return Scaffold(
       body: lowStockItems.isEmpty
-          ? const Column(
+          ? Column(
               children: [
-                VCustomAppBar(text: 'Low Stock Items'),
-                Flexible(child: Center(child: Text("All items are in stock!"))),
+                VCustomAppBar(text: context.loc.lowStockItems),
+                Flexible(
+                    child: Center(child: Text(context.loc.allItemsAreInStock))),
               ],
             )
           : Column(
               children: [
-                const VCustomAppBar(text: 'Low Stock Items'),
+                VCustomAppBar(text: context.loc.lowStockItems),
                 Flexible(
                   child: ListView.separated(
                     shrinkWrap: true,

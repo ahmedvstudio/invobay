@@ -6,13 +6,13 @@ import 'package:invobay/common/widgets/custom_shapes/containers/primary_header_c
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/common/widgets/appbar/main_appbar.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import '../../common/widgets/item_cards/item_listview.dart';
 import '../../common/widgets/text_field/search_bar.dart';
 import '../../core/database/drift/app_database.dart';
 import '../../core/providers/item_providers/item_related_providers.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/enums.dart';
-import '../../core/utils/constants/text_strings.dart';
 import 'widgets/sorting_menu.dart';
 
 class InventoryScreen extends ConsumerStatefulWidget {
@@ -29,8 +29,8 @@ class InventoryScreen extends ConsumerStatefulWidget {
 class _InventoryScreenState extends ConsumerState<InventoryScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
-  SortCategory _selectedSortCategory = SortCategory.name; // Default: Name
-  SortOrder _selectedSortOrder = SortOrder.ascending; // Default: Ascending
+  SortCategory _selectedSortCategory = SortCategory.name;
+  SortOrder _selectedSortOrder = SortOrder.ascending;
 
   @override
   void initState() {
@@ -119,7 +119,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
           VPrimaryHeaderContainer(
             child: Column(
               children: [
-                const VMainAppBar(title: VText.inventoryAppBarSubTitle),
+                VMainAppBar(title: context.loc.inventory),
                 const SizedBox(height: VSizes.spaceBtwItems),
                 VSearchBar(
                   searchController: _searchController,

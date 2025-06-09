@@ -1,12 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:invobay/core/database/drift/app_database.dart';
 import 'package:invobay/core/repository/item_dao.dart';
 import 'package:drift/drift.dart';
 
+import '../../services/notification/notification_services.dart';
+
 class ItemNotifier extends StateNotifier<List<Item>> {
   final ItemDao itemDao;
+  final int threshold;
 
-  ItemNotifier(this.itemDao) : super([]) {
+  ItemNotifier(this.itemDao, this.threshold) : super([]) {
     fetchItems(); // Fetch items on initialization
   }
 
@@ -14,6 +18,9 @@ class ItemNotifier extends StateNotifier<List<Item>> {
   Future<void> fetchItems() async {
     final items = await itemDao.getAllItems();
     state = [...items]; // Create a new list to trigger state updates
+
+    // After updating state, check for stock notifications
+    await checkStockAndNotify(threshold);
   }
 
   // Check for duplicate name or barcode
@@ -140,5 +147,42 @@ class ItemNotifier extends StateNotifier<List<Item>> {
     );
 
     await fetchItems();
+  }
+
+  /// -----------testing
+
+  Future<void> checkStockAndNotify(int threshold) async {
+    final notificationService = NotificationServices();
+    final flagsBox = Hive.box('stock_notification_flags');
+
+    for (final item in state) {
+      final lowStockFlagKey = 'low_${item.id}';
+      final outOfStockFlagKey = 'out_${item.id}';
+
+      // Out of Stock
+      if (item.quantity == 0) {
+        if (!(flagsBox.get(outOfStockFlagKey, defaultValue: false) as bool)) {
+          await notificationService.showOutOfStockNotification(
+              item.name, item.id);
+          flagsBox.put(outOfStockFlagKey, true);
+        }
+        // Reset low stock flag so next time it comes back up, it can trigger again
+        flagsBox.put(lowStockFlagKey, false);
+      }
+      // Low Stock (but not out)
+      else if (item.quantity <= threshold) {
+        if (!(flagsBox.get(lowStockFlagKey, defaultValue: false) as bool)) {
+          await notificationService.showLowStockNotification(
+              item.name, item.quantity.toInt(), item.id);
+          flagsBox.put(lowStockFlagKey, true);
+        }
+        // Reset out of stock flag if the item is back in stock but still low
+        flagsBox.put(outOfStockFlagKey, false);
+      } else {
+        // Reset both flags if quantity is healthy
+        flagsBox.put(lowStockFlagKey, false);
+        flagsBox.put(outOfStockFlagKey, false);
+      }
+    }
   }
 }

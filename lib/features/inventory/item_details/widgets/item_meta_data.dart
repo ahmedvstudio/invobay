@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import '../../../../common/widgets/sheet/inventory/item_buy_receipts_sheet.dart';
 import '../../../../common/widgets/sheet/inventory/update_buying_price_sheet.dart';
@@ -58,7 +59,7 @@ class VItemMetaData extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // title
-        const VSectionHeading(title: 'Name:', showActionButton: false),
+        VSectionHeading(title: '${context.loc.name}:', showActionButton: false),
         const SizedBox(height: VSizes.spaceBtwItems),
 
         VItemTitleText(title: title, maxLines: 2, smallSize: true),
@@ -67,7 +68,8 @@ class VItemMetaData extends ConsumerWidget {
         const SizedBox(height: VSizes.spaceBtwItems),
 
         // - Details
-        const VSectionHeading(title: 'Details:', showActionButton: false),
+        VSectionHeading(
+            title: '${context.loc.details}:', showActionButton: false),
         const SizedBox(height: VSizes.spaceBtwItems),
 
         // - In Stock
@@ -102,7 +104,7 @@ class VItemMetaData extends ConsumerWidget {
           children: [
             Expanded(
               child: VMetaDataSection(
-                tag: 'Buy Price',
+                tag: context.loc.buyingPrice,
                 tagBackgroundColor: VColors.primary,
                 tagTextColor: VColors.white,
                 icon: Iconsax.shopping_cart,
@@ -141,7 +143,7 @@ class VItemMetaData extends ConsumerWidget {
                     );
                   },
                   loading: () => const CircularProgressIndicator(),
-                  error: (error, stack) => Text('Error: $error'),
+                  error: (error, stack) => Text('${context.loc.error}: $error'),
                 );
               },
             ),
@@ -150,7 +152,7 @@ class VItemMetaData extends ConsumerWidget {
         const SizedBox(height: VSizes.spaceBtwItems),
         // selling
         VMetaDataSection(
-          tag: 'Sell Price',
+          tag: context.loc.sellingPrice,
           icon: Iconsax.tag,
           tagBackgroundColor: VColors.primary,
           tagTextColor: VColors.white,
@@ -181,7 +183,7 @@ class VItemMetaData extends ConsumerWidget {
         ),
         const SizedBox(height: VSizes.spaceBtwItems),
         VMetaDataSection(
-          tag: 'Barcode',
+          tag: context.loc.barcode,
           tagBackgroundColor: VColors.kAccent,
           tagTextColor: VColors.black,
           icon: Iconsax.barcode,
@@ -191,14 +193,14 @@ class VItemMetaData extends ConsumerWidget {
         const SizedBox(height: VSizes.spaceBtwItems),
         Row(
           children: [
-            const Expanded(
+            Expanded(
               child: VMetaDataSection(
-                tag: 'Receipts & Suppliers',
+                tag: context.loc.receiptsAndSuppliers,
                 tagBackgroundColor: VColors.kAccent,
                 tagTextColor: VColors.black,
                 icon: Iconsax.receipt_item,
                 showChild: false,
-                child: Text('data'),
+                child: const Text(''),
               ),
             ),
             VMetaDataSection(
@@ -212,7 +214,7 @@ class VItemMetaData extends ConsumerWidget {
                           itemId: item.id, title: title)),
                 );
               },
-              tag: 'More',
+              tag: context.loc.more,
               tagBackgroundColor: VColors.info,
               tagTextColor: VColors.white,
               showChild: false,

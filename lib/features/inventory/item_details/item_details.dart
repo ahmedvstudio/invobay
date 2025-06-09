@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/appbar/custom_appbar.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/features/inventory/item_details/widgets/bottom_edits.dart';
 import 'package:invobay/features/inventory/item_details/widgets/item_meta_data.dart';
@@ -59,7 +60,7 @@ class ItemDetailsScreen extends ConsumerWidget {
         child: Column(
           children: [
             VCustomAppBar(
-              text: 'Item Details',
+              text: context.loc.itemDetails,
               actions: [
                 IconButton(
                   onPressed: () {
@@ -101,15 +102,16 @@ class ItemDetailsScreen extends ConsumerWidget {
                   const SizedBox(height: VSizes.spaceBtwItems),
                   const Divider(),
                   const SizedBox(height: VSizes.spaceBtwItems),
-                  const VSectionHeading(
-                      title: 'Description:', showActionButton: false),
+                  VSectionHeading(
+                      title: '${context.loc.description}:',
+                      showActionButton: false),
                   const SizedBox(height: VSizes.spaceBtwItems),
                   ReadMoreText(
                     description ?? '',
                     trimLines: 2,
                     trimMode: TrimMode.Line,
-                    trimCollapsedText: ' Show more',
-                    trimExpandedText: ' Less',
+                    trimCollapsedText: ' ${context.loc.showMore}',
+                    trimExpandedText: ' ${context.loc.less}',
                     moreStyle: Theme.of(context)
                         .textTheme
                         .bodyLarge!

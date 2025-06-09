@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../common/widgets/sheet/settings/currency_picker_sheet.dart';
 import '../../../../../common/widgets/sheet/settings/low_stock_threshold_sheet.dart';
@@ -23,25 +24,25 @@ class VGeneralSection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('General:'),
+        Text('${context.loc.general}:'),
         const SizedBox(height: VSizes.spaceBtwItems / 2),
         ListTile(
           onTap: () => showCurrencySignBottomSheet(context, ref),
-          title: const Text('Currency.'),
+          title: Text(context.loc.currency),
           leading: const Icon(Iconsax.dollar_circle),
           trailing: Text(currencySign),
           tileColor: Colors.transparent,
         ),
         ListTile(
           onTap: () => showTaxEditBottomSheet(context, ref),
-          title: const Text('Tax Percentage.'),
+          title: Text(context.loc.taxPercentage),
           leading: const Icon(Iconsax.discount_circle),
           trailing: Text('% $currentTax'),
           tileColor: Colors.transparent,
         ),
         ListTile(
           onTap: () => showLowStockThresholdBottomSheet(context, ref),
-          title: const Text('Low Stock Threshold.'),
+          title: Text(context.loc.lowStockThreshold),
           leading: const Icon(Iconsax.arrange_circle),
           trailing: Text('$threshold'),
           tileColor: Colors.transparent,

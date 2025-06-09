@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import 'item_unit_selector.dart';
 import '../../../core/utils/constants/sizes.dart';
@@ -36,7 +37,7 @@ class ItemForm extends StatelessWidget {
       children: [
         TextFormField(
           controller: nameController,
-          decoration: const InputDecoration(labelText: 'Name'),
+          decoration: InputDecoration(labelText: context.loc.name),
           validator: VValidator.validateEmpty,
         ),
         Row(
@@ -46,8 +47,8 @@ class ItemForm extends StatelessWidget {
               child: TextFormField(
                 maxLength: 13,
                 controller: quantityController,
-                decoration: const InputDecoration(
-                    labelText: 'Quantity', counterText: ''),
+                decoration: InputDecoration(
+                    labelText: context.loc.quantity, counterText: ''),
                 keyboardType: TextInputType.number,
                 validator: VValidator.validateDoubleNumber,
               ),
@@ -62,8 +63,8 @@ class ItemForm extends StatelessWidget {
               child: TextFormField(
                 controller: buyingPriceController,
                 maxLength: 13,
-                decoration: const InputDecoration(
-                    labelText: 'Buying Price', counterText: ''),
+                decoration: InputDecoration(
+                    labelText: context.loc.buyingPrice, counterText: ''),
                 keyboardType: TextInputType.number,
                 validator: VValidator.validateDoubleNumber,
               ),
@@ -73,8 +74,8 @@ class ItemForm extends StatelessWidget {
               child: TextFormField(
                 maxLength: 13,
                 controller: sellingPriceController,
-                decoration: const InputDecoration(
-                    labelText: 'Selling Price', counterText: ''),
+                decoration: InputDecoration(
+                    labelText: context.loc.sellingPrice, counterText: ''),
                 keyboardType: TextInputType.number,
                 validator: (value) => VValidator.validateSellingPrice(
                     value, buyingPriceController!.text),
@@ -85,7 +86,7 @@ class ItemForm extends StatelessWidget {
         TextFormField(
           controller: barcodeController,
           decoration: InputDecoration(
-            labelText: 'Barcode',
+            labelText: context.loc.barcode,
             suffixIcon: IconButton(
               onPressed: () => VHelperFunctions.scanBarcode(barcodeController!),
               icon: const Icon(
@@ -96,9 +97,9 @@ class ItemForm extends StatelessWidget {
         ),
         TextFormField(
           controller: descriptionController,
-          decoration: const InputDecoration(
-            labelText: 'Description',
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            labelText: context.loc.description,
+            border: const OutlineInputBorder(),
           ),
           minLines: 5,
           maxLines: 7,

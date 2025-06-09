@@ -165,4 +165,14 @@ class VHelperFunctions {
   }
 
   ///
+  static String getTimeAgoGroup(DateTime timestamp) {
+    final now = DateTime.now();
+    final diff = now.difference(timestamp);
+
+    if (diff.inDays == 0) return 'Today';
+    if (diff.inDays == 1) return 'Yesterday';
+    if (diff.inDays < 7) return 'Last Week';
+    if (diff.inDays < 30) return 'This Month';
+    return 'Older';
+  }
 }

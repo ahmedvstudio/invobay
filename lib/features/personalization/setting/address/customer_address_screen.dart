@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/personalization/setting/address/widgets/single_address.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
@@ -29,9 +30,9 @@ class CustomerAddressScreen extends ConsumerWidget {
         backgroundColor: VColors.primary,
         child: const Icon(Iconsax.add, color: VColors.white),
       ),
-      appBar: const VAppBar(
+      appBar: VAppBar(
         showBackArrow: true,
-        title: Text('Customers'),
+        title: Text(context.loc.customers),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -78,13 +79,14 @@ class CustomerAddressScreen extends ConsumerWidget {
                               if (!context.mounted) return;
                               VSnackbar.success(
                                   context: context,
-                                  message: 'Customer deleted successfully');
+                                  message:
+                                      context.loc.customerDeletedSuccessfully);
                             } catch (e) {
                               if (!context.mounted) return;
                               VSnackbar.error(
                                   context: context,
                                   message:
-                                      'Error deleting customer: ${e.toString()}');
+                                      '${context.loc.errorDeletingCustomer}: ${e.toString()}');
                             }
                           }
                         },

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/inventory/widgets/item_form.dart';
 // Import Riverpod provider
 import 'package:invobay/core/database/drift/app_database.dart';
@@ -61,7 +62,6 @@ class EditItemScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Load item data using Riverpod
     _loadItemData(context, ref);
 
     return Scaffold(
@@ -69,7 +69,7 @@ class EditItemScreen extends ConsumerWidget {
         child: Column(
           children: [
             VCustomAppBar(
-              text: 'Edit Item',
+              text: context.loc.editItem,
               showBackArrow: false,
               actions: [
                 IconButton(
@@ -95,7 +95,7 @@ class EditItemScreen extends ConsumerWidget {
                       descriptionController: _descriptionController,
                       itemUnitController: _itemUnitController,
                       onPressed: () => _updateItem(context, ref),
-                      buttonText: 'Update Item',
+                      buttonText: context.loc.updateItem,
                     ),
                   ],
                 ),

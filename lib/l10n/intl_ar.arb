@@ -3,8 +3,7 @@
   "appTitle": "InvoBay",
   "welcome" :"اهلا وسهلا",
   "searchInStock" : "البحث في المخزن",
-  "itemStockLooksGood" : "لا توجد مواد على وشك النفاذ",
-  "lowStockItems" : "مواد على وشك النفاذ: {count}"
+  "itemStockLooksGood" : "لا توجد مواد على وشك النفاذ"
 
 
 }

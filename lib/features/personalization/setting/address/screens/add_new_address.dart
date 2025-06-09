@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../core/database/drift/app_database.dart';
@@ -39,7 +40,9 @@ class AddNewAddress extends ConsumerWidget {
               onPressed: () => context.pop(),
               icon: const Icon(CupertinoIcons.xmark))
         ],
-        title: Text(isCustomer ? 'Add new Customer' : 'Add new Supplier'),
+        title: Text(isCustomer
+            ? context.loc.addNewCustomer
+            : context.loc.addNewSupplier),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -54,7 +57,9 @@ class AddNewAddress extends ConsumerWidget {
               cityController: cityController,
               stateController: stateController,
               countryController: countryController,
-              buttonText: isCustomer ? 'Save Customer' : 'Save Supplier',
+              buttonText: isCustomer
+                  ? context.loc.saveCustomer
+                  : context.loc.saveSupplier,
               onPressed: isCustomer
                   ? () async {
                       if (_formKey.currentState!.validate()) {
@@ -90,8 +95,8 @@ class AddNewAddress extends ConsumerWidget {
                         } catch (e) {
                           VSnackbar.error(
                               context: context,
-                              message:
-                                  'Customer with this name already exists.');
+                              message: context
+                                  .loc.customerWithThisNameAlreadyExists);
                         }
                       }
                     }
@@ -130,8 +135,8 @@ class AddNewAddress extends ConsumerWidget {
                         } catch (e) {
                           VSnackbar.error(
                               context: context,
-                              message:
-                                  'Supplier with this name already exists.');
+                              message: context
+                                  .loc.supplierWithThisNameAlreadyExists);
                         }
                       }
                     },

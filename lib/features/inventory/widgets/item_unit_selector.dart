@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/providers/item_providers/item_unit_notifier.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../core/utils/constants/lists.dart';
 import '../../../core/utils/validators/validation.dart';
@@ -54,8 +55,8 @@ class ItemUnitSelector extends ConsumerWidget {
         child: AbsorbPointer(
           child: TextFormField(
             controller: itemUnitController,
-            decoration: const InputDecoration(
-              labelText: 'Item Unit',
+            decoration: InputDecoration(
+              labelText: context.loc.itemUnit,
             ),
             validator: VValidator.validateEmpty,
           ),
