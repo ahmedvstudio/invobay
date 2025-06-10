@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/models/sell_related_model/sell_model.dart';
 
 import '../../repository/sell_receipt_dao.dart';
-import '../../services/notification/notification_services.dart';
+import '../../services/notification/notification_types/checkout_notifications.dart';
 import '../item_providers/item_related_providers.dart';
 import 'sell_related_providers.dart';
 
@@ -29,7 +29,6 @@ class SellCheckoutNotifier {
     final itemDao = ref.read(itemDaoProvider);
     final itemNotifier = ref.read(itemNotifierProvider.notifier);
     final sellNotifier = ref.read(sellNotifierProvider.notifier);
-    final notificationService = NotificationServices();
 
     // Save receipt first
     await sellReceiptDao.saveSellReceipt(
@@ -54,7 +53,7 @@ class SellCheckoutNotifier {
       await itemNotifier.fetchItems();
       sellNotifier.clearCart();
       // Show sell checkout notification with total price
-      await notificationService.showSellCheckoutNotification(totalPrice);
+      await showSellCheckoutNotification(totalPrice);
     }
   }
 }

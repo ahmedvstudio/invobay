@@ -4,7 +4,8 @@ import 'package:invobay/core/database/drift/app_database.dart';
 import 'package:invobay/core/repository/item_dao.dart';
 import 'package:drift/drift.dart';
 
-import '../../services/notification/notification_services.dart';
+import '../../services/notification/notification_service.dart';
+import '../../services/notification/notification_types/stock_notifications.dart';
 
 class ItemNotifier extends StateNotifier<List<Item>> {
   final ItemDao itemDao;
@@ -152,7 +153,6 @@ class ItemNotifier extends StateNotifier<List<Item>> {
   /// -----------testing
 
   Future<void> checkStockAndNotify(int threshold) async {
-    final notificationService = NotificationServices();
     final flagsBox = Hive.box('stock_notification_flags');
 
     for (final item in state) {
@@ -162,8 +162,7 @@ class ItemNotifier extends StateNotifier<List<Item>> {
       // Out of Stock
       if (item.quantity == 0) {
         if (!(flagsBox.get(outOfStockFlagKey, defaultValue: false) as bool)) {
-          await notificationService.showOutOfStockNotification(
-              item.name, item.id);
+          await showOutOfStockNotification(item.name, item.id);
           flagsBox.put(outOfStockFlagKey, true);
         }
         // Reset low stock flag so next time it comes back up, it can trigger again
@@ -172,7 +171,7 @@ class ItemNotifier extends StateNotifier<List<Item>> {
       // Low Stock (but not out)
       else if (item.quantity <= threshold) {
         if (!(flagsBox.get(lowStockFlagKey, defaultValue: false) as bool)) {
-          await notificationService.showLowStockNotification(
+          await showLowStockNotification(
               item.name, item.quantity.toInt(), item.id);
           flagsBox.put(lowStockFlagKey, true);
         }

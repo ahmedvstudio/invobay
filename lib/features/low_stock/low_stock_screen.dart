@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
-import '../../../core/utils/constants/sizes.dart';
 import '../../common/widgets/appbar/custom_appbar.dart';
 import '../../common/widgets/sheet/add_sheets/add_quantity_sheet.dart';
 import '../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
@@ -39,10 +39,7 @@ class LowStockScreen extends ConsumerWidget {
                 Flexible(
                   child: ListView.separated(
                     shrinkWrap: true,
-                    padding: const EdgeInsets.only(
-                      left: VSizes.defaultSpace,
-                      right: VSizes.defaultSpace,
-                    ),
+                    padding: VSpacingStyle.horizontal,
                     itemCount: lowStockItems.length,
                     separatorBuilder: (_, __) => const Divider(),
                     itemBuilder: (context, index) {

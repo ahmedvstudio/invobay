@@ -3,7 +3,7 @@ import 'package:invobay/core/providers/return_providers/return_related_providers
 
 import '../../models/return_related_model/return_model.dart';
 import '../../repository/return_receipt_dao.dart';
-import '../../services/notification/notification_services.dart';
+import '../../services/notification/notification_types/checkout_notifications.dart';
 import '../item_providers/item_related_providers.dart';
 
 class ReturnCheckoutNotifier {
@@ -28,7 +28,6 @@ class ReturnCheckoutNotifier {
     final itemDao = ref.read(itemDaoProvider);
     final itemNotifier = ref.read(itemNotifierProvider.notifier);
     final returnNotifier = ref.read(returnNotifierProvider.notifier);
-    final notificationService = NotificationServices();
 
     // Save receipt first
     await returnReceiptDao.saveReturnReceipt(
@@ -51,7 +50,7 @@ class ReturnCheckoutNotifier {
       // Update the state after reducing the quantity
       await itemNotifier.fetchItems();
       returnNotifier.clearCart();
-      await notificationService.showReturnCheckoutNotification(totalPrice);
+      await showReturnCheckoutNotification(totalPrice);
     }
   }
 }
