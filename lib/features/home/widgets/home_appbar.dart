@@ -6,7 +6,7 @@ import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../common/widgets/appbar/appbar.dart';
 import '../../../common/widgets/appbar/appbar_icon.dart';
-import '../../../core/providers/notification_providers/notification_provider.dart';
+import '../../../core/providers/notification_providers/notification_related_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/text_strings.dart';
 

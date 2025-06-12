@@ -9,6 +9,7 @@ import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/text/brand_title_text_with_verification_icon.dart';
 import '../../../../core/models/buy_related_model/buy_receipt_with_item_details_model.dart';
 import '../../../../core/providers/supplier_providers/supplier_related_providers.dart';
+import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../../core/router/router_constant.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
@@ -49,12 +50,14 @@ class VItemBuyReceiptDetails extends StatelessWidget {
                 Text('${context.loc.receiptNo}. #${receipt.receiptId}'),
                 Consumer(
                   builder: (context, ref, child) {
+                    final primaryColor = ref.watch(primaryColorProvider);
                     final supplierAsync =
                         ref.watch(supplierByIdProvider(receipt.supplierId!));
                     return supplierAsync.when(
                       data: (supplier) {
                         return VBrandTitleTextWithVerificationIcon(
                           title: supplier?.name ?? context.loc.supplier,
+                          iconColor: primaryColor,
                         );
                       },
                       loading: () => Text("${context.loc.loading}..."),

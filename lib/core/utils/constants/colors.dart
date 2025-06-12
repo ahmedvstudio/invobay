@@ -8,20 +8,23 @@ class VColors {
   static const Color kSecondary = Color(0xFFFFe248);
   static const Color kAccent = Color(0xFFb0c7ff);
 
-  // Light Color Palette
-  static const Color primary = Color(0xFF335C67);
-  static const Color onPrimary = Color(0xFF000000);
-  static const Color secondary = Color(0xFF540B0E);
-  static const Color onSecondary = Color(0xFF000000);
-  static const Color surface = Color(0xFFF4F1F8);
-  static const Color onSurface = Color(0xFF272727);
-
-  // Dark Color Palette
+  // Color Palette
+  static const Color primary = Color(0xff19564e);
   static const Color primaryDark = Color(0xFFE09F3E);
+
+  static const Color onPrimary = Color(0xFF000000);
   static const Color onPrimaryDark = Color(0xFFF4F1F8);
+
+  static const Color secondary = Color(0xFF540B0E);
   static const Color secondaryDark = Color(0xFF9E2A2B);
+
+  static const Color onSecondary = Color(0xFF000000);
   static const Color onSecondaryDark = Color(0xFFF4F1F8);
+
+  static const Color surface = Color(0xFFF4F1F8);
   static const Color surfaceDark = Color(0xFFFFF3B0);
+
+  static const Color onSurface = Color(0xFF272727);
   static const Color onSurfaceDark = Color(0xFF000000);
 
   // Gradient Colors
@@ -50,7 +53,7 @@ class VColors {
   static const Color darkContainer = Color(0xFFF6F6F6);
 
   // Button Colors
-  static const Color buttonPrimary = primary;
+  static const Color buttonPrimary = kPrimary;
   static const Color buttonSecondary = Color(0xFF6c757d);
   static const Color buttonDisabled = Color(0xFFc4c4c4);
 
@@ -80,4 +83,18 @@ class VColors {
   static const Color pearl = Color(0xFFFCFCF7);
   static const Color coldSteel = Color(0xFFF8F7F4);
   static const Color lavender = Color(0xFFF4F1F8);
+
+  // Colors List
+  static const List<Color> colors = [
+    Color(0xFF4b68ff),
+    Color(0xff35b19a),
+    Color(0xFF388e3c),
+    Color(0xff216f64),
+    Color(0xFFd32f2f),
+    Color(0xFFf57c00),
+    Color(0xff6a35b1),
+    Color(0xffb135ab),
+    Color(0xffb1356d),
+    Color(0xff545454),
+  ];
 }

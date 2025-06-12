@@ -34,8 +34,8 @@ class VSingleAddress extends StatelessWidget {
         showBorder: true,
         padding: const EdgeInsets.all(VSizes.md),
         backgroundColor: isCustomer
-            ? VColors.primary.withValues(alpha: 0.3)
-            : VColors.secondary.withValues(alpha: 0.3),
+            ? VColors.info.withValues(alpha: 0.3)
+            : VColors.warning.withValues(alpha: 0.3),
         borderColor: isDark ? VColors.darkerGrey : VColors.grey,
         margin: const EdgeInsets.only(bottom: VSizes.spaceBtwItems),
         child: Column(

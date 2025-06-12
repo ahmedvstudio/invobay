@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../constants/colors.dart';
 import '../constants/sizes.dart';
 
 class VDialogs {
@@ -145,8 +144,7 @@ class VDialogs {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.info_outline,
-                    size: VSizes.iconXl, color: VColors.primary),
+                const Icon(Icons.info_outline, size: VSizes.iconXl),
                 const SizedBox(height: VSizes.spaceBtwItems),
                 Text(
                   title,

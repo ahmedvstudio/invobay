@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+
+import '../../../core/providers/theme_providers/theme_related_providers.dart';
 
 class VReportItem extends StatelessWidget {
   const VReportItem({
@@ -20,13 +23,18 @@ class VReportItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          backgroundColor: VColors.primary.withValues(alpha: 0.8),
-          radius: VSizes.iconSm,
-          child: Text(
-            itemNumber,
-            style: const TextStyle().copyWith(color: VColors.white),
-          ),
+        Consumer(
+          builder: (context, ref, _) {
+            final primary = ref.watch(primaryColorProvider);
+            return CircleAvatar(
+              backgroundColor: primary.withValues(alpha: 0.8),
+              radius: VSizes.iconSm,
+              child: Text(
+                itemNumber,
+                style: const TextStyle().copyWith(color: VColors.white),
+              ),
+            );
+          },
         ),
         Flexible(
             child: ListTile(

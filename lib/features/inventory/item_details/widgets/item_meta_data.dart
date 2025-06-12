@@ -13,6 +13,7 @@ import '../../../../common/widgets/text/section_heading.dart';
 import '../../../../core/database/drift/app_database.dart';
 import '../../../../core/providers/buy_providers/buy_receipt_details_provider.dart';
 import '../../../../core/providers/item_providers/item_related_providers.dart';
+import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/helpers/low_stock_helper.dart';
@@ -40,6 +41,7 @@ class VItemMetaData extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemProvider = ref.watch(itemNotifierProvider);
+    final primaryColor = ref.watch(primaryColorProvider);
     final item = itemProvider.firstWhere((item) => item.name == title,
         orElse: () => Item(
               id: 0,
@@ -105,7 +107,7 @@ class VItemMetaData extends ConsumerWidget {
             Expanded(
               child: VMetaDataSection(
                 tag: context.loc.buyingPrice,
-                tagBackgroundColor: VColors.primary,
+                tagBackgroundColor: primaryColor,
                 tagTextColor: VColors.white,
                 icon: Iconsax.shopping_cart,
                 child: VItemPriceText(
@@ -154,7 +156,7 @@ class VItemMetaData extends ConsumerWidget {
         VMetaDataSection(
           tag: context.loc.sellingPrice,
           icon: Iconsax.tag,
-          tagBackgroundColor: VColors.primary,
+          tagBackgroundColor: primaryColor,
           tagTextColor: VColors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

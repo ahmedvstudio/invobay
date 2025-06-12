@@ -16,7 +16,6 @@ class VItemCardHorizontal extends StatelessWidget {
     required this.itemPrice,
     this.onTapItemDetails,
     this.stockIconColor = VColors.success,
-    this.nameIconColor = VColors.primary,
   });
 
   final String itemName;
@@ -24,7 +23,6 @@ class VItemCardHorizontal extends StatelessWidget {
   final String itemPrice;
   final VoidCallback? onTapItemDetails;
   final Color? stockIconColor;
-  final Color nameIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +44,6 @@ class VItemCardHorizontal extends StatelessWidget {
                 title: itemName,
                 smallSize: false,
                 maxLines: 2,
-                iconColor: nameIconColor,
               ),
               const SizedBox(height: VSizes.spaceBtwItems),
               Row(

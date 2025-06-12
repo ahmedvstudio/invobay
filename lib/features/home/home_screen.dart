@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/home/widgets/home_appbar.dart';
 import 'package:invobay/features/home/widgets/home_body.dart';
-import 'package:invobay/features/home/widgets/inventory_status.dart';
 
 import '../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../common/widgets/custom_shapes/containers/search_container.dart';
@@ -28,24 +27,19 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: VSizes.spaceBtwSections),
 
                   const VShopName(),
-                  const SizedBox(height: VSizes.spaceBtwSections),
-
+                  const SizedBox(height: VSizes.spaceBtwItems),
                   // SearchBar
                   VSearchContainer(
                     text: context.loc.searchInStock,
                     onTap: () => context.pushNamed(VRouter.inventory,
                         queryParameters: {'openSearch': 'true'}),
                   ),
-                  const SizedBox(height: VSizes.spaceBtwItems * 1.5),
-                  const VInventoryStatus(),
-
                   const SizedBox(height: VSizes.spaceBtwSections * 1.5),
                 ],
               ),
             ),
 
             // -- Buttons
-
             const VHomeBody(),
             const SizedBox(height: VSizes.spaceBtwSections),
           ],

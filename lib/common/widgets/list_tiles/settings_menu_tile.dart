@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/utils/constants/colors.dart';
+import '../../../core/providers/theme_providers/theme_related_providers.dart';
 
 class VSettingsMenuTile extends StatelessWidget {
   const VSettingsMenuTile(
@@ -19,7 +20,11 @@ class VSettingsMenuTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon, size: 28, color: VColors.primary),
+      leading: Consumer(
+        builder: (context, ref, _) {
+          return Icon(icon, size: 28, color: ref.watch(primaryColorProvider));
+        },
+      ),
       title: Text(title, style: Theme.of(context).textTheme.titleMedium),
       subtitle: Text(subTitle, style: Theme.of(context).textTheme.labelMedium),
       trailing: trailing,

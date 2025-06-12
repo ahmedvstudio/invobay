@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 
@@ -10,25 +12,28 @@ class VItemTitleTextWithIcon extends StatelessWidget {
     this.smallSize = false,
     this.maxLines = 1,
     this.textAlign,
-    this.iconColor = VColors.kAccent,
   });
 
   final String title;
   final bool smallSize;
   final int maxLines;
   final TextAlign? textAlign;
-  final Color iconColor;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          radius: VSizes.iconSm,
-          backgroundColor: iconColor,
-          child: Text(
-            title[0],
-            style: const TextStyle(color: VColors.white),
-          ),
+        Consumer(
+          builder: (context, ref, _) {
+            final primaryColor = ref.watch(primaryColorProvider);
+            return CircleAvatar(
+              radius: VSizes.iconSm,
+              backgroundColor: primaryColor,
+              child: Text(
+                title[0],
+                style: const TextStyle(color: VColors.white),
+              ),
+            );
+          },
         ),
         const SizedBox(width: VSizes.sm),
         Flexible(

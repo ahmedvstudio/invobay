@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
+import '../../../../../common/widgets/list_tiles/accent_scroll_listview.dart';
 import '../../../../../core/database/hive/theme/app_theme.dart';
-import '../../../../../core/providers/common_providers/theme_provider.dart';
+import '../../../../../core/providers/theme_providers/theme_related_providers.dart';
+import '../../../../../core/utils/constants/colors.dart';
 import '../../../../../core/utils/constants/sizes.dart';
 
 class VThemeSection extends ConsumerWidget {
@@ -13,6 +15,7 @@ class VThemeSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = ref.watch(colorIndexProvider);
     final themeNotifier = ref.read(themeModeProvider.notifier);
     final selectedTheme = ref.watch(themeModeProvider.select((themeMode) {
       switch (themeMode) {
@@ -43,6 +46,26 @@ class VThemeSection extends ConsumerWidget {
             selected: <AppTheme>{selectedTheme},
             onSelectionChanged: (newSelection) {
               themeNotifier.setTheme(newSelection.first);
+            },
+          ),
+        ),
+        const SizedBox(height: VSizes.spaceBtwSections),
+        SizedBox(
+          height: 150,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.zero,
+            itemCount: VColors.colors.length,
+            separatorBuilder: (_, index) => const SizedBox(width: VSizes.sm),
+            itemBuilder: (_, index) {
+              final selectedColor = VColors.colors[index];
+              return VAccentScroll(
+                isSelected: index == selectedIndex,
+                backgroundColor: selectedColor,
+                onTap: () {
+                  ref.read(colorIndexProvider.notifier).setIndex(index);
+                },
+              );
             },
           ),
         ),

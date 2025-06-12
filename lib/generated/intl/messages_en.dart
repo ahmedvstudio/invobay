@@ -173,6 +173,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Supplier with this name already exists.",
     ),
     "suppliers": MessageLookupByLibrary.simpleMessage("Suppliers"),
+    "syncData": MessageLookupByLibrary.simpleMessage("Sync Data"),
+    "syncDataToTheCloud": MessageLookupByLibrary.simpleMessage(
+      "Sync Data To The Cloud.",
+    ),
     "system": MessageLookupByLibrary.simpleMessage("System"),
     "taxPercentage": MessageLookupByLibrary.simpleMessage("Tax Percentage."),
     "theme": MessageLookupByLibrary.simpleMessage("Theme:"),

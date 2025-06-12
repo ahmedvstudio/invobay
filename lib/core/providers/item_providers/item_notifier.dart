@@ -6,13 +6,14 @@ import 'package:drift/drift.dart';
 
 import '../../services/notification/notification_service.dart';
 import '../../services/notification/notification_types/stock_notifications.dart';
+import '../db_providers/hive_providers/app_settings_provider.dart';
+import '../notification_providers/notification_related_provider.dart';
 
 class ItemNotifier extends StateNotifier<List<Item>> {
   final ItemDao itemDao;
-  final int threshold;
-
-  ItemNotifier(this.itemDao, this.threshold) : super([]) {
-    fetchItems(); // Fetch items on initialization
+  final Ref ref;
+  ItemNotifier(this.itemDao, this.ref) : super([]) {
+    fetchItems();
   }
 
   // Fetch all items from the database
@@ -21,7 +22,7 @@ class ItemNotifier extends StateNotifier<List<Item>> {
     state = [...items]; // Create a new list to trigger state updates
 
     // After updating state, check for stock notifications
-    await checkStockAndNotify(threshold);
+    await checkStockAndNotify(ref);
   }
 
   // Check for duplicate name or barcode
@@ -152,33 +153,30 @@ class ItemNotifier extends StateNotifier<List<Item>> {
 
   /// -----------testing
 
-  Future<void> checkStockAndNotify(int threshold) async {
+  Future<void> checkStockAndNotify(Ref ref) async {
     final flagsBox = Hive.box('stock_notification_flags');
-
+    final threshold = ref.watch(lowStockThresholdProvider);
+    final toggles = ref.read(notificationToggleProvider);
     for (final item in state) {
       final lowStockFlagKey = 'low_${item.id}';
       final outOfStockFlagKey = 'out_${item.id}';
 
-      // Out of Stock
       if (item.quantity == 0) {
-        if (!(flagsBox.get(outOfStockFlagKey, defaultValue: false) as bool)) {
+        if (toggles['out_of_stock'] == true &&
+            !(flagsBox.get(outOfStockFlagKey, defaultValue: false) as bool)) {
           await showOutOfStockNotification(item.name, item.id);
           flagsBox.put(outOfStockFlagKey, true);
         }
-        // Reset low stock flag so next time it comes back up, it can trigger again
         flagsBox.put(lowStockFlagKey, false);
-      }
-      // Low Stock (but not out)
-      else if (item.quantity <= threshold) {
-        if (!(flagsBox.get(lowStockFlagKey, defaultValue: false) as bool)) {
+      } else if (item.quantity <= threshold) {
+        if (toggles['low_stock'] == true &&
+            !(flagsBox.get(lowStockFlagKey, defaultValue: false) as bool)) {
           await showLowStockNotification(
               item.name, item.quantity.toInt(), item.id);
           flagsBox.put(lowStockFlagKey, true);
         }
-        // Reset out of stock flag if the item is back in stock but still low
         flagsBox.put(outOfStockFlagKey, false);
       } else {
-        // Reset both flags if quantity is healthy
         flagsBox.put(lowStockFlagKey, false);
         flagsBox.put(outOfStockFlagKey, false);
       }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
-import '../../../core/utils/constants/colors.dart';
+import '../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../core/utils/constants/sizes.dart';
 
 class VItemPriceTextWithIcon extends ConsumerWidget {
@@ -12,21 +12,20 @@ class VItemPriceTextWithIcon extends ConsumerWidget {
     this.maxLines = 1,
     this.isLarge = false,
     this.lineThrough = false,
-    this.iconColor = VColors.primary,
   });
 
   final String price;
   final int maxLines;
   final bool isLarge;
   final bool lineThrough;
-  final Color iconColor;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currencySign = ref.watch(currencySignProvider);
+    final primaryColor = ref.watch(primaryColorProvider);
 
     return Row(
       children: [
-        Icon(Iconsax.tag, color: iconColor, size: VSizes.iconSm),
+        Icon(Iconsax.tag, color: primaryColor, size: VSizes.iconSm),
         const SizedBox(width: VSizes.xs),
         Text(
           '$currencySign $price',

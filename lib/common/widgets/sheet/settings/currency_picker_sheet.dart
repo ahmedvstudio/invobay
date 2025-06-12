@@ -5,7 +5,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
-import 'package:invobay/core/utils/extensions/app_setting_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/core/utils/messages/toast.dart';
 

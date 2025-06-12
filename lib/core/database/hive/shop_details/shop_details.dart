@@ -38,4 +38,26 @@ class ShopDetail extends HiveObject {
     required this.country,
     required this.description,
   });
+
+  ShopDetail copyWith({
+    String? name,
+    String? phone,
+    String? extraPhone,
+    String? street,
+    String? city,
+    String? state,
+    String? country,
+    String? description,
+  }) {
+    return ShopDetail(
+      name: name ?? this.name,
+      phone: phone ?? this.phone,
+      extraPhone: extraPhone ?? this.extraPhone,
+      street: street ?? this.street,
+      city: city ?? this.city,
+      state: state ?? this.state,
+      country: country ?? this.country,
+      description: description ?? this.description,
+    );
+  }
 }

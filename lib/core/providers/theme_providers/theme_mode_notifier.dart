@@ -3,11 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:invobay/core/database/hive/theme/app_theme.dart';
 
-final themeModeProvider =
-    StateNotifierProvider<ThemeModeNotifier, ThemeMode>((ref) {
-  return ThemeModeNotifier();
-});
-
 class ThemeModeNotifier extends StateNotifier<ThemeMode> {
   ThemeModeNotifier() : super(ThemeMode.system) {
     _loadTheme();
@@ -22,7 +17,7 @@ class ThemeModeNotifier extends StateNotifier<ThemeMode> {
   void setTheme(AppTheme appTheme) async {
     final box = await Hive.openBox<AppTheme>('themeBox');
     await box.put('selected', appTheme);
-    state = _convertToThemeMode(appTheme); // 🔥 Triggers rebuild
+    state = _convertToThemeMode(appTheme);
   }
 
   ThemeMode _convertToThemeMode(AppTheme appTheme) {

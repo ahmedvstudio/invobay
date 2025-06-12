@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:invobay/core/utils/constants/colors.dart';
 
 import '../../database/drift/app_database.dart';
 import '../../utils/constants/enums.dart';
-
-// --> AppBar Color Provider
-final appbarColorProvider = StateProvider<Color>((ref) {
-  return VColors.primary;
-});
 
 // --> Filtered Item Provider
 final filteredItemsProvider =

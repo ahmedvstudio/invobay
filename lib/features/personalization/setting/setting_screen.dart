@@ -11,6 +11,7 @@ import '../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../common/widgets/text/section_heading.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
+import '../../../common/widgets/sheet/notification_settings_sheet.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -91,23 +92,27 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () => context.pushNamed(VRouter.appearance),
                   ),
                   VSettingsMenuTile(
-                      icon: Iconsax.notification,
-                      title: context.loc.notifications,
-                      subTitle: context.loc.setAnyKindOfNotificationMessage),
-
-                  VSettingsMenuTile(
-                    icon: Iconsax.location,
-                    title: 'Geolocation',
-                    subTitle: 'Set recommendation based on location.',
-                    trailing: Switch(
-                      value: true,
-                      onChanged: (value) {},
-                    ),
+                    icon: Iconsax.notification,
+                    title: context.loc.notifications,
+                    subTitle: context.loc.setAnyKindOfNotificationMessage,
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (_) => const NotificationSettingsBottomSheet(),
+                      );
+                    },
                   ),
+
                   const SizedBox(height: VSizes.spaceBtwSections),
                   VSectionHeading(
                       title: context.loc.dataSettings, showActionButton: false),
                   const SizedBox(height: VSizes.spaceBtwItems),
+                  VSettingsMenuTile(
+                    icon: Iconsax.document_cloud,
+                    title: context.loc.syncData,
+                    subTitle: context.loc.syncDataToTheCloud,
+                  ),
                   VSettingsMenuTile(
                     icon: Iconsax.document_download,
                     title: context.loc.backupData,

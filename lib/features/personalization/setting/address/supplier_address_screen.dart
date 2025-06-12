@@ -14,6 +14,7 @@ import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../common/widgets/dialogs/delete_confirm_dialog.dart';
 import '../../../../common/widgets/sheet/address_action_sheet.dart';
 import '../../../../core/providers/supplier_providers/supplier_related_providers.dart';
+import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 
 class SupplierAddressScreen extends ConsumerWidget {
   const SupplierAddressScreen({super.key, required this.isCustomer});
@@ -23,11 +24,12 @@ class SupplierAddressScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final suppliers = ref.watch(supplierNotifierProvider);
+    final primaryColor = ref.watch(primaryColorProvider);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.pushNamed(VRouter.addNewSupplier),
-        backgroundColor: VColors.primary,
+        backgroundColor: primaryColor,
         child: const Icon(Iconsax.add, color: VColors.white),
       ),
       appBar: VAppBar(

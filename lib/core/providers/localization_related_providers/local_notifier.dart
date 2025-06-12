@@ -4,10 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 import '../../database/hive/app_settings/app_settings.dart';
 
-final localProvider = StateNotifierProvider<LocaleNotifier, Locale>(
-  (ref) => LocaleNotifier(),
-);
-
 class LocaleNotifier extends StateNotifier<Locale> {
   static const _boxName = 'appSettingsBox';
 

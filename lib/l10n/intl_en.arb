@@ -81,6 +81,8 @@
   "personalizeTheAppToYourLiking" : "Personalize The App To Your Liking.",
   "setAnyKindOfNotificationMessage" : "Set Any Kind Of Notification Message.",
   "dataSettings" : "Data Settings",
+  "syncData" : "Sync Data",
+  "syncDataToTheCloud" : "Sync Data To The Cloud.",
   "backupData" : "Backup Data",
   "backupDataToYourLocalStorage" : "Backup Data To Your Local Storage.",
   "loadData" : "Load Data",

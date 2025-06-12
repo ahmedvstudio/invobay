@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
-import '../../../common/styles/spacing_style.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
+import '../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../core/router/router_constant.dart';
+import '../../../core/utils/helpers/helper_functions.dart';
 
 class VInventoryStatus extends ConsumerWidget {
   const VInventoryStatus({
@@ -19,16 +21,21 @@ class VInventoryStatus extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(itemNotifierProvider);
+    final primaryColor = ref.watch(primaryColorProvider);
     final threshold = ref.watch(lowStockThresholdProvider);
     final outOfStockItems = items.where((item) => item.quantity == 0).toList();
     final lowStockItems = items
         .where((item) => item.quantity > 0 && item.quantity <= threshold)
         .toList();
-
+    final isDark = VHelperFunctions.isDarkMode(context);
     return InkWell(
+      borderRadius: BorderRadius.circular(VSizes.cardRadiusLg),
       onTap: () => context.pushNamed(VRouter.lowStockScreen),
-      child: Padding(
-        padding: VSpacingStyle.horizontal,
+      child: VRoundedContainer(
+        width: double.infinity,
+        showBorder: true,
+        padding: const EdgeInsets.all(VSizes.spaceBtwItems),
+        backgroundColor: primaryColor.withValues(alpha: 0.1),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,7 +47,7 @@ class VInventoryStatus extends ConsumerWidget {
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
-                        .apply(color: VColors.white)),
+                        .apply(color: isDark ? VColors.white : VColors.black)),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

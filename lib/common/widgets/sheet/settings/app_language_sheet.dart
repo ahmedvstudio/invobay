@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/providers/localization_related_providers/local_provider.dart';
+import '../../../../core/providers/localization_related_providers/localization_provider.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../styles/spacing_style.dart';
 

@@ -50,7 +50,7 @@ class ReturnCheckoutNotifier {
       // Update the state after reducing the quantity
       await itemNotifier.fetchItems();
       returnNotifier.clearCart();
-      await showReturnCheckoutNotification(totalPrice);
+      await showReturnCheckoutNotification(totalPrice, ref);
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/theme/custom_themes/appbar_theme.dart';
 import 'package:invobay/theme/custom_themes/bottom_navigation_bar_theme.dart';
@@ -19,16 +20,18 @@ class VAppTheme {
   VAppTheme._();
 
   /// Light Mode Theme
-  static ThemeData lightTheme({required String fontFamily}) => ThemeData(
+  static ThemeData lightTheme(
+          {required String fontFamily, required WidgetRef ref}) =>
+      ThemeData(
         fontFamily: fontFamily,
         useMaterial3: true,
         brightness: Brightness.light,
         scaffoldBackgroundColor: VColors.light,
         textTheme: VTextTheme.lightTextTheme,
-        elevatedButtonTheme: VElevatedButtonTheme.lightElevatedButtonTheme,
+        elevatedButtonTheme: VElevatedButtonTheme.lightElevatedButtonTheme(ref),
         appBarTheme: VAppBarTheme.lightAppBarTheme,
         bottomSheetTheme: VBottomSheetTheme.lightBottomSheetTheme,
-        checkboxTheme: VCheckBoxTheme.lightCheckBoxTheme,
+        checkboxTheme: VCheckBoxTheme.lightCheckBoxTheme(ref),
         chipTheme: VChipTheme.lightChipTheme,
         inputDecorationTheme: VTextFormFiledTheme.lightInputDecorationTheme,
         floatingActionButtonTheme: VFloatingActionButtonTheme.lightFABTheme,
@@ -41,16 +44,18 @@ class VAppTheme {
       );
 
   /// Dark Mode Theme
-  static ThemeData darkTheme({required String fontFamily}) => ThemeData(
+  static ThemeData darkTheme(
+          {required String fontFamily, required WidgetRef ref}) =>
+      ThemeData(
         fontFamily: fontFamily,
         useMaterial3: true,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: VColors.dark,
         textTheme: VTextTheme.darkTextTheme,
-        elevatedButtonTheme: VElevatedButtonTheme.darkElevatedButtonTheme,
+        elevatedButtonTheme: VElevatedButtonTheme.darkElevatedButtonTheme(ref),
         appBarTheme: VAppBarTheme.darkAppBarTheme,
         bottomSheetTheme: VBottomSheetTheme.darkBottomSheetTheme,
-        checkboxTheme: VCheckBoxTheme.darkCheckBoxTheme,
+        checkboxTheme: VCheckBoxTheme.darkCheckBoxTheme(ref),
         chipTheme: VChipTheme.darkChipTheme,
         inputDecorationTheme: VTextFormFiledTheme.darkInputDecorationTheme,
         floatingActionButtonTheme: VFloatingActionButtonTheme.darkFABTheme,

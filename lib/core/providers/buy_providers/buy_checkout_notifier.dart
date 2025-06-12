@@ -89,6 +89,6 @@ class BuyCheckoutNotifier {
     // Step 4: Refresh UI
     await itemNotifier.fetchItems();
     buyNotifier.clearCart();
-    await showBuyCheckoutNotification(totalPrice);
+    await showBuyCheckoutNotification(totalPrice, ref);
   }
 }

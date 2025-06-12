@@ -12,7 +12,7 @@ class VBrandTitleTextWithVerificationIcon extends StatelessWidget {
     required this.title,
     this.maxLines = 1,
     this.textColor,
-    this.iconColor = VColors.primary,
+    this.iconColor = VColors.info,
     this.textAlign = TextAlign.center,
     this.brandTextSizes = TextSizes.small,
   });

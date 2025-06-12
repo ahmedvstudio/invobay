@@ -8,16 +8,16 @@ class VSegmentedButtonTheme {
   /// Light SegmentedButton Theme
   static final lightSegmentedButtonTheme = SegmentedButtonThemeData(
     style: SegmentedButton.styleFrom(
-      selectedBackgroundColor: VColors.kAccent.withValues(alpha: 0.4),
-      iconColor: VColors.primary,
+      selectedBackgroundColor: VColors.info.withValues(alpha: 0.4),
+      iconColor: VColors.info,
     ),
   );
 
   /// Dark SegmentedButton Theme
   static final darkSegmentedButtonTheme = SegmentedButtonThemeData(
     style: SegmentedButton.styleFrom(
-      selectedBackgroundColor: VColors.kAccent.withValues(alpha: 0.4),
-      iconColor: VColors.primaryDark,
+      selectedBackgroundColor: VColors.info.withValues(alpha: 0.4),
+      iconColor: VColors.info,
     ),
   );
 }

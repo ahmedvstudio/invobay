@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
-import 'package:invobay/core/utils/extensions/app_setting_extension.dart';
 
 import '../../../database/hive/app_settings/app_settings.dart';
 
@@ -45,14 +44,6 @@ class AppSettingsNotifier extends StateNotifier<AsyncValue<AppSettings?>> {
     if (current == null) return;
 
     final updated = current.copyWith(taxPercentage: tax);
-    await updateSettings(updated);
-  }
-
-  Future<void> updateVault(double amount) async {
-    final current = state.value;
-    if (current == null) return;
-
-    final updated = current.copyWith(amountOnHand: amount);
     await updateSettings(updated);
   }
 

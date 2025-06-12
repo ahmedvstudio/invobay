@@ -11,7 +11,6 @@ class VMetaDataSection extends StatelessWidget {
     required this.child,
     this.tag,
     this.icon = Iconsax.box,
-    this.iconColor = VColors.primary,
     this.tagBackgroundColor = VColors.kSecondary,
     this.tagTextColor = VColors.black,
     this.showTag = true,
@@ -25,7 +24,6 @@ class VMetaDataSection extends StatelessWidget {
   final Color tagBackgroundColor;
   final Color tagTextColor;
   final IconData? icon;
-  final Color iconColor;
   final Widget child;
   final bool showIcon;
   final VoidCallback? onTap;

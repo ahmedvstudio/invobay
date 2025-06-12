@@ -6,8 +6,8 @@ import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/generated/l10n.dart';
 import 'package:invobay/theme/theme.dart';
 
-import 'core/providers/localization_related_providers/local_provider.dart';
-import 'core/providers/common_providers/theme_provider.dart';
+import 'core/providers/localization_related_providers/localization_provider.dart';
+import 'core/providers/theme_providers/theme_related_providers.dart';
 
 class InvoBay extends ConsumerWidget {
   const InvoBay({super.key});
@@ -17,8 +17,8 @@ class InvoBay extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(localProvider);
     final fontFamily = VHelperFunctions.getFontFamilyForLocale(locale);
-    final lightTheme = VAppTheme.lightTheme(fontFamily: fontFamily);
-    final darkTheme = VAppTheme.darkTheme(fontFamily: fontFamily);
+    final lightTheme = VAppTheme.lightTheme(fontFamily: fontFamily, ref: ref);
+    final darkTheme = VAppTheme.darkTheme(fontFamily: fontFamily, ref: ref);
 
     return MaterialApp.router(
       locale: locale,

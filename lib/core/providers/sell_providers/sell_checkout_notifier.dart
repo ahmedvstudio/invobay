@@ -53,7 +53,7 @@ class SellCheckoutNotifier {
       await itemNotifier.fetchItems();
       sellNotifier.clearCart();
       // Show sell checkout notification with total price
-      await showSellCheckoutNotification(totalPrice);
+      await showSellCheckoutNotification(totalPrice, ref);
     }
   }
 }

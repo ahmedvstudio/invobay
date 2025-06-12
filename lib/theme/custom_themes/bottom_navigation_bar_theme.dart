@@ -9,21 +9,21 @@ class VBottomNavigationBarTheme {
   static const lightBottomNavigationBarTheme = BottomNavigationBarThemeData(
     backgroundColor: VColors.kPrimary,
     selectedIconTheme: IconThemeData(color: VColors.white),
-    unselectedIconTheme: IconThemeData(color: VColors.onPrimary),
+    unselectedIconTheme: IconThemeData(color: VColors.white),
     showSelectedLabels: true,
     showUnselectedLabels: true,
     selectedItemColor: VColors.white,
-    unselectedItemColor: VColors.onPrimary,
+    unselectedItemColor: VColors.white,
   );
 
   /// Dark Bottom NavigationBar Theme
   static const darkBottomNavigationBarTheme = BottomNavigationBarThemeData(
     backgroundColor: VColors.kPrimary,
     selectedIconTheme: IconThemeData(color: VColors.white),
-    unselectedIconTheme: IconThemeData(color: VColors.onPrimary),
+    unselectedIconTheme: IconThemeData(color: VColors.white),
     showSelectedLabels: true,
     showUnselectedLabels: true,
     selectedItemColor: VColors.white,
-    unselectedItemColor: VColors.onPrimary,
+    unselectedItemColor: VColors.white,
   );
 }

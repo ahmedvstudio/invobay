@@ -10,6 +10,7 @@ import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../common/widgets/dialogs/delete_confirm_dialog.dart';
 import '../../../../common/widgets/sheet/address_action_sheet.dart';
 import '../../../../core/providers/customer_providers/customer_related_providers.dart';
+import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/formatters/formatters.dart';
@@ -24,10 +25,11 @@ class CustomerAddressScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final customers = ref.watch(customerNotifierProvider);
+    final primaryColor = ref.watch(primaryColorProvider);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.pushNamed(VRouter.addNewCustomer),
-        backgroundColor: VColors.primary,
+        backgroundColor: primaryColor,
         child: const Icon(Iconsax.add, color: VColors.white),
       ),
       appBar: VAppBar(

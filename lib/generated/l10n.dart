@@ -595,6 +595,21 @@ class S {
     );
   }
 
+  /// `Sync Data`
+  String get syncData {
+    return Intl.message('Sync Data', name: 'syncData', desc: '', args: []);
+  }
+
+  /// `Sync Data To The Cloud.`
+  String get syncDataToTheCloud {
+    return Intl.message(
+      'Sync Data To The Cloud.',
+      name: 'syncDataToTheCloud',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Backup Data`
   String get backupData {
     return Intl.message('Backup Data', name: 'backupData', desc: '', args: []);

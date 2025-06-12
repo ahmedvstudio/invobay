@@ -5,7 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../../common/widgets/custom_shapes/dismissible/delete_background.dart';
 import '../../../core/models/notifications/notification_model.dart';
 import '../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
-import '../../../core/providers/notification_providers/notification_provider.dart';
+import '../../../core/providers/notification_providers/notification_related_provider.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 

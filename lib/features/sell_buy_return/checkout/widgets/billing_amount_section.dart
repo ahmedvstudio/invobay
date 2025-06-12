@@ -9,6 +9,7 @@ import '../../../../core/providers/common_providers/total_amount_provider.dart';
 import '../../../../../core/utils/constants/sizes.dart';
 import '../../../../../core/utils/validators/validation.dart';
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../../core/utils/constants/enums.dart';
 
 class VBillingAmountSection extends ConsumerWidget {
@@ -29,6 +30,7 @@ class VBillingAmountSection extends ConsumerWidget {
     final subtotal = ref.watch(subtotalPriceProvider);
     final total = ref.watch(totalAmountProvider);
     final discountType = ref.watch(discountTypeProvider);
+    final primaryColor = ref.watch(primaryColorProvider);
 
     return Column(
       children: [
@@ -104,9 +106,9 @@ class VBillingAmountSection extends ConsumerWidget {
               FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
             ],
             decoration: InputDecoration(
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Iconsax.money_recive,
-                color: VColors.primary,
+                color: primaryColor,
               ),
               suffixText: currencySign,
               labelText: 'Paid Amount',

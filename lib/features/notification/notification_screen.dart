@@ -4,9 +4,9 @@ import 'package:invobay/features/notification/widgets/grouped_notifications_list
 
 import '../../common/widgets/dialogs/delete_confirm_dialog.dart';
 import '../../core/models/notifications/notification_model.dart';
-import '../../core/providers/notification_providers/notification_provider.dart';
+import '../../core/providers/notification_providers/notification_related_provider.dart';
 import '../../common/widgets/appbar/custom_appbar.dart';
-import '../../core/utils/constants/colors.dart';
+import '../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../core/utils/helpers/helper_functions.dart';
 import '../../core/utils/constants/sizes.dart';
 
@@ -17,7 +17,7 @@ class NotificationScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifications = ref.watch(notificationsProvider);
     final groupedNotifications = <String, List<NotificationModel>>{};
-
+    final primaryColor = ref.watch(primaryColorProvider);
     for (var notify in notifications) {
       final groupKey = VHelperFunctions.getTimeAgoGroup(notify.timestamp);
       groupedNotifications.putIfAbsent(groupKey, () => []);
@@ -45,7 +45,7 @@ class NotificationScreen extends ConsumerWidget {
             ),
       floatingActionButton: FloatingActionButton.extended(
         tooltip: "Clear All",
-        backgroundColor: VColors.primary,
+        backgroundColor: primaryColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(VSizes.borderRadiusXl)),
         onPressed: () async {

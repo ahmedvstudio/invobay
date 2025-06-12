@@ -9,7 +9,7 @@ class VBottomSheetTheme {
   /// Light Bottom Sheet Theme
   static BottomSheetThemeData lightBottomSheetTheme = BottomSheetThemeData(
     showDragHandle: true,
-    backgroundColor: VColors.white,
+    backgroundColor: VColors.lavender,
     modalBackgroundColor: VColors.white,
     constraints: const BoxConstraints(minWidth: double.infinity),
     shape: RoundedRectangleBorder(

@@ -51,7 +51,7 @@ class VButtons {
                 ? Icon(icon, color: color)
                 : const SizedBox.shrink(),
             style: OutlinedButton.styleFrom(
-                side: BorderSide(color: color ?? VColors.primary),
+                side: BorderSide(color: color ?? VColors.info),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(radius),
                 ))));

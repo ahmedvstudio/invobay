@@ -29,22 +29,23 @@ class VAppBarIcon extends StatelessWidget {
             color: isDark ? VColors.white : VColors.white,
           ),
         ),
-        if (badge)
+        if (badge && badgeText.isNotEmpty && badgeText != '0')
           Positioned(
             right: 0,
             child: Container(
               width: 18,
               height: 18,
               decoration: BoxDecoration(
-                color: isDark ? VColors.white : VColors.white,
+                color: VColors.white,
                 borderRadius: BorderRadius.circular(100),
               ),
               child: Center(
                 child: Text(
                   badgeText,
-                  style: Theme.of(context).textTheme.labelLarge!.apply(
-                      color: isDark ? VColors.black : VColors.black,
-                      fontSizeFactor: 0.8),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .apply(color: VColors.black, fontSizeFactor: 0.8),
                 ),
               ),
             ),

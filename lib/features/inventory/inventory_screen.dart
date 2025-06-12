@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/primary_header_container.dart';
-import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/common/widgets/appbar/main_appbar.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
@@ -11,6 +10,7 @@ import '../../common/widgets/item_cards/item_listview.dart';
 import '../../common/widgets/text_field/search_bar.dart';
 import '../../core/database/drift/app_database.dart';
 import '../../core/providers/item_providers/item_related_providers.dart';
+import '../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../core/router/router_constant.dart';
 import '../../core/utils/constants/enums.dart';
 import 'widgets/sorting_menu.dart';
@@ -91,6 +91,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
   @override
   Widget build(BuildContext context) {
     final allItems = ref.watch(itemNotifierProvider);
+    final primaryColor = ref.watch(primaryColorProvider);
 
     final query = _searchController.text.toLowerCase();
     List<Item> filteredItems = allItems
@@ -154,7 +155,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: VColors.primary,
+        backgroundColor: primaryColor,
         onPressed: () => context.pushNamed(VRouter.addItem,
             pathParameters: {'itemName': 'itemName'}),
         child: const Icon(Iconsax.add),

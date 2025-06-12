@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/providers/common_providers/default_providers.dart';
+import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../curved_edges/curved_edges_widget.dart';
 import 'circular_container.dart';
@@ -15,10 +15,10 @@ class VPrimaryHeaderContainer extends ConsumerWidget {
   final Widget child;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final backgroundColor = ref.watch(appbarColorProvider.notifier).state;
+    final primaryColor = ref.watch(primaryColorProvider);
     return VCurvedEdgesWidget(
       child: Container(
-        color: backgroundColor,
+        color: primaryColor,
         padding: const EdgeInsets.all(0),
         child: Stack(
           children: [

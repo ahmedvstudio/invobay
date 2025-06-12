@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 
+import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/dialogs/dialogs.dart';
 import '../../../../features/inventory/item_details/widgets/meta_data_section.dart';
@@ -33,13 +35,17 @@ Future<void> showUpdateSellingPriceBottomSheet({
               const SizedBox(height: VSizes.spaceBtwItems),
               const Text('Selling price must be greater than buying Price.'),
               const SizedBox(height: VSizes.spaceBtwItems),
-              VMetaDataSection(
-                tag: 'Buy Price',
-                tagBackgroundColor: VColors.primary,
-                tagTextColor: VColors.white,
-                showChild: true,
-                showIcon: false,
-                child: Text('$buyingPrice'),
+              Consumer(
+                builder: (context, ref, _) {
+                  return VMetaDataSection(
+                    tag: 'Buy Price',
+                    tagBackgroundColor: ref.watch(primaryColorProvider),
+                    tagTextColor: VColors.white,
+                    showChild: true,
+                    showIcon: false,
+                    child: Text('$buyingPrice'),
+                  );
+                },
               ),
               const SizedBox(height: VSizes.spaceBtwInputFields),
               TextField(

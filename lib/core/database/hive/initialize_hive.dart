@@ -7,4 +7,6 @@ Future<void> initializeHive() async {
 
   await Hive.openBox('stock_notification_flags');
   await Hive.openBox('notifications');
+  await Hive.openBox('notification_toggles');
+  await Hive.openBox('theme_color');
 }
