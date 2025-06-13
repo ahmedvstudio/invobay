@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
-import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 
 import '../../../core/database/drift/app_database.dart';
@@ -37,55 +35,26 @@ class ItemListView extends StatelessWidget {
           final item = items[index];
           final lowStockColor =
               LowStockHelper(item.quantity, ref).getThreeColor();
-          return Stack(
-            children: [
-              VItemCardHorizontal(
-                itemName: item.name,
-                itemStock: item.quantity,
-                itemPrice: '${item.sellingPrice}',
-                onTapItemDetails: () {
-                  context.goNamed(VRouter.itemDetail,
-                      pathParameters: {'id': item.id.toString()});
-                },
-                stockIconColor: lowStockColor,
-              ),
-              Positioned(
-                top: 5,
-                right: 5,
-                child: Consumer(
-                  builder: (context, ref, child) {
-                    final receiptsAsync =
-                        ref.watch(receiptsDetailsProvider(item.id));
-                    return receiptsAsync.when(
-                      data: (receipts) {
-                        final hasHighPriceReceipts = receipts.any(
-                          (r) => r.itemPrice > item.buyingPrice,
-                        );
+          final receiptsAsync = ref.watch(receiptsDetailsProvider(item.id));
 
-                        final isSellingBelowCost =
-                            item.sellingPrice <= item.buyingPrice;
+          bool isThereProblem = false;
+          receiptsAsync.whenData((receipts) {
+            final hasHighPriceReceipts =
+                receipts.any((r) => r.itemPrice > item.buyingPrice);
+            final isSellingBelowCost = item.sellingPrice <= item.buyingPrice;
+            isThereProblem = hasHighPriceReceipts || isSellingBelowCost;
+          });
 
-                        if (hasHighPriceReceipts || isSellingBelowCost) {
-                          return const Icon(
-                            Iconsax.info_circle5,
-                            color: VColors.error,
-                            size: VSizes.iconSm,
-                          );
-                        }
-
-                        return const SizedBox.shrink();
-                      },
-                      loading: () => const SizedBox(
-                        height: VSizes.iconSm,
-                        width: VSizes.iconSm,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      ),
-                      error: (error, stack) => Text('Error: $error'),
-                    );
-                  },
-                ),
-              ),
-            ],
+          return VItemCardHorizontal(
+            itemName: item.name,
+            itemStock: item.quantity,
+            itemPrice: '${item.sellingPrice}',
+            onTapItemDetails: () {
+              context.goNamed(VRouter.itemDetail,
+                  pathParameters: {'id': item.id.toString()});
+            },
+            stockIconColor: lowStockColor,
+            isThereProblem: isThereProblem,
           );
         },
         separatorBuilder: (_, index) =>

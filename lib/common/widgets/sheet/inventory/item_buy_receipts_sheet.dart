@@ -45,7 +45,7 @@ class ItemBuyReceiptsBottomSheet extends ConsumerWidget {
         children: [
           const VSectionHeading(
               title: 'Item Receipts Details', showActionButton: false),
-          const SizedBox(height: VSizes.spaceBtwSections),
+          const SizedBox(height: VSizes.spaceBtwItems),
           Expanded(
             child: SingleChildScrollView(
               child: receiptsAsync.when(

@@ -12,7 +12,6 @@ import '../../../../core/providers/supplier_providers/supplier_related_providers
 import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../../core/router/router_constant.dart';
 import '../../../../core/utils/constants/colors.dart';
-import '../../../../core/utils/constants/sizes.dart';
 
 class VItemBuyReceiptDetails extends StatelessWidget {
   const VItemBuyReceiptDetails({
@@ -31,7 +30,6 @@ class VItemBuyReceiptDetails extends StatelessWidget {
     return Column(
       children: receipts.map((receipt) {
         return VRoundedContainer(
-          margin: const EdgeInsets.only(bottom: VSizes.sm),
           backgroundColor: isDark ? VColors.dark : VColors.light,
           child: ListTile(
             onTap: () => context.pushNamed(

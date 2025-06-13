@@ -11,7 +11,7 @@ import '../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../common/widgets/text/section_heading.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
-import '../../../common/widgets/sheet/notification_settings_sheet.dart';
+import '../../../common/widgets/sheet/settings/notification_settings_sheet.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -103,7 +103,18 @@ class SettingsScreen extends StatelessWidget {
                       );
                     },
                   ),
-
+                  VSettingsMenuTile(
+                    icon: Iconsax.export_1,
+                    title: 'Backup / Restore',
+                    subTitle: 'Backup and Restore your Data .',
+                    onTap: () {},
+                  ),
+                  VSettingsMenuTile(
+                    icon: Iconsax.clipboard,
+                    title: 'About',
+                    subTitle: 'Application Info And Update.',
+                    onTap: () {},
+                  ),
                   const SizedBox(height: VSizes.spaceBtwSections),
                   VSectionHeading(
                       title: context.loc.dataSettings, showActionButton: false),

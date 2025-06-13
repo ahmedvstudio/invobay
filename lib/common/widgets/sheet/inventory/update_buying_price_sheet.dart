@@ -65,29 +65,34 @@ void showUpdateBuyingPriceBottomSheet({
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(
-                    onPressed: () => context.pop(),
-                    child: const Text('Cancel'),
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => context.pop(),
+                      child: const Text('Cancel'),
+                    ),
                   ),
                   const SizedBox(width: VSizes.spaceBtwItems),
-                  ElevatedButton(
-                    onPressed: () {
-                      final entered = double.tryParse(controller.text.trim());
-                      if (entered != null && entered > currentBuyingPrice) {
-                        context.pop();
-                        onUpdate(entered);
-                      } else {
-                        VDialogs.showAlert(
-                          context,
-                          'Invalid Price',
-                          'Should Be Greater Than Current Buying Price.',
-                        );
-                      }
-                    },
-                    child: const Text('Update'),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final entered = double.tryParse(controller.text.trim());
+                        if (entered != null && entered > currentBuyingPrice) {
+                          context.pop();
+                          onUpdate(entered);
+                        } else {
+                          VDialogs.showAlert(
+                            context,
+                            'Invalid Price',
+                            'Should Be Greater Than Current Buying Price.',
+                          );
+                        }
+                      },
+                      child: const Text('Update'),
+                    ),
                   ),
                 ],
               ),
+              const SizedBox(height: VSizes.spaceBtwItems),
             ],
           ),
         ),

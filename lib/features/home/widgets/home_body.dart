@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
@@ -6,6 +7,8 @@ import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../common/widgets/sheet/receipt/receipt_type_selection_sheet.dart';
+import '../../../core/providers/common_providers/inventory_problem_provider.dart';
+import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import 'home_button.dart';
 import 'inventory_status.dart';
@@ -23,10 +26,37 @@ class VHomeBody extends StatelessWidget {
         children: [
           const VInventoryStatus(),
           const SizedBox(height: VSizes.spaceBtwItems),
-          VHomeButton(
-            title: context.loc.inventory,
-            icon: Iconsax.shop5,
-            onTap: () => context.pushNamed(VRouter.inventory),
+          Consumer(
+            builder: (context, ref, _) {
+              final asyncHasProblem = ref.watch(inventoryHasProblemProvider);
+
+              return asyncHasProblem.when(
+                data: (hasProblem) {
+                  return Badge(
+                    isLabelVisible: hasProblem,
+                    offset: const Offset(-10, 5),
+                    backgroundColor: Colors.transparent,
+                    label: const Icon(Icons.info,
+                        color: VColors.error, size: VSizes.iconSm),
+                    child: VHomeButton(
+                      title: context.loc.inventory,
+                      icon: Iconsax.shop5,
+                      onTap: () => context.pushNamed(VRouter.inventory),
+                    ),
+                  );
+                },
+                loading: () => VHomeButton(
+                  title: context.loc.inventory,
+                  icon: Iconsax.shop5,
+                  onTap: () => context.pushNamed(VRouter.inventory),
+                ),
+                error: (e, st) => VHomeButton(
+                  title: context.loc.inventory,
+                  icon: Iconsax.shop5,
+                  onTap: () => context.pushNamed(VRouter.inventory),
+                ),
+              );
+            },
           ),
           const SizedBox(height: VSizes.spaceBtwItems),
           Row(

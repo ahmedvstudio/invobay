@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/common/widgets/text/section_heading.dart';
+import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 class AddressActionSheet extends StatelessWidget {
@@ -26,43 +29,51 @@ class AddressActionSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Wrap(
-        children: [
-          ListTile(
-            leading: const Icon(Iconsax.edit),
-            title: const Text('Edit'),
-            onTap: () {
-              context.pop();
-              onEdit();
-            },
-          ),
-          ListTile(
-            leading: const Icon(Iconsax.trash),
-            title: const Text('Delete'),
-            onTap: () {
-              context.pop();
-              onDelete();
-            },
-          ),
-          if (phone1 != null && phone1!.isNotEmpty)
+      child: Padding(
+        padding: VSpacingStyle.withoutTop,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            VSectionHeading(
+                title: isCustomer ? 'Customer Action' : 'Supplier Action',
+                showActionButton: false),
+            const SizedBox(height: VSizes.spaceBtwItems),
             ListTile(
-              leading: const Icon(Iconsax.call),
-              title: Text('Call $phone1'),
+              leading: const Icon(Iconsax.edit),
+              title: const Text('Edit'),
               onTap: () {
                 context.pop();
-                VHelperFunctions.makePhoneCall(phone1);
+                onEdit();
               },
             ),
-          if (phone2 != null && phone2!.isNotEmpty)
             ListTile(
-              leading: const Icon(Iconsax.call5),
-              title: Text('Call $phone2'),
+              leading: const Icon(Iconsax.trash),
+              title: const Text('Delete'),
               onTap: () {
                 context.pop();
-                VHelperFunctions.makePhoneCall(phone2);
+                onDelete();
               },
             ),
-        ],
+            if (phone1 != null && phone1!.isNotEmpty)
+              ListTile(
+                leading: const Icon(Iconsax.call),
+                title: Text('Call $phone1'),
+                onTap: () {
+                  context.pop();
+                  VHelperFunctions.makePhoneCall(phone1);
+                },
+              ),
+            if (phone2 != null && phone2!.isNotEmpty)
+              ListTile(
+                leading: const Icon(Iconsax.call5),
+                title: Text('Call $phone2'),
+                onTap: () {
+                  context.pop();
+                  VHelperFunctions.makePhoneCall(phone2);
+                },
+              ),
+          ],
+        ),
       ),
     );
   }

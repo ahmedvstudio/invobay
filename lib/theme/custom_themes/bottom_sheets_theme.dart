@@ -9,8 +9,8 @@ class VBottomSheetTheme {
   /// Light Bottom Sheet Theme
   static BottomSheetThemeData lightBottomSheetTheme = BottomSheetThemeData(
     showDragHandle: true,
-    backgroundColor: VColors.lavender,
-    modalBackgroundColor: VColors.white,
+    backgroundColor: VColors.light,
+    modalBackgroundColor: VColors.light,
     constraints: const BoxConstraints(minWidth: double.infinity),
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(VSizes.borderRadiusXl)),
@@ -19,8 +19,8 @@ class VBottomSheetTheme {
   /// Dark Bottom Sheet Theme
   static BottomSheetThemeData darkBottomSheetTheme = BottomSheetThemeData(
     showDragHandle: true,
-    backgroundColor: VColors.black,
-    modalBackgroundColor: VColors.black,
+    backgroundColor: VColors.dark,
+    modalBackgroundColor: VColors.dark,
     constraints: const BoxConstraints(minWidth: double.infinity),
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(VSizes.borderRadiusXl)),

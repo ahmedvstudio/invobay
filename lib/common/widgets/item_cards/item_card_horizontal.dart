@@ -16,6 +16,7 @@ class VItemCardHorizontal extends StatelessWidget {
     required this.itemPrice,
     this.onTapItemDetails,
     this.stockIconColor = VColors.success,
+    this.isThereProblem = false,
   });
 
   final String itemName;
@@ -23,45 +24,52 @@ class VItemCardHorizontal extends StatelessWidget {
   final String itemPrice;
   final VoidCallback? onTapItemDetails;
   final Color? stockIconColor;
-
+  final bool isThereProblem;
   @override
   Widget build(BuildContext context) {
     final isDark = VHelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: onTapItemDetails,
-      child: Container(
-        padding: const EdgeInsets.all(1),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(VSizes.productImageRadius),
-          color: isDark ? VColors.black : VColors.softGrey,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(VSizes.sm),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              VItemTitleTextWithIcon(
-                title: itemName,
-                smallSize: false,
-                maxLines: 2,
-              ),
-              const SizedBox(height: VSizes.spaceBtwItems),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                      child: VItemQuantityTextWithIcon(
-                    title: VFormatters.formatPrice(itemStock),
-                    iconColor: stockIconColor,
-                  )),
+      child: Badge(
+        offset: const Offset(-10, 5),
+        backgroundColor: Colors.transparent,
+        label:
+            const Icon(Icons.info, color: VColors.error, size: VSizes.iconSm),
+        isLabelVisible: isThereProblem,
+        child: Container(
+          padding: const EdgeInsets.all(1),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(VSizes.productImageRadius),
+            color: isDark ? VColors.lightDarkerGrey : VColors.lightGrey,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(VSizes.sm),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                VItemTitleTextWithIcon(
+                  title: itemName,
+                  smallSize: false,
+                  maxLines: 2,
+                ),
+                const SizedBox(height: VSizes.spaceBtwItems),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                        child: VItemQuantityTextWithIcon(
+                      title: VFormatters.formatPrice(itemStock),
+                      iconColor: stockIconColor,
+                    )),
 
-                  // price
-                  VItemPriceTextWithIcon(
-                    price: itemPrice,
-                  ),
-                ],
-              ),
-            ],
+                    // price
+                    VItemPriceTextWithIcon(
+                      price: itemPrice,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

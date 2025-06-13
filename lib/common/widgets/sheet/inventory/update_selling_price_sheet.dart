@@ -65,30 +65,35 @@ Future<void> showUpdateSellingPriceBottomSheet({
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(
-                    onPressed: () => context.pop(),
-                    child: const Text('Cancel'),
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => context.pop(),
+                      child: const Text('Cancel'),
+                    ),
                   ),
                   const SizedBox(width: 8),
-                  ElevatedButton(
-                    onPressed: () {
-                      final text = controller.text.trim();
-                      final price = double.tryParse(text);
-                      if (price != null && price > buyingPrice) {
-                        onUpdate(price);
-                        context.pop();
-                      } else {
-                        VDialogs.showAlert(
-                          context,
-                          'Invalid Price',
-                          'Please enter a valid price greater than buying price.',
-                        );
-                      }
-                    },
-                    child: const Text('Update'),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final text = controller.text.trim();
+                        final price = double.tryParse(text);
+                        if (price != null && price > buyingPrice) {
+                          onUpdate(price);
+                          context.pop();
+                        } else {
+                          VDialogs.showAlert(
+                            context,
+                            'Invalid Price',
+                            'Please enter a valid price greater than buying price.',
+                          );
+                        }
+                      },
+                      child: const Text('Update'),
+                    ),
                   ),
                 ],
               ),
+              const SizedBox(height: VSizes.spaceBtwItems),
             ],
           ),
         ),

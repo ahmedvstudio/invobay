@@ -72,9 +72,10 @@ class VColors {
   static const Color black = Color(0xFF232323);
   static const Color white = Color.fromARGB(255, 255, 248, 248);
   static const Color darkerGrey = Color(0xFF4f4f4f);
+  static const Color lightDarkerGrey = Color(0x804f4f4f);
   static const Color darkGrey = Color(0xFF939393);
   static const Color softGrey = Color(0xFFF4f4F4);
-  static const Color lightGrey = Color(0xFFF9f9F9);
+  static const Color lightGrey = Color(0x80e0e0e0);
   static const Color grey = Color(0xFFe0e0e0);
 
   // White Alternatives

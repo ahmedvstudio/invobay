@@ -1,4 +1,5 @@
 import 'package:barcode_scan2/barcode_scan2.dart';
+import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
@@ -174,5 +175,14 @@ class VHelperFunctions {
     if (diff.inDays < 7) return 'Last Week';
     if (diff.inDays < 30) return 'This Month';
     return 'Older';
+  }
+
+  //
+  static String currencyEmoji(Currency currency) {
+    try {
+      return CurrencyUtils.currencyToEmoji(currency);
+    } catch (_) {
+      return '🏳️';
+    }
   }
 }
