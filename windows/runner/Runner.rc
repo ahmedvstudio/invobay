@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.ahmed47v" "\0"
-            VALUE "FileDescription", "invobay" "\0"
+            VALUE "CompanyName", "Ahmed V. Studio" "\0"
+            VALUE "FileDescription", "InvoBay" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "invobay" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.ahmed47v. All rights reserved." "\0"
-            VALUE "OriginalFilename", "invobay.exe" "\0"
-            VALUE "ProductName", "invobay" "\0"
+            VALUE "InternalName", "InvoBay" "\0"
+            VALUE "LegalCopyright", "Copyright ©️ 2025 Ahmed V. Studio. All rights reserved." "\0"
+            VALUE "OriginalFilename", "invobay-win32.exe" "\0"
+            VALUE "ProductName", "InvoBay" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

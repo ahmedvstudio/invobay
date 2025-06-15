@@ -5,6 +5,8 @@ import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/router/routes/settings/supplier_route.dart';
 
 import '../../../../features/personalization/profile/profile_screen.dart';
+import '../../../../features/personalization/setting/about/about_screen.dart';
+import '../../../../features/personalization/setting/backup_restore/backup_restore_screen.dart';
 import '../../../../features/personalization/setting/setting_screen.dart';
 import '../../../../features/personalization/setting/shop_detail/shop_detail_screen.dart';
 import 'appearance_route.dart';
@@ -36,6 +38,20 @@ List<GoRoute> settingRoutes = [
           path: '/shopDetails',
           pageBuilder: (context, state) =>
               const MaterialPage(child: ShopDetailScreen())),
+
+      // --> Backup / Restore
+      GoRoute(
+          name: VRouter.backupRestore,
+          path: '/backupRestore',
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: BackupRestoreScreen())),
+
+      // --> About
+      GoRoute(
+          name: VRouter.about,
+          path: '/about',
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: AboutScreen())),
     ],
   ),
 ];

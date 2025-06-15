@@ -60,7 +60,7 @@ Future<void> showAddQuantityBottomSheet(BuildContext context, WidgetRef ref,
                   Row(
                     children: [
                       Expanded(
-                        child: TextButton(
+                        child: OutlinedButton(
                           onPressed: () {
                             quantityState.state = '';
                             context.pop();

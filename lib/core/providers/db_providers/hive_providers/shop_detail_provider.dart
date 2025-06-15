@@ -7,8 +7,3 @@ final shopDetailProvider =
     StateNotifierProvider<ShopDetailNotifier, AsyncValue<ShopDetail?>>(
   (ref) => ShopDetailNotifier(),
 );
-
-// --> Shop Name Provider
-final shopNameProvider = StateProvider<String>((ref) {
-  return 'Shop Name';
-});

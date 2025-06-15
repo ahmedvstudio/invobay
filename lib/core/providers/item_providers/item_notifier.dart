@@ -151,7 +151,7 @@ class ItemNotifier extends StateNotifier<List<Item>> {
     await fetchItems();
   }
 
-  /// -----------testing
+  /// ----------- Notify Stock -----------------
 
   Future<void> checkStockAndNotify(Ref ref) async {
     final flagsBox = Hive.box('stock_notification_flags');

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
@@ -39,6 +40,9 @@ class VHomeAppBar extends StatelessWidget {
             final unreadCount = notifications.where((n) => !n.isRead).length;
             return VAppBarIcon(
               onPressed: () => context.pushNamed(VRouter.notification),
+              icon: unreadCount == 0
+                  ? Iconsax.notification
+                  : Iconsax.notification5,
               badgeText: '$unreadCount',
             );
           },

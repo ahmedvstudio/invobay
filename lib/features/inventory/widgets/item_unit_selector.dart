@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/providers/item_providers/item_unit_notifier.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
+import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/lists.dart';
+import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/validators/validation.dart';
 
 class ItemUnitSelector extends ConsumerWidget {
@@ -16,6 +19,7 @@ class ItemUnitSelector extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = VHelperFunctions.isDarkMode(context);
     final selectedItem = ref.watch(itemUnitProvider);
     if (itemUnitController.text.isEmpty &&
         selectedItem != null &&
@@ -26,16 +30,20 @@ class ItemUnitSelector extends ConsumerWidget {
     void showDropdown(BuildContext context, WidgetRef ref) {
       final RenderBox renderBox = context.findRenderObject() as RenderBox;
       final Offset offset = renderBox.localToGlobal(Offset.zero);
+      final units = VLists.unitList(context);
 
       showMenu(
         context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(VSizes.borderRadiusMd)),
+        color: isDark ? VColors.darkerGrey : VColors.grey,
         position: RelativeRect.fromLTRB(
           offset.dx,
           offset.dy + renderBox.size.height,
           offset.dx + renderBox.size.width,
           offset.dy + renderBox.size.height * 2,
         ),
-        items: VLists.unitList.map((unit) {
+        items: units.map((unit) {
           return PopupMenuItem<String>(
             value: unit,
             child: Text(unit),

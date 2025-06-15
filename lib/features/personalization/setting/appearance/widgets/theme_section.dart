@@ -5,7 +5,7 @@ import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import '../../../../../common/widgets/list_tiles/accent_scroll_listview.dart';
 import '../../../../../core/database/hive/theme/app_theme.dart';
 import '../../../../../core/providers/theme_providers/theme_related_providers.dart';
-import '../../../../../core/utils/constants/colors.dart';
+import '../../../../../core/utils/constants/lists.dart';
 import '../../../../../core/utils/constants/sizes.dart';
 
 class VThemeSection extends ConsumerWidget {
@@ -55,10 +55,10 @@ class VThemeSection extends ConsumerWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.zero,
-            itemCount: VColors.colors.length,
+            itemCount: VLists.colors.length,
             separatorBuilder: (_, index) => const SizedBox(width: VSizes.sm),
             itemBuilder: (_, index) {
-              final selectedColor = VColors.colors[index];
+              final selectedColor = VLists.colors[index];
               return VAccentScroll(
                 isSelected: index == selectedIndex,
                 backgroundColor: selectedColor,

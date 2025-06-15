@@ -6,6 +6,7 @@ import '../../database/hive/app_settings/app_settings.dart';
 
 class LocaleNotifier extends StateNotifier<Locale> {
   static const _boxName = 'appSettingsBox';
+  static const _keyName = 'settings';
 
   LocaleNotifier() : super(const Locale('en')) {
     _loadLocale();
@@ -13,7 +14,7 @@ class LocaleNotifier extends StateNotifier<Locale> {
 
   Future<void> _loadLocale() async {
     final box = await Hive.openBox<AppSettings>(_boxName);
-    final settings = box.get('settings');
+    final settings = box.get(_keyName);
     if (settings != null) {
       state = Locale(settings.languageCode);
     }
@@ -21,7 +22,7 @@ class LocaleNotifier extends StateNotifier<Locale> {
 
   Future<void> setLocale(String languageCode) async {
     final box = await Hive.openBox<AppSettings>(_boxName);
-    final settings = box.get('settings');
+    final settings = box.get(_keyName);
 
     if (settings != null) {
       final updated = AppSettings(
@@ -30,7 +31,7 @@ class LocaleNotifier extends StateNotifier<Locale> {
         lowStockThreshold: settings.lowStockThreshold,
         languageCode: languageCode,
       );
-      await box.put('settings', updated);
+      await box.put(_keyName, updated);
       state = Locale(languageCode);
     }
   }

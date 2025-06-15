@@ -51,6 +51,8 @@ class VRouter {
   static const String appearance = 'appearance';
   static const String appLanguage = 'appLanguage';
   static const String profile = 'profile';
+  static const String backupRestore = 'backupRestore';
+  static const String about = 'about';
 
   // - Customer
   static const String customers = 'customers';

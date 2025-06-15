@@ -107,47 +107,16 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.export_1,
                     title: 'Backup / Restore',
                     subTitle: 'Backup and Restore your Data .',
-                    onTap: () {},
+                    onTap: () => context.pushNamed(VRouter.backupRestore),
                   ),
                   VSettingsMenuTile(
                     icon: Iconsax.clipboard,
                     title: 'About',
                     subTitle: 'Application Info And Update.',
-                    onTap: () {},
-                  ),
-                  const SizedBox(height: VSizes.spaceBtwSections),
-                  VSectionHeading(
-                      title: context.loc.dataSettings, showActionButton: false),
-                  const SizedBox(height: VSizes.spaceBtwItems),
-                  VSettingsMenuTile(
-                    icon: Iconsax.document_cloud,
-                    title: context.loc.syncData,
-                    subTitle: context.loc.syncDataToTheCloud,
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.document_download,
-                    title: context.loc.backupData,
-                    subTitle: context.loc.backupDataToYourLocalStorage,
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.document_upload,
-                    title: context.loc.loadData,
-                    subTitle: context.loc.loadDataFromYourLocalStorage,
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.document_text,
-                    title: context.loc.deleteData,
-                    subTitle: context.loc.deleteDataFromYourLocalStorage,
+                    onTap: () => context.pushNamed(VRouter.about),
                   ),
 
-                  // logout
                   const SizedBox(height: VSizes.spaceBtwSections),
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                        onPressed: () {}, child: Text(context.loc.logout)),
-                  ),
-                  const SizedBox(height: VSizes.spaceBtwSections * 2.5),
                 ],
               ),
             )

@@ -84,18 +84,4 @@ class VColors {
   static const Color pearl = Color(0xFFFCFCF7);
   static const Color coldSteel = Color(0xFFF8F7F4);
   static const Color lavender = Color(0xFFF4F1F8);
-
-  // Colors List
-  static const List<Color> colors = [
-    Color(0xFF4b68ff),
-    Color(0xff35b19a),
-    Color(0xFF388e3c),
-    Color(0xff216f64),
-    Color(0xFFd32f2f),
-    Color(0xFFf57c00),
-    Color(0xff6a35b1),
-    Color(0xffb135ab),
-    Color(0xffb1356d),
-    Color(0xff545454),
-  ];
 }

@@ -3,21 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import '../../../../core/providers/encryption_key_providers/encryption_key_provider.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/helpers/helper_functions.dart';
 import '../../../../core/utils/messages/toast.dart';
 import '../../../styles/spacing_style.dart';
 
-Future<void> showLowStockThresholdBottomSheet(
-    BuildContext context, WidgetRef ref) async {
-  final currentThreshold =
-      ref.read(appSettingsProvider).value?.lowStockThreshold ?? 5;
-  final thresholdController =
-      TextEditingController(text: currentThreshold.toString());
-  final isDark = VHelperFunctions.isDarkMode(context);
-
+Future<void> showEncryptionKeySheet(
+    BuildContext context, WidgetRef ref, String encryptionKey) async {
   await showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -26,30 +20,32 @@ Future<void> showLowStockThresholdBottomSheet(
           BorderRadius.vertical(top: Radius.circular(VSizes.defaultSpace)),
     ),
     builder: (context) {
+      final isDark = VHelperFunctions.isDarkMode(context);
+      final keyController = TextEditingController(text: encryptionKey);
+
       return Padding(
         padding: VSpacingStyle.responseKeyboard(context),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Low Stock Warning',
+              'Change Encryption Key',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: VSizes.spaceBtwItems),
             TextFormField(
-              maxLength: 3,
-              controller: thresholdController,
-              keyboardType: TextInputType.number,
+              maxLength: 32,
+              controller: keyController,
+              obscureText: true,
               decoration: InputDecoration(
-                labelText: "Threshold Value",
+                labelText: "Encryption Key",
                 prefixIcon: Icon(
-                  Iconsax.arrange_circle,
+                  Iconsax.key,
                   color: isDark
                       ? VColors.light.withAlpha(128)
                       : VColors.dark.withAlpha(128),
                 ),
-                hintText: "warning when stock ≤ threshold",
-                counterText: "",
+                hintText: "Must be 32 char.",
               ),
             ),
             const SizedBox(height: VSizes.spaceBtwItems),
@@ -65,27 +61,19 @@ Future<void> showLowStockThresholdBottomSheet(
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      final input = thresholdController.text.trim();
-                      final parsed = int.tryParse(input);
+                      final input = keyController.text.trim();
 
-                      if (parsed == null || parsed < 0) {
-                        VToast.error(
-                          message: "Enter a valid positive number.",
-                        );
+                      if (input.length != 32) {
+                        VToast.error(message: "Key must be 32 char.");
                         return;
                       }
 
-                      final old = ref.read(appSettingsProvider).value;
-                      if (old != null) {
-                        final updated = old.copyWith(lowStockThreshold: parsed);
-                        await ref
-                            .read(appSettingsProvider.notifier)
-                            .updateSettings(updated);
-                        VToast.info(
-                            message: 'Low stock threshold updated and saved');
-                      }
-
-                      if (context.mounted) context.pop();
+                      await ref
+                          .read(encryptionKeyProvider.notifier)
+                          .updateKey(input);
+                      VToast.success(message: "Encryption key updated!");
+                      if (!context.mounted) return;
+                      context.pop();
                     },
                     child: const Text('Save'),
                   ),

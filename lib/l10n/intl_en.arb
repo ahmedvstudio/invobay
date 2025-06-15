@@ -120,8 +120,12 @@
   "dark" : "Dark",
   "save" : "Save",
   "update" : "Update",
-  "shopDetailsSaved" : "Shop Details Saved"
-
+  "shopDetailsSaved" : "Shop Details Saved",
+  "unit_piece" : "Piece",
+  "unit_kg": "KG",
+  "unit_bag": "Bag",
+  "unit_meter": "Meter",
+  "unit_liter": "Liter"
 
 
 

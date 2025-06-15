@@ -2,6 +2,7 @@ class VText {
   VText._();
   // General
   static const String appName = "InvoBay";
+  static const backupFileName = 'app_backup.enc';
 
   // Getting Started
   static const String gettingStartedTitle1 = "Choose Your Product";

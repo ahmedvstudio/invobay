@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace "com.ahmed47v.invobay"
+    namespace = "com.ahmedvstudio.invobay"
     compileSdk 35
     ndkVersion flutter.ndkVersion
 
@@ -21,7 +21,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.ahmed47v.invobay"
+        applicationId = "com.ahmedvstudio.invobay"
         minSdkVersion 21  // Minimum SDK version for Flutter apps
         targetSdk flutter.targetSdkVersion
         versionCode flutter.versionCode

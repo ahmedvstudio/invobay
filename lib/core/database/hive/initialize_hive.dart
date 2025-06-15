@@ -9,4 +9,5 @@ Future<void> initializeHive() async {
   await Hive.openBox('notifications');
   await Hive.openBox('notification_toggles');
   await Hive.openBox('theme_color');
+  await Hive.openBox('encryption');
 }

@@ -904,6 +904,31 @@ class S {
       args: [],
     );
   }
+
+  /// `Piece`
+  String get unit_piece {
+    return Intl.message('Piece', name: 'unit_piece', desc: '', args: []);
+  }
+
+  /// `KG`
+  String get unit_kg {
+    return Intl.message('KG', name: 'unit_kg', desc: '', args: []);
+  }
+
+  /// `Bag`
+  String get unit_bag {
+    return Intl.message('Bag', name: 'unit_bag', desc: '', args: []);
+  }
+
+  /// `Meter`
+  String get unit_meter {
+    return Intl.message('Meter', name: 'unit_meter', desc: '', args: []);
+  }
+
+  /// `Liter`
+  String get unit_liter {
+    return Intl.message('Liter', name: 'unit_liter', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

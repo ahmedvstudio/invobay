@@ -66,7 +66,7 @@ class _AddNewSupplierBottomSheetState
             Row(
               children: [
                 Expanded(
-                  child: TextButton(
+                  child: OutlinedButton(
                     onPressed: () => context.pop(),
                     child: const Text('Cancel'),
                   ),
@@ -80,6 +80,7 @@ class _AddNewSupplierBottomSheetState
                 ),
               ],
             ),
+            const SizedBox(height: VSizes.spaceBtwItems),
           ],
         ),
       ),

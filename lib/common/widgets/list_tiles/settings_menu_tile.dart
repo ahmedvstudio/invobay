@@ -4,16 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers/theme_providers/theme_related_providers.dart';
 
 class VSettingsMenuTile extends StatelessWidget {
-  const VSettingsMenuTile(
-      {super.key,
-      required this.icon,
-      required this.title,
-      required this.subTitle,
-      this.trailing,
-      this.onTap});
+  const VSettingsMenuTile({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.subTitle,
+    this.trailing,
+    this.onTap,
+  });
 
   final IconData icon;
-  final String title, subTitle;
+  final String title;
+  final String? subTitle;
   final Widget? trailing;
   final VoidCallback? onTap;
 
@@ -26,7 +28,9 @@ class VSettingsMenuTile extends StatelessWidget {
         },
       ),
       title: Text(title, style: Theme.of(context).textTheme.titleMedium),
-      subtitle: Text(subTitle, style: Theme.of(context).textTheme.labelMedium),
+      subtitle: subTitle != null
+          ? Text(subTitle ?? '', style: Theme.of(context).textTheme.labelMedium)
+          : null,
       trailing: trailing,
       onTap: onTap,
       tileColor: Colors.transparent,

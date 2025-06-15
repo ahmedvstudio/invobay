@@ -1,6 +1,40 @@
+import 'package:flutter/cupertino.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
+
 class VLists {
   VLists._();
 
   // --> Item Unit List
-  static const List<String> unitList = ['Piece', 'KG', 'Bag', 'Meter', 'Liter'];
+  static List<String> unitList(BuildContext context) => [
+        context.loc.unit_piece,
+        context.loc.unit_kg,
+        context.loc.unit_bag,
+        context.loc.unit_meter,
+        context.loc.unit_liter,
+      ];
+
+  // --> Colors
+  static const List<Color> colors = [
+    Color(0xFF4b68ff),
+    Color(0xff35b19a),
+    Color(0xFF388e3c),
+    Color(0xff216f64),
+    Color(0xFFd32f2f),
+    Color(0xFFf57c00),
+    Color(0xff6a35b1),
+    Color(0xffb135ab),
+    Color(0xffb1356d),
+    Color(0xff545454),
+  ];
+
+  static const List<String> hiveBoxes = [
+    'stock_notification_flags',
+    'notifications',
+    'notification_toggles',
+    'theme_color',
+    'encryption',
+    'appSettingsBox',
+    'shopDetailBox',
+    'themeBox',
+  ];
 }

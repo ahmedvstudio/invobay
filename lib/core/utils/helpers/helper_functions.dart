@@ -3,6 +3,7 @@ import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/enums.dart';
@@ -184,5 +185,11 @@ class VHelperFunctions {
     } catch (_) {
       return '🏳️';
     }
+  }
+
+  //
+  static Future<String> getAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    return 'Stable ${info.version} (${VFormatters.formatVersionDate(info.updateTime ?? DateTime.now())})';
   }
 }

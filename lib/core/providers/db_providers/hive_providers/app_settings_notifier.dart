@@ -7,11 +7,13 @@ class AppSettingsNotifier extends StateNotifier<AsyncValue<AppSettings?>> {
   AppSettingsNotifier() : super(const AsyncValue.loading()) {
     loadSettings();
   }
+  final _boxName = 'appSettingsBox';
+  final _keyName = 'settings';
 
   Future<void> loadSettings() async {
     try {
-      final box = await Hive.openBox<AppSettings>('appSettingsBox');
-      var savedDetail = box.get('settings');
+      final box = await Hive.openBox<AppSettings>(_boxName);
+      var savedDetail = box.get(_keyName);
       // If null, create and save default
       if (savedDetail == null) {
         savedDetail = AppSettings(
@@ -20,7 +22,7 @@ class AppSettingsNotifier extends StateNotifier<AsyncValue<AppSettings?>> {
           lowStockThreshold: 5,
           languageCode: 'en',
         );
-        await box.put('settings', savedDetail);
+        await box.put(_keyName, savedDetail);
       }
       state = AsyncValue.data(savedDetail);
     } catch (e, st) {
@@ -31,8 +33,8 @@ class AppSettingsNotifier extends StateNotifier<AsyncValue<AppSettings?>> {
   Future<void> updateSettings(AppSettings appSettings) async {
     state = const AsyncValue.loading();
     try {
-      final box = await Hive.openBox<AppSettings>('appSettingsBox');
-      await box.put('settings', appSettings);
+      final box = await Hive.openBox<AppSettings>(_boxName);
+      await box.put(_keyName, appSettings);
       state = AsyncValue.data(appSettings);
     } catch (e, st) {
       state = AsyncValue.error(e, st);
