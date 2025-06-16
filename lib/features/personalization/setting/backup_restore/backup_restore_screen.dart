@@ -65,6 +65,7 @@ class BackupRestoreScreen extends ConsumerWidget {
               icon: Iconsax.document_text,
               title: context.loc.deleteData,
               subTitle: context.loc.deleteDataFromYourLocalStorage,
+              onTap: () async => BackupRestoreHelper.deleteAllLocalData(),
             ),
             const SizedBox(height: VSizes.spaceBtwItems),
             const Text(
@@ -73,8 +74,8 @@ class BackupRestoreScreen extends ConsumerWidget {
               textAlign: TextAlign.center,
             ),
             ElevatedButton(
-                onPressed: () {
-                  Restart.restartApp();
+                onPressed: () async {
+                  await Restart.restartApp();
                 },
                 child: const Text('restart')),
           ],

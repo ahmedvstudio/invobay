@@ -1,13 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 
+import '../../utils/constants/hive_box_strings.dart';
+
 class NotificationToggleNotifier extends StateNotifier<Map<String, bool>> {
   final Box _box;
 
   NotificationToggleNotifier(this._box) : super(_loadInitialState(_box));
 
   static Map<String, bool> _loadInitialState(Box box) {
-    final raw = box.get('toggles');
+    final raw = box.get(VHive.togglesKey);
     if (raw == null) {
       return {
         'all': true,
@@ -35,6 +37,6 @@ class NotificationToggleNotifier extends StateNotifier<Map<String, bool>> {
       };
     }
     state = newState;
-    _box.put('toggles', newState);
+    _box.put(VHive.togglesKey, newState);
   }
 }

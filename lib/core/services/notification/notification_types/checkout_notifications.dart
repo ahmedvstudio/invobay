@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 import '../../../models/notifications/notification_model.dart';
 import '../../../providers/notification_providers/notification_related_provider.dart';
+import '../../../utils/constants/hive_box_strings.dart';
 import '../../../utils/formatters/formatters.dart';
 import '../notification_initializer.dart';
 
@@ -74,7 +75,7 @@ Future<void> _showCheckoutNotification({
   await flutterLocalNotificationsPlugin.show(id, title, body, details,
       payload: type);
 
-  Hive.box('notifications').add(NotificationModel(
+  Hive.box(VHive.notificationBox).add(NotificationModel(
     type: type,
     message: message,
     amount: amount,

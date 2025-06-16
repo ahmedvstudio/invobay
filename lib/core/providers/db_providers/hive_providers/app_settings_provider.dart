@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/database/hive/app_settings/app_settings.dart';
 import 'package:invobay/core/providers/db_providers/hive_providers/tax_fee_notifier.dart';
@@ -33,4 +35,10 @@ final lowStockThresholdProvider = StateProvider<int>((ref) {
         orElse: () => 5,
       );
   return threshold;
+});
+
+/// --> Language Code Provider
+final localeProvider = Provider<Locale>((ref) {
+  final appSettings = ref.watch(appSettingsProvider).value;
+  return Locale(appSettings?.languageCode ?? 'en');
 });

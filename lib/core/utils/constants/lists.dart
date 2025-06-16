@@ -14,7 +14,7 @@ class VLists {
       ];
 
   // --> Colors
-  static const List<Color> colors = [
+  static const List<Color> themeColors = [
     Color(0xFF4b68ff),
     Color(0xff35b19a),
     Color(0xFF388e3c),
@@ -27,14 +27,9 @@ class VLists {
     Color(0xff545454),
   ];
 
-  static const List<String> hiveBoxes = [
-    'stock_notification_flags',
-    'notifications',
-    'notification_toggles',
-    'theme_color',
-    'encryption',
-    'appSettingsBox',
-    'shopDetailBox',
-    'themeBox',
+  //
+  static final languages = [
+    {'code': 'en', 'label': 'English'},
+    {'code': 'ar', 'label': 'العربية'},
   ];
 }

@@ -1,6 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_ce/hive.dart';
 import '../../../models/notifications/notification_model.dart';
+import '../../../utils/constants/hive_box_strings.dart';
 import '../notification_initializer.dart';
 
 Future<void> showLowStockNotification(
@@ -22,7 +23,7 @@ Future<void> showLowStockNotification(
     payload: 'low_stock',
   );
 
-  Hive.box('notifications').add(NotificationModel(
+  Hive.box(VHive.notificationBox).add(NotificationModel(
     type: 'low_stock',
     itemName: itemName,
     quantity: quantity,
@@ -49,7 +50,7 @@ Future<void> showOutOfStockNotification(String itemName, int itemId) async {
     payload: 'out_of_stock',
   );
 
-  Hive.box('notifications').add(NotificationModel(
+  Hive.box(VHive.notificationBox).add(NotificationModel(
     type: 'out_of_stock',
     itemName: itemName,
     timestamp: DateTime.now(),

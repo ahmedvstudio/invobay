@@ -6,7 +6,7 @@ import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/generated/l10n.dart';
 import 'package:invobay/theme/theme.dart';
 
-import 'core/providers/localization_related_providers/localization_provider.dart';
+import 'core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import 'core/providers/theme_providers/theme_related_providers.dart';
 
 class InvoBay extends ConsumerWidget {
@@ -15,7 +15,7 @@ class InvoBay extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
-    final locale = ref.watch(localProvider);
+    final locale = ref.watch(localeProvider);
     final fontFamily = VHelperFunctions.getFontFamilyForLocale(locale);
     final lightTheme = VAppTheme.lightTheme(fontFamily: fontFamily, ref: ref);
     final darkTheme = VAppTheme.darkTheme(fontFamily: fontFamily, ref: ref);

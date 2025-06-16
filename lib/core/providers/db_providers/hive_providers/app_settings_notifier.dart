@@ -2,15 +2,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 
 import '../../../database/hive/app_settings/app_settings.dart';
+import '../../../utils/constants/hive_box_strings.dart';
 
 class AppSettingsNotifier extends StateNotifier<AsyncValue<AppSettings?>> {
   AppSettingsNotifier() : super(const AsyncValue.loading()) {
-    loadSettings();
+    _loadSettings();
   }
-  final _boxName = 'appSettingsBox';
-  final _keyName = 'settings';
+  final _boxName = VHive.appSettingsBox;
+  final _keyName = VHive.settingsKey;
 
-  Future<void> loadSettings() async {
+  Future<void> _loadSettings() async {
     try {
       final box = await Hive.openBox<AppSettings>(_boxName);
       var savedDetail = box.get(_keyName);
@@ -57,5 +58,13 @@ class AppSettingsNotifier extends StateNotifier<AsyncValue<AppSettings?>> {
       languageCode: 'en',
     );
     await updateSettings(defaultSettings);
+  }
+
+  Future<void> updateLanguage(String languageCode) async {
+    final current = state.value;
+    if (current == null) return;
+
+    final updated = current.copyWith(languageCode: languageCode);
+    await updateSettings(updated);
   }
 }

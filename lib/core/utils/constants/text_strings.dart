@@ -1,8 +1,11 @@
+import 'package:invobay/core/utils/formatters/formatters.dart';
+
 class VText {
   VText._();
   // General
   static const String appName = "InvoBay";
-  static const backupFileName = 'app_backup.enc';
+  static final backupFileName =
+      'app_backup ${VFormatters.formatBackupDate(DateTime.now())}.enc';
 
   // Getting Started
   static const String gettingStartedTitle1 = "Choose Your Product";
@@ -64,8 +67,4 @@ class VText {
   // -- Home
   static const String homeAppBarTitle = "Welcome back";
   static const String homeAppBarSubTitle = "Ahmed Adnan";
-
-  // -- Inventory
-  static const String inventoryAppBarTitle = "This is your:";
-  static const String inventoryAppBarSubTitle = "Inventory";
 }

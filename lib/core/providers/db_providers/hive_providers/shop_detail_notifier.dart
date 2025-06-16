@@ -2,13 +2,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 
 import '../../../database/hive/shop_details/shop_details.dart';
+import '../../../utils/constants/hive_box_strings.dart';
 
 class ShopDetailNotifier extends StateNotifier<AsyncValue<ShopDetail?>> {
   ShopDetailNotifier() : super(const AsyncValue.loading()) {
     loadShopDetails();
   }
-  final _boxName = 'shopDetailBox';
-  final _keyName = 'shop_info';
+  final _boxName = VHive.shopDetailBox;
+  final _keyName = VHive.shopDetailKey;
 
   Future<void> loadShopDetails() async {
     try {

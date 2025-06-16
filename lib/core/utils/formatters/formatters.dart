@@ -11,6 +11,10 @@ class VFormatters {
     return DateFormat('dd/MM/yyyy hh:mm a').format(date);
   }
 
+  static String formatBackupDate(DateTime date) {
+    return DateFormat('dd-MM-yyyy (hh.mm)').format(date);
+  }
+
   //
   static formatPrice(double price) => price.toStringAsFixed(2);
 

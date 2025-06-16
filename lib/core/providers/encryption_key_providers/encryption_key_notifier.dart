@@ -2,9 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 
 import '../../utils/constants/env.dart';
+import '../../utils/constants/hive_box_strings.dart';
 
-const _boxName = 'encryption';
-const _keyName = 'encryption_key';
+const _boxName = VHive.encryptionBox;
+const _keyName = VHive.encryptionKey;
 
 class EncryptionKeyNotifier extends StateNotifier<String> {
   EncryptionKeyNotifier() : super(VEnv.backupEncryptionKey) {

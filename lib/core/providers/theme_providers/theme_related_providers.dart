@@ -7,7 +7,7 @@ import 'color_index_notifier.dart';
 
 final primaryColorProvider = Provider<Color>((ref) {
   final index = ref.watch(colorIndexProvider);
-  return VLists.colors[index];
+  return VLists.themeColors[index];
 });
 
 final colorIndexProvider =

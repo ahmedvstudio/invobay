@@ -10,26 +10,40 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../../../core/utils/messages/logger.dart';
 import '../../database/drift/app_database.dart';
-import '../constants/lists.dart';
 import '../constants/text_strings.dart';
 import '../messages/snackbar.dart';
 
 class BackupRestoreHelper {
   static Future<List<File>> _collectFiles() async {
     final appDir = await getApplicationDocumentsDirectory();
-    List<File> files = [];
+    final allFiles = appDir.listSync().whereType<File>().toList();
+    final List<File> collectedFiles = [];
 
-    // Drift DB
-    final dbFile = File('${appDir.path}/app.sqlite');
-    if (await dbFile.exists()) files.add(dbFile);
+    // Collect all .hive files
+    final hiveFiles = allFiles.where((file) {
+      final name = file.uri.pathSegments.last;
+      return name.endsWith('.hive');
+    }).toList();
 
-    // Hive Boxes
-    for (var box in VLists.hiveBoxes) {
-      Vlogger.info(box);
-      final hiveFile = File('${appDir.path}/$box.hive');
-      if (await hiveFile.exists()) files.add(hiveFile);
+    if (hiveFiles.isEmpty) {
+      Vlogger.error("⛔ No Hive box files found (*.hive)");
+    } else {
+      for (var f in hiveFiles) {
+        Vlogger.info("📦 Including: ${f.path}");
+      }
+      collectedFiles.addAll(hiveFiles);
     }
-    return files;
+
+    // Add Drift DB file
+    final dbFile = File('${appDir.path}/app.sqlite');
+    if (await dbFile.exists()) {
+      Vlogger.info("📦 Including: ${dbFile.path}");
+      collectedFiles.add(dbFile);
+    } else {
+      Vlogger.error("⛔ MISSING Drift DB: app.sqlite");
+    }
+
+    return collectedFiles;
   }
 
   static Future<void> backupAll({
@@ -66,6 +80,7 @@ class BackupRestoreHelper {
   }
 
   static Future<void> restoreAll({
+    required BuildContext context,
     required String encryptionKey,
   }) async {
     // Pick file
@@ -73,8 +88,16 @@ class BackupRestoreHelper {
       type: FileType.any,
       // allowedExtensions: ['enc'],
     );
-    if (result == null || result.files.single.path == null) return;
 
+    if (result == null) {
+      VSnackbar.info(context: context, message: 'Restore cancelled.');
+      return;
+    }
+
+    if (result.files.single.path == null) {
+      VSnackbar.error(context: context, message: 'Failed to get file path.');
+      return;
+    }
     final backupPath = result.files.single.path!;
     final encryptedBackup = await File(backupPath).readAsBytes();
 
@@ -116,6 +139,7 @@ class BackupRestoreHelper {
       VSnackbar.success(context: context, message: 'Backup complete!');
     } catch (e) {
       VSnackbar.error(context: context, message: 'Backup failed: $e');
+      Vlogger.error('Backup failed: $e');
     }
   }
 
@@ -129,6 +153,7 @@ class BackupRestoreHelper {
       VSnackbar.info(context: context, message: 'Restoring...');
 
       await BackupRestoreHelper.restoreAll(
+        context: context,
         encryptionKey: encryptionKey,
       );
       if (!context.mounted) return;
@@ -137,6 +162,38 @@ class BackupRestoreHelper {
           message: 'Restore complete! Please restart the app.');
     } catch (e) {
       VSnackbar.error(context: context, message: 'Restore failed: $e');
+    }
+  }
+
+  static Future<void> deleteAllLocalData() async {
+    await Hive.close();
+    await AppDatabase.instance.close();
+
+    final appDir = await getApplicationDocumentsDirectory();
+    final allFiles = appDir.listSync().whereType<File>();
+
+    // Delete all Hive box files (*.hive)
+    for (var file in allFiles) {
+      final name = file.uri.pathSegments.last;
+      if (name.endsWith('.hive')) {
+        // or use name.endsWith('.hive') for stricter match
+        await file.delete();
+        Vlogger.info("🗑 Deleted: ${file.path}");
+      }
+    }
+
+    // Delete Drift DB file
+    final dbFile = File('${appDir.path}/app.sqlite');
+    if (await dbFile.exists()) {
+      await dbFile.delete();
+      Vlogger.info("🗑 Deleted Drift DB: ${dbFile.path}");
+    }
+
+    // Delete temp directory
+    final tempDir = await getTemporaryDirectory();
+    if (await tempDir.exists()) {
+      await tempDir.delete(recursive: true);
+      Vlogger.info("🗑 Deleted temp backup directory");
     }
   }
 }

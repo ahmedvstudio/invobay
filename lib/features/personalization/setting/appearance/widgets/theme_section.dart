@@ -55,10 +55,10 @@ class VThemeSection extends ConsumerWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.zero,
-            itemCount: VLists.colors.length,
+            itemCount: VLists.themeColors.length,
             separatorBuilder: (_, index) => const SizedBox(width: VSizes.sm),
             itemBuilder: (_, index) {
-              final selectedColor = VLists.colors[index];
+              final selectedColor = VLists.themeColors[index];
               return VAccentScroll(
                 isSelected: index == selectedIndex,
                 backgroundColor: selectedColor,

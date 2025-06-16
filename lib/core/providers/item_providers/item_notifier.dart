@@ -6,6 +6,7 @@ import 'package:drift/drift.dart';
 
 import '../../services/notification/notification_service.dart';
 import '../../services/notification/notification_types/stock_notifications.dart';
+import '../../utils/constants/hive_box_strings.dart';
 import '../db_providers/hive_providers/app_settings_provider.dart';
 import '../notification_providers/notification_related_provider.dart';
 
@@ -151,10 +152,10 @@ class ItemNotifier extends StateNotifier<List<Item>> {
     await fetchItems();
   }
 
-  /// ----------- Notify Stock -----------------
+  /// ----------- Notify Stock -----------------///
 
   Future<void> checkStockAndNotify(Ref ref) async {
-    final flagsBox = Hive.box('stock_notification_flags');
+    final flagsBox = Hive.box(VHive.stockNotificationFlagBox);
     final threshold = ref.watch(lowStockThresholdProvider);
     final toggles = ref.read(notificationToggleProvider);
     for (final item in state) {

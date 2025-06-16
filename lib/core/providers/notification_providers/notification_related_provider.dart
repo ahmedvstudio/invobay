@@ -2,16 +2,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 
 import '../../models/notifications/notification_model.dart';
+import '../../utils/constants/hive_box_strings.dart';
 import 'notification_notifier.dart';
 import 'notification_toggle_notifier.dart';
 
 final notificationBoxProvider = Provider<Box>((ref) {
-  return Hive.box('notifications');
+  return Hive.box(VHive.notificationBox);
 });
 
 //
 final notificationTogglesBoxProvider = Provider<Box>((ref) {
-  return Hive.box('notification_toggles');
+  return Hive.box(VHive.notificationToggleBox);
 });
 
 //
