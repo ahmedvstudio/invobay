@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -80,12 +79,5 @@ class VHelpers {
         source: fromCamera ? ImageSource.camera : ImageSource.gallery);
     if (vid != null) return File(vid.path);
     return null;
-  }
-
-  //
-  static Future<bool> isConnected() async {
-    var connectivityResults = await Connectivity().checkConnectivity();
-    return connectivityResults
-        .any((result) => result != ConnectivityResult.none);
   }
 }

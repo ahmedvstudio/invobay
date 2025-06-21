@@ -19,7 +19,7 @@ Future<void> showLanguageSelectionBottomSheet(
       borderRadius:
           BorderRadius.vertical(top: Radius.circular(VSizes.defaultSpace)),
     ),
-    builder: (context) {
+    builder: (ctx) {
       return Padding(
         padding: VSpacingStyle.withoutTop,
         child: Column(
@@ -48,7 +48,7 @@ Future<void> showLanguageSelectionBottomSheet(
                   onChanged: (value) {
                     if (value != null) {
                       appSettingsNotifier.updateLanguage(value);
-                      context.pop();
+                      context.pop(ctx);
                     }
                   },
                 );

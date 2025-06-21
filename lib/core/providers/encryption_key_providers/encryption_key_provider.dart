@@ -6,3 +6,6 @@ final encryptionKeyProvider =
     StateNotifierProvider<EncryptionKeyNotifier, String>(
   (ref) => EncryptionKeyNotifier(),
 );
+
+//
+final isEncryptionKeyObscureProvider = StateProvider<bool>((ref) => true);

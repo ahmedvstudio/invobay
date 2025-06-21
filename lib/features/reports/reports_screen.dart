@@ -66,6 +66,7 @@ class ReportsScreen extends StatelessWidget {
 
                   /// Profit & Loss
                   const VProfitAndLoss(),
+                  const SizedBox(height: VSizes.spaceBtwSections),
                 ],
               ),
             ),

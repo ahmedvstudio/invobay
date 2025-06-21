@@ -80,7 +80,7 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
 
       if (errorMessage != null) {
         if (!mounted) return;
-        VSnackbar.error(context: context, message: errorMessage);
+        VSnackbar.error(errorMessage);
         return;
       }
 

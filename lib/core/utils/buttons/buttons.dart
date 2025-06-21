@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
+import '../constants/sizes.dart';
 
 class VButtons {
   VButtons._();
@@ -162,6 +163,9 @@ class VButtons {
         icon: Icon(icon),
         backgroundColor: color,
         isExtended: true,
+        tooltip: tooltip,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(VSizes.borderRadiusXl)),
       );
     }
     return FloatingActionButton(

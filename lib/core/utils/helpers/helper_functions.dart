@@ -144,6 +144,10 @@ class VHelperFunctions {
     await launchUrl(launchUri);
   }
 
+  static bool isEnglish(Locale locale) {
+    return locale.languageCode.toLowerCase() == 'en';
+  }
+
   static String getFontFamilyForLocale(Locale locale) {
     switch (locale.languageCode) {
       case 'ar':

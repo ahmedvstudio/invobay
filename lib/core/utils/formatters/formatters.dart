@@ -12,7 +12,7 @@ class VFormatters {
   }
 
   static String formatBackupDate(DateTime date) {
-    return DateFormat('dd-MM-yyyy (hh.mm)').format(date);
+    return DateFormat('yyyy-MM-dd_HH-mm', 'en').format(date);
   }
 
   //

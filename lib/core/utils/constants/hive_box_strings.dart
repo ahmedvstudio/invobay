@@ -10,6 +10,7 @@ class VHive {
   static const notificationBox = 'notifications';
   static const notificationToggleBox = 'notification_toggles';
   static const stockNotificationFlagBox = 'stock_notification_flags';
+  static const settingsBox = 'settings';
 
   /// --> Keys
   static const selectedColorKey = 'selected_color_index';
@@ -18,4 +19,5 @@ class VHive {
   static const shopDetailKey = 'shop_detail';
   static const settingsKey = 'settings';
   static const togglesKey = 'toggles';
+  static const onBoardingCompletedKey = 'onBoardingCompletedKey';
 }

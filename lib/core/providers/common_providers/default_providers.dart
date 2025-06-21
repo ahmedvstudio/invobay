@@ -73,3 +73,11 @@ final dateRangeProvider = StateProvider<DateTimeRange>((ref) {
 //
 final selectedDateProvider =
     StateProvider.autoDispose<DateTime?>((ref) => null);
+
+//
+final liveTimeProvider = StreamProvider<DateTime>((ref) async* {
+  while (true) {
+    yield DateTime.now();
+    await Future.delayed(const Duration(seconds: 1));
+  }
+});

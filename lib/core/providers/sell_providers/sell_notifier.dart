@@ -112,8 +112,7 @@ class SellNotifier extends StateNotifier<List<SellItem>> {
     final fetchedItem = await itemDao.getItemById(itemId);
     if (fetchedItem == null) {
       if (!context.mounted) return;
-      VSnackbar.error(
-          context: context, message: "Item not found in the inventory.");
+      VSnackbar.error("Item not found in the inventory.");
 
       return;
     }
@@ -128,9 +127,7 @@ class SellNotifier extends StateNotifier<List<SellItem>> {
       }).toList();
     } else {
       if (!context.mounted) return;
-      VSnackbar.error(
-          context: context,
-          message: '${fetchedItem.name}\n In stock: $availableStock');
+      VSnackbar.error('${fetchedItem.name}\n In stock: $availableStock');
     }
 
     updateSubtotal(); // Update subtotal after quantity change

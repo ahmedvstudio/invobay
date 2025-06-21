@@ -71,9 +71,7 @@ Future<void> showTaxEditBottomSheet(BuildContext context, WidgetRef ref) async {
 
                       if (parsed == null || parsed < 0) {
                         VSnackbar.error(
-                          context: context,
-                          message:
-                              "Please enter a valid positive tax percentage.",
+                          "Please enter a valid positive tax percentage.",
                         );
                         return;
                       }

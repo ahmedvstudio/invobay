@@ -86,17 +86,13 @@ class QuantityInputBottomSheet extends ConsumerWidget {
 
                       if (!validNumberRegex.hasMatch(inputText)) {
                         VSnackbar.error(
-                          context: context,
-                          message:
-                              "Invalid quantity. Enter a number with max 2 decimals.",
-                        );
+                            "Invalid quantity. Enter a number with max 2 decimals.");
                         return;
                       }
 
                       double? newQuantity = double.tryParse(inputText);
                       if (newQuantity == null || newQuantity <= 0) {
-                        VSnackbar.error(
-                            context: context, message: "Invalid quantity.");
+                        VSnackbar.error("Invalid quantity.");
                         return;
                       }
 
@@ -109,9 +105,7 @@ class QuantityInputBottomSheet extends ConsumerWidget {
                         double? newBuyPrice = double.tryParse(buyPriceText);
 
                         if (newBuyPrice == null || newBuyPrice <= 0) {
-                          VSnackbar.error(
-                              context: context,
-                              message: "Invalid buying price");
+                          VSnackbar.error("Invalid buying price");
                           return;
                         }
 

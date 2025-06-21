@@ -3,7 +3,8 @@
     <!-- Permissions -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <application
         android:name="${applicationName}"
         android:label="InvoBay"

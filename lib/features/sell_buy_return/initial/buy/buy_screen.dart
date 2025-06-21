@@ -13,12 +13,14 @@ import '../../../../common/widgets/custom_shapes/containers/search_container.dar
 import '../../../../common/widgets/sheet/sell_buy_return/select_item_sheet.dart';
 import '../../../../core/providers/buy_providers/buy_related_providers.dart';
 import '../../../../core/providers/common_providers/update_subtotal_provider.dart';
+import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/providers/item_providers/item_related_providers.dart';
 import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../../core/router/router_constant.dart';
 import '../../../../core/utils/buttons/buttons.dart';
 import '../../../../core/utils/constants/enums.dart';
 import '../../../../core/utils/constants/sizes.dart';
+import '../../../../core/utils/helpers/helper_functions.dart';
 import '../../../../core/utils/messages/toast.dart';
 
 class BuyScreen extends ConsumerWidget {
@@ -30,7 +32,8 @@ class BuyScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final buyItems = ref.watch(buyNotifierProvider);
     final primaryColor = ref.watch(primaryColorProvider);
-
+    final locale = ref.watch(localeProvider);
+    final isEnglish = VHelperFunctions.isEnglish(locale);
     return Scaffold(
       body: Column(
         children: [
@@ -93,25 +96,31 @@ class BuyScreen extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: VButtons.fab(
-        tooltip: 'Proceed to checkout',
-        icon: CupertinoIcons.cart_badge_plus,
-        color: primaryColor,
-        onPressed: () {
-          if (buyItems.isNotEmpty) {
-            final subTotalPrice =
-                calculateBuyTotalPrice(ref, buyItems); // Update subtotal
-            context.pushNamed(
-              VRouter.buyCheckout,
-              extra: {
-                'boughtItems': buyItems,
-                'totalPrice': subTotalPrice,
-              },
-            );
-          } else {
-            VToast.warning(message: 'Your list is Empty!');
-          }
-        },
+      floatingActionButton: Badge(
+        label: Text(buyItems.length.toString()),
+        isLabelVisible: buyItems.isEmpty ? false : true,
+        alignment: isEnglish ? Alignment.topLeft : Alignment.topRight,
+        child: VButtons.fab(
+          label: 'Cart',
+          tooltip: 'Proceed to checkout',
+          icon: CupertinoIcons.cart_badge_plus,
+          color: primaryColor,
+          onPressed: () {
+            if (buyItems.isNotEmpty) {
+              final subTotalPrice =
+                  calculateBuyTotalPrice(ref, buyItems); // Update subtotal
+              context.pushNamed(
+                VRouter.buyCheckout,
+                extra: {
+                  'boughtItems': buyItems,
+                  'totalPrice': subTotalPrice,
+                },
+              );
+            } else {
+              VToast.warning(message: 'Your list is Empty!');
+            }
+          },
+        ),
       ),
     );
   }

@@ -8,6 +8,7 @@ import 'package:invobay/theme/theme.dart';
 
 import 'core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import 'core/providers/theme_providers/theme_related_providers.dart';
+import 'core/utils/messages/snackbar.dart';
 
 class InvoBay extends ConsumerWidget {
   const InvoBay({super.key});
@@ -21,6 +22,7 @@ class InvoBay extends ConsumerWidget {
     final darkTheme = VAppTheme.darkTheme(fontFamily: fontFamily, ref: ref);
 
     return MaterialApp.router(
+      scaffoldMessengerKey: scaffoldMessengerKey,
       locale: locale,
       localizationsDelegates: const [
         S.delegate,

@@ -470,11 +470,11 @@ class S {
     return Intl.message('Account', name: 'account', desc: '', args: []);
   }
 
-  /// `Account Settings`
-  String get accountSettings {
+  /// `Shop Settings`
+  String get shopSettings {
     return Intl.message(
-      'Account Settings',
-      name: 'accountSettings',
+      'Shop Settings',
+      name: 'shopSettings',
       desc: '',
       args: [],
     );

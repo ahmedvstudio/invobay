@@ -79,8 +79,7 @@ Future<void> showAddQuantityBottomSheet(BuildContext context, WidgetRef ref,
                                       .addQuantity(itemId, qty);
                                   if (context.mounted) {
                                     if (error != null) {
-                                      VSnackbar.error(
-                                          context: context, message: error);
+                                      VSnackbar.error(error);
                                     } else {
                                       quantityState.state = '';
                                       context.pop();

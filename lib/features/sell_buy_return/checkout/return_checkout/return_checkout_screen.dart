@@ -130,9 +130,7 @@ class ReturnCheckoutScreen extends ConsumerWidget {
                   if (paidAmount > total) {
                     // Show error message
                     VSnackbar.error(
-                        context: context,
-                        message:
-                            'Exceed total amount: $currencySign${VFormatters.formatPrice(total)}');
+                        'Exceed total amount: $currencySign${VFormatters.formatPrice(total)}');
 
                     return;
                   }

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
+import '../../../core/utils/helpers/helper_functions.dart';
 
 class VDeleteConfirmDialog extends StatelessWidget {
   const VDeleteConfirmDialog({
@@ -18,7 +19,9 @@ class VDeleteConfirmDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = VHelperFunctions.isDarkMode(context);
     return Dialog(
+      backgroundColor: isDark ? VColors.dark : VColors.light,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(VSizes.borderRadiusXl),
       ),

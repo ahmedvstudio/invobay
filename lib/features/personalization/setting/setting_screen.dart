@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
+import 'package:invobay/features/personalization/setting/shop_settings/shop_settings.dart';
 
-import '../../../common/widgets/appbar/appbar.dart';
+import '../../../common/widgets/appbar/main_appbar.dart';
 import '../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
-import '../../../common/widgets/list_tiles/settings_menu_tile.dart';
-import '../../../common/widgets/list_tiles/user_profile_tile.dart';
-import '../../../common/widgets/text/section_heading.dart';
-import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
-import '../../../common/widgets/sheet/settings/notification_settings_sheet.dart';
+import 'app_settings/app_settings.dart';
+import 'data_settings/data_settings.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -26,19 +22,9 @@ class SettingsScreen extends StatelessWidget {
             VPrimaryHeaderContainer(
               child: Column(
                 children: [
-                  VAppBar(
-                    title: Text(
-                      context.loc.account,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .apply(color: VColors.white),
-                    ),
-                  ),
-
-                  // user profile
-                  VUserProfileTile(
-                    onPressed: () => context.pushNamed(VRouter.profile),
+                  VMainAppBar(
+                    title: context.loc.settings,
+                    appbarIcon: Iconsax.setting_2,
                   ),
                   const SizedBox(height: VSizes.spaceBtwSections),
                 ],
@@ -46,77 +32,20 @@ class SettingsScreen extends StatelessWidget {
             ),
 
             // body
-            Padding(
-              padding: const EdgeInsets.all(VSizes.defaultSpace),
+            const Padding(
+              padding: EdgeInsets.all(VSizes.defaultSpace),
               child: Column(
                 children: [
                   // account settings
-                  VSectionHeading(
-                      title: context.loc.accountSettings,
-                      showActionButton: false),
-                  const SizedBox(height: VSizes.spaceBtwItems),
+                  VShopSetting(),
 
-                  VSettingsMenuTile(
-                    icon: Iconsax.personalcard,
-                    title: context.loc.customers,
-                    subTitle: context.loc.addLoyalCustomersDetails,
-                    onTap: () => context.pushNamed(VRouter.customers),
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.people,
-                    title: context.loc.suppliers,
-                    subTitle: context.loc.addYourSuppliersDetails,
-                    onTap: () => context.pushNamed(VRouter.suppliers),
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.dollar_square,
-                    title: context.loc.vaultExpense,
-                    subTitle: context.loc.addYourVaultAndExpenseDetails,
-                    onTap: () => context.pushNamed(VRouter.vault),
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.shop,
-                    title: context.loc.shopDetails,
-                    subTitle: context.loc.addShopDetails,
-                    onTap: () => context.pushNamed(VRouter.shopDetails),
-                  ),
-                  const SizedBox(height: VSizes.spaceBtwSections),
-                  VSectionHeading(
-                      title: context.loc.appSettings, showActionButton: false),
-                  const SizedBox(height: VSizes.spaceBtwItems),
+                  SizedBox(height: VSizes.spaceBtwSections),
+                  VDataSettings(),
 
-                  VSettingsMenuTile(
-                    icon: Iconsax.brush,
-                    title: context.loc.appearance,
-                    subTitle: context.loc.personalizeTheAppToYourLiking,
-                    onTap: () => context.pushNamed(VRouter.appearance),
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.notification,
-                    title: context.loc.notifications,
-                    subTitle: context.loc.setAnyKindOfNotificationMessage,
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (_) => const NotificationSettingsBottomSheet(),
-                      );
-                    },
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.export_1,
-                    title: 'Backup / Restore',
-                    subTitle: 'Backup and Restore your Data .',
-                    onTap: () => context.pushNamed(VRouter.backupRestore),
-                  ),
-                  VSettingsMenuTile(
-                    icon: Iconsax.clipboard,
-                    title: 'About',
-                    subTitle: 'Application Info And Update.',
-                    onTap: () => context.pushNamed(VRouter.about),
-                  ),
+                  SizedBox(height: VSizes.spaceBtwSections),
+                  VAppSettings(),
 
-                  const SizedBox(height: VSizes.spaceBtwSections),
+                  SizedBox(height: VSizes.spaceBtwSections),
                 ],
               ),
             )

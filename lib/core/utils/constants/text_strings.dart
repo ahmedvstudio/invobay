@@ -5,7 +5,7 @@ class VText {
   // General
   static const String appName = "InvoBay";
   static final backupFileName =
-      'app_backup ${VFormatters.formatBackupDate(DateTime.now())}.enc';
+      'app_backup_${VFormatters.formatBackupDate(DateTime.now())}.invobak';
 
   // Getting Started
   static const String gettingStartedTitle1 = "Choose Your Product";
@@ -67,4 +67,64 @@ class VText {
   // -- Home
   static const String homeAppBarTitle = "Welcome back";
   static const String homeAppBarSubTitle = "Ahmed Adnan";
+
+  //
+  static const termsOfUseMessage = '''
+Effective Date: 01/06/2025
+
+Welcome to InvoBay! By using this application, you agree to the following terms:
+
+1. Acceptance of Terms
+By accessing or using InvoBay, you accept these Terms of Use. If you do not agree, please do not use the app.
+
+2. License
+You are granted a non-exclusive, non-transferable license to use the app for inventory management purposes.
+
+3. User Responsibilities
+- You are responsible for maintaining the confidentiality of any information stored on your device.
+- Do not use the app for illegal activities.
+
+4. Permissions
+To provide full functionality, InvoBay may request access to certain device features:
+- Notifications: To send you important updates and alerts.
+- Camera: To allow you to scan items or upload photos related to your inventory.
+You can control these permissions at any time in your device settings. The app will not access these features without your consent.
+
+5. Intellectual Property
+All rights, title, and interest in the app remain with Ahmed V. Studio.
+
+6. Limitation of Liability
+Ahmed V. Studio is not liable for any damages arising from the use or inability to use the app.
+
+7. Changes to Terms
+We may update these terms at any time. Updated terms will be available within the app.
+
+8. Contact
+For any questions, contact us at ahmed47v@gmail.com.
+''';
+
+  static const privacyPolicyMessage = '''
+Effective Date: 01/06/2025
+
+InvoBay respects your privacy. This policy explains what information we collect and how we use it.
+
+1. Data Collection
+- Offline Usage: The app currently operates offline and does not collect or transmit any personal data.
+- Crash Logs: In future updates, we may collect anonymous crash logs to help improve app stability. These logs will not contain personal information.
+
+2. Use of Information
+- Crash logs will be used solely for debugging and improving app performance.
+
+3. Data Sharing
+- We do not share any data with third parties.
+
+4. Security
+- All data remains on your device unless you choose to share it.
+
+5. Changes to Policy
+We may update this policy if features change. Updates will be available within the app.
+
+6. Contact
+If you have questions about this policy, contact us at ahmed47v@gmail.com.
+''';
 }

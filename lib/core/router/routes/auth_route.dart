@@ -6,7 +6,14 @@ import 'package:invobay/features/auth/password_config/forget_password.dart';
 import 'package:invobay/features/auth/password_config/reset_password.dart';
 import 'package:invobay/core/router/router_constant.dart';
 
+import '../../../features/auth/on_boarding/on_boarding_screen.dart';
+
 List<GoRoute> authRoutes = [
+  GoRoute(
+    name: VRouter.onBoarding,
+    path: '/onBoarding',
+    builder: (context, state) => const OnBoardingScreen(),
+  ),
   GoRoute(
     name: VRouter.login,
     path: '/login',

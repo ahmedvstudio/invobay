@@ -15,6 +15,7 @@ Future<void> initializeHive() async {
   await Hive.openBox(VHive.notificationToggleBox);
   await Hive.openBox(VHive.themeColorBox);
   await Hive.openBox(VHive.encryptionBox);
+  await Hive.openBox(VHive.settingsBox);
   await Hive.openBox<AppSettings>(VHive.appSettingsBox);
   await Hive.openBox<ShopDetail>(VHive.shopDetailBox);
   await Hive.openBox<AppTheme>(VHive.themeModeBox);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/buttons/buttons.dart';
 import 'package:invobay/features/notification/widgets/grouped_notifications_list.dart';
 
 import '../../common/widgets/dialogs/delete_confirm_dialog.dart';
@@ -8,7 +9,6 @@ import '../../core/providers/notification_providers/notification_related_provide
 import '../../common/widgets/appbar/custom_appbar.dart';
 import '../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../core/utils/helpers/helper_functions.dart';
-import '../../core/utils/constants/sizes.dart';
 
 class NotificationScreen extends ConsumerWidget {
   const NotificationScreen({super.key});
@@ -43,11 +43,11 @@ class NotificationScreen extends ConsumerWidget {
                 ),
               ],
             ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: VButtons.fab(
+        label: "Clear All",
         tooltip: "Clear All",
-        backgroundColor: primaryColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(VSizes.borderRadiusXl)),
+        color: primaryColor,
+        icon: Icons.clear_all,
         onPressed: () async {
           final confirm = await showDialog<bool>(
             context: context,
@@ -61,8 +61,6 @@ class NotificationScreen extends ConsumerWidget {
             await ref.read(notificationsProvider.notifier).clearAll();
           }
         },
-        label: const Text('Clear all'),
-        icon: const Icon(Icons.clear_all),
       ),
     );
   }

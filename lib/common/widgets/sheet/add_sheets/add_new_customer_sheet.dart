@@ -111,9 +111,7 @@ Future<void> addNewCustomerBottomSheet(
       ref.read(customerPhoneProvider.notifier).state = '';
       ref.read(customerAddressProvider.notifier).state = '';
     } catch (e) {
-      if (!context.mounted) return;
-      VSnackbar.error(
-          context: context, message: 'Error adding customer: ${e.toString()}');
+      VSnackbar.error('Error adding customer: ${e.toString()}');
     }
   }
 }

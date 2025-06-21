@@ -1,142 +1,143 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 
 import '../constants/colors.dart';
 
+/// ---< Global Scaffold Messenger Key >--- ///
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+
 class VSnackbar {
   VSnackbar._();
 
-  /// --> white SnackBar
-  static void white({
-    required BuildContext context,
-    required String message,
-    bool isFloating = true,
-  }) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      behavior: isFloating ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
-      dismissDirection:
-          isFloating ? DismissDirection.horizontal : DismissDirection.down,
-      content:
-          Text(message, style: const TextStyle().apply(color: VColors.black)),
-      backgroundColor: VColors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: isFloating
-            ? BorderRadius.circular(VSizes.borderRadiusLg)
-            : BorderRadius.zero,
-      ),
-    ));
-  }
+  /// --< White SnackBar >--
+  static void white(String message, {bool isFloating = true}) => _show(
+      message: message,
+      bgColor: VColors.white,
+      textColor: VColors.black,
+      isFloating: isFloating);
 
-  /// --> black SnackBar
-  static void black({
-    required BuildContext context,
-    required String message,
-    bool isFloating = true,
-  }) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      behavior: isFloating ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
-      dismissDirection:
-          isFloating ? DismissDirection.horizontal : DismissDirection.down,
-      content:
-          Text(message, style: const TextStyle().apply(color: VColors.white)),
-      backgroundColor: VColors.black,
-      shape: RoundedRectangleBorder(
-        borderRadius: isFloating
-            ? BorderRadius.circular(VSizes.borderRadiusLg)
-            : BorderRadius.zero,
-      ),
-    ));
-  }
+  /// --< Black SnackBar >--
+  static void black(String message, {bool isFloating = true}) => _show(
+      message: message,
+      bgColor: VColors.black,
+      textColor: VColors.white,
+      isFloating: isFloating);
 
-  /// --> success SnackBar
-  static void success({
-    required BuildContext context,
-    required String message,
-    bool isFloating = true,
-  }) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      behavior: isFloating ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
-      dismissDirection:
-          isFloating ? DismissDirection.horizontal : DismissDirection.down,
-      content:
-          Text(message, style: const TextStyle().apply(color: VColors.white)),
-      backgroundColor: VColors.success,
-      shape: RoundedRectangleBorder(
-        borderRadius: isFloating
-            ? BorderRadius.circular(VSizes.borderRadiusLg)
-            : BorderRadius.zero,
-      ),
-    ));
-  }
+  /// --< Success SnackBar >--
+  static void success(String message, {bool isFloating = true}) => _show(
+      message: message,
+      bgColor: VColors.success,
+      textColor: VColors.white,
+      isFloating: isFloating);
 
-  /// --> info SnackBar
-  static void info({
-    required BuildContext context,
-    required String message,
-    bool isFloating = true,
-  }) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      behavior: isFloating ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
-      dismissDirection:
-          isFloating ? DismissDirection.horizontal : DismissDirection.down,
-      content:
-          Text(message, style: const TextStyle().apply(color: VColors.white)),
-      backgroundColor: VColors.info,
-      shape: RoundedRectangleBorder(
-        borderRadius: isFloating
-            ? BorderRadius.circular(VSizes.borderRadiusLg)
-            : BorderRadius.zero,
-      ),
-    ));
-  }
+  /// --< Info SnackBar >--
+  static void info(String message, {bool isFloating = true}) => _show(
+      message: message,
+      bgColor: VColors.info,
+      textColor: VColors.white,
+      isFloating: isFloating);
 
-  /// --> warning SnackBar
-  static void warning({
-    required BuildContext context,
-    required String message,
-    bool isFloating = true,
-  }) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      behavior: isFloating ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
-      dismissDirection:
-          isFloating ? DismissDirection.horizontal : DismissDirection.down,
-      content:
-          Text(message, style: const TextStyle().apply(color: VColors.white)),
-      backgroundColor: VColors.warning,
-      shape: RoundedRectangleBorder(
-        borderRadius: isFloating
-            ? BorderRadius.circular(VSizes.borderRadiusLg)
-            : BorderRadius.zero,
-      ),
-    ));
-  }
+  /// --< Warning SnackBar >--
+  static void warning(String message, {bool isFloating = true}) => _show(
+      message: message,
+      bgColor: VColors.warning,
+      textColor: VColors.white,
+      isFloating: isFloating);
 
-  /// --> error SnackBar
-  static void error({
-    required BuildContext context,
-    required String message,
-    bool isFloating = true,
-  }) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      behavior: isFloating ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
-      dismissDirection:
-          isFloating ? DismissDirection.horizontal : DismissDirection.down,
-      content:
-          Text(message, style: const TextStyle().apply(color: VColors.white)),
-      backgroundColor: VColors.error,
-      shape: RoundedRectangleBorder(
-        borderRadius: isFloating
-            ? BorderRadius.circular(VSizes.borderRadiusLg)
-            : BorderRadius.zero,
-      ),
-    ));
-  }
+  /// --< Error SnackBar >--
+  static void error(String message, {bool isFloating = true}) => _show(
+      message: message,
+      bgColor: VColors.error,
+      textColor: VColors.white,
+      isFloating: isFloating);
 
-  /// --> Custom SnackBar
+  /// --< Success With Action SnackBar >--
+  static void successWithAction(
+    String message, {
+    required String actionLabel,
+    required VoidCallback onAction,
+    bool isFloating = false,
+    IconData icon = Iconsax.emoji_happy5,
+  }) =>
+      _show(
+        message: message,
+        bgColor: VColors.success,
+        textColor: VColors.white,
+        isFloating: isFloating,
+        icon: icon,
+        action: SnackBarAction(
+          label: actionLabel,
+          onPressed: onAction,
+          textColor: VColors.info,
+        ),
+      );
+
+  /// --< Error With Action SnackBar >--
+  static void errorWithAction(
+    String message, {
+    required String actionLabel,
+    required VoidCallback onAction,
+    bool isFloating = false,
+    IconData icon = Iconsax.emoji_sad5,
+  }) =>
+      _show(
+        message: message,
+        bgColor: VColors.error,
+        textColor: VColors.white,
+        isFloating: isFloating,
+        icon: icon,
+        action: SnackBarAction(
+          label: actionLabel,
+          onPressed: onAction,
+          textColor: VColors.white,
+        ),
+      );
+
+  /// --< Private Helper Methods >--
+  static void _show({
+    required String message,
+    required Color bgColor,
+    required Color textColor,
+    bool isFloating = true,
+    SnackBarAction? action,
+    Duration? duration,
+    IconData? icon,
+  }) {
+    final content = icon == null
+        ? Text(message, style: TextStyle(color: textColor))
+        : Row(
+            children: [
+              Icon(icon, color: textColor),
+              const SizedBox(width: VSizes.sm),
+              Expanded(
+                  child: Text(message, style: TextStyle(color: textColor))),
+            ],
+          );
+    scaffoldMessengerKey.currentState?.clearSnackBars();
+    scaffoldMessengerKey.currentState?.showSnackBar(
+      SnackBar(
+        behavior:
+            isFloating ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
+        dismissDirection: action != null
+            ? DismissDirection.none
+            : (isFloating
+                ? DismissDirection.horizontal
+                : DismissDirection.down),
+        content: content,
+        backgroundColor: bgColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            !isFloating ? 0 : VSizes.borderRadiusLg,
+          ),
+        ),
+        action: action,
+        duration: duration ??
+            (action != null
+                ? const Duration(seconds: 10)
+                : const Duration(seconds: 4)),
+      ),
+    );
+  }
 }

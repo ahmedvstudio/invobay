@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/widgets/appbar/main_appbar.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/search_container.dart';
+import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/sell_buy_return/initial/sell/widgets/customer_and_clear.dart';
 import 'package:invobay/features/sell_buy_return/initial/sell/widgets/sell_item_list.dart';
 
@@ -30,6 +32,9 @@ class SellScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sellItems = ref.watch(sellNotifierProvider);
     final primaryColor = ref.watch(primaryColorProvider);
+    final locale = ref.watch(localeProvider);
+    final isEnglish = VHelperFunctions.isEnglish(locale);
+
     return Scaffold(
       body: Column(
         children: [
@@ -95,25 +100,31 @@ class SellScreen extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: VButtons.fab(
-        tooltip: 'Proceed to checkout',
-        icon: CupertinoIcons.cart_badge_plus,
-        color: primaryColor,
-        onPressed: () {
-          if (sellItems.isNotEmpty) {
-            final totalPrice =
-                calculateSellTotalPrice(ref, sellItems); // Update subtotal
-            context.pushNamed(
-              VRouter.sellCheckout,
-              extra: {
-                'soldItems': sellItems,
-                'totalPrice': totalPrice,
-              },
-            );
-          } else {
-            VToast.warning(message: 'Your list is Empty!');
-          }
-        },
+      floatingActionButton: Badge(
+        label: Text(sellItems.length.toString()),
+        isLabelVisible: sellItems.isEmpty ? false : true,
+        alignment: isEnglish ? Alignment.topLeft : Alignment.topRight,
+        child: VButtons.fab(
+          label: 'Cart',
+          tooltip: 'Proceed to checkout',
+          icon: CupertinoIcons.cart_badge_plus,
+          color: primaryColor,
+          onPressed: () {
+            if (sellItems.isNotEmpty) {
+              final totalPrice =
+                  calculateSellTotalPrice(ref, sellItems); // Update subtotal
+              context.pushNamed(
+                VRouter.sellCheckout,
+                extra: {
+                  'soldItems': sellItems,
+                  'totalPrice': totalPrice,
+                },
+              );
+            } else {
+              VToast.warning(message: 'Your list is Empty!');
+            }
+          },
+        ),
       ),
     );
   }

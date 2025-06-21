@@ -109,9 +109,7 @@ Future<void> addNewSupplierBottomSheet(
       ref.read(supplierPhoneProvider.notifier).state = '';
       ref.read(supplierAddressProvider.notifier).state = '';
     } catch (e) {
-      if (!context.mounted) return;
-      VSnackbar.error(
-          context: context, message: 'Error adding supplier: ${e.toString()}');
+      VSnackbar.error('Error adding supplier: ${e.toString()}');
     }
   }
 }

@@ -4,8 +4,10 @@ import 'package:archive/archive.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:restart_app/restart_app.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../../core/utils/messages/logger.dart';
@@ -14,6 +16,7 @@ import '../constants/text_strings.dart';
 import '../messages/snackbar.dart';
 
 class BackupRestoreHelper {
+  /// --> Collecting files for Backup
   static Future<List<File>> _collectFiles() async {
     final appDir = await getApplicationDocumentsDirectory();
     final allFiles = appDir.listSync().whereType<File>().toList();
@@ -46,39 +49,48 @@ class BackupRestoreHelper {
     return collectedFiles;
   }
 
+  /// --> Backup
   static Future<void> backupAll({
     required String encryptionKey,
+    required BuildContext context,
   }) async {
     final tempDir = await getTemporaryDirectory();
     final files = await _collectFiles();
+    VSnackbar.info('Creating backup...');
+    try {
+      // Make ZIP archive
+      final archive = Archive();
+      for (var file in files) {
+        final data = await file.readAsBytes();
+        archive.addFile(
+            ArchiveFile(file.uri.pathSegments.last, data.length, data));
+      }
+      final zipData = ZipEncoder().encode(archive);
 
-    // Make ZIP archive
-    final archive = Archive();
-    for (var file in files) {
-      final data = await file.readAsBytes();
-      archive
-          .addFile(ArchiveFile(file.uri.pathSegments.last, data.length, data));
+      // Encrypt ZIP
+      final key = encrypt.Key.fromUtf8(encryptionKey);
+      final iv = encrypt.IV.fromSecureRandom(16);
+      final encrypter = encrypt.Encrypter(encrypt.AES(key));
+      final encrypted = encrypter.encryptBytes(zipData, iv: iv);
+
+      // Save encrypted backup (prepend IV)
+      final backupFile = File('${tempDir.path}/${VText.backupFileName}');
+      await backupFile.writeAsBytes([...iv.bytes, ...encrypted.bytes]);
+      Vlogger.info(backupFile.path);
+
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(backupFile.path)],
+          text: 'App Encrypted Backup',
+        ),
+      );
+      VSnackbar.success('Backup complete!');
+    } catch (e) {
+      VSnackbar.error('Backup failed: $e');
     }
-    final zipData = ZipEncoder().encode(archive);
-
-    // Encrypt ZIP
-    final key = encrypt.Key.fromUtf8(encryptionKey);
-    final iv = encrypt.IV.fromSecureRandom(16);
-    final encrypter = encrypt.Encrypter(encrypt.AES(key));
-    final encrypted = encrypter.encryptBytes(zipData, iv: iv);
-
-    // Save encrypted backup (prepend IV)
-    final backupFile = File('${tempDir.path}/${VText.backupFileName}');
-    await backupFile.writeAsBytes([...iv.bytes, ...encrypted.bytes]);
-    Vlogger.info(backupFile.path);
-    await SharePlus.instance.share(
-      ShareParams(
-        files: [XFile(backupFile.path)],
-        text: 'App Encrypted Backup',
-      ),
-    );
   }
 
+  /// ---> Restore
   static Future<void> restoreAll({
     required BuildContext context,
     required String encryptionKey,
@@ -86,86 +98,65 @@ class BackupRestoreHelper {
     // Pick file
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.any,
-      // allowedExtensions: ['enc'],
     );
-
     if (result == null) {
-      VSnackbar.info(context: context, message: 'Restore cancelled.');
+      VSnackbar.info('Restore cancelled.');
+      return;
+    }
+    final filePath = result.files.single.path;
+    final fileName = result.files.single.name;
+
+    if (filePath == null || !fileName.endsWith('.invobak')) {
+      VSnackbar.error('Invalid backup file. Please select a .invobak file.');
       return;
     }
 
-    if (result.files.single.path == null) {
-      VSnackbar.error(context: context, message: 'Failed to get file path.');
-      return;
-    }
-    final backupPath = result.files.single.path!;
-    final encryptedBackup = await File(backupPath).readAsBytes();
-
-    // Extract IV and encrypted data
-    final iv = encrypt.IV(encryptedBackup.sublist(0, 16));
-    final encryptedData = encryptedBackup.sublist(16);
-
-    // Decrypt ZIP
-    final key = encrypt.Key.fromUtf8(encryptionKey);
-    final encrypter = encrypt.Encrypter(encrypt.AES(key));
-    late Uint8List decryptedZipData;
+    await Hive.close();
+    await AppDatabase.instance.close();
+    VSnackbar.info('Restoring...');
     try {
+      final encryptedBackup = await File(filePath).readAsBytes();
+
+      // Extract IV and encrypted data
+      final iv = encrypt.IV(encryptedBackup.sublist(0, 16));
+      final encryptedData = encryptedBackup.sublist(16);
+
+      // Decrypt ZIP
+      if (encryptionKey.length != 32) {
+        VSnackbar.error('Encryption key must be 32 characters for AES-256.');
+        return;
+      }
+      final key = encrypt.Key.fromUtf8(encryptionKey);
+      final encrypter = encrypt.Encrypter(encrypt.AES(key));
+      late Uint8List decryptedZipData;
+
       decryptedZipData = Uint8List.fromList(
         encrypter.decryptBytes(encrypt.Encrypted(encryptedData), iv: iv),
       );
+
+      // Unzip and overwrite files
+      final archive = ZipDecoder().decodeBytes(decryptedZipData);
+      final appDir = await getApplicationDocumentsDirectory();
+
+      for (final file in archive.files) {
+        if (!file.isFile) continue;
+        final outFile = File('${appDir.path}/${file.name}');
+        await outFile.writeAsBytes(file.content as List<int>);
+      }
+      for (int i = 3; i >= 1; i--) {
+        VSnackbar.success('Restore complete! Restarting in $i...');
+        await Future.delayed(const Duration(seconds: 1));
+      }
+      await Restart.restartApp();
     } catch (e) {
-      throw Exception("Decryption failed. Wrong password or corrupted file.");
-    }
-
-    // Unzip and overwrite files
-    final archive = ZipDecoder().decodeBytes(decryptedZipData);
-    final appDir = await getApplicationDocumentsDirectory();
-
-    for (final file in archive.files) {
-      if (!file.isFile) continue;
-      final outFile = File('${appDir.path}/${file.name}');
-      await outFile.writeAsBytes(file.content as List<int>);
-    }
-  }
-
-  ///----------------- use these
-  static Future<void> backup(BuildContext context, String encryptionKey) async {
-    try {
-      VSnackbar.info(context: context, message: 'Creating backup...');
-      await BackupRestoreHelper.backupAll(
-        encryptionKey: encryptionKey,
+      VSnackbar.error(
+        'Restore failed: ${e.toString()}',
       );
-      if (!context.mounted) return;
-      VSnackbar.success(context: context, message: 'Backup complete!');
-    } catch (e) {
-      VSnackbar.error(context: context, message: 'Backup failed: $e');
-      Vlogger.error('Backup failed: $e');
     }
   }
 
-  static Future<void> restore(
-      BuildContext context, String encryptionKey) async {
-    try {
-      // CLOSE Hive & Drift connections here!
-      await Hive.close();
-      await AppDatabase.instance.close();
-      if (!context.mounted) return;
-      VSnackbar.info(context: context, message: 'Restoring...');
-
-      await BackupRestoreHelper.restoreAll(
-        context: context,
-        encryptionKey: encryptionKey,
-      );
-      if (!context.mounted) return;
-      VSnackbar.success(
-          context: context,
-          message: 'Restore complete! Please restart the app.');
-    } catch (e) {
-      VSnackbar.error(context: context, message: 'Restore failed: $e');
-    }
-  }
-
-  static Future<void> deleteAllLocalData() async {
+  /// ---> Delete
+  static Future<void> deleteAllLocalData(BuildContext context) async {
     await Hive.close();
     await AppDatabase.instance.close();
 
@@ -195,5 +186,10 @@ class BackupRestoreHelper {
       await tempDir.delete(recursive: true);
       Vlogger.info("🗑 Deleted temp backup directory");
     }
+    for (int i = 3; i >= 1; i--) {
+      VSnackbar.info('Restarting in $i...');
+      await Future.delayed(const Duration(seconds: 1));
+    }
+    await Restart.restartApp();
   }
 }

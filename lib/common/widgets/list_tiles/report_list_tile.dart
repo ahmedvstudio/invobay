@@ -24,7 +24,7 @@ class VReportListTile extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon, color: leadingIconColor),
       title: Text(title),
-      trailing: const Icon(Icons.keyboard_arrow_right),
+      trailing: const Icon(Icons.arrow_right),
       onTap: onTap,
     );
   }

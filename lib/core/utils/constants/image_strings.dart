@@ -13,11 +13,11 @@ class VImages {
 
   // -- onBoarding Images
   static const String onBoarding1 =
-      'assets/images/lottie/getting_started/getting_started1.json';
+      'assets/images/lottie/on_boarding/on_boarding1.json';
   static const String onBoarding2 =
-      'assets/images/lottie/getting_started/getting_started2.json';
+      'assets/images/lottie/on_boarding/on_boarding2.json';
   static const String onBoarding3 =
-      'assets/images/lottie/getting_started/getting_started3.json';
+      'assets/images/lottie/on_boarding/on_boarding3.json';
 
   // -- Verification
   static const String verifyEmail =

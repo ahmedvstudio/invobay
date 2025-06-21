@@ -6,6 +6,7 @@ class VRouter {
   static const String signup = 'signup';
   static const String resetPass = 'resetPassword';
   static const String forgetPass = 'forgetPassword';
+  static const String onBoarding = 'onBoarding';
 
   // - Home
   static const String dashboard = 'home';
@@ -53,6 +54,8 @@ class VRouter {
   static const String profile = 'profile';
   static const String backupRestore = 'backupRestore';
   static const String about = 'about';
+  static const String openSourceLicence = 'openSourceLicence';
+  static const String licenceDetail = 'licenceDetail';
 
   // - Customer
   static const String customers = 'customers';

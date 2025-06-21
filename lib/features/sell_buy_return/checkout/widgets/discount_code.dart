@@ -118,18 +118,14 @@ class VDiscountCode extends ConsumerWidget {
                       // Final check just in case
                       if (discountType == DiscountType.percentage &&
                           enteredValue > 100) {
-                        VSnackbar.error(
-                            context: context,
-                            message: 'Percentage cannot exceed 100%');
+                        VSnackbar.error('Percentage cannot exceed 100%');
                         return;
                       }
 
                       if (discountType == DiscountType.amount &&
                           enteredValue > subtotal) {
                         VSnackbar.error(
-                          context: context,
-                          message:
-                              'Discount cannot exceed subtotal ($currencySign${subtotal.toStringAsFixed(2)})',
+                          'Discount cannot exceed subtotal ($currencySign${subtotal.toStringAsFixed(2)})',
                         );
                         return;
                       }

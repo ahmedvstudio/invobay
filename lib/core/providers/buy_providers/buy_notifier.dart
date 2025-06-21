@@ -129,9 +129,7 @@ class BuyNotifier extends StateNotifier<List<BuyItem>> {
         return buyItem;
       }).toList();
     } else {
-      if (!context.mounted) return;
-      VSnackbar.error(
-          context: context, message: "Quantity must be greater than 0");
+      VSnackbar.error("Quantity must be greater than 0");
     }
 
     updateSubtotal();

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
+import '../../../common/styles/spacing_style.dart';
+import '../constants/colors.dart';
 import '../constants/sizes.dart';
 
 class VDialogs {
@@ -8,15 +11,29 @@ class VDialogs {
 
   /// --> OK
   static Future<void> ok(BuildContext context, String title, String message) {
+    final isDark = VHelperFunctions.isDarkMode(context);
     return showDialog<void>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (ctx) => AlertDialog(
+        backgroundColor: isDark ? VColors.dark : VColors.light,
         title: Text(title),
-        content: Text(message),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: SingleChildScrollView(child: Text(message)),
+        ),
+        scrollable: true,
+        insetPadding: VSpacingStyle.symmetric,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(VSizes.borderRadiusXl),
+        ),
         actions: [
-          TextButton(
-            onPressed: () => context.pop(),
-            child: const Text('OK'),
+          const SizedBox(height: VSizes.defaultSpace / 2),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: () => context.pop(ctx),
+              child: const Text('OK'),
+            ),
           ),
         ],
       ),
