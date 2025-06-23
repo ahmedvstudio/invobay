@@ -12,12 +12,14 @@ class VItemTitleTextWithIcon extends StatelessWidget {
     this.smallSize = false,
     this.maxLines = 1,
     this.textAlign,
+    this.icon,
   });
 
   final String title;
   final bool smallSize;
   final int maxLines;
   final TextAlign? textAlign;
+  final IconData? icon;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -28,10 +30,12 @@ class VItemTitleTextWithIcon extends StatelessWidget {
             return CircleAvatar(
               radius: VSizes.iconSm,
               backgroundColor: primaryColor,
-              child: Text(
-                title[0],
-                style: const TextStyle(color: VColors.white),
-              ),
+              child: icon == null
+                  ? Text(
+                      title[0],
+                      style: const TextStyle(color: VColors.white),
+                    )
+                  : Icon(icon, color: VColors.white),
             );
           },
         ),

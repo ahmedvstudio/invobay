@@ -5,6 +5,7 @@ import 'package:invobay/common/widgets/text/section_heading.dart';
 import 'package:invobay/core/providers/theme_providers/theme_related_providers.dart';
 
 import '../../../../core/providers/notification_providers/notification_related_provider.dart';
+import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 
 class NotificationSettingsBottomSheet extends ConsumerWidget {
@@ -39,6 +40,7 @@ class NotificationSettingsBottomSheet extends ConsumerWidget {
                 final label = entry.value;
                 return SwitchListTile(
                   activeTrackColor: primaryColor,
+                  activeColor: VColors.white,
                   dense: true,
                   title: Text(label),
                   value: toggles[key] ?? false,

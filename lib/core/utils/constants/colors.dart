@@ -27,6 +27,9 @@ class VColors {
   static const Color onSurface = Color(0xFF272727);
   static const Color onSurfaceDark = Color(0xFF000000);
 
+  //
+  static const Color iconPrimary = Color(0xFF45cbce);
+  static const Color iconSecondary = Color(0xFF247d8d);
   // Gradient Colors
   static const Gradient linearGradient = LinearGradient(
     begin: Alignment(0.0, 0.0),

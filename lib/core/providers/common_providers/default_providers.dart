@@ -81,3 +81,6 @@ final liveTimeProvider = StreamProvider<DateTime>((ref) async* {
     await Future.delayed(const Duration(seconds: 1));
   }
 });
+
+//
+final onBoardingCheckboxProvider = StateProvider<bool>((ref) => false);

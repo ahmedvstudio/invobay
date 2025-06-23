@@ -15,10 +15,10 @@ class VLists {
 
   // --> Colors
   static const List<Color> themeColors = [
-    Color(0xFF4b68ff),
-    Color(0xff35b19a),
+    Color(0xFF247d8d),
     Color(0xFF388e3c),
-    Color(0xff216f64),
+    Color(0xff35b19a),
+    Color(0xFF4b68ff),
     Color(0xFFd32f2f),
     Color(0xFFf57c00),
     Color(0xff6a35b1),
