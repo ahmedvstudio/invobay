@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
+import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
+import 'package:invobay/core/utils/formatters/formatters.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../common/widgets/appbar/appbar.dart';
 import '../../../common/widgets/appbar/appbar_icon.dart';
@@ -19,6 +21,8 @@ class VHomeAppBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final nowAsync = ref.watch(liveTimeProvider);
     final notifications = ref.watch(notificationsProvider);
+    final locale = ref.watch(localeProvider);
+    final isLTR = VHelperFunctions.isEnglish(locale);
     return VAppBar(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +36,7 @@ class VHomeAppBar extends ConsumerWidget {
           ),
           nowAsync.when(
             data: (now) => Text(
-              DateFormat('hh:mm:ss a').format(now),
+              VFormatters.formatHomeTime(now),
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall!
@@ -43,7 +47,7 @@ class VHomeAppBar extends ConsumerWidget {
           ),
           nowAsync.when(
             data: (now) => Text(
-              DateFormat('E yyyy-MM-dd').format(now),
+              VFormatters.formatHomeDate(now),
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
@@ -61,6 +65,7 @@ class VHomeAppBar extends ConsumerWidget {
               ? Iconsax.notification
               : Iconsax.notification5,
           badgeText: '${notifications.where((n) => !n.isRead).length}',
+          isLTR: isLTR,
         ),
       ],
     );

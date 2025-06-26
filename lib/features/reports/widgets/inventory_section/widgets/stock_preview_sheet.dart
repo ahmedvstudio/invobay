@@ -5,6 +5,7 @@ import 'package:invobay/common/widgets/text/section_heading.dart';
 import 'package:invobay/core/database/drift/app_database.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 Future<void> showStockPreviewBottomSheet(
   BuildContext context, {
@@ -44,9 +45,9 @@ class StockPreviewBottomSheet extends StatelessWidget {
             VSectionHeading(title: title, showActionButton: false),
             const SizedBox(height: VSizes.spaceBtwItems),
             if (items.isEmpty)
-              const Padding(
+              Padding(
                 padding: VSpacingStyle.vertical,
-                child: Text("No items to display."),
+                child: Text(context.loc.NoItemsToDisplay),
               )
             else
               SizedBox(

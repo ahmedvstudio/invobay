@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/reports/widgets/sell_section/widgets/most_sold_sheet.dart';
 import 'package:invobay/features/reports/widgets/sell_section/widgets/top_customer_sheet.dart';
 
@@ -17,10 +18,10 @@ class VSellSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const VSectionHeading(title: 'Sell', showActionButton: false),
+        VSectionHeading(title: context.loc.sell, showActionButton: false),
         const SizedBox(height: VSizes.spaceBtwItems),
         VReportListTile(
-            title: 'Top Costumers',
+            title: context.loc.topCostumers,
             icon: Iconsax.user,
             onTap: () {
               showModalBottomSheet(
@@ -30,7 +31,7 @@ class VSellSection extends StatelessWidget {
               );
             }),
         VReportListTile(
-          title: 'Customer Debts',
+          title: context.loc.customerDebts,
           icon: Iconsax.money_remove,
           onTap: () {
             showModalBottomSheet(
@@ -41,7 +42,7 @@ class VSellSection extends StatelessWidget {
           },
         ),
         VReportListTile(
-            title: 'Most Sold Items',
+            title: context.loc.mostSoldItems,
             icon: Iconsax.money_send,
             onTap: () {
               showModalBottomSheet(

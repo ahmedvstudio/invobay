@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/database/drift/app_database.dart';
 import '../../../../core/providers/buy_providers/buy_receipt_details_provider.dart';
@@ -43,15 +44,15 @@ class ItemBuyReceiptsBottomSheet extends ConsumerWidget {
       padding: VSpacingStyle.withoutTop,
       child: Column(
         children: [
-          const VSectionHeading(
-              title: 'Item Receipts Details', showActionButton: false),
+          VSectionHeading(
+              title: context.loc.itemReceiptsDetails, showActionButton: false),
           const SizedBox(height: VSizes.spaceBtwItems),
           Expanded(
             child: SingleChildScrollView(
               child: receiptsAsync.when(
                 data: (receipts) {
                   if (receipts.isEmpty) {
-                    return const Text('No receipts found.');
+                    return Text(context.loc.noReceiptsFound);
                   }
                   return VItemBuyReceiptDetails(
                     currencySign: currencySign,
@@ -63,7 +64,7 @@ class ItemBuyReceiptsBottomSheet extends ConsumerWidget {
                   padding: VSpacingStyle.vertical,
                   child: Center(child: CircularProgressIndicator()),
                 ),
-                error: (e, st) => const Text('Error loading receipts'),
+                error: (e, st) => Text(context.loc.errorLoadingReceipts),
               ),
             ),
           ),

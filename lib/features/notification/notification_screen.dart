@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/utils/buttons/buttons.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/notification/widgets/grouped_notifications_list.dart';
 
 import '../../common/widgets/dialogs/delete_confirm_dialog.dart';
@@ -19,22 +20,24 @@ class NotificationScreen extends ConsumerWidget {
     final groupedNotifications = <String, List<NotificationModel>>{};
     final primaryColor = ref.watch(primaryColorProvider);
     for (var notify in notifications) {
-      final groupKey = VHelperFunctions.getTimeAgoGroup(notify.timestamp);
+      final groupKey =
+          VHelperFunctions.getTimeAgoGroup(context, notify.timestamp);
       groupedNotifications.putIfAbsent(groupKey, () => []);
       groupedNotifications[groupKey]?.add(notify);
     }
 
     return Scaffold(
       body: notifications.isEmpty
-          ? const Column(
+          ? Column(
               children: [
-                VCustomAppBar(text: 'Notifications'),
-                Flexible(child: Center(child: Text("No notifications yet."))),
+                VCustomAppBar(text: context.loc.notifications),
+                Flexible(
+                    child: Center(child: Text(context.loc.noNotificationYet))),
               ],
             )
           : Column(
               children: [
-                const VCustomAppBar(text: 'Notifications'),
+                VCustomAppBar(text: context.loc.notifications),
                 Flexible(
                   child: GroupedNotificationsList(
                     groupedNotifications: groupedNotifications,
@@ -44,17 +47,18 @@ class NotificationScreen extends ConsumerWidget {
               ],
             ),
       floatingActionButton: VButtons.fab(
-        label: "Clear All",
-        tooltip: "Clear All",
+        label: context.loc.clearAll,
+        tooltip: context.loc.clearAll,
         color: primaryColor,
         icon: Icons.clear_all,
         onPressed: () async {
           final confirm = await showDialog<bool>(
             context: context,
-            builder: (context) => const VDeleteConfirmDialog(
+            builder: (context) => VDeleteConfirmDialog(
               isCustomer: false,
               isGeneral: true,
-              contentText: 'Are you sure you want to delete all notifications?',
+              contentText:
+                  context.loc.areYouSureYouWantToDeleteAllNotifications,
             ),
           );
           if (confirm == true) {

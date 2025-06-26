@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import 'package:invobay/core/utils/constants/font_strings.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/core/utils/constants/text_strings.dart';
 import 'package:invobay/core/utils/dialogs/dialogs.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
+import 'package:invobay/core/utils/messages/snackbar.dart';
 import 'package:invobay/features/personalization/setting/app_settings/about/widgets/social_about.dart';
 import 'package:invobay/features/personalization/setting/app_settings/about/widgets/version_info.dart';
 
@@ -22,8 +26,10 @@ class AboutScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final primaryColor = ref.watch(primaryColorProvider);
+    final locale = ref.watch(localeProvider);
+    final isLTR = VHelperFunctions.isEnglish(locale);
     return Scaffold(
-      appBar: const VAppBar(title: Text('About'), showBackArrow: true),
+      appBar: VAppBar(title: Text(context.loc.about), showBackArrow: true),
       body: SingleChildScrollView(
         padding: VSpacingStyle.all,
         child: Column(
@@ -41,26 +47,34 @@ class AboutScreen extends ConsumerWidget {
             const VersionInfo(),
             VSettingsMenuTile(
               icon: Iconsax.refresh,
-              title: 'Check For Update',
+              title: context.loc.checkForUpdate,
               // subTitle: 'Last Check : 14/6/2025 02:00 PM',
-              onTap: () {},
+              onTap: () =>
+                  VSnackbar.success(context.loc.thisIsTheFirstVersionOfTheApp),
             ),
             VSettingsMenuTile(
               icon: Iconsax.document_text,
-              title: 'Open Source Licenses',
-              onTap: () => context.pushNamed(VRouter.openSourceLicence),
+              title: context.loc.openSourceLicense,
+              onTap: () => context.pushNamed(VRouter.openSourceLicense),
             ),
             VSettingsMenuTile(
               icon: Iconsax.security,
-              title: 'Privacy Policy',
+              title: context.loc.privacyPolicy,
               onTap: () => VDialogs.ok(
-                  context, 'Privacy Policy', VText.privacyPolicyMessage),
+                  context,
+                  context.loc.privacyPolicy,
+                  isLTR
+                      ? VText.privacyPolicyMessage
+                      : VText.privacyPolicyMessageAR),
             ),
             VSettingsMenuTile(
               icon: Iconsax.document_copy,
-              title: 'Terms of use',
-              onTap: () =>
-                  VDialogs.ok(context, 'Terms of use', VText.termsOfUseMessage),
+              title: context.loc.termsOfUse,
+              onTap: () => VDialogs.ok(
+                context,
+                context.loc.termsOfUse,
+                isLTR ? VText.termsOfUseMessage : VText.termsOfUseMessageAR,
+              ),
             ),
             const SizedBox(height: VSizes.spaceBtwSections),
 
@@ -68,8 +82,11 @@ class AboutScreen extends ConsumerWidget {
             VSocialAbout(iconColor: primaryColor),
             const SizedBox(height: VSizes.spaceBtwItems),
 
-            Text('©️${DateTime.now().year} Ahmed V. Studio',
-                style: Theme.of(context).textTheme.labelMedium),
+            Text(
+              '©️${DateTime.now().year} Ahmed V. Studio',
+              style: Theme.of(context).textTheme.labelMedium,
+              textDirection: TextDirection.ltr,
+            ),
             const SizedBox(height: VSizes.spaceBtwSections),
           ],
         ),

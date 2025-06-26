@@ -28,7 +28,7 @@ class ItemDetailsScreen extends ConsumerWidget {
     required this.sellPrice,
     this.barcode,
     this.description,
-    this.itemUnit,
+    required this.itemUnit,
   });
 
   final int itemId;
@@ -38,7 +38,7 @@ class ItemDetailsScreen extends ConsumerWidget {
   final double sellPrice;
   final String? description;
   final String? barcode;
-  final String? itemUnit;
+  final String itemUnit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/sheet/vault/transaction_form.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../core/providers/vault_providers/vault_related_providers.dart';
@@ -28,7 +29,7 @@ Future<void> showVaultTransactionSheet(
           padding: VSpacingStyle.responseKeyboard(context),
           child: VTransactionForm(
             formKey: formKey,
-            title: isOut ? 'Reduce from Vault' : 'Add to Vault',
+            title: isOut ? context.loc.addExpense : context.loc.addToVault,
             amountController: amountController,
             selectedDate: selectedDate,
             descriptionController: descriptionController,

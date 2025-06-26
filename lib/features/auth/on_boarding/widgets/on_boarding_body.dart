@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../common/widgets/text/item_title_text_with_icon.dart';
 import '../../../../core/utils/constants/sizes.dart';
@@ -13,55 +14,55 @@ class OnBoardingBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Row(
+        Row(
           children: [
             Expanded(
               child: VItemTitleTextWithIcon(
-                title: 'Sales',
+                title: context.loc.sell,
                 icon: Iconsax.tag5,
               ),
             ),
             Expanded(
               child: VItemTitleTextWithIcon(
-                title: 'Purchases',
+                title: context.loc.buy,
                 icon: Iconsax.shopping_cart5,
               ),
             ),
           ],
         ),
         const SizedBox(height: VSizes.spaceBtwItems),
-        const Row(
+        Row(
           children: [
             Expanded(
                 child: VItemTitleTextWithIcon(
-              title: 'Returns',
+              title: context.loc.returns,
               icon: Iconsax.shopping_bag5,
             )),
             Expanded(
                 child: VItemTitleTextWithIcon(
-              title: 'Receipts',
+              title: context.loc.receipts,
               icon: Iconsax.receipt_2_15,
             )),
           ],
         ),
         const SizedBox(height: VSizes.spaceBtwItems),
-        const Row(
+        Row(
           children: [
             Expanded(
                 child: VItemTitleTextWithIcon(
-              title: 'Reports',
+              title: context.loc.reports,
               icon: Iconsax.receipt_item5,
             )),
             Expanded(
                 child: VItemTitleTextWithIcon(
-              title: 'and More..',
+              title: context.loc.more,
               icon: Iconsax.more,
             )),
           ],
         ),
         const SizedBox(height: VSizes.spaceBtwSections),
         Text(
-          'Stay organized and in control with a secure vault and much more—all in one app.',
+          context.loc.onBoardingFooterText,
           style: Theme.of(context).textTheme.bodyMedium,
           textAlign: TextAlign.center,
         ),

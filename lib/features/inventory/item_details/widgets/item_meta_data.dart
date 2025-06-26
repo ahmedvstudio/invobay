@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/sheet/inventory/item_buy_receipts_sheet.dart';
 import '../../../../common/widgets/sheet/inventory/update_buying_price_sheet.dart';
 import '../../../../common/widgets/sheet/inventory/update_selling_price_sheet.dart';
@@ -28,7 +29,7 @@ class VItemMetaData extends ConsumerWidget {
     required this.sellingPrice,
     required this.buyingPrice,
     this.barcode,
-    this.itemUnit,
+    required this.itemUnit,
   });
 
   final String title;
@@ -36,7 +37,7 @@ class VItemMetaData extends ConsumerWidget {
   final double sellingPrice;
   final double buyingPrice;
   final String? barcode;
-  final String? itemUnit;
+  final String itemUnit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -90,7 +91,7 @@ class VItemMetaData extends ConsumerWidget {
               ),
             ),
             VMetaDataSection(
-              tag: itemUnit ?? '',
+              tag: VHelperFunctions.getUnitLabel(context, itemUnit),
               tagBackgroundColor: VColors.info,
               tagTextColor: VColors.white,
               showChild: false,

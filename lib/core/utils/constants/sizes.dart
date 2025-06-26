@@ -35,7 +35,7 @@ class VSizes {
   static const double defaultSpace = 24.0;
   static const double spaceBtwItems = 16.0;
   static const double spaceBtwSections = 32.0;
-  static const double leftSideSpace = 75.0;
+  static const double leftSideSpace = 60.0;
 
   // Border Radius
   static const double borderRadiusSm = 4.0;

@@ -7,6 +7,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/widgets/appbar/main_appbar.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/sell_buy_return/initial/sell/widgets/customer_and_clear.dart';
 import 'package:invobay/features/sell_buy_return/initial/sell/widgets/sell_item_list.dart';
@@ -41,13 +42,13 @@ class SellScreen extends ConsumerWidget {
           VPrimaryHeaderContainer(
             child: Column(
               children: [
-                const VMainAppBar(
-                  title: 'Sell',
+                VMainAppBar(
+                  title: context.loc.sell,
                   appbarIcon: Iconsax.tag5,
                 ),
                 const SizedBox(height: VSizes.spaceBtwItems),
                 VSearchContainer(
-                  text: 'Search and Add Items',
+                  text: context.loc.searchAndAddItems,
                   showPrefixIcon: true,
                   onTap: () => showItemsBottomSheet(
                     context: context,
@@ -71,7 +72,9 @@ class SellScreen extends ConsumerWidget {
                       if (item != null) {
                         ref.read(sellNotifierProvider.notifier).addItem(item);
                       } else {
-                        VToast.warning(message: 'Item not found!');
+                        if (context.mounted) {
+                          VToast.warning(message: context.loc.itemNotFound);
+                        }
                       }
                     }
                   },
@@ -105,8 +108,8 @@ class SellScreen extends ConsumerWidget {
         isLabelVisible: sellItems.isEmpty ? false : true,
         alignment: isEnglish ? Alignment.topLeft : Alignment.topRight,
         child: VButtons.fab(
-          label: 'Cart',
-          tooltip: 'Proceed to checkout',
+          label: context.loc.cart,
+          tooltip: context.loc.proceedToCheckout,
           icon: CupertinoIcons.cart_badge_plus,
           color: primaryColor,
           onPressed: () {
@@ -121,7 +124,7 @@ class SellScreen extends ConsumerWidget {
                 },
               );
             } else {
-              VToast.warning(message: 'Your list is Empty!');
+              VToast.warning(message: context.loc.yourListIsEmpty);
             }
           },
         ),

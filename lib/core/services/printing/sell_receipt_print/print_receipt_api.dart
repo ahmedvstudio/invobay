@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/services/printing/sell_receipt_print/widgets/font_utils.dart';
 import 'package:invobay/core/services/printing/sell_receipt_print/widgets/invoice_footer.dart';
@@ -19,6 +20,7 @@ import '../../../providers/item_providers/item_related_providers.dart';
 
 class PrintReceiptApi {
   static Future<void> printReceipt({
+    required BuildContext context,
     required WidgetRef ref,
     required List<SellReceiptItemsModel> items,
     required SellReceiptsModel receipt,
@@ -48,9 +50,10 @@ class PrintReceiptApi {
     );
 
     final pdf = pw.Document(theme: myTheme);
-
+    if (!context.mounted) return;
     pdf.addPage(
       buildPdfPage(
+        crx: context,
         items: items,
         itemDetailsList: itemDetailsList,
         ref: ref,
@@ -72,6 +75,7 @@ class PrintReceiptApi {
     CustomerData? customerData,
     ShopDetail? shopDetail,
     required WidgetRef ref,
+    required BuildContext crx,
   }) {
     final currencySign = ref.watch(currencySignProvider);
 
@@ -90,6 +94,7 @@ class PrintReceiptApi {
                         receipt: receipt,
                         payment: payment,
                         shopDetail: shopDetail,
+                        context: crx,
                       ),
 
                       /// --> Title

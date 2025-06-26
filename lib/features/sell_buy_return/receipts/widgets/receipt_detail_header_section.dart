@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/utils/constants/enums.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
@@ -50,7 +51,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Receipt No.",
+              Text("${context.loc.receiptNo}.",
                   style: Theme.of(context).textTheme.bodyMedium),
               Text(receiptId.toString(),
                   style: Theme.of(context).textTheme.bodyMedium),
@@ -61,7 +62,8 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Date:", style: Theme.of(context).textTheme.bodyMedium),
+              Text("${context.loc.date}:",
+                  style: Theme.of(context).textTheme.bodyMedium),
               Text(VFormatters.formatDate(receiptDate),
                   style: Theme.of(context).textTheme.bodyMedium),
             ],
@@ -70,7 +72,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Subtotal Price:",
+              Text("${context.loc.subtotalPrice}:",
                   style: Theme.of(context).textTheme.bodyMedium),
               Text('$currencySign $subTotalPrice',
                   style: Theme.of(context).textTheme.bodyMedium),
@@ -82,7 +84,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Discount:",
+                Text("${context.loc.discount}:",
                     style: Theme.of(context).textTheme.bodyMedium),
                 Text(
                     discountType == DiscountType.percentage.name
@@ -97,7 +99,7 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Shipping Fee:",
+                Text("${context.loc.shippingFee}:",
                     style: Theme.of(context).textTheme.bodyMedium),
                 Text('$currencySign ${receiptShippingFee.toString()}',
                     style: Theme.of(context).textTheme.bodyMedium),
@@ -109,7 +111,8 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Tax Fee:", style: Theme.of(context).textTheme.bodyMedium),
+                Text("${context.loc.taxFee}:",
+                    style: Theme.of(context).textTheme.bodyMedium),
                 Text('% $receiptTaxFee',
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
@@ -120,7 +123,10 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(isSell ? "Customer:" : "Supplier:",
+                Text(
+                    isSell
+                        ? "${context.loc.customer}:"
+                        : "${context.loc.supplier}:",
                     style: Theme.of(context).textTheme.bodyMedium),
                 Consumer(
                   builder: isSell
@@ -130,11 +136,11 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
 
                           return customerAsync.when(
                             data: (customer) => Text(
-                                customer?.name ?? "Unknown Customer",
+                                customer?.name ?? context.loc.unknownCustomer,
                                 style: Theme.of(context).textTheme.bodyMedium),
-                            loading: () => const Text("Loading..."),
+                            loading: () => Text("${context.loc.loading}..."),
                             error: (error, stackTrace) =>
-                                const Text("Error loading customer"),
+                                Text(context.loc.errorLoadingCustomer),
                           );
                         }
                       : (context, ref, child) {
@@ -143,11 +149,11 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
 
                           return supplierAsync.when(
                             data: (supplier) => Text(
-                                supplier?.name ?? "Unknown Supplier",
+                                supplier?.name ?? context.loc.unknownSupplier,
                                 style: Theme.of(context).textTheme.bodyMedium),
-                            loading: () => const Text("Loading..."),
+                            loading: () => Text("${context.loc.loading}..."),
                             error: (error, stackTrace) =>
-                                const Text("Error loading supplier"),
+                                Text(context.loc.errorLoadingSupplier),
                           );
                         },
                 ),
@@ -159,9 +165,11 @@ class VReceiptDetailHeaderSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Payment Method",
+              Text(context.loc.paymentMethod,
                   style: Theme.of(context).textTheme.bodyMedium),
-              Text(paymentMethod,
+              Text(
+                  VHelperFunctions.getPaymentMethodLabel(
+                      context, paymentMethod),
                   style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),

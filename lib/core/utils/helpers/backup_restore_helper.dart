@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:share_plus/share_plus.dart';
@@ -56,7 +57,9 @@ class BackupRestoreHelper {
   }) async {
     final tempDir = await getTemporaryDirectory();
     final files = await _collectFiles();
-    VSnackbar.info('Creating backup...');
+    if (context.mounted) {
+      VSnackbar.info(context.loc.creatingBackup);
+    }
     try {
       // Make ZIP archive
       final archive = Archive();
@@ -84,9 +87,11 @@ class BackupRestoreHelper {
           text: 'App Encrypted Backup',
         ),
       );
-      VSnackbar.success('Backup complete!');
+      if (!context.mounted) return;
+      VSnackbar.success(context.loc.backupComplete);
     } catch (e) {
-      VSnackbar.error('Backup failed: $e');
+      if (!context.mounted) return;
+      VSnackbar.error('${context.loc.backupFailed} $e');
     }
   }
 
@@ -100,20 +105,23 @@ class BackupRestoreHelper {
       type: FileType.any,
     );
     if (result == null) {
-      VSnackbar.info('Restore cancelled.');
+      if (!context.mounted) return;
+      VSnackbar.info(context.loc.restoreCancelled);
       return;
     }
     final filePath = result.files.single.path;
     final fileName = result.files.single.name;
 
     if (filePath == null || !fileName.endsWith('.invobak')) {
-      VSnackbar.error('Invalid backup file. Please select a .invobak file.');
+      if (!context.mounted) return;
+      VSnackbar.error(context.loc.invalidBackupFilePleaseSelectInvobakFile);
       return;
     }
 
     await Hive.close();
     await AppDatabase.instance.close();
-    VSnackbar.info('Restoring...');
+    if (!context.mounted) return;
+    VSnackbar.info(context.loc.restoring);
     try {
       final encryptedBackup = await File(filePath).readAsBytes();
 
@@ -123,7 +131,8 @@ class BackupRestoreHelper {
 
       // Decrypt ZIP
       if (encryptionKey.length != 32) {
-        VSnackbar.error('Encryption key must be 32 characters for AES-256.');
+        if (!context.mounted) return;
+        VSnackbar.error(context.loc.encryptionKeyMustBe32);
         return;
       }
       final key = encrypt.Key.fromUtf8(encryptionKey);
@@ -144,13 +153,15 @@ class BackupRestoreHelper {
         await outFile.writeAsBytes(file.content as List<int>);
       }
       for (int i = 3; i >= 1; i--) {
-        VSnackbar.success('Restore complete! Restarting in $i...');
+        if (!context.mounted) return;
+        VSnackbar.success('${context.loc.restoreCompleteRestarting} $i...');
         await Future.delayed(const Duration(seconds: 1));
       }
       await Restart.restartApp();
     } catch (e) {
+      if (!context.mounted) return;
       VSnackbar.error(
-        'Restore failed: ${e.toString()}',
+        '${context.loc.restoreFailed} ${e.toString()}',
       );
     }
   }
@@ -187,7 +198,8 @@ class BackupRestoreHelper {
       Vlogger.info("🗑 Deleted temp backup directory");
     }
     for (int i = 3; i >= 1; i--) {
-      VSnackbar.info('Restarting in $i...');
+      if (!context.mounted) return;
+      VSnackbar.info('${context.loc.restartingIn} $i...');
       await Future.delayed(const Duration(seconds: 1));
     }
     await Restart.restartApp();

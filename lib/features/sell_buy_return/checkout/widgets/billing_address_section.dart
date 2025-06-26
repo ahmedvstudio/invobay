@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../common/widgets/text/section_heading.dart';
 import '../../../../../core/providers/common_providers/default_providers.dart';
@@ -27,7 +28,7 @@ class VBillingAddressSection extends ConsumerWidget {
     final supplierNumber = ref.watch(supplierPhoneProvider);
     final supplierAddress = ref.watch(supplierAddressProvider);
     final String dateTime =
-        DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now());
+        DateFormat('yyyy/MM/dd - HH:mm').format(DateTime.now());
     final customers = ref.watch(customerNotifierProvider);
     final suppliers = ref.watch(supplierNotifierProvider);
 
@@ -35,8 +36,10 @@ class VBillingAddressSection extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         VSectionHeading(
-          title: isSell ? 'Shipping Address' : 'Supplier Address',
-          buttonTitle: 'Change',
+          title: isSell
+              ? context.loc.customerAddress
+              : context.loc.supplierAddress,
+          buttonTitle: context.loc.change,
           onPressed: isSell
               ? () async {
                   final selectedCustomer = await showModalBottomSheet<String>(
@@ -48,7 +51,7 @@ class VBillingAddressSection extends ConsumerWidget {
                         height: VDeviceUtils.getScreenHeight(context) * 0.5,
                         child: Column(
                           children: [
-                            Text('Select a Customer',
+                            Text(context.loc.selectCustomer,
                                 style:
                                     Theme.of(context).textTheme.headlineSmall),
                             const SizedBox(height: VSizes.spaceBtwItems),
@@ -124,7 +127,7 @@ class VBillingAddressSection extends ConsumerWidget {
                         height: VDeviceUtils.getScreenHeight(context) * 0.5,
                         child: Column(
                           children: [
-                            Text('Select a Supplier',
+                            Text(context.loc.selectSupplier,
                                 style:
                                     Theme.of(context).textTheme.headlineSmall),
                             const SizedBox(height: VSizes.spaceBtwItems),

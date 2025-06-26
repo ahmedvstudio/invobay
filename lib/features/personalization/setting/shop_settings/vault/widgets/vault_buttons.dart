@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../../core/utils/constants/colors.dart';
 
@@ -17,7 +18,8 @@ class VaultButtons extends StatelessWidget {
     return Expanded(
       child: ElevatedButton.icon(
         onPressed: onPressed,
-        label: isOut ? const Text('Add Expense') : const Text('Add To Vault'),
+        label:
+            isOut ? Text(context.loc.addExpense) : Text(context.loc.addToVault),
         icon: isOut ? const Icon(Iconsax.minus) : const Icon(Iconsax.add),
         style: ElevatedButton.styleFrom(
           elevation: 2,

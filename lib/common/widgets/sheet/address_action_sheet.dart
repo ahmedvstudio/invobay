@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 class AddressActionSheet extends StatelessWidget {
@@ -35,12 +36,14 @@ class AddressActionSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             VSectionHeading(
-                title: isCustomer ? 'Customer Action' : 'Supplier Action',
+                title: isCustomer
+                    ? context.loc.customerAction
+                    : context.loc.supplierAction,
                 showActionButton: false),
             const SizedBox(height: VSizes.spaceBtwItems),
             ListTile(
               leading: const Icon(Iconsax.edit),
-              title: const Text('Edit'),
+              title: Text(context.loc.edit),
               onTap: () {
                 context.pop();
                 onEdit();
@@ -48,7 +51,7 @@ class AddressActionSheet extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Iconsax.trash),
-              title: const Text('Delete'),
+              title: Text(context.loc.delete),
               onTap: () {
                 context.pop();
                 onDelete();
@@ -57,7 +60,7 @@ class AddressActionSheet extends StatelessWidget {
             if (phone1 != null && phone1!.isNotEmpty)
               ListTile(
                 leading: const Icon(Iconsax.call),
-                title: Text('Call $phone1'),
+                title: Text('${context.loc.call} $phone1'),
                 onTap: () {
                   context.pop();
                   VHelperFunctions.makePhoneCall(phone1);
@@ -66,7 +69,7 @@ class AddressActionSheet extends StatelessWidget {
             if (phone2 != null && phone2!.isNotEmpty)
               ListTile(
                 leading: const Icon(Iconsax.call5),
-                title: Text('Call $phone2'),
+                title: Text('${context.loc.call} $phone2'),
                 onTap: () {
                   context.pop();
                   VHelperFunctions.makePhoneCall(phone2);

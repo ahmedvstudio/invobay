@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/sell_buy_return/receipts/buy_receipts/widgets/buy_bottom_appbar_select_all_and_delete.dart';
 
 import '../../../../common/widgets/appbar/main_appbar.dart';
@@ -32,8 +33,8 @@ class BuyReceiptsScreen extends ConsumerWidget {
           VPrimaryHeaderContainer(
             child: Column(
               children: [
-                const VMainAppBar(
-                  title: 'Buy Receipts',
+                VMainAppBar(
+                  title: context.loc.buyReceipts,
                   appbarIcon: Iconsax.receipt_15,
                 ),
                 Align(
@@ -41,7 +42,9 @@ class BuyReceiptsScreen extends ConsumerWidget {
                   child: TextButton.icon(
                     onPressed: editController.toggleEditMode,
                     label: Text(
-                      editState.isEditMode ? 'Done' : 'Edit',
+                      editState.isEditMode
+                          ? context.loc.done
+                          : context.loc.edit,
                       style: Theme.of(context).textTheme.bodyMedium!.apply(
                             color: VColors.white.withValues(alpha: 0.8),
                           ),
@@ -87,7 +90,7 @@ class BuyReceiptsScreen extends ConsumerWidget {
               },
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (error, stackTrace) =>
-                  Center(child: Text("Error: $error")),
+                  Center(child: Text("${context.loc.error}: $error")),
             ),
           ),
         ],

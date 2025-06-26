@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/messages/snackbar.dart';
 
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
@@ -43,8 +44,8 @@ class VDiscountCode extends ConsumerWidget {
                 controller: discountController,
                 decoration: InputDecoration(
                   hintText: discountType == DiscountType.percentage
-                      ? 'Discount % here.'
-                      : 'Discount amount here.',
+                      ? context.loc.discountPercentHere
+                      : context.loc.discountAmountHere,
                   border: InputBorder.none,
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
@@ -59,17 +60,17 @@ class VDiscountCode extends ConsumerWidget {
                 validator: (value) {
                   final numValue = double.tryParse(value ?? '');
                   if (numValue == null || numValue <= 0) {
-                    return 'Enter a valid number';
+                    return context.loc.enterValidNumber;
                   }
 
                   if (discountType == DiscountType.percentage &&
                       numValue > 100) {
-                    return 'Percentage cannot exceed 100%';
+                    return context.loc.percentageCannotExceed100;
                   }
 
                   if (discountType == DiscountType.amount &&
                       numValue > subtotal) {
-                    return 'Discount cannot exceed subtotal ($currencySign${subtotal.toStringAsFixed(2)})';
+                    return '${context.loc.discountCannotExceedSubtotal} ($currencySign${subtotal.toStringAsFixed(2)})';
                   }
 
                   return null;
@@ -118,14 +119,14 @@ class VDiscountCode extends ConsumerWidget {
                       // Final check just in case
                       if (discountType == DiscountType.percentage &&
                           enteredValue > 100) {
-                        VSnackbar.error('Percentage cannot exceed 100%');
+                        VSnackbar.error(context.loc.percentageCannotExceed100);
                         return;
                       }
 
                       if (discountType == DiscountType.amount &&
                           enteredValue > subtotal) {
                         VSnackbar.error(
-                          'Discount cannot exceed subtotal ($currencySign${subtotal.toStringAsFixed(2)})',
+                          '${context.loc.discountCannotExceedSubtotal} ($currencySign${subtotal.toStringAsFixed(2)})',
                         );
                         return;
                       }
@@ -140,7 +141,8 @@ class VDiscountCode extends ConsumerWidget {
                   backgroundColor:
                       discountApplied ? VColors.error : VColors.success,
                 ),
-                child: Text(discountApplied ? 'Undo' : 'Apply'),
+                child: Text(
+                    discountApplied ? context.loc.undo : context.loc.apply),
               ),
             ),
           ],

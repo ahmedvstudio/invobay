@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
@@ -8,17 +9,18 @@ import '../../../core/utils/helpers/helper_functions.dart';
 import '../../../core/utils/validators/validation.dart';
 
 class ItemForm extends StatelessWidget {
-  const ItemForm(
-      {super.key,
-      this.nameController,
-      this.quantityController,
-      this.buyingPriceController,
-      this.sellingPriceController,
-      this.barcodeController,
-      this.descriptionController,
-      this.onPressed,
-      required this.buttonText,
-      required this.itemUnitController});
+  const ItemForm({
+    super.key,
+    this.nameController,
+    this.quantityController,
+    this.buyingPriceController,
+    this.sellingPriceController,
+    this.barcodeController,
+    this.descriptionController,
+    this.onPressed,
+    required this.buttonText,
+    required this.itemUnitController,
+  });
 
   final TextEditingController? nameController;
   final TextEditingController? quantityController;
@@ -38,23 +40,31 @@ class ItemForm extends StatelessWidget {
         TextFormField(
           controller: nameController,
           decoration: InputDecoration(labelText: context.loc.name),
-          validator: VValidator.validateEmpty,
+          validator: (value) => VValidator.validateEmpty(context, value),
         ),
         Row(
           children: [
             Flexible(
               flex: 2,
               child: TextFormField(
-                maxLength: 13,
+                textAlign: TextAlign.center,
+                maxLength: 8,
                 controller: quantityController,
                 decoration: InputDecoration(
                     labelText: context.loc.quantity, counterText: ''),
-                keyboardType: TextInputType.number,
-                validator: VValidator.validateDoubleNumber,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                ],
+                validator: (value) =>
+                    VValidator.validateDoubleNumber(context, value),
               ),
             ),
             const SizedBox(width: VSizes.spaceBtwInputFields),
-            ItemUnitSelector(itemUnitController: itemUnitController),
+            ItemUnitSelector(
+              itemUnitController: itemUnitController,
+            ),
           ],
         ),
         Row(
@@ -62,23 +72,34 @@ class ItemForm extends StatelessWidget {
             Flexible(
               child: TextFormField(
                 controller: buyingPriceController,
-                maxLength: 13,
+                textAlign: TextAlign.center,
+                maxLength: 8,
                 decoration: InputDecoration(
                     labelText: context.loc.buyingPrice, counterText: ''),
-                keyboardType: TextInputType.number,
-                validator: VValidator.validateDoubleNumber,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                ],
+                validator: (value) =>
+                    VValidator.validateDoubleNumber(context, value),
               ),
             ),
             const SizedBox(width: VSizes.spaceBtwInputFields),
             Flexible(
               child: TextFormField(
-                maxLength: 13,
+                maxLength: 8,
                 controller: sellingPriceController,
+                textAlign: TextAlign.center,
                 decoration: InputDecoration(
                     labelText: context.loc.sellingPrice, counterText: ''),
-                keyboardType: TextInputType.number,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                ],
                 validator: (value) => VValidator.validateSellingPrice(
-                    value, buyingPriceController!.text),
+                    context, value, buyingPriceController!.text),
               ),
             ),
           ],

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/inventory/widgets/item_form.dart';
 // Import Riverpod provider
 import 'package:invobay/core/database/drift/app_database.dart';
@@ -28,15 +29,16 @@ class EditItemScreen extends ConsumerWidget {
 
   void _loadItemData(BuildContext context, WidgetRef ref) {
     final itemProvider = ref.watch(itemNotifierProvider);
-    final item = itemProvider.firstWhere((item) => item.id == itemId);
 
+    final item = itemProvider.firstWhere((item) => item.id == itemId);
     _nameController.text = item.name;
     _quantityController.text = item.quantity.toString();
     _sellingPriceController.text = item.sellingPrice.toString();
     _buyingPriceController.text = item.buyingPrice.toString();
     _descriptionController.text = item.description ?? '';
     _barcodeController.text = item.barcode ?? '';
-    _itemUnitController.text = item.itemUnit ?? '';
+    _itemUnitController.text =
+        VHelperFunctions.getUnitLabel(context, item.itemUnit ?? '');
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -51,7 +53,8 @@ class EditItemScreen extends ConsumerWidget {
         buyingPrice: drift.Value(double.parse(_buyingPriceController.text)),
         description: drift.Value(_descriptionController.text),
         barcode: drift.Value(_barcodeController.text),
-        itemUnit: drift.Value(_itemUnitController.text),
+        itemUnit: drift.Value(VHelperFunctions.getOriginalUnit(
+            context, _itemUnitController.text)),
       );
 
       final provider = ref.read(itemNotifierProvider.notifier);

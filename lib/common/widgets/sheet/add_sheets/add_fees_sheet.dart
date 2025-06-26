@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
@@ -26,14 +27,15 @@ Future<void> showEditFeeBottomSheet(BuildContext context, WidgetRef ref) async {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Edit Fees', style: Theme.of(context).textTheme.titleLarge),
+              Text(context.loc.addFees,
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: VSizes.spaceBtwSections),
 
               // Shipping Fee
               TextField(
                 controller: shippingController,
                 decoration: InputDecoration(
-                  labelText: 'Shipping Fee',
+                  labelText: context.loc.shippingFee,
                   suffixText: currencySign,
                 ),
                 keyboardType:
@@ -47,8 +49,8 @@ Future<void> showEditFeeBottomSheet(BuildContext context, WidgetRef ref) async {
               // Tax Fee
               TextField(
                 controller: taxController,
-                decoration: const InputDecoration(
-                  labelText: 'Tax Fee',
+                decoration: InputDecoration(
+                  labelText: context.loc.taxFee,
                   suffixText: '%',
                 ),
                 keyboardType:
@@ -65,7 +67,7 @@ Future<void> showEditFeeBottomSheet(BuildContext context, WidgetRef ref) async {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => context.pop(),
-                      child: const Text('Cancel'),
+                      child: Text(context.loc.cancel),
                     ),
                   ),
                   const SizedBox(width: VSizes.spaceBtwItems),
@@ -83,7 +85,7 @@ Future<void> showEditFeeBottomSheet(BuildContext context, WidgetRef ref) async {
 
                         context.pop();
                       },
-                      child: const Text('Save'),
+                      child: Text(context.loc.save),
                     ),
                   ),
                 ],

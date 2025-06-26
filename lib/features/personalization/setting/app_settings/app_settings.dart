@@ -41,8 +41,8 @@ class VAppSettings extends StatelessWidget {
         ),
         VSettingsMenuTile(
           icon: Iconsax.clipboard,
-          title: 'About',
-          subTitle: 'Application Info And Update.',
+          title: context.loc.about,
+          subTitle: context.loc.appInfoAndUpdate,
           onTap: () => context.pushNamed(VRouter.about),
         ),
       ],

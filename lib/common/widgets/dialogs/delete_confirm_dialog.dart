@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
 import '../../../core/utils/helpers/helper_functions.dart';
@@ -35,7 +36,7 @@ class VDeleteConfirmDialog extends StatelessWidget {
                 size: VSizes.iconXl, color: VColors.error),
             const SizedBox(height: VSizes.spaceBtwItems),
             Text(
-              'Confirm Deletion',
+              context.loc.confirmDeletion,
               style: Theme.of(context)
                   .textTheme
                   .titleMedium
@@ -45,10 +46,10 @@ class VDeleteConfirmDialog extends StatelessWidget {
             const SizedBox(height: VSizes.spaceBtwItems),
             Text(
               isGeneral
-                  ? contentText ?? 'Are you sure you want to delete this?'
+                  ? contentText ?? context.loc.areYouSureYouWantToDeleteThis
                   : isCustomer
-                      ? 'Are you sure you want to delete this customer?'
-                      : 'Are you sure you want to delete this supplier?',
+                      ? context.loc.areYouSureYouWantToDeleteThisCustomer
+                      : context.loc.areYouSureYouWantToDeleteThisSupplier,
               style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
@@ -58,7 +59,7 @@ class VDeleteConfirmDialog extends StatelessWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => context.pop(false),
-                    child: const Text('Cancel'),
+                    child: Text(context.loc.cancel),
                   ),
                 ),
                 const SizedBox(width: VSizes.spaceBtwItems),
@@ -70,7 +71,7 @@ class VDeleteConfirmDialog extends StatelessWidget {
                       foregroundColor: Colors.white,
                       side: BorderSide.none,
                     ),
-                    child: const Text('Delete'),
+                    child: Text(context.loc.delete),
                   ),
                 ),
               ],

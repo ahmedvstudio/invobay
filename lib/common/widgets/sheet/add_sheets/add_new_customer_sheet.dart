@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/database/drift/app_database.dart';
 import '../../../../core/providers/common_providers/default_providers.dart';
@@ -36,7 +37,7 @@ class _AddNewCustomerBottomSheetState
     if (!_formKey.currentState!.validate()) return;
 
     Navigator.of(context).pop(input.trim());
-    VToast.success(message: 'Customer added successfully');
+    VToast.success(message: context.loc.customerAddedSuccessfully);
   }
 
   @override
@@ -47,8 +48,8 @@ class _AddNewCustomerBottomSheetState
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const VSectionHeading(
-                title: 'Add New Customer', showActionButton: false),
+            VSectionHeading(
+                title: context.loc.addNewCustomer, showActionButton: false),
             const SizedBox(height: VSizes.spaceBtwSections),
             Form(
               key: _formKey,
@@ -56,11 +57,11 @@ class _AddNewCustomerBottomSheetState
                 controller: _controller,
                 autofocus: true,
                 decoration:
-                    const InputDecoration(hintText: 'Enter customer name'),
+                    InputDecoration(hintText: context.loc.enterCustomerName),
                 onChanged: (val) => setState(() => input = val),
                 onFieldSubmitted: (_) => _submit(),
                 validator: (value) => value == null || value.trim().isEmpty
-                    ? 'Please enter a name'
+                    ? context.loc.pleaseEnterName
                     : null,
               ),
             ),
@@ -70,14 +71,14 @@ class _AddNewCustomerBottomSheetState
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => context.pop(),
-                    child: const Text('Cancel'),
+                    child: Text(context.loc.cancel),
                   ),
                 ),
                 const SizedBox(width: VSizes.spaceBtwItems),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: _submit,
-                    child: const Text('Add'),
+                    child: Text(context.loc.add),
                   ),
                 ),
               ],
@@ -111,7 +112,9 @@ Future<void> addNewCustomerBottomSheet(
       ref.read(customerPhoneProvider.notifier).state = '';
       ref.read(customerAddressProvider.notifier).state = '';
     } catch (e) {
-      VSnackbar.error('Error adding customer: ${e.toString()}');
+      if (context.mounted) {
+        VSnackbar.error('${context.loc.errorAddingCustomer}: ${e.toString()}');
+      }
     }
   }
 }

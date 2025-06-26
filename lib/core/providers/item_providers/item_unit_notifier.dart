@@ -11,6 +11,6 @@ class ItemUnitNotifier extends StateNotifier<String?> {
 
 // Provider for the ItemUnitNotifier
 final itemUnitProvider =
-    StateNotifierProvider<ItemUnitNotifier, String?>((ref) {
+    StateNotifierProvider.autoDispose<ItemUnitNotifier, String?>((ref) {
   return ItemUnitNotifier();
 });

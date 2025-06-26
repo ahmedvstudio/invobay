@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/list_tiles/report_item.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
@@ -22,15 +23,15 @@ class MostSoldItemsBottomSheet extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const VSectionHeading(
-                title: 'Most Sold Items', showActionButton: false),
+            VSectionHeading(
+                title: context.loc.mostSoldItems, showActionButton: false),
             const SizedBox(height: VSizes.spaceBtwItems),
             itemsAsync.when(
               data: (items) {
                 if (items.isEmpty) {
-                  return const Padding(
+                  return Padding(
                     padding: VSpacingStyle.vertical,
-                    child: Text('No items sold yet.'),
+                    child: Text(context.loc.noItemsSoldYet),
                   );
                 }
                 return SizedBox(
@@ -44,7 +45,8 @@ class MostSoldItemsBottomSheet extends ConsumerWidget {
                       return VReportItem(
                           itemNumber: '${index + 1}',
                           itemName: item.name,
-                          subtitle: 'Qty Sold: ${item.totalQuantity}',
+                          subtitle:
+                              '${context.loc.qtySold}: ${item.totalQuantity}',
                           trailing: currencySign +
                               VFormatters.formatPrice(item.totalRevenue));
                     },
@@ -57,7 +59,7 @@ class MostSoldItemsBottomSheet extends ConsumerWidget {
               ),
               error: (e, st) => Padding(
                 padding: VSpacingStyle.vertical,
-                child: Text('Error: $e'),
+                child: Text('${context.loc.error}: $e'),
               ),
             ),
           ],

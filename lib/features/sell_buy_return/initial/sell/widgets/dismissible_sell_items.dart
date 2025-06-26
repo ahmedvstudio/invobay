@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/sell_buy_return/common/invoice_items.dart';
 
 import '../../../../../common/widgets/custom_shapes/dismissible/delete_background.dart';
@@ -50,11 +51,11 @@ class DismissibleSellItems extends ConsumerWidget {
         closeIconColor: VColors.white,
         dismissDirection: DismissDirection.down,
         content: Text(
-          '${removedItem.item.name} removed',
+          '${removedItem.item.name} ${context.loc.removed}',
           style: const TextStyle().apply(color: VColors.white),
         ),
         action: SnackBarAction(
-          label: 'Undo',
+          label: context.loc.undo,
           textColor: VColors.white,
           onPressed: () {
             sellNotifier.addRemovedItem(removedItem);
@@ -114,8 +115,10 @@ class SellItemDetails extends ConsumerWidget {
                       style: Theme.of(context).textTheme.bodyLarge),
               ],
             ),
-            VItemPriceText(
-                price: sellItem.item.sellingPrice * sellItem.quantity),
+            Flexible(
+              child: VItemPriceText(
+                  price: sellItem.item.sellingPrice * sellItem.quantity),
+            ),
           ],
         ),
       ],

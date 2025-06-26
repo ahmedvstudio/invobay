@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -8,6 +9,7 @@ import 'invoice_info.dart';
 import 'invoice_shop_info.dart';
 
 pw.Widget invoHeader({
+  required BuildContext context,
   required SellReceiptsModel receipt,
   required SellPaymentsModel payment,
   CustomerData? customerData,
@@ -44,7 +46,7 @@ pw.Widget invoHeader({
           invoCustomerInfo(customerData: customerData),
 
           /// --> Invoice info
-          invoiceInfo(receipt: receipt, payment: payment),
+          invoiceInfo(receipt: receipt, payment: payment, context: context),
         ],
       ),
     ],

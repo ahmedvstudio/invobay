@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/sell_buy_return/initial/buy/widgets/buy_item_list.dart';
 import 'package:invobay/features/sell_buy_return/initial/buy/widgets/supplier_and_clear.dart';
 
@@ -40,13 +41,13 @@ class BuyScreen extends ConsumerWidget {
           VPrimaryHeaderContainer(
             child: Column(
               children: [
-                const VMainAppBar(
-                  title: 'Buy',
+                VMainAppBar(
+                  title: context.loc.buy,
                   appbarIcon: Iconsax.shopping_cart5,
                 ),
                 const SizedBox(height: VSizes.spaceBtwItems),
                 VSearchContainer(
-                  text: 'Search and Add Items',
+                  text: context.loc.searchAndAddItems,
                   showPrefixIcon: true,
                   onTap: () => showItemsBottomSheet(
                     context: context,
@@ -70,7 +71,9 @@ class BuyScreen extends ConsumerWidget {
                       if (item != null) {
                         ref.read(buyNotifierProvider.notifier).addItem(item);
                       } else {
-                        VToast.warning(message: 'Item not found!');
+                        if (context.mounted) {
+                          VToast.warning(message: context.loc.itemNotFound);
+                        }
                       }
                     }
                   },
@@ -101,8 +104,8 @@ class BuyScreen extends ConsumerWidget {
         isLabelVisible: buyItems.isEmpty ? false : true,
         alignment: isEnglish ? Alignment.topLeft : Alignment.topRight,
         child: VButtons.fab(
-          label: 'Cart',
-          tooltip: 'Proceed to checkout',
+          label: context.loc.cart,
+          tooltip: context.loc.proceedToCheckout,
           icon: CupertinoIcons.cart_badge_plus,
           color: primaryColor,
           onPressed: () {
@@ -117,7 +120,7 @@ class BuyScreen extends ConsumerWidget {
                 },
               );
             } else {
-              VToast.warning(message: 'Your list is Empty!');
+              VToast.warning(message: context.loc.yourListIsEmpty);
             }
           },
         ),

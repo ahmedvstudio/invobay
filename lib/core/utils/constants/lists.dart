@@ -5,12 +5,12 @@ class VLists {
   VLists._();
 
   // --> Item Unit List
-  static List<String> unitList(BuildContext context) => [
-        context.loc.unit_piece,
-        context.loc.unit_kg,
-        context.loc.unit_bag,
-        context.loc.unit_meter,
-        context.loc.unit_liter,
+  static List<String> unitList = [
+        'Piece',
+        'KG',
+        'Bag',
+        'Meter',
+        'Litre',
       ];
 
   // --> Colors
@@ -32,4 +32,14 @@ class VLists {
     {'code': 'en', 'label': 'English'},
     {'code': 'ar', 'label': 'العربية'},
   ];
+
+  //
+  static Map<String, String> notificationLabels(BuildContext context) => {
+        'all': context.loc.allNotifications,
+        'low_stock': context.loc.lowStock,
+        'out_of_stock': context.loc.outOfStock,
+        'sell_checkout': context.loc.sellCheckout,
+        'buy_checkout': context.loc.buyCheckout,
+        'return_checkout': context.loc.returnCheckout,
+      };
 }

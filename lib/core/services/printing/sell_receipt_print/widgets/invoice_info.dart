@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:invobay/core/services/printing/sell_receipt_print/widgets/text_widget.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../../database/drift/app_database.dart';
 import '../../../../utils/formatters/formatters.dart';
@@ -7,6 +9,7 @@ import 'package:pdf/widgets.dart' as pw;
 pw.Widget invoiceInfo({
   required SellReceiptsModel receipt,
   required SellPaymentsModel payment,
+  required BuildContext context,
 }) {
   final currentYear = DateTime.now().year;
   final formattedId = receipt.id.toString().padLeft(4, '0');
@@ -20,8 +23,8 @@ pw.Widget invoiceInfo({
   final data = <String>[
     '$currentYear-$formattedId',
     VFormatters.formatDate(receipt.date),
-    payment.paymentMethod,
-    payment.status,
+    VHelperFunctions.getPaymentMethodLabel(context, payment.paymentMethod),
+    VHelperFunctions.paymentStatusLabel(context, payment.status),
   ];
 
   return pw.Column(

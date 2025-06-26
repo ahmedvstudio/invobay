@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../features/inventory/item_details/widgets/meta_data_section.dart';
@@ -31,12 +32,12 @@ class MoreItemInfoSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'More Info',
+            context.loc.moreInfo,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: VSizes.spaceBtwItems),
           VMetaDataSection(
-            tag: 'Buying Total',
+            tag: context.loc.buyingTotal,
             tagBackgroundColor: VColors.info,
             tagTextColor: VColors.white,
             showIcon: false,
@@ -47,7 +48,7 @@ class MoreItemInfoSheet extends StatelessWidget {
           ),
           const SizedBox(height: VSizes.spaceBtwItems),
           VMetaDataSection(
-            tag: 'Selling Total',
+            tag: context.loc.sellingTotal,
             tagBackgroundColor: VColors.info,
             tagTextColor: VColors.white,
             showIcon: false,
@@ -58,7 +59,7 @@ class MoreItemInfoSheet extends StatelessWidget {
           ),
           const Divider(),
           VMetaDataSection(
-            tag: 'Profit Margin',
+            tag: context.loc.profitMargin,
             tagBackgroundColor: VColors.success,
             tagTextColor: VColors.white,
             showIcon: false,
@@ -72,7 +73,7 @@ class MoreItemInfoSheet extends StatelessWidget {
             width: double.infinity,
             child: OutlinedButton(
               onPressed: () => context.pop(),
-              child: const Text('Close'),
+              child: Text(context.loc.close),
             ),
           ),
         ],

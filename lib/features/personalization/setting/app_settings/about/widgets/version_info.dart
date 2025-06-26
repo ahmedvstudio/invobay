@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../../common/widgets/list_tiles/settings_menu_tile.dart';
 import '../../../../../../core/utils/helpers/helper_functions.dart';
@@ -16,22 +17,23 @@ class VersionInfo extends StatelessWidget {
       future: VHelperFunctions.getAppVersion(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const VSettingsMenuTile(
+          return VSettingsMenuTile(
             icon: Iconsax.info_circle,
-            title: 'Version',
-            subTitle: 'Loading...',
+            title: context.loc.version,
+            subTitle: '${context.loc.loading}...',
           );
         } else if (snapshot.hasError) {
-          Vlogger.error('Error in getAppVersion: ${snapshot.error}');
-          return const VSettingsMenuTile(
+          Vlogger.error(
+              '${context.loc.errorGettingAppVersion} ${snapshot.error}');
+          return VSettingsMenuTile(
             icon: Iconsax.info_circle,
-            title: 'Version',
-            subTitle: 'Failed to load version',
+            title: context.loc.version,
+            subTitle: context.loc.failedToLoadVersion,
           );
         }
         return VSettingsMenuTile(
           icon: Iconsax.info_circle,
-          title: 'Version',
+          title: context.loc.version,
           subTitle: snapshot.data!,
         );
       },

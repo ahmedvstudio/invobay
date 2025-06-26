@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:invobay/core/database/drift/app_database.dart';
+import 'package:invobay/core/providers/localization_related_providers/localization_provider.dart';
 import 'package:invobay/core/repository/item_dao.dart';
 import 'package:drift/drift.dart';
 
@@ -158,6 +159,7 @@ class ItemNotifier extends StateNotifier<List<Item>> {
     final flagsBox = Hive.box(VHive.stockNotificationFlagBox);
     final threshold = ref.watch(lowStockThresholdProvider);
     final toggles = ref.read(notificationToggleProvider);
+    final loc = ref.watch(localizationProvider);
     for (final item in state) {
       final lowStockFlagKey = 'low_${item.id}';
       final outOfStockFlagKey = 'out_${item.id}';
@@ -165,7 +167,7 @@ class ItemNotifier extends StateNotifier<List<Item>> {
       if (item.quantity == 0) {
         if (toggles['out_of_stock'] == true &&
             !(flagsBox.get(outOfStockFlagKey, defaultValue: false) as bool)) {
-          await showOutOfStockNotification(item.name, item.id);
+          await showOutOfStockNotification(item.name, item.id, loc);
           flagsBox.put(outOfStockFlagKey, true);
         }
         flagsBox.put(lowStockFlagKey, false);
@@ -173,7 +175,7 @@ class ItemNotifier extends StateNotifier<List<Item>> {
         if (toggles['low_stock'] == true &&
             !(flagsBox.get(lowStockFlagKey, defaultValue: false) as bool)) {
           await showLowStockNotification(
-              item.name, item.quantity.toInt(), item.id);
+              item.name, item.quantity.toInt(), item.id, loc);
           flagsBox.put(lowStockFlagKey, true);
         }
         flagsBox.put(outOfStockFlagKey, false);

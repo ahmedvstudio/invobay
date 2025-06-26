@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/reports/widgets/return_section/widgets/most_returned_sheet.dart';
 
 import '../../../../common/widgets/list_tiles/report_list_tile.dart';
@@ -15,10 +16,10 @@ class VReturnsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const VSectionHeading(title: 'Returns', showActionButton: false),
+        VSectionHeading(title: context.loc.returns, showActionButton: false),
         const SizedBox(height: VSizes.spaceBtwItems),
         VReportListTile(
-          title: 'Most returned items',
+          title: context.loc.mostReturnedItems,
           icon: Iconsax.info_circle,
           onTap: () {
             showModalBottomSheet(

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/messages/toast.dart';
 import 'package:invobay/core/utils/validators/validation.dart';
 
@@ -31,27 +32,30 @@ Future<void> showAddNewItemBottomSheet(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Add New Item',
+                      context.loc.addNewItem,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: VSizes.spaceBtwItems),
                     TextFormField(
                       controller: nameController,
-                      decoration: const InputDecoration(labelText: 'Item Name'),
-                      validator: VValidator.validateEmpty,
+                      decoration: InputDecoration(labelText: context.loc.name),
+                      validator: (value) =>
+                          VValidator.validateEmpty(context, value),
                     ),
                     const SizedBox(height: VSizes.spaceBtwInputFields),
                     TextFormField(
                       controller: quantityController,
                       keyboardType:
                           const TextInputType.numberWithOptions(decimal: true),
-                      validator: VValidator.validateDoubleNumber,
+                      validator: (value) =>
+                          VValidator.validateDoubleNumber(context, value),
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
                           RegExp(r'^\d*\.?\d{0,2}'),
                         ),
                       ],
-                      decoration: const InputDecoration(labelText: 'Quantity'),
+                      decoration:
+                          InputDecoration(labelText: context.loc.quantity),
                     ),
                     const SizedBox(height: VSizes.spaceBtwInputFields),
                     Row(
@@ -61,13 +65,13 @@ Future<void> showAddNewItemBottomSheet(
                             controller: buyingPriceController,
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true),
-                            validator: VValidator.validateDoubleNumber,
-                            inputFormatters: [
+           validator: (value) =>
+                          VValidator.validateDoubleNumber(context, value),                            inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                   RegExp(r'^\d*\.?\d{0,2}')),
                             ],
-                            decoration: const InputDecoration(
-                                labelText: 'Buying Price'),
+                            decoration: InputDecoration(
+                                labelText: context.loc.buyingPrice),
                           ),
                         ),
                         const SizedBox(width: VSizes.spaceBtwInputFields),
@@ -76,13 +80,13 @@ Future<void> showAddNewItemBottomSheet(
                             controller: sellingPriceController,
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true),
-                            validator: VValidator.validateDoubleNumber,
-                            inputFormatters: [
+           validator: (value) =>
+                          VValidator.validateDoubleNumber(context, value),                            inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                   RegExp(r'^\d*\.?\d{0,2}')),
                             ],
-                            decoration: const InputDecoration(
-                                labelText: 'Selling Price'),
+                            decoration: InputDecoration(
+                                labelText: context.loc.sellingPrice),
                           ),
                         ),
                       ],
@@ -93,7 +97,7 @@ Future<void> showAddNewItemBottomSheet(
                         Expanded(
                           child: OutlinedButton(
                             onPressed: () => context.pop(),
-                            child: const Text('Cancel'),
+                            child: Text(context.loc.cancel),
                           ),
                         ),
                         const SizedBox(width: VSizes.spaceBtwItems),
@@ -116,8 +120,8 @@ Future<void> showAddNewItemBottomSheet(
                                     buyingPrice <= 0 ||
                                     sellingPrice <= 0) {
                                   VToast.error(
-                                      message:
-                                          'Please fill all the fields correctly');
+                                      message: context
+                                          .loc.pleaseFillAllTheFieldsCorrectly);
                                   return;
                                 }
 
@@ -133,10 +137,10 @@ Future<void> showAddNewItemBottomSheet(
                                 context.pop();
                                 context.pop();
                                 VToast.success(
-                                    message: 'Item added successfully');
+                                    message: context.loc.itemAddedSuccessfully);
                               }
                             },
-                            child: const Text('Add'),
+                            child: Text(context.loc.add),
                           ),
                         ),
                       ],

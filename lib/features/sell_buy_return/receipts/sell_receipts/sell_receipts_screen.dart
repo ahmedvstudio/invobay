@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:intl/intl.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/sell_buy_return/receipts/sell_receipts/widgets/sell_bottom_appbar_select_all_and_delete.dart';
 
@@ -34,8 +35,8 @@ class SellReceiptsScreen extends ConsumerWidget {
           VPrimaryHeaderContainer(
             child: Column(
               children: [
-                const VMainAppBar(
-                  title: 'Sell Receipts',
+                VMainAppBar(
+                  title: context.loc.sellReceipts,
                   appbarIcon: Iconsax.tag5,
                 ),
                 Row(
@@ -48,7 +49,7 @@ class SellReceiptsScreen extends ConsumerWidget {
                             onPressed: () =>
                                 VReceiptQRScan.scanQRCode(context, receipts),
                             label: Text(
-                              'Scan QR Code',
+                              context.loc.scanQRCode,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
@@ -66,7 +67,7 @@ class SellReceiptsScreen extends ConsumerWidget {
                       loading: () => TextButton.icon(
                         onPressed: null,
                         label: Text(
-                          'Scan QR Code',
+                          context.loc.scanQRCode,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         icon: const Icon(Iconsax.scan_barcode),
@@ -74,7 +75,7 @@ class SellReceiptsScreen extends ConsumerWidget {
                       error: (_, __) => TextButton.icon(
                         onPressed: null,
                         label: Text(
-                          'Scan QR Code',
+                          context.loc.scanQRCode,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         icon: const Icon(Iconsax.scan_barcode),
@@ -83,7 +84,9 @@ class SellReceiptsScreen extends ConsumerWidget {
                     TextButton.icon(
                       onPressed: editController.toggleEditMode,
                       label: Text(
-                        editState.isEditMode ? 'Done' : 'Edit',
+                        editState.isEditMode
+                            ? context.loc.done
+                            : context.loc.edit,
                         style: Theme.of(context).textTheme.bodyMedium!.apply(
                               color: VColors.white.withValues(alpha: 0.8),
                             ),
@@ -134,7 +137,7 @@ class SellReceiptsScreen extends ConsumerWidget {
               },
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (error, stackTrace) =>
-                  Center(child: Text("Error: $error")),
+                  Center(child: Text("${context.loc.error}: $error")),
             ),
           ),
         ],

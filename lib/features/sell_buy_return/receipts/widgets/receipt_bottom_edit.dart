@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../common/widgets/icons/circular_icon.dart';
 import '../../../../core/utils/constants/colors.dart';
@@ -23,7 +24,7 @@ class VReceiptBottomEdit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: VSizes.defaultSpace, vertical: VSizes.defaultSpace / 2),
+          horizontal: VSizes.defaultSpace, vertical: VSizes.defaultSpace),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -48,7 +49,7 @@ class VReceiptBottomEdit extends StatelessWidget {
               width: double.infinity,
               child: OutlinedButton.icon(
                 onPressed: changePayment,
-                label: const Text('New Payment'),
+                label: Text(context.loc.newPayment),
                 icon: Icon(Iconsax.status_up, color: statusIconColor),
               ),
             ),

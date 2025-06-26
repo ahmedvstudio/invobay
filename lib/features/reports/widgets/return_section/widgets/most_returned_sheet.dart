@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/list_tiles/report_item.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../common/widgets/text/section_heading.dart';
 import '../../../../../core/providers/report_providers/report_related_providers.dart';
@@ -21,15 +22,15 @@ class MostReturnedItemsBottomSheet extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const VSectionHeading(
-                title: 'Most Returned Items', showActionButton: false),
+            VSectionHeading(
+                title: context.loc.mostReturnedItems, showActionButton: false),
             const SizedBox(height: VSizes.spaceBtwItems),
             mostReturnedAsync.when(
               data: (items) {
                 if (items.isEmpty) {
-                  return const Padding(
+                  return Padding(
                     padding: VSpacingStyle.vertical,
-                    child: Text('No returned items found.'),
+                    child: Text(context.loc.noReturnedItemsFound),
                   );
                 }
                 return SizedBox(
@@ -43,8 +44,8 @@ class MostReturnedItemsBottomSheet extends ConsumerWidget {
                       return VReportItem(
                           itemNumber: '${index + 1}',
                           itemName: item.itemName,
-                          subtitle: 'returned',
-                          trailing: '${item.totalReturned} pcs');
+                          subtitle: context.loc.returned,
+                          trailing: '${item.totalReturned} ${context.loc.pcs}');
                     },
                   ),
                 );
@@ -55,7 +56,7 @@ class MostReturnedItemsBottomSheet extends ConsumerWidget {
               ),
               error: (err, _) => Padding(
                 padding: VSpacingStyle.vertical,
-                child: Text('Error: $err'),
+                child: Text('${context.loc.error}: $err'),
               ),
             ),
           ],

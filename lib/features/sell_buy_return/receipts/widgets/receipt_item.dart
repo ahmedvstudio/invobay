@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/text/item_price_text.dart';
 import '../../../../core/utils/constants/colors.dart';
@@ -37,7 +38,7 @@ class VReceiptItem extends ConsumerWidget {
                 SizedBox(
                   width: VSizes.leftSideSpace,
                   child: VMetaDataSection(
-                    tag: itemUnit,
+                    tag: VHelperFunctions.getUnitLabel(context, itemUnit ?? ''),
                     tagBackgroundColor: VColors.info,
                     tagTextColor: VColors.white,
                     showChild: false,

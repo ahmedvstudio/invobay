@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../common/widgets/sheet/add_sheets/add_new_customer_sheet.dart';
 import '../../../../../core/providers/common_providers/default_providers.dart';
@@ -43,7 +44,7 @@ class VCustomerAndClear extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Select a Customer',
+                              Text(context.loc.selectCustomer,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall),
@@ -127,7 +128,7 @@ class VCustomerAndClear extends StatelessWidget {
                 }
               },
               child: Text(
-                'Customer:\n$customerName',
+                '${context.loc.customer}:\n$customerName',
                 style: const TextStyle(color: VColors.white),
               ),
             );
@@ -135,9 +136,9 @@ class VCustomerAndClear extends StatelessWidget {
         ),
         TextButton(
           onPressed: clearAllOnPressed,
-          child: const Text(
-            'Clear all',
-            style: TextStyle(color: VColors.white),
+          child: Text(
+            context.loc.clearAll,
+            style: const TextStyle(color: VColors.white),
           ),
         ),
       ],

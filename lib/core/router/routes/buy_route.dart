@@ -22,7 +22,6 @@ List<GoRoute> buyRoutes = [
 
           return MaterialPage(
             child: BuyCheckoutScreen(boughtItems: boughtItems),
-            canPop: false,
             fullscreenDialog: true,
           );
         },

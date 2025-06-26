@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/common/widgets/list_tiles/report_item.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../../../common/styles/spacing_style.dart';
@@ -23,15 +24,15 @@ class CustomerDebtsBottomSheet extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const VSectionHeading(
-                title: 'Customer Debts', showActionButton: false),
+            VSectionHeading(
+                title: context.loc.customerDebts, showActionButton: false),
             const SizedBox(height: VSizes.spaceBtwItems),
             debtorsAsync.when(
               data: (debtors) {
                 if (debtors.isEmpty) {
-                  return const Padding(
+                  return Padding(
                     padding: VSpacingStyle.vertical,
-                    child: Text('No debtors found.'),
+                    child: Text(context.loc.noDebtorsFound),
                   );
                 }
                 return SizedBox(
@@ -45,7 +46,7 @@ class CustomerDebtsBottomSheet extends ConsumerWidget {
                       return VReportItem(
                         itemNumber: '${index + 1}',
                         itemName: debtor.name,
-                        subtitle: 'Debt',
+                        subtitle: context.loc.debt,
                         trailing: currencySign +
                             VFormatters.formatPrice(debtor.totalDebt),
                         trailingColor: VColors.error,
@@ -60,7 +61,7 @@ class CustomerDebtsBottomSheet extends ConsumerWidget {
               ),
               error: (e, st) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32),
-                child: Text('Error: $e'),
+                child: Text('${context.loc.error}: $e'),
               ),
             ),
           ],

@@ -69,7 +69,7 @@ List<GoRoute> inventoryRoutes = [
                   sellPrice: item.sellingPrice,
                   barcode: item.barcode,
                   description: item.description,
-                  itemUnit: item.itemUnit,
+                  itemUnit: item.itemUnit ?? 'Piece',
                 );
               },
             ),

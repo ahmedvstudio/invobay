@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
-import 'package:invobay/features/personalization/setting/app_settings/about/license/widgets/load_licences.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
+import 'package:invobay/features/personalization/setting/app_settings/about/license/widgets/load_licenses.dart';
 
 import '../../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../../core/router/router_constant.dart';
@@ -15,8 +16,8 @@ class OpenSourceLicensesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const VAppBar(
-          title: Text('Open Source Licenses'), showBackArrow: true),
+      appBar: VAppBar(
+          title: Text(context.loc.openSourceLicense), showBackArrow: true),
       body: FutureBuilder<List<Package>>(
         future: _licenses,
         builder: (context, snapshot) {
@@ -34,7 +35,7 @@ class OpenSourceLicensesScreen extends StatelessWidget {
                 trailing:
                     package.version.isNotEmpty ? Text(package.version) : null,
                 onTap: () =>
-                    context.pushNamed(VRouter.licenceDetail, extra: package),
+                    context.pushNamed(VRouter.licenseDetail, extra: package),
               );
             },
           );

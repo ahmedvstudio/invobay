@@ -1,11 +1,12 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:invobay/generated/l10n.dart';
 import '../../../models/notifications/notification_model.dart';
 import '../../../utils/constants/hive_box_strings.dart';
 import '../notification_initializer.dart';
 
 Future<void> showLowStockNotification(
-    String itemName, int quantity, int itemId) async {
+    String itemName, int quantity, int itemId, S loc) async {
   const androidDetails = AndroidNotificationDetails(
     'low_stock_channel',
     'Low Stock Notification',
@@ -17,8 +18,8 @@ Future<void> showLowStockNotification(
 
   await flutterLocalNotificationsPlugin.show(
     1000 + itemId,
-    'Low Stock Alert',
-    '$itemName is low on stock ($quantity left).',
+    loc.lowStockAlert,
+    loc.lowStockItemWithQuantity(itemName, quantity),
     details,
     payload: 'low_stock',
   );
@@ -32,7 +33,8 @@ Future<void> showLowStockNotification(
   ).toMap());
 }
 
-Future<void> showOutOfStockNotification(String itemName, int itemId) async {
+Future<void> showOutOfStockNotification(
+    String itemName, int itemId, S loc) async {
   const androidDetails = AndroidNotificationDetails(
     'out_of_stock_channel',
     'Out of Stock Notification',
@@ -44,8 +46,8 @@ Future<void> showOutOfStockNotification(String itemName, int itemId) async {
 
   await flutterLocalNotificationsPlugin.show(
     2000 + itemId,
-    'Out of Stock Alert',
-    '$itemName is out of stock!',
+    loc.outOfStockAlert,
+    loc.outOfStockItemWithName(itemName),
     details,
     payload: 'out_of_stock',
   );

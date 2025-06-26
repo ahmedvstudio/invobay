@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/models/sell_related_model/sell_model.dart';
-import 'package:invobay/core/providers/common_providers/reset_default_providers.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../../common/widgets/appbar/custom_appbar.dart';
@@ -35,10 +33,6 @@ class SellCheckoutScreen extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>();
   final List<SellItem> soldItems;
 
-  String _determinePaymentStatus(double debtAmount) {
-    return debtAmount == 0 ? 'Completed' : 'Pending';
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = VHelperFunctions.isDarkMode(context);
@@ -50,30 +44,13 @@ class SellCheckoutScreen extends ConsumerWidget {
     final customerId = ref.watch(customerIDProvider);
     final paidAmountController = ref.watch(paidAmountControllerProvider);
     final discountAmount = ref.watch(discountProvider);
-    final sellNotifier = ref.read(sellNotifierProvider.notifier);
     final total = ref.watch(totalAmountProvider);
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            VCustomAppBar(
-              text: 'Checkout Review',
-              showBackArrow: false,
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    context.pop();
-                    sellNotifier.clearCart();
-                    resetProviders(ref);
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.xmark,
-                    color: VColors.white,
-                  ),
-                )
-              ],
-            ),
+            VCustomAppBar(text: context.loc.checkoutReview),
             Padding(
               padding: const EdgeInsets.all(VSizes.defaultSpace),
               child: Column(
@@ -129,7 +106,7 @@ class SellCheckoutScreen extends ConsumerWidget {
           children: [
             Flexible(
               child: Text(
-                  'Total: $currencySign${VFormatters.formatPrice(total)}',
+                  '${context.loc.total}: $currencySign${VFormatters.formatPrice(total)}',
                   style: Theme.of(context).textTheme.headlineSmall),
             ),
             ElevatedButton.icon(
@@ -146,11 +123,12 @@ class SellCheckoutScreen extends ConsumerWidget {
                   if (paidAmount > total) {
                     // Show error message
                     VSnackbar.error(
-                        'Exceed total amount: $currencySign${VFormatters.formatPrice(total)}');
+                        '${context.loc.exceedTotalAmount}: $currencySign${VFormatters.formatPrice(total)}');
 
                     return;
                   }
-                  String paymentStatus = _determinePaymentStatus(debtAmount);
+                  String paymentStatus =
+                      VHelperFunctions.paymentStatus(debtAmount);
 
                   showSellCheckoutBottomSheet(
                     context: context,
@@ -170,7 +148,7 @@ class SellCheckoutScreen extends ConsumerWidget {
                   );
                 }
               },
-              label: const Text('Checkout'),
+              label: Text(context.loc.checkout),
             ),
           ],
         ),

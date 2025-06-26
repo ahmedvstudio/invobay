@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/personalization/setting/shop_settings/vault/widgets/vault_buttons.dart';
 
 import '../../../../../common/styles/spacing_style.dart';
@@ -23,22 +26,23 @@ class VaultScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vaultState = ref.watch(vaultDetailNotifierProvider(vaultId));
-
+    final locale = ref.watch(localeProvider);
+    final isEnglish = VHelperFunctions.isEnglish(locale);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const VAppBar(
+            VAppBar(
               showBackArrow: true,
-              title: Text('Vault / Expense'),
+              title: Text(context.loc.vaultExpense),
             ),
             const SizedBox(height: VSizes.spaceBtwItems),
             vaultState.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) => Text('Error: $err'),
+              error: (err, stack) => Text('${context.loc.error}: $err'),
               data: (detail) {
                 if (detail == null) {
-                  return const Center(child: Text("Vault not found"));
+                  return Center(child: Text(context.loc.vaultNotFound));
                 }
 
                 return Padding(
@@ -48,7 +52,7 @@ class VaultScreen extends ConsumerWidget {
                       Stack(
                         children: [
                           VSummaryCard(
-                            title: 'Vault Balance',
+                            title: context.loc.vaultBalance,
                             vaultAmount: detail.vault.amountOnHand,
                             amount: detail.currentBalance,
                             icon: Iconsax.money_recive,
@@ -56,7 +60,8 @@ class VaultScreen extends ConsumerWidget {
                           ),
                           Positioned(
                             top: 0,
-                            right: 0,
+                            right: isEnglish ? 0 : null,
+                            left: isEnglish ? null : 0,
                             child: IconButton(
                               onPressed: () => showVaultEditBottomSheet(
                                 context,
@@ -78,7 +83,7 @@ class VaultScreen extends ConsumerWidget {
                         children: [
                           Expanded(
                             child: VSummaryCard(
-                              title: 'Total In',
+                              title: context.loc.totalIn,
                               amount: detail.totalAdded,
                               icon: Iconsax.money_recive,
                               color: VColors.success,
@@ -87,7 +92,7 @@ class VaultScreen extends ConsumerWidget {
                           const SizedBox(width: VSizes.spaceBtwItems),
                           Expanded(
                             child: VSummaryCard(
-                              title: 'Total Out',
+                              title: context.loc.totalOut,
                               amount: detail.totalReduced,
                               icon: Iconsax.money_send,
                               color: VColors.error,

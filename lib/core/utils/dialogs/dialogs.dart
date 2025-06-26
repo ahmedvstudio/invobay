@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../common/styles/spacing_style.dart';
@@ -32,7 +33,7 @@ class VDialogs {
             width: double.infinity,
             child: OutlinedButton(
               onPressed: () => context.pop(ctx),
-              child: const Text('OK'),
+              child: Text(context.loc.ok),
             ),
           ),
         ],

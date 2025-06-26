@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/providers/return_providers/return_related_providers.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/core/utils/messages/toast.dart';
 import 'package:invobay/features/sell_buy_return/initial/return/widgets/returned_item_list.dart';
@@ -41,13 +42,13 @@ class ReturnsScreen extends ConsumerWidget {
           VPrimaryHeaderContainer(
             child: Column(
               children: [
-                const VMainAppBar(
-                  title: 'Return',
+                VMainAppBar(
+                  title: context.loc.returns,
                   appbarIcon: Iconsax.shopping_bag,
                 ),
                 const SizedBox(height: VSizes.spaceBtwItems),
                 VSearchContainer(
-                  text: 'Search and Add Items',
+                  text: context.loc.searchAndAddItems,
                   showPrefixIcon: true,
                   onTap: () => showItemsBottomSheet(
                     context: context,
@@ -71,7 +72,9 @@ class ReturnsScreen extends ConsumerWidget {
                       if (item != null) {
                         ref.read(returnNotifierProvider.notifier).addItem(item);
                       } else {
-                        VToast.warning(message: 'Item not found!');
+                        if (context.mounted) {
+                          VToast.warning(message: context.loc.itemNotFound);
+                        }
                       }
                     }
                   },
@@ -81,9 +84,9 @@ class ReturnsScreen extends ConsumerWidget {
                   child: TextButton(
                     onPressed: () =>
                         ref.read(buyNotifierProvider.notifier).clearCart(),
-                    child: const Text(
-                      'Clear all',
-                      style: TextStyle(color: VColors.white),
+                    child: Text(
+                      context.loc.clearAll,
+                      style: const TextStyle(color: VColors.white),
                     ),
                   ),
                 ),
@@ -109,8 +112,8 @@ class ReturnsScreen extends ConsumerWidget {
         isLabelVisible: returnItems.isEmpty ? false : true,
         alignment: isEnglish ? Alignment.topLeft : Alignment.topRight,
         child: VButtons.fab(
-          label: 'Cart',
-          tooltip: 'Proceed to checkout',
+          label: context.loc.cart,
+          tooltip: context.loc.proceedToCheckout,
           icon: CupertinoIcons.cart_badge_plus,
           color: primaryColor,
           onPressed: () {
@@ -125,7 +128,7 @@ class ReturnsScreen extends ConsumerWidget {
                 },
               );
             } else {
-              VToast.warning(message: 'Your list is Empty!');
+              VToast.warning(message: context.loc.yourListIsEmpty);
             }
           },
         ),

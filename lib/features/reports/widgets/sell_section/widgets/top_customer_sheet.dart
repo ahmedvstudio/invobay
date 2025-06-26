@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/list_tiles/report_item.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
@@ -22,15 +23,15 @@ class TopCustomersBottomSheet extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const VSectionHeading(
-                title: 'Top Customers', showActionButton: false),
+            VSectionHeading(
+                title: context.loc.topCostumers, showActionButton: false),
             const SizedBox(height: VSizes.spaceBtwItems),
             topCustomersAsync.when(
               data: (customers) {
                 if (customers.isEmpty) {
-                  return const Padding(
+                  return Padding(
                     padding: VSpacingStyle.vertical,
-                    child: Text('No data available.'),
+                    child: Text(context.loc.noDataAvailable),
                   );
                 }
                 return SizedBox(
@@ -44,7 +45,7 @@ class TopCustomersBottomSheet extends ConsumerWidget {
                       return VReportItem(
                           itemNumber: '${index + 1}',
                           itemName: customer.name,
-                          subtitle: 'Top',
+                          subtitle: context.loc.top,
                           trailing: currencySign +
                               VFormatters.formatPrice(customer.totalSpent));
                     },
@@ -57,7 +58,7 @@ class TopCustomersBottomSheet extends ConsumerWidget {
               ),
               error: (e, st) => Padding(
                 padding: VSpacingStyle.vertical,
-                child: Text('Error: $e'),
+                child: Text('${context.loc.error}: $e'),
               ),
             ),
           ],

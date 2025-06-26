@@ -1,6 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:invobay/core/providers/localization_related_providers/localization_provider.dart';
 import '../../../models/notifications/notification_model.dart';
 import '../../../providers/notification_providers/notification_related_provider.dart';
 import '../../../utils/constants/hive_box_strings.dart';
@@ -9,29 +10,31 @@ import '../notification_initializer.dart';
 
 Future<void> showSellCheckoutNotification(
     double totalPrice, WidgetRef ref) async {
+  final loc = ref.watch(localizationProvider);
   final toggles = ref.read(notificationToggleProvider);
   if (toggles['sell_checkout'] == true) {
     await _showCheckoutNotification(
       id: 3000,
-      title: 'Sell Checkout Successful',
-      body:
-          'Selling completed successfully. Total: ${VFormatters.formatPrice(totalPrice)}',
+      title: loc.sellCheckoutSuccessful,
+      body: loc
+          .completedSuccessfullyWithTotal(VFormatters.formatPrice(totalPrice)),
       type: 'sell_checkout',
       amount: totalPrice,
-      message: 'Selling completed successfully.',
+      message: loc.sellCheckoutSuccessful,
     );
   }
 }
 
 Future<void> showBuyCheckoutNotification(
     double totalPrice, WidgetRef ref) async {
+  final loc = ref.watch(localizationProvider);
   final toggles = ref.read(notificationToggleProvider);
   if (toggles['buy_checkout'] == true) {
     await _showCheckoutNotification(
       id: 3001,
-      title: 'Buy Checkout Successful',
-      body:
-          'Buying completed successfully. Total: ${VFormatters.formatPrice(totalPrice)}',
+      title: loc.buyCheckoutSuccessful,
+      body: loc
+          .completedSuccessfullyWithTotal(VFormatters.formatPrice(totalPrice)),
       type: 'buy_checkout',
       amount: totalPrice,
       message: 'Buying completed successfully.',
@@ -41,13 +44,14 @@ Future<void> showBuyCheckoutNotification(
 
 Future<void> showReturnCheckoutNotification(
     double totalPrice, WidgetRef ref) async {
+  final loc = ref.watch(localizationProvider);
   final toggles = ref.read(notificationToggleProvider);
   if (toggles['return_checkout'] == true) {
     await _showCheckoutNotification(
       id: 3002,
-      title: 'Return Checkout Successful',
-      body:
-          'Return completed successfully. Amount: ${VFormatters.formatPrice(totalPrice)}',
+      title: loc.returnCheckoutSuccessful,
+      body: loc
+          .completedSuccessfullyWithTotal(VFormatters.formatPrice(totalPrice)),
       type: 'return_checkout',
       amount: totalPrice,
       message: 'Return completed successfully.',

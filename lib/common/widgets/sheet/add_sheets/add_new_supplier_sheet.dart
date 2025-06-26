@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import '../../../../core/database/drift/app_database.dart';
 import '../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../core/providers/supplier_providers/supplier_related_providers.dart';
@@ -34,7 +35,7 @@ class _AddNewSupplierBottomSheetState
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
     context.pop(input.trim());
-    VToast.success(message: 'Supplier added successfully');
+    VToast.success(message: context.loc.supplierAddedSuccessfully);
   }
 
   @override
@@ -45,8 +46,8 @@ class _AddNewSupplierBottomSheetState
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const VSectionHeading(
-                title: 'Add New Supplier', showActionButton: false),
+            VSectionHeading(
+                title: context.loc.addNewSupplier, showActionButton: false),
             const SizedBox(height: VSizes.spaceBtwSections),
             Form(
               key: _formKey,
@@ -54,11 +55,11 @@ class _AddNewSupplierBottomSheetState
                 controller: _controller,
                 autofocus: true,
                 decoration:
-                    const InputDecoration(hintText: 'Enter supplier name'),
+                    InputDecoration(hintText: context.loc.enterSupplierName),
                 onChanged: (val) => setState(() => input = val),
                 onFieldSubmitted: (_) => _submit(),
                 validator: (value) => value == null || value.trim().isEmpty
-                    ? 'Please enter a name'
+                    ? context.loc.pleaseEnterName
                     : null,
               ),
             ),
@@ -68,14 +69,14 @@ class _AddNewSupplierBottomSheetState
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => context.pop(),
-                    child: const Text('Cancel'),
+                    child: Text(context.loc.cancel),
                   ),
                 ),
                 const SizedBox(width: VSizes.spaceBtwItems),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: _submit,
-                    child: const Text('Add'),
+                    child: Text(context.loc.add),
                   ),
                 ),
               ],
@@ -109,7 +110,9 @@ Future<void> addNewSupplierBottomSheet(
       ref.read(supplierPhoneProvider.notifier).state = '';
       ref.read(supplierAddressProvider.notifier).state = '';
     } catch (e) {
-      VSnackbar.error('Error adding supplier: ${e.toString()}');
+      if (context.mounted) {
+        VSnackbar.error('${context.loc.errorLoadingSupplier}: ${e.toString()}');
+      }
     }
   }
 }

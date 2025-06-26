@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../core/router/router_constant.dart';
@@ -9,6 +11,7 @@ import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/hive_box_strings.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/constants/text_strings.dart';
+import '../../../../core/utils/dialogs/dialogs.dart';
 import '../../../../core/utils/helpers/helper_functions.dart';
 
 class OnBoardingFooter extends ConsumerWidget {
@@ -41,27 +44,37 @@ class OnBoardingFooter extends ConsumerWidget {
               child: Text.rich(
                 TextSpan(children: [
                   TextSpan(
-                      text: '${VText.iAgreeTo} ',
+                      text: '${context.loc.iAgreeTo} ',
                       style: Theme.of(context).textTheme.bodySmall),
                   TextSpan(
-                      text: VText.privacyPolicy,
-                      style: Theme.of(context).textTheme.bodyMedium!.apply(
-                            color: isDark ? VColors.white : VColors.primary,
-                            decoration: TextDecoration.underline,
-                            decorationColor:
-                                isDark ? VColors.white : VColors.primary,
-                          )),
+                    text: context.loc.privacyPolicy,
+                    style: Theme.of(context).textTheme.bodyMedium!.apply(
+                          color: isDark ? VColors.white : VColors.primary,
+                          decoration: TextDecoration.underline,
+                          decorationColor:
+                              isDark ? VColors.white : VColors.primary,
+                        ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => VDialogs.ok(
+                          context,
+                          context.loc.privacyPolicy,
+                          VText.privacyPolicyMessage),
+                  ),
                   TextSpan(
-                      text: ' ${VText.and} ',
+                      text: ' ${context.loc.and} ',
                       style: Theme.of(context).textTheme.bodySmall),
                   TextSpan(
-                      text: VText.termsOfUse,
-                      style: Theme.of(context).textTheme.bodyMedium!.apply(
-                            color: isDark ? VColors.white : VColors.primary,
-                            decoration: TextDecoration.underline,
-                            decorationColor:
-                                isDark ? VColors.white : VColors.primary,
-                          )),
+                    text: context.loc.termsOfUse,
+                    style: Theme.of(context).textTheme.bodyMedium!.apply(
+                          color: isDark ? VColors.white : VColors.primary,
+                          decoration: TextDecoration.underline,
+                          decorationColor:
+                              isDark ? VColors.white : VColors.primary,
+                        ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => VDialogs.ok(context,
+                          context.loc.termsOfUse, VText.termsOfUseMessage),
+                  ),
                 ]),
               ),
             ),
@@ -80,7 +93,7 @@ class OnBoardingFooter extends ConsumerWidget {
                     }
                   }
                 : null,
-            child: const Text('Continue'),
+            child: Text(context.loc.continue1),
           ),
         ),
       ],

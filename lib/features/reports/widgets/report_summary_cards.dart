@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../common/widgets/item_cards/summary_card.dart';
 import '../../../common/widgets/text/section_heading.dart';
@@ -26,14 +27,14 @@ class VSummaryCards extends ConsumerWidget {
     return Column(
       children: [
         const SizedBox(height: VSizes.spaceBtwItems),
-        const VSectionHeading(title: 'Summary', showActionButton: false),
+        VSectionHeading(title: context.loc.summary, showActionButton: false),
         const SizedBox(height: VSizes.spaceBtwItems),
         Row(
           spacing: VSizes.spaceBtwItems,
           children: [
             Expanded(
               child: VSummaryCard(
-                  title: 'Vault Balance',
+                  title: context.loc.vaultBalance,
                   amount: receiptsBalance,
                   icon: Iconsax.archive,
                   color: Colors.teal),
@@ -46,14 +47,14 @@ class VSummaryCards extends ConsumerWidget {
           children: [
             Expanded(
               child: VSummaryCard(
-                  title: 'Inventory Value',
+                  title: context.loc.inventoryValue,
                   amount: inventoryValue,
                   icon: Iconsax.archive,
                   color: VColors.warning),
             ),
             Expanded(
               child: VSummaryCard(
-                  title: 'Sales',
+                  title: context.loc.sales,
                   amount: totalSales,
                   icon: Iconsax.trend_up,
                   color: VColors.info),
@@ -66,14 +67,14 @@ class VSummaryCards extends ConsumerWidget {
           children: [
             Expanded(
               child: VSummaryCard(
-                  title: 'Buy',
+                  title: context.loc.buy,
                   amount: totalBuy,
                   icon: Iconsax.truck,
                   color: Colors.pink),
             ),
             Expanded(
               child: VSummaryCard(
-                  title: 'Returns',
+                  title: context.loc.returns,
                   amount: totalReturn,
                   icon: Iconsax.undo,
                   color: Colors.purple),
@@ -86,14 +87,14 @@ class VSummaryCards extends ConsumerWidget {
           children: [
             Expanded(
               child: VSummaryCard(
-                  title: 'Expenses',
+                  title: context.loc.expenses,
                   amount: expenseBalance,
                   icon: Iconsax.money_send,
                   color: VColors.darkGrey),
             ),
             Expanded(
               child: VSummaryCard(
-                title: 'Profit / Loss',
+                title: context.loc.profitLoss,
                 amount: profitStats.profit,
                 icon: Iconsax.money,
                 color: profitStats.profit > 0 ? VColors.success : VColors.error,

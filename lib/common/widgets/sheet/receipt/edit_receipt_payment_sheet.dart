@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/core/utils/messages/toast.dart';
@@ -43,13 +44,13 @@ Future<void> showEditReceiptPaymentSheet({
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  VHelperFunctions.getReceiptTitle(receiptType),
+                  VHelperFunctions.getReceiptTitle(context, receiptType),
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: VSizes.spaceBtwSections),
                 VMetaDataSection(
-                  tag: 'Total Amount',
+                  tag: context.loc.totalAmount,
                   tagBackgroundColor: VColors.info,
                   tagTextColor: VColors.white,
                   showIcon: false,
@@ -62,7 +63,7 @@ Future<void> showEditReceiptPaymentSheet({
                 TextField(
                   controller: paidAmountController,
                   decoration: InputDecoration(
-                    labelText: 'Paid Amount',
+                    labelText: context.loc.paidAmount,
                     prefix: Text('$currencySign '),
                   ),
                   keyboardType:
@@ -78,10 +79,10 @@ Future<void> showEditReceiptPaymentSheet({
                     Expanded(
                       child: TextButton(
                         onPressed: () => context.pop(),
-                        child: const Text('Cancel'),
+                        child: Text(context.loc.cancel),
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: VSizes.defaultSpace),
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () async {
@@ -91,7 +92,7 @@ Future<void> showEditReceiptPaymentSheet({
                           if (newPaidAmount > total) {
                             VToast.error(
                                 message:
-                                    'The amount exceeded Total $currencySign ${VFormatters.formatPrice(total)}');
+                                    '${context.loc.exceedTotalAmount} $currencySign ${VFormatters.formatPrice(total)}');
                             return;
                           }
 
@@ -127,7 +128,6 @@ Future<void> showEditReceiptPaymentSheet({
                               break;
 
                             case ReceiptType.returns:
-                              // If you have a returnReceiptNotifierProvider and returnReceiptDetailProvider
                               await ref
                                   .read(returnReceiptNotifierProvider.notifier)
                                   .updatePaymentDetails(
@@ -144,7 +144,7 @@ Future<void> showEditReceiptPaymentSheet({
                           if (!context.mounted) return;
                           context.pop();
                         },
-                        child: const Text('Save'),
+                        child: Text(context.loc.save),
                       ),
                     ),
                   ],

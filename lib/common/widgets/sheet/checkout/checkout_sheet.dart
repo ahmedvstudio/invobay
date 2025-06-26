@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/providers/payment_providers/payment_provider.dart';
@@ -48,8 +50,8 @@ class VCheckoutBottomSheet extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const VSectionHeading(
-              title: 'Checkout Summary', showActionButton: false),
+          VSectionHeading(
+              title: context.loc.checkoutSummary, showActionButton: false),
           const SizedBox(height: VSizes.spaceBtwItems),
           _CheckoutSummaryContent(
             currencySign: currencySign,
@@ -62,18 +64,22 @@ class VCheckoutBottomSheet extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextButton(
-                onPressed: () => context.pop(),
-                child: const Text('Cancel'),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => context.pop(),
+                  child: Text(context.loc.cancel),
+                ),
               ),
               const SizedBox(width: VSizes.spaceBtwItems),
-              ElevatedButton(
-                onPressed: () async {
-                  await onConfirm();
-                  if (!context.mounted) return;
-                  context.pop();
-                },
-                child: const Text('Confirm'),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await onConfirm();
+                    if (!context.mounted) return;
+                    context.pop();
+                  },
+                  child: Text(context.loc.confirm),
+                ),
               ),
             ],
           ),
@@ -105,7 +111,7 @@ class _CheckoutSummaryContent extends StatelessWidget {
       spacing: VSizes.sm,
       children: [
         VMetaDataSection(
-          tag: 'Total Amount',
+          tag: context.loc.totalAmount,
           tagBackgroundColor: VColors.info,
           tagTextColor: VColors.white,
           showIcon: false,
@@ -115,7 +121,7 @@ class _CheckoutSummaryContent extends StatelessWidget {
           ),
         ),
         VMetaDataSection(
-          tag: 'Paid Amount',
+          tag: context.loc.paidAmount,
           tagBackgroundColor: VColors.success,
           tagTextColor: VColors.white,
           showIcon: false,
@@ -126,7 +132,7 @@ class _CheckoutSummaryContent extends StatelessWidget {
         ),
         if (debtAmount > 0)
           VMetaDataSection(
-            tag: 'Debt Amount',
+            tag: context.loc.debtAmount,
             tagBackgroundColor: VColors.error,
             tagTextColor: VColors.white,
             showIcon: false,
@@ -139,12 +145,12 @@ class _CheckoutSummaryContent extends StatelessWidget {
             ),
           ),
         VMetaDataSection(
-          tag: 'Status',
+          tag: context.loc.status,
           tagBackgroundColor: VColors.darkerGrey,
           tagTextColor: VColors.white,
           showIcon: false,
           child: Text(
-            paymentStatus,
+            VHelperFunctions.paymentStatusLabel(context, paymentStatus),
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/common/widgets/text/section_heading.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/utils/constants/colors.dart';
@@ -14,8 +16,7 @@ Future<void> showLowStockThresholdBottomSheet(
     BuildContext context, WidgetRef ref) async {
   final currentThreshold =
       ref.read(appSettingsProvider).value?.lowStockThreshold ?? 5;
-  final thresholdController =
-      TextEditingController(text: currentThreshold.toString());
+  final thresholdController = TextEditingController();
   final isDark = VHelperFunctions.isDarkMode(context);
 
   await showModalBottomSheet(
@@ -31,9 +32,9 @@ Future<void> showLowStockThresholdBottomSheet(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'Low Stock Warning',
-              style: Theme.of(context).textTheme.titleMedium,
+            VSectionHeading(
+              title: context.loc.lowStockThreshold,
+              buttonTitle: '$currentThreshold',
             ),
             const SizedBox(height: VSizes.spaceBtwItems),
             TextFormField(
@@ -41,14 +42,14 @@ Future<void> showLowStockThresholdBottomSheet(
               controller: thresholdController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: "Threshold Value",
+                labelText: context.loc.thresholdValue,
                 prefixIcon: Icon(
                   Iconsax.arrange_circle,
                   color: isDark
                       ? VColors.light.withAlpha(128)
                       : VColors.dark.withAlpha(128),
                 ),
-                hintText: "warning when stock ≤ threshold",
+                hintText: context.loc.warningWhenStockThreshold,
                 counterText: "",
               ),
             ),
@@ -58,7 +59,7 @@ Future<void> showLowStockThresholdBottomSheet(
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => context.pop(),
-                    child: const Text('Cancel'),
+                    child: Text(context.loc.cancel),
                   ),
                 ),
                 const SizedBox(width: VSizes.spaceBtwItems),
@@ -70,7 +71,7 @@ Future<void> showLowStockThresholdBottomSheet(
 
                       if (parsed == null || parsed < 0) {
                         VToast.error(
-                          message: "Enter a valid positive number.",
+                          message: context.loc.enterValidPositiveNumber,
                         );
                         return;
                       }
@@ -81,13 +82,16 @@ Future<void> showLowStockThresholdBottomSheet(
                         await ref
                             .read(appSettingsProvider.notifier)
                             .updateSettings(updated);
-                        VToast.info(
-                            message: 'Low stock threshold updated and saved');
+                        if (context.mounted) {
+                          VToast.info(
+                              message:
+                                  context.loc.lowStockThresholdUpdatedSaved);
+                        }
                       }
 
                       if (context.mounted) context.pop();
                     },
-                    child: const Text('Save'),
+                    child: Text(context.loc.save),
                   ),
                 ),
               ],

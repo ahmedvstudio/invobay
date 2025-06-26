@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/constants/image_strings.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../core/utils/constants/sizes.dart';
-import '../../../core/utils/constants/text_strings.dart';
 import '../../styles/spacing_style.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({
     super.key,
-    required this.image,
-    required this.title,
-    required this.subTitle,
-    required this.onPressed,
+    this.image,
+    this.title,
+    this.subTitle,
+    this.onPressed,
   });
-  final String image, title, subTitle;
-  final VoidCallback onPressed;
+  final String? image, title, subTitle;
+  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,20 +28,20 @@ class SuccessScreen extends StatelessWidget {
             children: [
               // image
               Lottie.asset(
-                image,
+                image ?? VImages.success1,
                 width: VDeviceUtils.getScreenWidth(context) * 0.6,
               ),
               const SizedBox(height: VSizes.spaceBtwSections),
 
               // title and sub
               Text(
-                title,
+                title ?? context.loc.success,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: VSizes.spaceBtwItems),
               Text(
-                subTitle,
+                subTitle ?? context.loc.receiptSavedSuccessfully,
                 style: Theme.of(context).textTheme.labelLarge,
                 textAlign: TextAlign.center,
               ),
@@ -49,8 +51,8 @@ class SuccessScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: onPressed,
-                  child: const Text(VText.vContinue),
+                  onPressed: onPressed ?? () => context.pop(),
+                  child: Text(context.loc.continue1),
                 ),
               ),
             ],

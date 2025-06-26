@@ -54,8 +54,8 @@ class VRouter {
   static const String profile = 'profile';
   static const String backupRestore = 'backupRestore';
   static const String about = 'about';
-  static const String openSourceLicence = 'openSourceLicence';
-  static const String licenceDetail = 'licenceDetail';
+  static const String openSourceLicense = 'openSourceLicense';
+  static const String licenseDetail = 'licenseDetail';
 
   // - Customer
   static const String customers = 'customers';

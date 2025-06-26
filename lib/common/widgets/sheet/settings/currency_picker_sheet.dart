@@ -7,6 +7,7 @@ import 'package:invobay/common/widgets/text/section_heading.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/core/utils/messages/toast.dart';
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
@@ -31,8 +32,8 @@ Future<void> showCurrencySignBottomSheet(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const VSectionHeading(
-                  title: 'Select Currency', showActionButton: false),
+              VSectionHeading(
+                  title: context.loc.selectCurrency, showActionButton: false),
               const SizedBox(height: VSizes.spaceBtwItems),
               TextField(
                 controller: searchController,
@@ -45,7 +46,7 @@ Future<void> showCurrencySignBottomSheet(
                   }).toList();
                 },
                 decoration: InputDecoration(
-                  hintText: 'Search currency...',
+                  hintText: '${context.loc.selectCurrency}...',
                   hintStyle: Theme.of(context).textTheme.bodySmall,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(VSizes.cardRadiusLg),
@@ -64,7 +65,7 @@ Future<void> showCurrencySignBottomSheet(
                     if (currencies.isEmpty) {
                       return Center(
                         child: Text(
-                          'No currencies found.',
+                          context.loc.noCurrenciesFound,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       );
@@ -93,9 +94,10 @@ Future<void> showCurrencySignBottomSheet(
                               await ref
                                   .read(appSettingsProvider.notifier)
                                   .updateSettings(updated);
+                              if (!context.mounted) return;
                               VToast.info(
                                 message:
-                                    'Currency updated to ${currency.name} (${currency.symbol})',
+                                    '${context.loc.currencyUpdatedTo} ${currency.name} (${currency.symbol})',
                               );
                               if (context.mounted) {
                                 context.pop();

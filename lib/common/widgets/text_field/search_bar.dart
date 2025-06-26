@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
@@ -29,7 +30,7 @@ class VSearchBar extends StatelessWidget {
         controller: searchController,
         focusNode: focusNode,
         decoration: InputDecoration(
-          hintText: 'Search in stock',
+          hintText: context.loc.searchInStock,
           hintStyle: Theme.of(context).textTheme.bodySmall,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(VSizes.cardRadiusLg),

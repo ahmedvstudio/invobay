@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/models/buy_related_model/buy_receipt_with_item_details_model.dart';
 import '../../../../core/utils/constants/colors.dart';
@@ -30,19 +31,19 @@ void showUpdateBuyingPriceBottomSheet({
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Update Buying Price',
+                context.loc.updateBuyingPrice,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: VSizes.spaceBtwItems),
               Text(
-                'Receipts with higher buying prices:',
+                context.loc.receiptsWithHigherBuyingPrices,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: VSizes.spaceBtwItems / 2),
               ...highPriceReceipts.map((r) => Padding(
                     padding: const EdgeInsets.only(bottom: VSizes.xs),
                     child: VMetaDataSection(
-                      tag: 'Receipt No. #${r.receiptId}',
+                      tag: '${context.loc.receiptNo} #${r.receiptId}',
                       tagBackgroundColor: VColors.kAccent,
                       tagTextColor: VColors.black,
                       showChild: true,
@@ -59,7 +60,7 @@ void showUpdateBuyingPriceBottomSheet({
                   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
                 ],
                 decoration:
-                    const InputDecoration(labelText: 'New Buying Price'),
+                    InputDecoration(labelText: context.loc.newBuyingPrice),
               ),
               const SizedBox(height: VSizes.spaceBtwItems),
               Row(
@@ -68,7 +69,7 @@ void showUpdateBuyingPriceBottomSheet({
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => context.pop(),
-                      child: const Text('Cancel'),
+                      child: Text(context.loc.cancel),
                     ),
                   ),
                   const SizedBox(width: VSizes.spaceBtwItems),
@@ -82,12 +83,12 @@ void showUpdateBuyingPriceBottomSheet({
                         } else {
                           VDialogs.showAlert(
                             context,
-                            'Invalid Price',
-                            'Should Be Greater Than Current Buying Price.',
+                            context.loc.invalidPrice,
+                            context.loc.shouldBeGreaterThanCurrentBuyingPrice,
                           );
                         }
                       },
-                      child: const Text('Update'),
+                      child: Text(context.loc.update),
                     ),
                   ),
                 ],

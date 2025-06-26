@@ -25,7 +25,6 @@ List<GoRoute> returnsRoutes = [
             child: ReturnCheckoutScreen(
               returnedItems: returnedItems,
             ),
-            canPop: false,
             fullscreenDialog: true,
           );
         },

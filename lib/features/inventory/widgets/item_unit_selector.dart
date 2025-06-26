@@ -11,7 +11,6 @@ import '../../../core/utils/validators/validation.dart';
 
 class ItemUnitSelector extends ConsumerWidget {
   final TextEditingController itemUnitController;
-
   const ItemUnitSelector({
     super.key,
     required this.itemUnitController,
@@ -24,13 +23,13 @@ class ItemUnitSelector extends ConsumerWidget {
     if (itemUnitController.text.isEmpty &&
         selectedItem != null &&
         selectedItem.isNotEmpty) {
-      itemUnitController.text = selectedItem;
+      itemUnitController.text =
+          VHelperFunctions.getUnitLabel(context, selectedItem);
     }
 
     void showDropdown(BuildContext context, WidgetRef ref) {
       final RenderBox renderBox = context.findRenderObject() as RenderBox;
       final Offset offset = renderBox.localToGlobal(Offset.zero);
-      final units = VLists.unitList(context);
 
       showMenu(
         context: context,
@@ -43,16 +42,18 @@ class ItemUnitSelector extends ConsumerWidget {
           offset.dx + renderBox.size.width,
           offset.dy + renderBox.size.height * 2,
         ),
-        items: units.map((unit) {
+        items: VLists.unitList.map((unit) {
           return PopupMenuItem<String>(
             value: unit,
-            child: Text(unit),
+            child: Text(VHelperFunctions.getUnitLabel(context, unit)),
           );
         }).toList(),
       ).then((selectedUnit) {
         if (selectedUnit != null) {
           ref.read(itemUnitProvider.notifier).selectItem(selectedUnit);
-          itemUnitController.text = selectedUnit;
+          if (!context.mounted) return;
+          itemUnitController.text =
+              VHelperFunctions.getUnitLabel(context, selectedUnit);
         }
       });
     }
@@ -66,8 +67,8 @@ class ItemUnitSelector extends ConsumerWidget {
             decoration: InputDecoration(
               labelText: context.loc.itemUnit,
             ),
-            validator: VValidator.validateEmpty,
-          ),
+       validator: (value) =>
+                          VValidator.validateEmpty(context, value),          ),
         ),
       ),
     );

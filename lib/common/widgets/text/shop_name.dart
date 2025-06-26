@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../core/providers/db_providers/hive_providers/shop_detail_provider.dart';
@@ -19,9 +20,9 @@ class VShopName extends ConsumerWidget {
     final shopDetailAsync = ref.watch(shopDetailProvider);
     return shopDetailAsync.when(
       loading: () => const CircularProgressIndicator(),
-      error: (err, stack) => const Text('Shop Name'),
+      error: (err, stack) => Text(context.loc.shopName),
       data: (shopDetail) {
-        final shopName = shopDetail?.name ?? 'Your Shop';
+        final shopName = shopDetail?.name ?? context.loc.shopName;
         final shopPhone1 = shopDetail?.phone ?? '';
         final shopPhone2 = shopDetail?.extraPhone ?? '';
         final shopDescription = shopDetail?.description ?? '';

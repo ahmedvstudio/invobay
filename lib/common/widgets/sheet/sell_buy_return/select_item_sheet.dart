@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/item_cards/item_card_horizontal.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/buy_providers/buy_related_providers.dart';
 import '../../../../core/providers/common_providers/default_providers.dart';
@@ -81,9 +83,9 @@ void showItemsBottomSheet({
                 const SizedBox(height: VSizes.spaceBtwSections),
                 filteredItems.isEmpty
                     ? switch (receiptType) {
-                        ReceiptType.sell => const Padding(
-                            padding: EdgeInsets.all(VSizes.defaultSpace),
-                            child: Text("No items found"),
+                        ReceiptType.sell => Padding(
+                            padding: VSpacingStyle.all,
+                            child: Text(context.loc.noItemsFound),
                           ),
                         ReceiptType.buy => searchController.text.isNotEmpty
                             ? Padding(
@@ -91,7 +93,10 @@ void showItemsBottomSheet({
                                     horizontal: VSizes.defaultSpace),
                                 child: Column(
                                   children: [
-                                    Text("${searchController.text} Not found!"),
+                                    Text(
+                                        "${searchController.text} ${context.loc.notFound}"),
+                                    const SizedBox(
+                                        height: VSizes.spaceBtwItems),
                                     SizedBox(
                                       width: double.infinity,
                                       child: OutlinedButton(
@@ -101,15 +106,15 @@ void showItemsBottomSheet({
                                               ref,
                                               searchController.text);
                                         },
-                                        child: const Text('Add New'),
+                                        child: Text(context.loc.addItem),
                                       ),
                                     ),
                                   ],
                                 ),
                               )
-                            : const Text('Your Inventory is Empty'),
+                            : Text(context.loc.yourInventoryIsEmpty),
                         ReceiptType.returns =>
-                          const Text("No returnable items found"),
+                          Text(context.loc.noReturnableItemsFound),
                       }
                     : Flexible(
                         child: ListView.separated(
@@ -124,7 +129,6 @@ void showItemsBottomSheet({
                                     .getThreeColor();
 
                             return VItemCardHorizontal(
-                              // Instead of isSell ? add to sell : add to buy
                               onTapItemDetails: () async {
                                 switch (receiptType) {
                                   case ReceiptType.sell:
@@ -146,7 +150,6 @@ void showItemsBottomSheet({
                                 if (!context.mounted) return;
                                 context.pop();
                               },
-
                               itemName: item.name,
                               itemStock: item.quantity,
                               itemPrice: switch (receiptType) {
@@ -156,7 +159,6 @@ void showItemsBottomSheet({
                                 ReceiptType.returns =>
                                   item.sellingPrice.toString(),
                               },
-
                               stockIconColor: lowStockColor,
                             );
                           },

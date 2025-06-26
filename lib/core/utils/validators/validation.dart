@@ -1,10 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
+
 class VValidator {
   VValidator._();
 
   // ----- Empty validator -----//
-  static String? validateEmpty(String? value) {
+  static String? validateEmpty(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required';
+      return context.loc.thisFieldIsRequired;
     }
     return null;
   }
@@ -21,20 +24,20 @@ class VValidator {
     return null;
   }
 
-  static String? validateDoubleNumber(String? value) {
+  static String? validateDoubleNumber(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required';
+      return context.loc.thisFieldIsRequired;
     }
 
     // Check if the input can be parsed as a double
     if (double.tryParse(value) == null) {
-      return 'Enter a valid number';
+      return context.loc.thisFieldIsRequired;
     }
 
     // Regular expression to check for at most two decimal places
     final RegExp decimalRegExp = RegExp(r'^\d+(\.\d{1,2})?$');
     if (!decimalRegExp.hasMatch(value)) {
-      return 'Enter a number with up to 2 decimal places';
+      return context.loc.invalidQuantityEnterNumberWithMaxDecimals;
     }
 
     return null;
@@ -54,9 +57,10 @@ class VValidator {
   }
 
   // --- Selling price validator---//
-  static String? validateSellingPrice(String? value, String? buyingPrice) {
+  static String? validateSellingPrice(
+      BuildContext context, String? value, String? buyingPrice) {
     if (value == null || value.isEmpty) {
-      return 'Selling price is required';
+      return context.loc.thisFieldIsRequired;
     }
 
     // Regular expression to check for valid number format with up to 2 decimal places
@@ -64,18 +68,18 @@ class VValidator {
 
     // Check if the selling price matches the decimal format
     if (!decimalRegExp.hasMatch(value)) {
-      return 'Enter a number with up to 2 decimal places';
+      return context.loc.invalidQuantityEnterNumberWithMaxDecimals;
     }
 
     final sellingPrice = double.tryParse(value);
     final buying = double.tryParse(buyingPrice ?? '');
 
     if (sellingPrice == null) {
-      return 'Enter a valid number';
+      return context.loc.enterValidNumber;
     }
 
     if (buying != null && sellingPrice <= buying) {
-      return 'Selling price must be greater than buying price';
+      return context.loc.sellingPriceMustBeGreaterThanBuyingPrice;
     }
 
     return null;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../common/widgets/list_tiles/report_list_tile.dart';
 import 'widgets/stock_preview_sheet.dart';
@@ -29,25 +30,25 @@ class VInventorySection extends ConsumerWidget {
 
     return Column(
       children: [
-        const VSectionHeading(title: 'Inventory', showActionButton: false),
+        VSectionHeading(title: context.loc.inventory, showActionButton: false),
         const SizedBox(height: VSizes.spaceBtwItems),
         VReportListTile(
-          title: 'New Stock Items',
+          title: context.loc.newStockItems,
           icon: Icons.new_releases_outlined,
           onTap: () => showStockPreviewBottomSheet(context,
-              title: 'New Stock Items', items: recentItems),
+              title: context.loc.newStockItems, items: recentItems),
         ),
         VReportListTile(
-          title: 'Low Stock Items',
+          title: context.loc.lowStockItems,
           icon: Icons.low_priority,
           onTap: () => showStockPreviewBottomSheet(context,
-              title: 'Low Stock Items', items: lowStockItems),
+              title: context.loc.lowStockItems, items: lowStockItems),
         ),
         VReportListTile(
-          title: 'Out of Stock Items',
+          title: context.loc.outOfStockItems,
           icon: Icons.outbond_outlined,
           onTap: () => showStockPreviewBottomSheet(context,
-              title: 'Out of Stock Items', items: outOfStockItems),
+              title: context.loc.outOfStockItems, items: outOfStockItems),
         ),
       ],
     );

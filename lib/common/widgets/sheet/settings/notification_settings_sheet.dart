@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
 import 'package:invobay/core/providers/theme_providers/theme_related_providers.dart';
+import 'package:invobay/core/utils/constants/lists.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/notification_providers/notification_related_provider.dart';
 import '../../../../core/utils/constants/colors.dart';
@@ -10,15 +12,6 @@ import '../../../../core/utils/constants/sizes.dart';
 
 class NotificationSettingsBottomSheet extends ConsumerWidget {
   const NotificationSettingsBottomSheet({super.key});
-
-  static const Map<String, String> notificationLabels = {
-    'all': 'All Notifications',
-    'low_stock': 'Low Stock',
-    'out_of_stock': 'Out of Stock',
-    'sell_checkout': 'Sell Checkout',
-    'buy_checkout': 'Buy Checkout',
-    'return_checkout': 'Return Checkout',
-  };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,10 +25,11 @@ class NotificationSettingsBottomSheet extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const VSectionHeading(
-                  title: 'Notification Settings', showActionButton: false),
+              VSectionHeading(
+                  title: context.loc.notificationSettings,
+                  showActionButton: false),
               const SizedBox(height: VSizes.spaceBtwItems),
-              ...notificationLabels.entries.map((entry) {
+              ...VLists.notificationLabels(context).entries.map((entry) {
                 final key = entry.key;
                 final label = entry.value;
                 return SwitchListTile(

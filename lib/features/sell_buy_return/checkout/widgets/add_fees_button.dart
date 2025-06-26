@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../common/widgets/sheet/add_sheets/add_fees_sheet.dart';
 import '../../../../core/utils/constants/colors.dart';
@@ -15,7 +16,7 @@ class VAddFeesButton extends ConsumerWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
-          'Add Fees',
+          context.loc.addFees,
           style: Theme.of(context)
               .textTheme
               .labelMedium!

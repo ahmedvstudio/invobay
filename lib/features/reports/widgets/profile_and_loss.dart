@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../common/widgets/text/key_value_text.dart';
 import '../../../common/widgets/text/section_heading.dart';
@@ -23,15 +24,16 @@ class VProfitAndLoss extends ConsumerWidget {
 
     return Column(
       children: [
-        const VSectionHeading(
-            title: 'Profit & Loss Statement', showActionButton: false),
+        VSectionHeading(
+            title: context.loc.profitAndLossStatement, showActionButton: false),
         const SizedBox(height: VSizes.spaceBtwItems),
+        VKeyValueText(context.loc.grossRevenue,
+            "$currencySign${revenue.toStringAsFixed(0)}"),
         VKeyValueText(
-            "Gross Revenue", "$currencySign${revenue.toStringAsFixed(0)}"),
-        VKeyValueText("COGS", "$currencySign${cogs.toStringAsFixed(0)}"),
-        VKeyValueText(
-            "Return Loss", "$currencySign${returns.toStringAsFixed(0)}"),
-        VKeyValueText("Profit Margin",
+            context.loc.cOGS, "$currencySign${cogs.toStringAsFixed(0)}"),
+        VKeyValueText(context.loc.returnLoss,
+            "$currencySign${returns.toStringAsFixed(0)}"),
+        VKeyValueText(context.loc.profitMargin,
             "$marginPercent% / $currencySign${profit.toStringAsFixed(0)}"),
       ],
     );

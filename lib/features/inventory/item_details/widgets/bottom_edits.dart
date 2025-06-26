@@ -27,7 +27,7 @@ class VBottomEdits extends ConsumerWidget {
     final isDark = VHelperFunctions.isDarkMode(context);
     return Container(
       padding: const EdgeInsets.symmetric(
-          horizontal: VSizes.defaultSpace, vertical: VSizes.defaultSpace / 2),
+          horizontal: VSizes.defaultSpace, vertical: VSizes.defaultSpace),
       decoration: BoxDecoration(
         color: isDark ? VColors.darkerGrey : VColors.light,
         borderRadius: const BorderRadius.only(

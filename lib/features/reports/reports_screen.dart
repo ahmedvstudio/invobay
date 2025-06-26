@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/features/reports/widgets/buy_section/buy_section.dart';
 import 'package:invobay/features/reports/widgets/inventory_section/inventory_section.dart';
 import 'package:invobay/features/reports/widgets/profile_and_loss.dart';
@@ -22,14 +23,14 @@ class ReportsScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const VPrimaryHeaderContainer(
+          VPrimaryHeaderContainer(
             child: Column(
               children: [
                 VMainAppBar(
-                  title: 'Reports',
+                  title: context.loc.reports,
                   appbarIcon: Iconsax.receipt_item5,
                 ),
-                SizedBox(height: VSizes.spaceBtwSections),
+                const SizedBox(height: VSizes.spaceBtwSections),
                 // Filter and Export buttons
               ],
             ),

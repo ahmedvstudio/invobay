@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/core/utils/constants/lists.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import '../../../../core/utils/constants/sizes.dart';
@@ -26,7 +27,7 @@ Future<void> showLanguageSelectionBottomSheet(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Select App Language',
+              context.loc.selectAppLanguage,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: VSizes.spaceBtwItems),

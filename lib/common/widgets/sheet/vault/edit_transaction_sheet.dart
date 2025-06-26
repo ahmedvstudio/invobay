@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/sheet/vault/transaction_form.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/models/vault_model/vault_transaction_model.dart';
 import '../../../../core/providers/common_providers/default_providers.dart';
@@ -32,7 +33,9 @@ Future<void> showEditVaultTransactionSheet(
           padding: VSpacingStyle.responseKeyboard(context),
           child: VTransactionForm(
             formKey: formKey,
-            title: transaction.isOut ? 'Edit Expense' : 'Edit Addition',
+            title: transaction.isOut
+                ? context.loc.editExpense
+                : context.loc.editAddition,
             selectedDate: selectedDate,
             amountController: amountController,
             descriptionController: descriptionController,
@@ -51,10 +54,11 @@ Future<void> showEditVaultTransactionSheet(
             onDelete: () async {
               final shouldDelete = await showDialog<bool>(
                 context: context,
-                builder: (context) => const VDeleteConfirmDialog(
+                builder: (context) => VDeleteConfirmDialog(
                   isCustomer: false,
                   isGeneral: true,
-                  contentText: 'This will permanently delete this transaction.',
+                  contentText:
+                      context.loc.thisWillPermanentlyDeleteThisTransaction,
                 ),
               );
 

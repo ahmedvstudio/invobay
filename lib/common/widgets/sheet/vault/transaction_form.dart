@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
@@ -78,23 +79,24 @@ class VTransactionForm extends StatelessWidget {
           const SizedBox(height: VSizes.spaceBtwItems),
           TextFormField(
             controller: amountController,
-            decoration: const InputDecoration(labelText: 'Amount'),
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(labelText: context.loc.amount),
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
             ],
-            validator: VValidator.validateDoubleNumber,
-          ),
+           validator: (value) =>
+                          VValidator.validateDoubleNumber(context, value),          ),
           const SizedBox(height: VSizes.spaceBtwInputFields),
           TextFormField(
             controller: descriptionController,
-            decoration: const InputDecoration(labelText: 'Description'),
-            validator: VValidator.validateEmpty,
-          ),
+            decoration: InputDecoration(labelText: context.loc.description),
+       validator: (value) =>
+                          VValidator.validateEmpty(context, value),          ),
           const SizedBox(height: VSizes.spaceBtwInputFields),
           TextFormField(
             controller: noteController,
-            decoration: const InputDecoration(labelText: 'Note (optional)'),
+            decoration: InputDecoration(labelText: context.loc.noteOptional),
             inputFormatters: [
               LengthLimitingTextInputFormatter(50),
             ],
@@ -105,14 +107,14 @@ class VTransactionForm extends StatelessWidget {
               Expanded(
                 child: OutlinedButton(
                   onPressed: () => context.pop(),
-                  child: const Text('Cancel'),
+                  child: Text(context.loc.cancel),
                 ),
               ),
               const SizedBox(width: VSizes.spaceBtwItems),
               Expanded(
                 child: ElevatedButton(
                   onPressed: onConfirm,
-                  child: Text(isUpdate ? "Update" : "Save"),
+                  child: Text(isUpdate ? context.loc.update : context.loc.save),
                 ),
               ),
             ],

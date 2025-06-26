@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
-import 'package:invobay/core/utils/messages/snackbar.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
+import 'package:invobay/core/utils/messages/toast.dart';
 
 import '../../../../core/providers/buy_providers/buy_related_providers.dart';
 import '../../../../core/providers/common_providers/default_providers.dart';
@@ -39,10 +40,10 @@ class QuantityInputBottomSheet extends ConsumerWidget {
           children: [
             Text(
               type == ReceiptType.sell
-                  ? 'Enter Quantity'
+                  ? context.loc.enterQuantity
                   : type == ReceiptType.buy
-                      ? 'Enter Values:'
-                      : 'Enter Quantity',
+                      ? context.loc.enterValues
+                      : context.loc.enterQuantity,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: VSizes.spaceBtwInputFields),
@@ -52,7 +53,7 @@ class QuantityInputBottomSheet extends ConsumerWidget {
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
               ],
-              decoration: const InputDecoration(hintText: 'Quantity'),
+              decoration: InputDecoration(hintText: context.loc.quantity),
               onChanged: (value) => quantityState.state = value,
             ),
             if (type == ReceiptType.buy) ...[
@@ -63,7 +64,7 @@ class QuantityInputBottomSheet extends ConsumerWidget {
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
                 ],
-                decoration: const InputDecoration(hintText: 'Buying Price'),
+                decoration: InputDecoration(hintText: context.loc.buyingPrice),
                 onChanged: (value) => buyingPriceState.state = value,
               ),
             ],
@@ -74,7 +75,7 @@ class QuantityInputBottomSheet extends ConsumerWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => context.pop(),
-                    child: const Text('Cancel'),
+                    child: Text(context.loc.cancel),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -85,14 +86,15 @@ class QuantityInputBottomSheet extends ConsumerWidget {
                       final validNumberRegex = RegExp(r'^\d+(\.\d{1,2})?$');
 
                       if (!validNumberRegex.hasMatch(inputText)) {
-                        VSnackbar.error(
-                            "Invalid quantity. Enter a number with max 2 decimals.");
+                        VToast.error(
+                            message: context
+                                .loc.invalidQuantityEnterNumberWithMaxDecimals);
                         return;
                       }
 
                       double? newQuantity = double.tryParse(inputText);
                       if (newQuantity == null || newQuantity <= 0) {
-                        VSnackbar.error("Invalid quantity.");
+                        VToast.error(message: context.loc.invalidQuantity);
                         return;
                       }
 
@@ -105,7 +107,7 @@ class QuantityInputBottomSheet extends ConsumerWidget {
                         double? newBuyPrice = double.tryParse(buyPriceText);
 
                         if (newBuyPrice == null || newBuyPrice <= 0) {
-                          VSnackbar.error("Invalid buying price");
+                          VToast.error(message: context.loc.invalidPrice);
                           return;
                         }
 
@@ -121,7 +123,7 @@ class QuantityInputBottomSheet extends ConsumerWidget {
                       if (!context.mounted) return;
                       context.pop();
                     },
-                    child: const Text('Confirm'),
+                    child: Text(context.loc.confirm),
                   ),
                 ),
               ],

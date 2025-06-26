@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 class VReceiptDetailFooterSection extends StatelessWidget {
   const VReceiptDetailFooterSection({
@@ -22,17 +24,18 @@ class VReceiptDetailFooterSection extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Total: $totalPrice",
+            Text("${context.loc.total}: $totalPrice",
                 style: Theme.of(context).textTheme.titleMedium),
-            Text("Paid Amount: $paidAmount",
+            Text("${context.loc.paidAmount}: $paidAmount",
                 style: Theme.of(context).textTheme.titleLarge),
             if (debtAmount != '0.00')
-              Text("Debt Amount: $debtAmount",
+              Text("${context.loc.debtAmount}: $debtAmount",
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge!
                       .copyWith(color: VColors.error)),
-            Text("Status: $paymentStatus",
+            Text(
+                "${context.loc.status}: ${VHelperFunctions.paymentStatusLabel(context, paymentStatus)}",
                 style: Theme.of(context).textTheme.bodyMedium!.apply(
                     color: (debtAmount != '0.00')
                         ? VColors.warning

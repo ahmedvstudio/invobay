@@ -1,7 +1,7 @@
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,50 +44,6 @@ class VHelperFunctions {
     return capitalizedText;
   }
 
-  static void showAlert(BuildContext context, String title, String message) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(title),
-            content: Text(message),
-            actions: [
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('OK'))
-            ],
-          );
-        });
-  }
-
-  static Future<void> showCustomDialog({
-    required BuildContext context,
-    required String title,
-    required Widget content,
-    required VoidCallback onSaved,
-    String? buttonText,
-  }) async {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            scrollable: true,
-            title: Text(title),
-            content: content,
-            actions: [
-              TextButton(
-                onPressed: () => context.pop(),
-                child: const Text('Cancel'),
-              ),
-              ElevatedButton(
-                onPressed: onSaved,
-                child: Text(buttonText ?? 'Save'),
-              )
-            ],
-          );
-        });
-  }
-
   static void navigateToScreen(BuildContext context, Widget screen) {
     Navigator.push(
       context,
@@ -111,8 +67,7 @@ class VHelperFunctions {
     final result = await BarcodeScanner.scan();
 
     if (result.type == ResultType.Barcode) {
-      controller.text =
-          result.rawContent; // Update the controller with the scanned code
+      controller.text = result.rawContent;
     }
   }
 
@@ -122,6 +77,49 @@ class VHelperFunctions {
 
   static String paymentStatus(double debtAmount) {
     return debtAmount == 0 ? 'Completed' : 'Pending';
+  }
+
+  static String paymentStatusLabel(BuildContext context, String status) {
+    return status == 'Completed' ? context.loc.completed : context.loc.pending;
+  }
+
+  static String getPaymentMethodLabel(BuildContext context, String name) {
+    switch (name) {
+      case 'Cash':
+        return context.loc.cash;
+      case 'MasterCard':
+        return context.loc.masterCard;
+      case 'Bank Transfer':
+        return context.loc.bankTransfer;
+      default:
+        return name;
+    }
+  }
+
+  static String getUnitLabel(BuildContext context, String unit) {
+    switch (unit) {
+      case 'Piece':
+        return context.loc.unit_piece;
+      case 'KG':
+        return context.loc.unit_kg;
+      case 'Bag':
+        return context.loc.unit_bag;
+      case 'Meter':
+        return context.loc.unit_meter;
+      case 'Litre':
+        return context.loc.unit_liter;
+      default:
+        return unit; // fallback
+    }
+  }
+
+  static String getOriginalUnit(BuildContext context, String localizedLabel) {
+    if (localizedLabel == context.loc.unit_piece) return 'Piece';
+    if (localizedLabel == context.loc.unit_kg) return 'KG';
+    if (localizedLabel == context.loc.unit_bag) return 'Bag';
+    if (localizedLabel == context.loc.unit_meter) return 'Meter';
+    if (localizedLabel == context.loc.unit_liter) return 'Litre';
+    return localizedLabel; // fallback
   }
 
   static String calculateTotalPrice({
@@ -151,7 +149,7 @@ class VHelperFunctions {
   static String getFontFamilyForLocale(Locale locale) {
     switch (locale.languageCode) {
       case 'ar':
-        return VFonts.dubaiFamily; // Arabic
+        return VFonts.sansFamily; // Arabic
       case 'zh':
         return VFonts.sansFamily; // Chinese
       default:
@@ -159,27 +157,27 @@ class VHelperFunctions {
     }
   }
 
-  static String getReceiptTitle(ReceiptType type) {
+  static String getReceiptTitle(BuildContext context, ReceiptType type) {
     switch (type) {
       case ReceiptType.sell:
-        return 'Edit Sale Payment';
+        return context.loc.editSalePayment;
       case ReceiptType.buy:
-        return 'Edit Buy Payment';
+        return context.loc.editBuyPayment;
       case ReceiptType.returns:
-        return 'Edit Return Payment';
+        return context.loc.editReturnPayment;
     }
   }
 
   ///
-  static String getTimeAgoGroup(DateTime timestamp) {
+  static String getTimeAgoGroup(BuildContext context, DateTime timestamp) {
     final now = DateTime.now();
     final diff = now.difference(timestamp);
 
-    if (diff.inDays == 0) return 'Today';
-    if (diff.inDays == 1) return 'Yesterday';
-    if (diff.inDays < 7) return 'Last Week';
-    if (diff.inDays < 30) return 'This Month';
-    return 'Older';
+    if (diff.inDays == 0) return context.loc.today;
+    if (diff.inDays == 1) return context.loc.yesterday;
+    if (diff.inDays < 7) return context.loc.lastWeek;
+    if (diff.inDays < 30) return context.loc.thisMonth;
+    return context.loc.older;
   }
 
   //

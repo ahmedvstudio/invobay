@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:invobay/core/providers/common_providers/reset_default_providers.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/core/utils/messages/snackbar.dart';
 
@@ -46,7 +44,6 @@ class BuyCheckoutScreen extends ConsumerWidget {
     final supplierId = ref.watch(supplierIDProvider);
     final paidAmountController = ref.watch(paidAmountControllerProvider);
     final discountAmount = ref.watch(discountProvider);
-    final buyNotifier = ref.read(buyNotifierProvider.notifier);
     final total = ref.watch(totalAmountProvider);
     final checkoutController = ref.read(buyCheckoutProvider);
 
@@ -54,23 +51,7 @@ class BuyCheckoutScreen extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            VCustomAppBar(
-              text: 'Checkout Review',
-              showBackArrow: false,
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    context.pop();
-                    buyNotifier.clearCart();
-                    resetProviders(ref);
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.xmark,
-                    color: VColors.white,
-                  ),
-                )
-              ],
-            ),
+            VCustomAppBar(text: context.loc.checkoutReview),
             Padding(
               padding: const EdgeInsets.all(VSizes.defaultSpace),
               child: Column(
@@ -127,7 +108,7 @@ class BuyCheckoutScreen extends ConsumerWidget {
           children: [
             Flexible(
               child: Text(
-                  'Total: $currencySign${VFormatters.formatPrice(total)}',
+                  '${context.loc.total}: $currencySign${VFormatters.formatPrice(total)}',
                   style: Theme.of(context).textTheme.headlineSmall),
             ),
             ElevatedButton.icon(
@@ -142,7 +123,7 @@ class BuyCheckoutScreen extends ConsumerWidget {
                   if (paidAmount > total) {
                     // Show error message
                     VSnackbar.error(
-                        'Exceed total amount: $currencySign${VFormatters.formatPrice(total)}');
+                        '${context.loc.exceedTotalAmount}: $currencySign${VFormatters.formatPrice(total)}');
 
                     return;
                   }
@@ -167,7 +148,7 @@ class BuyCheckoutScreen extends ConsumerWidget {
                   );
                 }
               },
-              label: const Text('Checkout'),
+              label: Text(context.loc.checkout),
             ),
           ],
         ),

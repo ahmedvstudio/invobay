@@ -43,7 +43,7 @@ class AddressForm extends ConsumerWidget {
             prefixIcon: const Icon(Iconsax.user),
             labelText: context.loc.name,
           ),
-          validator: VValidator.validateEmpty,
+          validator: (value) => VValidator.validateEmpty(context, value),
         ),
         const SizedBox(height: VSizes.spaceBtwInputFields),
         TextFormField(

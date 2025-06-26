@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import '../../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../core/providers/common_providers/total_amount_provider.dart';
@@ -39,7 +40,8 @@ class VBillingAmountSection extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Subtotal', style: Theme.of(context).textTheme.bodyMedium),
+              Text(context.loc.subtotal,
+                  style: Theme.of(context).textTheme.bodyMedium),
               Text('$currencySign${VFormatters.formatPrice(subtotal)}',
                   style: Theme.of(context).textTheme.bodyMedium),
             ],
@@ -48,7 +50,7 @@ class VBillingAmountSection extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Discount',
+                Text(context.loc.discount,
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
@@ -67,7 +69,7 @@ class VBillingAmountSection extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Shipping Fee',
+              Text(context.loc.shippingFee,
                   style: Theme.of(context).textTheme.bodyMedium),
               Text('$currencySign${VFormatters.formatPrice(shippingFee)}',
                   style: Theme.of(context).textTheme.labelLarge),
@@ -80,7 +82,8 @@ class VBillingAmountSection extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Tax Fee', style: Theme.of(context).textTheme.bodyMedium),
+              Text(context.loc.taxFee,
+                  style: Theme.of(context).textTheme.bodyMedium),
               Text('%${VFormatters.formatPrice(taxFee)}',
                   style: Theme.of(context).textTheme.labelLarge),
             ],
@@ -91,7 +94,8 @@ class VBillingAmountSection extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Order Total', style: Theme.of(context).textTheme.bodyMedium),
+            Text(context.loc.orderTotal,
+                style: Theme.of(context).textTheme.bodyMedium),
             Text('$currencySign${VFormatters.formatPrice(total)}',
                 style: Theme.of(context).textTheme.titleMedium),
           ],
@@ -111,9 +115,10 @@ class VBillingAmountSection extends ConsumerWidget {
                 color: primaryColor,
               ),
               suffixText: currencySign,
-              labelText: 'Paid Amount',
+              labelText: context.loc.paidAmount,
             ),
-            validator: VValidator.validateDoubleNumber,
+            validator: (value) =>
+                VValidator.validateDoubleNumber(context, value),
           ),
         ),
       ],

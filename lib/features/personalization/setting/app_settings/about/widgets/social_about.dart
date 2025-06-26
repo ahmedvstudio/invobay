@@ -15,7 +15,7 @@ class VSocialAbout extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: null,
           icon: Icon(
             SimpleIcons.facebook,
             color: iconColor,
@@ -23,7 +23,7 @@ class VSocialAbout extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: null,
           icon: Icon(
             SimpleIcons.x,
             size: iconSize,
@@ -31,7 +31,7 @@ class VSocialAbout extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: null,
           icon: Icon(
             SimpleIcons.reddit,
             color: iconColor,
@@ -39,7 +39,7 @@ class VSocialAbout extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: null,
           icon: Icon(
             SimpleIcons.github,
             color: iconColor,

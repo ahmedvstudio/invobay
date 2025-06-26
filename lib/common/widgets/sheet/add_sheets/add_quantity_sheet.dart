@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/common_providers/default_providers.dart';
 import '../../../../core/providers/item_providers/item_related_providers.dart';
@@ -37,7 +38,7 @@ Future<void> showAddQuantityBottomSheet(BuildContext context, WidgetRef ref,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Add Quantity',
+                    context.loc.addQuantity,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: VSizes.spaceBtwInputFields),
@@ -49,9 +50,9 @@ Future<void> showAddQuantityBottomSheet(BuildContext context, WidgetRef ref,
                       FilteringTextInputFormatter.allow(
                           RegExp(r'^\d*\.?\d{0,2}')),
                     ],
-                    decoration: const InputDecoration(
-                      labelText: 'Quantity',
-                      hintText: 'Enter quantity (e.g. 2.5)',
+                    decoration: InputDecoration(
+                      labelText: context.loc.quantity,
+                      hintText: context.loc.enterQuantity,
                     ),
                     onChanged: (value) =>
                         ref.read(addQuantityProvider.notifier).state = value,
@@ -65,7 +66,7 @@ Future<void> showAddQuantityBottomSheet(BuildContext context, WidgetRef ref,
                             quantityState.state = '';
                             context.pop();
                           },
-                          child: const Text('Cancel'),
+                          child: Text(context.loc.cancel),
                         ),
                       ),
                       const SizedBox(width: VSizes.spaceBtwItems),
@@ -87,7 +88,7 @@ Future<void> showAddQuantityBottomSheet(BuildContext context, WidgetRef ref,
                                   }
                                 }
                               : null,
-                          child: const Text('Add'),
+                          child: Text(context.loc.add),
                         ),
                       ),
                     ],

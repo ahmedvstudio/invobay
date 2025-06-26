@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../common/widgets/text/section_heading.dart';
@@ -30,14 +31,15 @@ class VBillingPaymentSection extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("Select Payment Method",
+                  Text(context.loc.selectPaymentMethod,
                       style: Theme.of(context).textTheme.headlineSmall),
                   const Divider(),
                   for (var method in paymentMethods)
                     ListTile(
                       tileColor: Colors.transparent,
                       leading: SvgPicture.asset(method.imagePath, width: 30),
-                      title: Text(method.name),
+                      title: Text(VHelperFunctions.getPaymentMethodLabel(
+                          context, method.name)),
                       onTap: () {
                         ref
                             .read(selectedPaymentProvider.notifier)
@@ -57,8 +59,8 @@ class VBillingPaymentSection extends ConsumerWidget {
     return Column(
       children: [
         VSectionHeading(
-          title: 'Payment Method',
-          buttonTitle: 'Change',
+          title: context.loc.paymentMethod,
+          buttonTitle: context.loc.change,
           onPressed: showPaymentOptions,
         ),
         const SizedBox(height: VSizes.spaceBtwItems / 2),
@@ -74,7 +76,8 @@ class VBillingPaymentSection extends ConsumerWidget {
             ),
             const SizedBox(width: VSizes.spaceBtwItems / 2),
             Text(
-              selectedPayment.name,
+              VHelperFunctions.getPaymentMethodLabel(
+                  context, selectedPayment.name),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ],

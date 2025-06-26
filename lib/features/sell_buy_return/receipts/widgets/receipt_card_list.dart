@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../core/utils/constants/colors.dart';
@@ -35,6 +36,7 @@ class VReceiptCardList extends StatelessWidget {
       itemBuilder: (_, index) {
         final item = items[index];
         final isSelected = selectedItems.contains(item['id']);
+        final paymentStatus = item['paymentStatus'] ?? 'Unknown';
 
         return GestureDetector(
           onTap: () => onTap(item['id'] ?? ''),
@@ -57,9 +59,10 @@ class VReceiptCardList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            item['paymentStatus'] ?? 'Unknown',
+                            VHelperFunctions.paymentStatusLabel(
+                                context, paymentStatus),
                             style: Theme.of(context).textTheme.bodyLarge!.apply(
-                                  color: item['paymentStatus'] == 'Completed'
+                                  color: paymentStatus == 'Completed'
                                       ? VColors.success
                                       : VColors.error,
                                   fontSizeDelta: 1,
@@ -101,7 +104,7 @@ class VReceiptCardList extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Receipt No.',
+                                  '${context.loc.receiptNo}.',
                                   style:
                                       Theme.of(context).textTheme.labelMedium,
                                 ),
@@ -127,7 +130,7 @@ class VReceiptCardList extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Total',
+                                  context.loc.total,
                                   style:
                                       Theme.of(context).textTheme.labelMedium,
                                 ),

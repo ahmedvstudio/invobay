@@ -6,6 +6,7 @@ import 'package:invobay/common/widgets/appbar/custom_appbar.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/core/utils/messages/snackbar.dart';
 import '../../../core/database/drift/app_database.dart';
 import '../../../core/providers/item_providers/item_related_providers.dart';
@@ -71,7 +72,8 @@ class AddItemScreenState extends ConsumerState<AddItemScreen> {
             : drift.Value(_barcodeController.text),
         itemUnit: _itemUnitController.text.isEmpty
             ? const drift.Value.absent()
-            : drift.Value(_itemUnitController.text),
+            : drift.Value(VHelperFunctions.getOriginalUnit(
+                context, _itemUnitController.text)),
       );
 
       // Check if item exists

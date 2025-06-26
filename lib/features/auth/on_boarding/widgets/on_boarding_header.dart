@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../common/widgets/sheet/settings/app_language_sheet.dart';
 import '../../../../core/providers/db_providers/hive_providers/app_settings_provider.dart';
@@ -37,13 +38,13 @@ class OnBoardingHeader extends ConsumerWidget {
         Column(
           children: [
             SizedBox(height: VDeviceUtils.getScreenHeight(context) * 0.1),
-            Text('Welcome To',
+            Text(context.loc.welcomeTo,
                 style: Theme.of(context).textTheme.headlineMedium),
             Image.asset(isDark ? VImages.lightAppBanner : VImages.darkAppBanner,
                 height: VSizes.imageThumbSize),
             const SizedBox(height: VSizes.spaceBtwSections),
             Text(
-              'Effortlessly manage your inventory with features for tracking:',
+              context.loc.onBoardingHeaderText,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],

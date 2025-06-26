@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
 import 'package:invobay/core/utils/constants/enums.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 
 import '../../../../common/widgets/appbar/custom_appbar.dart';
@@ -41,8 +42,8 @@ class SellReceiptDetailScreen extends ConsumerWidget {
           return SingleChildScrollView(
             child: Column(
               children: [
-                const VCustomAppBar(
-                  text: 'Receipt Detail',
+                VCustomAppBar(
+                  text: context.loc.receiptDetails,
                   showBackArrow: true,
                 ),
                 Padding(
@@ -69,8 +70,8 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                       const SizedBox(height: VSizes.spaceBtwSections),
 
                       // Items List
-                      const VSectionHeading(
-                        title: 'Sold Items:',
+                      VSectionHeading(
+                        title: '${context.loc.soldItems}:',
                         showActionButton: false,
                       ),
                       const SizedBox(height: VSizes.spaceBtwSections),
@@ -88,7 +89,8 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                                     if (itemData == null) {
                                       return Center(
                                         child: Text(
-                                            "Item removed from inventory",
+                                            context
+                                                .loc.itemRemovedFromInventory,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleSmall),
@@ -99,17 +101,19 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                                       itemQuantity: item.quantity,
                                       itemPrice: item.price,
                                       currencySign: currencySign,
-                                      itemUnit: itemData.itemUnit ?? 'Unit',
+                                      itemUnit: itemData.itemUnit ??
+                                          context.loc.unit_piece,
                                     );
                                   },
                                   loading: () => Center(
-                                    child: Text("Loading item...",
+                                    child: Text(context.loc.loadingItem,
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleSmall),
                                   ),
                                   error: (error, stackTrace) => Center(
-                                    child: Text("Item removed from inventory",
+                                    child: Text(
+                                        context.loc.itemRemovedFromInventory,
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleSmall),
@@ -139,7 +143,8 @@ class SellReceiptDetailScreen extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => Center(child: Text("Error: $error")),
+        error: (error, stackTrace) =>
+            Center(child: Text("${context.loc.error}: $error")),
       ),
       bottomNavigationBar: Consumer(
         builder: (context, ref, child) {
@@ -170,6 +175,7 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                         : VColors.success,
                     printReceipt: () {
                       PrintReceiptApi.printReceipt(
+                        context: context,
                         ref: ref,
                         items: items,
                         receipt: receipt,
@@ -181,10 +187,10 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                     deleteReceipt: () async {
                       final confirmed = await showDialog<bool>(
                         context: context,
-                        builder: (context) => const VDeleteConfirmDialog(
+                        builder: (context) => VDeleteConfirmDialog(
                           isGeneral: true,
                           contentText:
-                              'Are you sure you want to delete this receipt?',
+                              context.loc.areYouSureYouWantToDeleteThisReceipt,
                         ),
                       );
 
@@ -204,19 +210,20 @@ class SellReceiptDetailScreen extends ConsumerWidget {
                   height: 60,
                   child: Center(child: CircularProgressIndicator()),
                 ),
-                error: (error, stackTrace) => const SizedBox(
+                error: (error, stackTrace) => SizedBox(
                     height: 60,
-                    child:
-                        Center(child: Text("Error loading receipt details"))),
+                    child: Center(
+                        child: Text(context.loc.errorLoadingReceiptDetails))),
               );
             },
             loading: () => const SizedBox(
               height: 60,
               child: Center(child: CircularProgressIndicator()),
             ),
-            error: (error, stackTrace) => const SizedBox(
+            error: (error, stackTrace) => SizedBox(
                 height: 60,
-                child: Center(child: Text("Error loading shop details"))),
+                child:
+                    Center(child: Text(context.loc.errorLoadingShopDetails))),
           );
         },
       ),

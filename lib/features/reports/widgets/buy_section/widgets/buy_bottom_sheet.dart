@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/common/widgets/text/section_heading.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../core/utils/constants/sizes.dart';
 
@@ -31,9 +32,9 @@ class ReportBottomSheet<T> extends ConsumerWidget {
             const SizedBox(height: VSizes.spaceBtwItems),
             dataAsync.when(
               data: (items) => items.isEmpty
-                  ? const Padding(
+                  ? Padding(
                       padding: VSpacingStyle.vertical,
-                      child: Text('No data available.'),
+                      child: Text(context.loc.noDataAvailable),
                     )
                   : SizedBox(
                       height: MediaQuery.of(context).size.height * 0.5,
@@ -51,7 +52,7 @@ class ReportBottomSheet<T> extends ConsumerWidget {
               ),
               error: (e, _) => Padding(
                 padding: VSpacingStyle.vertical,
-                child: Text('Error: $e'),
+                child: Text('${context.loc.error}: $e'),
               ),
             ),
           ],

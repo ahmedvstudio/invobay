@@ -25,7 +25,6 @@ List<GoRoute> salesRoutes = [
             child: SellCheckoutScreen(
               soldItems: soldItems,
             ),
-            canPop: false,
             fullscreenDialog: true,
           );
         },

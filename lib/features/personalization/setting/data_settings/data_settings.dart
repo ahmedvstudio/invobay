@@ -8,6 +8,7 @@ import '../../../../common/widgets/dialogs/delete_confirm_dialog.dart';
 import '../../../../common/widgets/list_tiles/settings_menu_tile.dart';
 import '../../../../common/widgets/sheet/settings/encryption_key_sheet.dart';
 import '../../../../core/providers/encryption_key_providers/encryption_key_provider.dart';
+import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/sizes.dart';
 import '../../../../core/utils/helpers/backup_restore_helper.dart';
 
@@ -20,8 +21,8 @@ class VDataSettings extends ConsumerWidget {
     return Column(
       children: [
         VSectionHeading(
-          title: 'Data Settings',
-          buttonTitle: 'Encryption Key',
+          title: context.loc.dataSettings,
+          buttonTitle: context.loc.encryptionKey,
           onPressed: () => showEncryptionKeySheet(context, ref, encryptionKey),
         ),
         const SizedBox(height: VSizes.spaceBtwItems),
@@ -46,10 +47,10 @@ class VDataSettings extends ConsumerWidget {
           onTap: () async {
             final confirm = await showDialog<bool>(
               context: context,
-              builder: (context) => const VDeleteConfirmDialog(
+              builder: (context) => VDeleteConfirmDialog(
                 isCustomer: false,
                 isGeneral: true,
-                contentText: 'Are you sure you want to delete all the data?',
+                contentText: context.loc.areYouSureYouWantToDeleteAllData,
               ),
             );
             if (confirm == true) {
@@ -57,6 +58,13 @@ class VDataSettings extends ConsumerWidget {
               await BackupRestoreHelper.deleteAllLocalData(context);
             }
           },
+        ),
+        Text(
+          context.loc.mustRestartTheAppForChangesToTakeEffect,
+          style: Theme.of(context)
+              .textTheme
+              .labelSmall!
+              .copyWith(color: VColors.error),
         ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../common/widgets/custom_shapes/dismissible/delete_background.dart';
 import '../../../core/models/notifications/notification_model.dart';
@@ -31,40 +32,41 @@ class NotificationTile extends ConsumerWidget {
       case 'low_stock':
         iconData = Iconsax.warning_2;
         iconColor = VColors.warning;
-        title = "Low Stock Alert";
-        subtitle = "${notify.itemName} is low on stock (${notify.quantity})";
+        title = context.loc.lowStockAlert;
+        subtitle =
+            "${notify.itemName} ${context.loc.isLowOnStock} (${notify.quantity})";
         break;
       case 'out_of_stock':
         iconData = Iconsax.close_circle;
         iconColor = Colors.red;
-        title = "Out of Stock Alert";
-        subtitle = "${notify.itemName} is out of stock.";
+        title = context.loc.outOfStockAlert;
+        subtitle = "${notify.itemName} ${context.loc.isOutOfStock}.";
         break;
       case 'sell_checkout':
         iconData = Iconsax.shopping_cart5;
         iconColor = Colors.green;
-        title = "Sell Checkout Successful";
+        title = context.loc.sellCheckoutSuccessful;
         subtitle =
-            "${notify.message} Total: $currencySign${notify.amount?.toStringAsFixed(2)}";
+            "${notify.message} ${context.loc.total}: $currencySign${notify.amount?.toStringAsFixed(2)}";
         break;
       case 'buy_checkout':
         iconData = Iconsax.shopping_bag5;
         iconColor = Colors.blue;
-        title = "Buy Checkout Successful";
+        title = context.loc.buyCheckoutSuccessful;
         subtitle =
-            "${notify.message} Total: $currencySign${notify.amount?.toStringAsFixed(2)}";
+            "${notify.message} ${context.loc.total}: $currencySign${notify.amount?.toStringAsFixed(2)}";
         break;
       case 'return_checkout':
         iconData = Iconsax.back_square;
         iconColor = Colors.purple;
-        title = "Return Checkout Successful";
+        title = context.loc.returnCheckoutSuccessful;
         subtitle =
-            "${notify.message} Amount: $currencySign${notify.amount?.toStringAsFixed(2)}";
+            "${notify.message} ${context.loc.total}: $currencySign${notify.amount?.toStringAsFixed(2)}";
         break;
       default:
         iconData = Iconsax.notification5;
         iconColor = Colors.grey;
-        title = "Notification";
+        title = context.loc.notification;
         subtitle = notify.message ?? '';
     }
 

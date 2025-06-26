@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
+import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/features/reports/widgets/payment_method_colors.dart';
 
 import '../../../common/widgets/text/key_value_text.dart';
@@ -58,8 +60,8 @@ class VSalesVsBuyCharts extends ConsumerWidget {
         return Column(
           children: [
             VSectionHeading(
-              title: 'Sales vs Purchases',
-              buttonTitle: 'change range',
+              title: context.loc.salesVsPurchases,
+              buttonTitle: context.loc.changeRange,
               onPressed: () async {
                 final picked = await showDateRangePicker(
                   context: context,
@@ -72,8 +74,10 @@ class VSalesVsBuyCharts extends ConsumerWidget {
                 }
               },
             ),
-            VKeyValueText("From", dateRange.start.toString().substring(0, 10)),
-            VKeyValueText("To", dateRange.end.toString().substring(0, 10)),
+            VKeyValueText(
+                context.loc.from, dateRange.start.toString().substring(0, 10)),
+            VKeyValueText(
+                context.loc.to, dateRange.end.toString().substring(0, 10)),
             const SizedBox(height: VSizes.spaceBtwItems),
             AspectRatio(
               aspectRatio: 1.7,
@@ -155,14 +159,16 @@ class VSalesVsBuyCharts extends ConsumerWidget {
                     titleStyle: const TextStyle(color: VColors.white),
                   ));
 
-                  legendWidgets
-                      .add(PaymentMethodColors(title: method, color: color));
+                  legendWidgets.add(PaymentMethodColors(
+                      title: VHelperFunctions.getPaymentMethodLabel(
+                          context, method),
+                      color: color));
                 });
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const VKeyValueText('Sales by Payment Method', ''),
+                    VKeyValueText(context.loc.salesByPaymentMethod, ''),
                     const SizedBox(height: VSizes.spaceBtwItems),
                     Row(
                       children: [
@@ -190,16 +196,16 @@ class VSalesVsBuyCharts extends ConsumerWidget {
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, st) =>
-                  Center(child: Text('Error loading payment methods: $e')),
+              error: (e, st) => Center(
+                  child: Text('${context.loc.errorLoadingPaymentMethods} $e')),
             ),
             const SizedBox(height: VSizes.spaceBtwItems),
             taxAsync.when(
               loading: () => const CircularProgressIndicator(),
-              error: (e, st) => Text('Error loading tax: $e'),
+              error: (e, st) => Text('${context.loc.errorLoadingTax} $e'),
               data: (taxTotal) {
                 return VKeyValueText(
-                  "Tax Collected",
+                  context.loc.taxCollected,
                   "$currencySign${taxTotal.toStringAsFixed(3)}",
                 );
               },

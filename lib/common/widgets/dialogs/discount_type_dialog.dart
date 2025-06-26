@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/enums.dart';
@@ -32,7 +33,7 @@ class VDiscountTypeDialog extends StatelessWidget {
             const Icon(Icons.info, size: VSizes.iconXl, color: VColors.info),
             const SizedBox(height: VSizes.spaceBtwItems),
             Text(
-              'Change Discount Type',
+              context.loc.changeDiscountType,
               style: Theme.of(context)
                   .textTheme
                   .titleMedium
@@ -41,7 +42,7 @@ class VDiscountTypeDialog extends StatelessWidget {
             ),
             const SizedBox(height: VSizes.spaceBtwItems),
             Text(
-              'Switch between percentage and fixed amount.',
+              context.loc.switchBetweenPercentageFixedAmount,
               style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
@@ -51,8 +52,8 @@ class VDiscountTypeDialog extends StatelessWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => context.pop(DiscountType.percentage),
-                    child: const Text(
-                      'Percentage %',
+                    child: Text(
+                      context.loc.percentage,
                       maxLines: 1,
                     ),
                   ),
@@ -62,7 +63,7 @@ class VDiscountTypeDialog extends StatelessWidget {
                   child: OutlinedButton(
                     onPressed: () => context.pop(DiscountType.amount),
                     child: Text(
-                      'Amount $currencySign',
+                      '${context.loc.amount} $currencySign',
                       maxLines: 1,
                     ),
                   ),

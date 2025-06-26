@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../providers/db_providers/hive_providers/app_settings_provider.dart';
+import '../../providers/localization_related_providers/localization_provider.dart';
 import '../constants/colors.dart';
 import '../constants/numbers.dart';
 
@@ -35,22 +36,24 @@ class LowStockHelper {
   // Text
   String getThreeText() {
     final threshold = ref.watch(lowStockThresholdProvider);
+    final loc = ref.watch(localizationProvider);
     if (quantity != VNumbers.outOfStockNumber) {
       if (quantity > threshold) {
-        return 'In Stock';
+        return loc.inStock;
       } else {
-        return 'Low Stock';
+        return loc.lowStock;
       }
     } else {
-      return 'Out of Stock';
+      return loc.outOfStock2;
     }
   }
 
   String getTwoText() {
+    final loc = ref.watch(localizationProvider);
     if (quantity == VNumbers.outOfStockNumber) {
-      return 'Out of Stock';
+      return loc.outOfStock2;
     } else {
-      return 'Low Stock';
+      return loc.lowStock;
     }
   }
 }

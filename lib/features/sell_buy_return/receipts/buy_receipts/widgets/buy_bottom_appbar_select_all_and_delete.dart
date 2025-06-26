@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 
 import '../../../../../common/widgets/dialogs/delete_confirm_dialog.dart';
@@ -81,8 +82,8 @@ class VBuyBottomAppBarSelectAllAndDelete extends ConsumerWidget {
                   context: context,
                   builder: (_) => VDeleteConfirmDialog(
                     isGeneral: true,
-                    contentText:
-                        'Are you sure you want to delete ${selectedIds.length} receipt(s)?',
+                    contentText: context.loc
+                        .areYouSureYouWantToDeleteWithCount(selectedIds.length),
                   ),
                 );
 

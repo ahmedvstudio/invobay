@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/widgets/list_tiles/report_item.dart';
 import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import 'package:invobay/core/utils/constants/colors.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 import 'package:invobay/core/utils/formatters/formatters.dart';
 import 'package:invobay/features/reports/widgets/buy_section/widgets/buy_bottom_sheet.dart';
 
@@ -21,39 +22,39 @@ class VBuySection extends ConsumerWidget {
     final currencySign = ref.watch(currencySignProvider);
     return Column(
       children: [
-        const VSectionHeading(title: 'Buy', showActionButton: false),
+        VSectionHeading(title: context.loc.buy, showActionButton: false),
         const SizedBox(height: VSizes.spaceBtwItems),
         VReportListTile(
-          title: 'Top suppliers',
+          title: context.loc.topSuppliers,
           icon: Iconsax.user_tag,
           onTap: () => showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             builder: (_) => ReportBottomSheet<SupplierSpendModel>(
-              title: 'Top Suppliers',
+              title: context.loc.topSuppliers,
               provider: topSuppliersProvider,
               itemBuilder: (supplier, index) => VReportItem(
                   itemNumber: '${index + 1}',
                   itemName: supplier.name,
-                  subtitle: 'Supplier',
+                  subtitle: context.loc.supplier,
                   trailing: currencySign +
                       VFormatters.formatPrice(supplier.totalSpent)),
             ),
           ),
         ),
         VReportListTile(
-          title: 'Debt to Suppliers',
+          title: context.loc.supplierDebts,
           icon: Iconsax.money_change,
           onTap: () => showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             builder: (_) => ReportBottomSheet<SupplierDebtModel>(
-              title: 'Supplier Debts',
+              title: context.loc.supplierDebts,
               provider: supplierDebtsProvider,
               itemBuilder: (debt, index) => VReportItem(
                 itemNumber: '${index + 1}',
                 itemName: debt.name,
-                subtitle: 'Debt',
+                subtitle: context.loc.debt,
                 trailing:
                     currencySign + VFormatters.formatPrice(debt.totalDebt),
                 trailingColor: VColors.error,
@@ -62,36 +63,36 @@ class VBuySection extends ConsumerWidget {
           ),
         ),
         VReportListTile(
-          title: 'Most Bought Items',
+          title: context.loc.mostBoughtItems,
           icon: Iconsax.money_recive,
           onTap: () => showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             builder: (_) => ReportBottomSheet<MostBoughtItemModel>(
-              title: 'Most Bought Items',
+              title: context.loc.mostBoughtItems,
               provider: mostBoughtItemsProvider,
               itemBuilder: (item, index) => VReportItem(
                   itemNumber: '${index + 1}',
                   itemName: item.name,
-                  subtitle: 'Qty: ${item.totalQuantity}',
+                  subtitle: '${context.loc.qty}: ${item.totalQuantity}',
                   trailing:
                       currencySign + VFormatters.formatPrice(item.totalSpent)),
             ),
           ),
         ),
         VReportListTile(
-          title: 'Average cost per item',
+          title: context.loc.averageCostPerItem,
           icon: Iconsax.align_vertically,
           onTap: () => showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             builder: (_) => ReportBottomSheet<ItemAverageCostModel>(
-              title: 'Average Cost per Item',
+              title: context.loc.averageCostPerItem,
               provider: averageItemCostProvider,
               itemBuilder: (item, index) => VReportItem(
                   itemNumber: '${index + 1}',
                   itemName: item.name,
-                  subtitle: 'Avg Cost',
+                  subtitle: context.loc.avgCost,
                   trailing:
                       currencySign + VFormatters.formatPrice(item.averageCost)),
             ),

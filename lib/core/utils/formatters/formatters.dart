@@ -4,15 +4,23 @@ class VFormatters {
   VFormatters._();
   //
   static String formatDate(DateTime date) {
-    return DateFormat('dd-MM-yyy').format(date);
+    return DateFormat('dd/MM/yyy').format(date);
   }
 
   static String formatVersionDate(DateTime date) {
-    return DateFormat('dd/MM/yyyy hh:mm a').format(date);
+    return DateFormat('dd/MM/yyyy hh:mm a', 'en').format(date);
   }
 
   static String formatBackupDate(DateTime date) {
     return DateFormat('yyyy-MM-dd_HH-mm', 'en').format(date);
+  }
+
+  static String formatHomeTime(DateTime date) {
+    return DateFormat('hh:mm:ss a').format(date);
+  }
+
+  static String formatHomeDate(DateTime date) {
+    return DateFormat('E yyyy/MM/dd').format(date);
   }
 
   //

@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../../core/utils/constants/colors.dart';
@@ -30,20 +32,22 @@ Future<void> showUpdateSellingPriceBottomSheet({
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Update Selling Price',
+              Text(context.loc.updateSellingPrice,
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: VSizes.spaceBtwItems),
-              const Text('Selling price must be greater than buying Price.'),
+              Text(context.loc.sellingPriceMustBeGreaterThanBuyingPrice),
               const SizedBox(height: VSizes.spaceBtwItems),
               Consumer(
                 builder: (context, ref, _) {
+                  final currencySign = ref.watch(currencySignProvider);
+                  final primaryColor = ref.watch(primaryColorProvider);
                   return VMetaDataSection(
-                    tag: 'Buy Price',
-                    tagBackgroundColor: ref.watch(primaryColorProvider),
+                    tag: context.loc.buyingPrice,
+                    tagBackgroundColor: primaryColor,
                     tagTextColor: VColors.white,
                     showChild: true,
                     showIcon: false,
-                    child: Text('$buyingPrice'),
+                    child: Text('$buyingPrice $currencySign'),
                   );
                 },
               ),
@@ -55,10 +59,10 @@ Future<void> showUpdateSellingPriceBottomSheet({
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
                 ],
-                decoration: const InputDecoration(
-                  labelText: 'New Selling Price',
-                  hintText: 'Enter new selling price',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: context.loc.newSellingPrice,
+                  hintText: context.loc.enterNewSellingPrice,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: VSizes.spaceBtwItems),
@@ -68,10 +72,10 @@ Future<void> showUpdateSellingPriceBottomSheet({
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => context.pop(),
-                      child: const Text('Cancel'),
+                      child: Text(context.loc.cancel),
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: VSizes.spaceBtwItems),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
@@ -83,12 +87,13 @@ Future<void> showUpdateSellingPriceBottomSheet({
                         } else {
                           VDialogs.showAlert(
                             context,
-                            'Invalid Price',
-                            'Please enter a valid price greater than buying price.',
+                            context.loc.invalidPrice,
+                            context.loc
+                                .pleaseEnterValidPriceGreaterThanBuyingPrice,
                           );
                         }
                       },
-                      child: const Text('Update'),
+                      child: Text(context.loc.update),
                     ),
                   ),
                 ],

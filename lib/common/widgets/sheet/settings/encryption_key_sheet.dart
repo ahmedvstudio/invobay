@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/encryption_key_providers/encryption_key_provider.dart';
 import '../../../../core/utils/constants/colors.dart';
@@ -33,7 +34,7 @@ Future<void> showEncryptionKeySheet(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Change Encryption Key',
+                  context.loc.changeEncryptionKey,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: VSizes.spaceBtwItems),
@@ -42,14 +43,14 @@ Future<void> showEncryptionKeySheet(
                   controller: keyController,
                   obscureText: isVisible,
                   decoration: InputDecoration(
-                    labelText: "Encryption Key",
+                    labelText: context.loc.encryptionKey,
                     prefixIcon: Icon(
                       Iconsax.key,
                       color: isDark
                           ? VColors.light.withAlpha(128)
                           : VColors.dark.withAlpha(128),
                     ),
-                    hintText: "Must be 32 character long.",
+                    hintText: context.loc.mustBeCharacterLong,
                     suffixIcon: IconButton(
                       onPressed: () {
                         isVisibleNotifier.state = !isVisibleNotifier.state;
@@ -69,7 +70,7 @@ Future<void> showEncryptionKeySheet(
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () => context.pop(),
-                        child: const Text('Cancel'),
+                        child: Text(context.loc.cancel),
                       ),
                     ),
                     const SizedBox(width: VSizes.spaceBtwItems),
@@ -79,18 +80,21 @@ Future<void> showEncryptionKeySheet(
                           final input = keyController.text.trim();
 
                           if (input.length != 32) {
-                            VToast.error(message: "Must be 32 character long.");
+                            VToast.error(
+                                message: context.loc.mustBeCharacterLong);
                             return;
                           }
 
                           await ref
                               .read(encryptionKeyProvider.notifier)
                               .updateKey(input);
-                          VToast.success(message: "Encryption key updated!");
+                          if (!context.mounted) return;
+                          VToast.success(
+                              message: context.loc.encryptionKeyUpdated);
                           if (!context.mounted) return;
                           context.pop();
                         },
-                        child: const Text('Save'),
+                        child: Text(context.loc.save),
                       ),
                     ),
                   ],
