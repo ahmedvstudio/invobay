@@ -3019,6 +3019,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Are you sure you want to delete this item?`
+  String get areYouSureYouWantToDeleteThisItem {
+    return Intl.message(
+      'Are you sure you want to delete this item?',
+      name: 'areYouSureYouWantToDeleteThisItem',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

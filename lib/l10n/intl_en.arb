@@ -393,5 +393,6 @@
   "thisFieldIsRequired" : "This field is required",
   "success" : "Success",
   "receiptSavedSuccessfully" : "Receipt saved successfully",
-  "thisIsTheFirstVersionOfTheApp" : "This is the first version of the app."
+  "thisIsTheFirstVersionOfTheApp" : "This is the first version of the app.",
+  "areYouSureYouWantToDeleteThisItem" : "Are you sure you want to delete this item?"
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../core/utils/constants/colors.dart';
 import '../../../core/utils/constants/sizes.dart';
@@ -48,10 +49,10 @@ class VCircularIconWithConfirmation extends StatelessWidget {
   Future<void> _showDeleteConfirmationDialog(BuildContext context) async {
     final confirm = await showDialog<bool>(
       context: context,
-      builder: (context) => const VDeleteConfirmDialog(
+      builder: (context) => VDeleteConfirmDialog(
         isCustomer: false,
         isGeneral: true,
-        contentText: 'Are you sure you want to delete this item?',
+        contentText: context.loc.areYouSureYouWantToDeleteThisItem,
       ),
     );
     if (confirm == true) {

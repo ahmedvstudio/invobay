@@ -393,6 +393,7 @@
   "thisFieldIsRequired" : "هذا الحقل مطلوب",
     "success" : "عملية ناجحة",
   "receiptSavedSuccessfully" : "تم حفظ الفاتورة بنجاح",
-  "thisIsTheFirstVersionOfTheApp" : "هذا هو الإصدار الأول من التطبيق."
+  "thisIsTheFirstVersionOfTheApp" : "هذا هو الإصدار الأول من التطبيق.",
+  "areYouSureYouWantToDeleteThisItem" : "هل انت متاكد من حذف هذا العنصر؟"
 
 }

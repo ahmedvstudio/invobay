@@ -88,6 +88,9 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Are you sure you want to delete this customer?",
         ),
+    "areYouSureYouWantToDeleteThisItem": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to delete this item?",
+    ),
     "areYouSureYouWantToDeleteThisReceipt":
         MessageLookupByLibrary.simpleMessage(
           "Are you sure you want to delete this receipt?",
