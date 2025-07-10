@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:invobay/common/styles/spacing_style.dart';
+import 'package:invobay/common/widgets/list_tiles/receipt_type_list_tile.dart';
 import 'package:invobay/core/router/router_constant.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
-import '../../../../core/providers/theme_providers/theme_related_providers.dart';
 import '../../../../core/utils/constants/sizes.dart';
 
-class VReceiptTypeSelectionBottomSheet extends ConsumerWidget {
+class VReceiptTypeSelectionBottomSheet extends StatelessWidget {
   const VReceiptTypeSelectionBottomSheet({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final primaryColor = ref.watch(primaryColorProvider);
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding: VSpacingStyle.withoutTop,
@@ -24,43 +22,31 @@ class VReceiptTypeSelectionBottomSheet extends ConsumerWidget {
             Text(context.loc.selectReceiptType,
                 style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: VSizes.spaceBtwSections),
-            ListTile(
-              tileColor: primaryColor.withValues(alpha: 0.2),
+            ReceiptTypeListTile(
+              receiptType: context.loc.sellReceipts,
+              icon: Iconsax.tag5,
               onTap: () {
                 context.pop();
                 context.pushNamed(VRouter.sellReceipts);
               },
-              title: Text(
-                context.loc.sellReceipts,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              leading: const Icon(Iconsax.tag5),
             ),
             const SizedBox(height: VSizes.spaceBtwItems),
-            ListTile(
-              tileColor: primaryColor.withValues(alpha: 0.2),
+            ReceiptTypeListTile(
+              receiptType: context.loc.buyReceipts,
+              icon: Iconsax.shopping_cart5,
               onTap: () {
                 context.pop();
                 context.pushNamed(VRouter.buyReceipts);
               },
-              title: Text(
-                context.loc.buyReceipts,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              leading: const Icon(Iconsax.shopping_cart5),
             ),
             const SizedBox(height: VSizes.spaceBtwItems),
-            ListTile(
-              tileColor: primaryColor.withValues(alpha: 0.2),
+            ReceiptTypeListTile(
+              receiptType: context.loc.returnReceipts,
+              icon: Iconsax.shopping_bag5,
               onTap: () {
                 context.pop();
                 context.pushNamed(VRouter.returnReceipts);
               },
-              title: Text(
-                context.loc.returnReceipts,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              leading: const Icon(Iconsax.shopping_bag5),
             ),
             const SizedBox(height: VSizes.spaceBtwItems),
           ],

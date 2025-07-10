@@ -37,7 +37,7 @@ Future<void> showBuyCheckoutNotification(
           .completedSuccessfullyWithTotal(VFormatters.formatPrice(totalPrice)),
       type: 'buy_checkout',
       amount: totalPrice,
-      message: 'Buying completed successfully.',
+      message: loc.buyCheckoutSuccessful,
     );
   }
 }
@@ -54,7 +54,7 @@ Future<void> showReturnCheckoutNotification(
           .completedSuccessfullyWithTotal(VFormatters.formatPrice(totalPrice)),
       type: 'return_checkout',
       amount: totalPrice,
-      message: 'Return completed successfully.',
+      message: loc.returnCheckoutSuccessful,
     );
   }
 }

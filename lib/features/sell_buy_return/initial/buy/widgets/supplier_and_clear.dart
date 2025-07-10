@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/core/utils/device/device_utility.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
@@ -36,8 +37,7 @@ class VSupplierAndClear extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: VSizes.defaultSpace),
+                      padding: VSpacingStyle.horizontal,
                       height: VDeviceUtils.getScreenHeight(context) * 0.5,
                       child: Column(
                         children: [
@@ -79,6 +79,8 @@ class VSupplierAndClear extends StatelessWidget {
                                       .join(', ');
 
                                   return ListTile(
+                                    contentPadding:
+                                        VSpacingStyle.halfHorizontal,
                                     tileColor:
                                         Colors.orange.withValues(alpha: 0.3),
                                     title: Text(supplier.name),

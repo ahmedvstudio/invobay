@@ -394,5 +394,27 @@
   "success" : "Success",
   "receiptSavedSuccessfully" : "Receipt saved successfully",
   "thisIsTheFirstVersionOfTheApp" : "This is the first version of the app.",
-  "areYouSureYouWantToDeleteThisItem" : "Are you sure you want to delete this item?"
+  "areYouSureYouWantToDeleteThisItem" : "Are you sure you want to delete this item?",
+  "checking" : "Checking...",
+  "updateAvailable" : "Update Available",
+  "errorFetchingUpdateInfo" : "Error fetching update info",
+  "noUpdateCheckRecordedYet" : "No update check recorded yet.",
+  "lastChecked" : "Last Checked : {time}",
+  "@lastChecked": {
+    "description": "Last time the update was checked.",
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "downloadingUpdate" : "🔄 Downloading update...",
+  "updateDownloadedPleaseRestartTheApp" : "✅ Update downloaded. Please restart the app.",
+  "appIsAlreadyUpToDate" : "🎉 App is already up to date.",
+  "inAppUpdateError" : "⚠️ In-App Update Error: {error}",
+  "@inAppUpdateError": {
+    "description": "Error message for in-app update errors.",
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "couldNotCheckForUpdate" : "⚠️ Could not check for update."
 }

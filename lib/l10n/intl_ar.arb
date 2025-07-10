@@ -394,6 +394,27 @@
     "success" : "عملية ناجحة",
   "receiptSavedSuccessfully" : "تم حفظ الفاتورة بنجاح",
   "thisIsTheFirstVersionOfTheApp" : "هذا هو الإصدار الأول من التطبيق.",
-  "areYouSureYouWantToDeleteThisItem" : "هل انت متاكد من حذف هذا العنصر؟"
-
+  "areYouSureYouWantToDeleteThisItem" : "هل انت متاكد من حذف هذا العنصر؟",
+    "checking" : "جاري التحقق ...",
+  "updateAvailable" : "يوجد تحديث متاح!",
+  "errorFetchingUpdateInfo" : "خطأ في جلب معلومات التحديث",
+  "noUpdateCheckRecordedYet" : "لا يوجد سجل لفحص التحديثات حتى الآن.",
+  "lastChecked" : "آخر فحص للتحديثات : {time}",
+  "@lastChecked": {
+    "description": "رسالة تعرض آخر وقت تم فيه فحص التحديثات.",
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "downloadingUpdate" : "جاري تحميل التحديث...",
+  "updateDownloadedPleaseRestartTheApp" : "✅ تم تحميل التحديث. الرجاء إعادة تشغيل التطبيق.",
+  "appIsAlreadyUpToDate" : "🎉 التطبيق محدث بالفعل.",
+  "inAppUpdateError" : "⚠️ خطأ في التحديث داخل التطبيق: {error}",
+  "@inAppUpdateError": {
+    "description": "Error message for in-app update errors.",
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "couldNotCheckForUpdate" : "⚠️ لم يتمكن من التحقق من وجود تحديث."
 }

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VDeviceUtils {
   VDeviceUtils._();
@@ -116,11 +116,25 @@ class VDeviceUtils {
   static bool get isWindows => Platform.isWindows;
   static bool get isMacOS => Platform.isMacOS;
 
-  static void launchUrl(String url) async {
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    } else {
+  static Future<void> launchCustomUrl(String url) async {
+    final uri = Uri.tryParse(url);
+    if (uri == null) {
+      throw 'Invalid URL: $url';
+    }
+
+    final canLaunch = await canLaunchUrl(uri);
+    if (!canLaunch) {
       throw 'Could not launch $url';
+    }
+
+    // Explicitly use external application (e.g., browser)
+    final launched = await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    );
+
+    if (!launched) {
+      throw 'Failed to launch $url';
     }
   }
 }

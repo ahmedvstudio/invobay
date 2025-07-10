@@ -43,7 +43,7 @@ dependencies:
 
   # Online
   http: ^1.3.0
-  upgrader: ^11.4.0
+  in_app_update: ^4.2.3
 
   # Item Specific
   readmore: ^3.0.0
@@ -61,7 +61,7 @@ dependencies:
   # Utility
   flutter_svg: ^2.2.0
   fluttertoast: ^8.2.11
-  go_router: ^15.2.3
+  go_router: ^16.0.0
   logger: ^2.5.0
   lottie: ^3.3.1
   path_provider: ^2.1.5

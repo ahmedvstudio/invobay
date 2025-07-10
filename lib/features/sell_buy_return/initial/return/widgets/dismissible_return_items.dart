@@ -92,16 +92,13 @@ class ReturnItemDetails extends ConsumerWidget {
           children: [
             Row(
               children: [
-                SizedBox(
-                  width: VSizes.leftSideSpace,
-                  child: VMetaDataSection(
-                    tag: returnItem.item.itemUnit,
-                    tagBackgroundColor: VColors.info,
-                    tagTextColor: VColors.white,
-                    showChild: false,
-                    showIcon: false,
-                    child: const Text(''),
-                  ),
+                VMetaDataSection(
+                  tag: returnItem.item.itemUnit,
+                  tagBackgroundColor: VColors.info,
+                  tagTextColor: VColors.white,
+                  showChild: false,
+                  showIcon: false,
+                  child: const Text(''),
                 ),
                 if (!isCheckout)
                   VItemQuantityWithEdit(

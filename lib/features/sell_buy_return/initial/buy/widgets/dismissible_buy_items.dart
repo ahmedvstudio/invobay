@@ -92,16 +92,13 @@ class BuyItemDetails extends ConsumerWidget {
           children: [
             Row(
               children: [
-                SizedBox(
-                  width: VSizes.leftSideSpace,
-                  child: VMetaDataSection(
-                    tag: buyItem.item.itemUnit,
-                    tagBackgroundColor: VColors.info,
-                    tagTextColor: VColors.white,
-                    showChild: false,
-                    showIcon: false,
-                    child: const Text(''),
-                  ),
+                VMetaDataSection(
+                  tag: buyItem.item.itemUnit,
+                  tagBackgroundColor: VColors.info,
+                  tagTextColor: VColors.white,
+                  showChild: false,
+                  showIcon: false,
+                  child: const Text(''),
                 ),
                 if (!isCheckout)
                   VItemQuantityWithEdit(

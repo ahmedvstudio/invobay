@@ -4,7 +4,7 @@ class VFormatters {
   VFormatters._();
   //
   static String formatDate(DateTime date) {
-    return DateFormat('dd/MM/yyy').format(date);
+    return DateFormat('dd/MM/yyy', 'en').format(date);
   }
 
   static String formatVersionDate(DateTime date) {

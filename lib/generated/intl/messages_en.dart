@@ -25,12 +25,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(count) => "Completed successfully With Total: ${count}";
 
-  static String m2(itemName, count) =>
+  static String m2(error) => "⚠️ In-App Update Error: ${error}";
+
+  static String m3(time) => "Last Checked : ${time}";
+
+  static String m4(itemName, count) =>
       "${itemName} is low on stock (${count} left).";
 
-  static String m3(count) => "Low stock items: ${count}";
+  static String m5(count) => "Low stock items: ${count}";
 
-  static String m4(itemName) => "${itemName} is out of stock.";
+  static String m6(itemName) => "${itemName} is out of stock.";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -68,6 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "and": MessageLookupByLibrary.simpleMessage("and"),
     "appInfoAndUpdate": MessageLookupByLibrary.simpleMessage(
       "Application Info And Update.",
+    ),
+    "appIsAlreadyUpToDate": MessageLookupByLibrary.simpleMessage(
+      "🎉 App is already up to date.",
     ),
     "appLanguage": MessageLookupByLibrary.simpleMessage("App Language."),
     "appSettings": MessageLookupByLibrary.simpleMessage("App Settings"),
@@ -138,6 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "changeRange": MessageLookupByLibrary.simpleMessage("change range"),
     "checkForUpdate": MessageLookupByLibrary.simpleMessage("Check For Update"),
+    "checking": MessageLookupByLibrary.simpleMessage("Checking..."),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "checkoutReview": MessageLookupByLibrary.simpleMessage("Checkout Review"),
     "checkoutSummary": MessageLookupByLibrary.simpleMessage("Checkout Summary"),
@@ -150,6 +158,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmDeletion": MessageLookupByLibrary.simpleMessage("Confirm Deletion"),
     "continue1": MessageLookupByLibrary.simpleMessage("Continue"),
+    "couldNotCheckForUpdate": MessageLookupByLibrary.simpleMessage(
+      "⚠️ Could not check for update.",
+    ),
     "country": MessageLookupByLibrary.simpleMessage("Country"),
     "creatingBackup": MessageLookupByLibrary.simpleMessage(
       "Creating backup...",
@@ -199,6 +210,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "display": MessageLookupByLibrary.simpleMessage("Display"),
     "done": MessageLookupByLibrary.simpleMessage("Done"),
+    "downloadingUpdate": MessageLookupByLibrary.simpleMessage(
+      "🔄 Downloading update...",
+    ),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "editAddition": MessageLookupByLibrary.simpleMessage("Edit Addition"),
     "editBuyPayment": MessageLookupByLibrary.simpleMessage("Edit Buy Payment"),
@@ -259,6 +273,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorDeletingSupplier": MessageLookupByLibrary.simpleMessage(
       "Error Deleting Supplier",
     ),
+    "errorFetchingUpdateInfo": MessageLookupByLibrary.simpleMessage(
+      "Error fetching update info",
+    ),
     "errorGettingAppVersion": MessageLookupByLibrary.simpleMessage(
       "Error getting app version:",
     ),
@@ -296,6 +313,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "general": MessageLookupByLibrary.simpleMessage("General"),
     "grossRevenue": MessageLookupByLibrary.simpleMessage("Gross Revenue"),
     "iAgreeTo": MessageLookupByLibrary.simpleMessage("I agree to"),
+    "inAppUpdateError": m2,
     "inStock": MessageLookupByLibrary.simpleMessage("In Stock"),
     "invalidBackupFilePleaseSelectInvobakFile":
         MessageLookupByLibrary.simpleMessage(
@@ -328,6 +346,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Items stock looks good",
     ),
     "itemUnit": MessageLookupByLibrary.simpleMessage("Item Unit"),
+    "lastChecked": m3,
     "lastWeek": MessageLookupByLibrary.simpleMessage("Last Week"),
     "less": MessageLookupByLibrary.simpleMessage("Less"),
     "light": MessageLookupByLibrary.simpleMessage("Light"),
@@ -340,9 +359,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
     "lowStock": MessageLookupByLibrary.simpleMessage("Low Stock"),
     "lowStockAlert": MessageLookupByLibrary.simpleMessage("Low Stock Alert"),
-    "lowStockItemWithQuantity": m2,
+    "lowStockItemWithQuantity": m4,
     "lowStockItems": MessageLookupByLibrary.simpleMessage("Low Stock Items"),
-    "lowStockItemsWithCount": m3,
+    "lowStockItemsWithCount": m5,
     "lowStockThreshold": MessageLookupByLibrary.simpleMessage(
       "Low Stock Threshold.",
     ),
@@ -398,6 +417,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noReturnedItemsFound": MessageLookupByLibrary.simpleMessage(
       "No returned items found.",
     ),
+    "noUpdateCheckRecordedYet": MessageLookupByLibrary.simpleMessage(
+      "No update check recorded yet.",
+    ),
     "notFound": MessageLookupByLibrary.simpleMessage("Not found!"),
     "noteOptional": MessageLookupByLibrary.simpleMessage("Note (optional)"),
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
@@ -422,7 +444,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "outOfStockAlert": MessageLookupByLibrary.simpleMessage(
       "Out of Stock Alert",
     ),
-    "outOfStockItemWithName": m4,
+    "outOfStockItemWithName": m6,
     "outOfStockItems": MessageLookupByLibrary.simpleMessage(
       "Out of Stock Items",
     ),
@@ -634,10 +656,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "unknownCustomer": MessageLookupByLibrary.simpleMessage("Unknown Customer"),
     "unknownSupplier": MessageLookupByLibrary.simpleMessage("Unknown Supplier"),
     "update": MessageLookupByLibrary.simpleMessage("Update"),
+    "updateAvailable": MessageLookupByLibrary.simpleMessage("Update Available"),
     "updateBuyingPrice": MessageLookupByLibrary.simpleMessage(
       "Update Buying Price",
     ),
     "updateCustomer": MessageLookupByLibrary.simpleMessage("Update Customer"),
+    "updateDownloadedPleaseRestartTheApp": MessageLookupByLibrary.simpleMessage(
+      "✅ Update downloaded. Please restart the app.",
+    ),
     "updateItem": MessageLookupByLibrary.simpleMessage("Update Item"),
     "updateSellingPrice": MessageLookupByLibrary.simpleMessage(
       "Update Selling Price",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:invobay/common/styles/spacing_style.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../common/widgets/custom_shapes/dismissible/delete_background.dart';
@@ -47,21 +48,21 @@ class NotificationTile extends ConsumerWidget {
         iconColor = Colors.green;
         title = context.loc.sellCheckoutSuccessful;
         subtitle =
-            "${notify.message} ${context.loc.total}: $currencySign${notify.amount?.toStringAsFixed(2)}";
+            "${context.loc.total}: $currencySign${notify.amount?.toStringAsFixed(2)}";
         break;
       case 'buy_checkout':
         iconData = Iconsax.shopping_bag5;
         iconColor = Colors.blue;
         title = context.loc.buyCheckoutSuccessful;
         subtitle =
-            "${notify.message} ${context.loc.total}: $currencySign${notify.amount?.toStringAsFixed(2)}";
+            "${context.loc.total}: $currencySign${notify.amount?.toStringAsFixed(2)}";
         break;
       case 'return_checkout':
         iconData = Iconsax.back_square;
         iconColor = Colors.purple;
         title = context.loc.returnCheckoutSuccessful;
         subtitle =
-            "${notify.message} ${context.loc.total}: $currencySign${notify.amount?.toStringAsFixed(2)}";
+            "${context.loc.total}: $currencySign${notify.amount?.toStringAsFixed(2)}";
         break;
       default:
         iconData = Iconsax.notification5;
@@ -84,19 +85,21 @@ class NotificationTile extends ConsumerWidget {
           await ref.read(notificationBoxProvider).delete(key);
         },
         child: ListTile(
+          onTap: () async {
+            final updatedNotify = notify.copyWith(isRead: !notify.isRead);
+            await ref
+                .read(notificationsProvider.notifier)
+                .updateNotification(key, updatedNotify);
+          },
+          contentPadding: VSpacingStyle.halfHorizontal,
           leading: Icon(iconData, color: iconColor),
           title: Text(title),
           subtitle: Text(subtitle),
-          trailing: IconButton(
-            icon: Icon(notify.isRead
+          trailing: Icon(
+            notify.isRead
                 ? Iconsax.notification_bing
-                : Iconsax.notification_bing5),
-            onPressed: () async {
-              final updatedNotify = notify.copyWith(isRead: !notify.isRead);
-              await ref
-                  .read(notificationsProvider.notifier)
-                  .updateNotification(key, updatedNotify);
-            },
+                : Iconsax.notification_bing5,
+            color: VColors.warning,
           ),
           tileColor:
               notify.isRead ? null : VColors.warning.withValues(alpha: 0.1),

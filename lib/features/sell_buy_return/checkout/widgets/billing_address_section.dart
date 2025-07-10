@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:invobay/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:invobay/common/widgets/sheet/add_sheets/add_new_customer_sheet.dart';
+import 'package:invobay/common/widgets/sheet/add_sheets/add_new_supplier_sheet.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../../common/widgets/text/section_heading.dart';
@@ -51,9 +54,23 @@ class VBillingAddressSection extends ConsumerWidget {
                         height: VDeviceUtils.getScreenHeight(context) * 0.5,
                         child: Column(
                           children: [
-                            Text(context.loc.selectCustomer,
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(context.loc.selectCustomer,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall),
+                                IconButton(
+                                  icon: const Icon(Iconsax.add_circle5),
+                                  onPressed: () async {
+                                    context.pop();
+                                    await addNewCustomerBottomSheet(
+                                        context, ref);
+                                  },
+                                ),
+                              ],
+                            ),
                             const SizedBox(height: VSizes.spaceBtwItems),
                             Expanded(
                               child: ListView.separated(
@@ -127,9 +144,23 @@ class VBillingAddressSection extends ConsumerWidget {
                         height: VDeviceUtils.getScreenHeight(context) * 0.5,
                         child: Column(
                           children: [
-                            Text(context.loc.selectSupplier,
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(context.loc.selectSupplier,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall),
+                                IconButton(
+                                  icon: const Icon(Iconsax.add_circle5),
+                                  onPressed: () async {
+                                    context.pop();
+                                    await addNewSupplierBottomSheet(
+                                        context, ref);
+                                  },
+                                ),
+                              ],
+                            ),
                             const SizedBox(height: VSizes.spaceBtwItems),
                             Expanded(
                               child: ListView.separated(

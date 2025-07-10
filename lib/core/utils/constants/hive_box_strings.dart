@@ -20,4 +20,5 @@ class VHive {
   static const settingsKey = 'settings';
   static const togglesKey = 'toggles';
   static const onBoardingCompletedKey = 'onBoardingCompletedKey';
+  static const lastUpdateCheckKey = 'lastUpdateCheck';
 }

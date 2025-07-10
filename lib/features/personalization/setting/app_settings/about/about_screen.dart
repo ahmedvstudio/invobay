@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:invobay/core/providers/db_providers/hive_providers/app_settings_provider.dart';
+import 'package:invobay/core/providers/update_providers/update_related_providers.dart';
 import 'package:invobay/core/utils/constants/font_strings.dart';
 import 'package:invobay/core/utils/constants/sizes.dart';
-import 'package:invobay/core/utils/constants/text_strings.dart';
-import 'package:invobay/core/utils/dialogs/dialogs.dart';
+import 'package:invobay/core/utils/constants/url_text.dart';
+import 'package:invobay/core/utils/device/device_utility.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
-import 'package:invobay/core/utils/helpers/helper_functions.dart';
-import 'package:invobay/core/utils/messages/snackbar.dart';
 import 'package:invobay/features/personalization/setting/app_settings/about/widgets/social_about.dart';
 import 'package:invobay/features/personalization/setting/app_settings/about/widgets/version_info.dart';
 
@@ -26,8 +24,9 @@ class AboutScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final primaryColor = ref.watch(primaryColorProvider);
-    final locale = ref.watch(localeProvider);
-    final isLTR = VHelperFunctions.isEnglish(locale);
+    final inAppUpdateService = ref.read(inAppUpdateProvider);
+    final lastCheckedAsync = ref.watch(lastCheckedStringProvider);
+
     return Scaffold(
       appBar: VAppBar(title: Text(context.loc.about), showBackArrow: true),
       body: SingleChildScrollView(
@@ -48,9 +47,15 @@ class AboutScreen extends ConsumerWidget {
             VSettingsMenuTile(
               icon: Iconsax.refresh,
               title: context.loc.checkForUpdate,
-              // subTitle: 'Last Check : 14/6/2025 02:00 PM',
-              onTap: () =>
-                  VSnackbar.success(context.loc.thisIsTheFirstVersionOfTheApp),
+              subTitle: lastCheckedAsync.when(
+                data: (lastCheckedString) => lastCheckedString,
+                loading: () => context.loc.checking,
+                error: (error, stack) => context.loc.errorFetchingUpdateInfo,
+              ),
+              onTap: () {
+                inAppUpdateService.checkAndUpdate(
+                    context: context, showUI: true);
+              },
             ),
             VSettingsMenuTile(
               icon: Iconsax.document_text,
@@ -58,24 +63,13 @@ class AboutScreen extends ConsumerWidget {
               onTap: () => context.pushNamed(VRouter.openSourceLicense),
             ),
             VSettingsMenuTile(
-              icon: Iconsax.security,
-              title: context.loc.privacyPolicy,
-              onTap: () => VDialogs.ok(
-                  context,
-                  context.loc.privacyPolicy,
-                  isLTR
-                      ? VText.privacyPolicyMessage
-                      : VText.privacyPolicyMessageAR),
-            ),
+                icon: Iconsax.security,
+                title: context.loc.privacyPolicy,
+                onTap: () => VDeviceUtils.launchCustomUrl(VUrl.privacyPolicy)),
             VSettingsMenuTile(
-              icon: Iconsax.document_copy,
-              title: context.loc.termsOfUse,
-              onTap: () => VDialogs.ok(
-                context,
-                context.loc.termsOfUse,
-                isLTR ? VText.termsOfUseMessage : VText.termsOfUseMessageAR,
-              ),
-            ),
+                icon: Iconsax.document_copy,
+                title: context.loc.termsOfUse,
+                onTap: () => VDeviceUtils.launchCustomUrl(VUrl.termsOfUse)),
             const SizedBox(height: VSizes.spaceBtwSections),
 
             // --> Social Buttons

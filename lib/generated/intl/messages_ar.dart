@@ -24,12 +24,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(count) => "العملية تمت بنجاح بإجمالي: ${count}";
 
-  static String m2(itemName, count) =>
+  static String m2(error) => "⚠️ خطأ في التحديث داخل التطبيق: ${error}";
+
+  static String m3(time) => "آخر فحص للتحديثات : ${time}";
+
+  static String m4(itemName, count) =>
       "العنصر ${itemName} بقي منه ${count} فقط";
 
-  static String m3(count) => "عناصر المخزون المنخفض: ${count}";
+  static String m5(count) => "عناصر المخزون المنخفض: ${count}";
 
-  static String m4(itemName) => "${itemName} نفذ من المخزون.";
+  static String m6(itemName) => "${itemName} نفذ من المخزون.";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -67,6 +71,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "and": MessageLookupByLibrary.simpleMessage("و"),
     "appInfoAndUpdate": MessageLookupByLibrary.simpleMessage(
       "معلومات التطبيق والتحديث.",
+    ),
+    "appIsAlreadyUpToDate": MessageLookupByLibrary.simpleMessage(
+      "🎉 التطبيق محدث بالفعل.",
     ),
     "appLanguage": MessageLookupByLibrary.simpleMessage("لغة التطبيق."),
     "appSettings": MessageLookupByLibrary.simpleMessage("إعدادات التطبيق"),
@@ -139,6 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "changeRange": MessageLookupByLibrary.simpleMessage("تغيير المدة"),
     "checkForUpdate": MessageLookupByLibrary.simpleMessage("تحقق من التحديثات"),
+    "checking": MessageLookupByLibrary.simpleMessage("جاري التحقق ..."),
     "checkout": MessageLookupByLibrary.simpleMessage("الدفع"),
     "checkoutReview": MessageLookupByLibrary.simpleMessage("مراجعة الدفع"),
     "checkoutSummary": MessageLookupByLibrary.simpleMessage("ملخص العملية"),
@@ -151,6 +159,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
     "confirmDeletion": MessageLookupByLibrary.simpleMessage("تأكيد الحذف"),
     "continue1": MessageLookupByLibrary.simpleMessage("استمرار"),
+    "couldNotCheckForUpdate": MessageLookupByLibrary.simpleMessage(
+      "⚠️ لم يتمكن من التحقق من وجود تحديث.",
+    ),
     "country": MessageLookupByLibrary.simpleMessage("الدولة"),
     "creatingBackup": MessageLookupByLibrary.simpleMessage(
       "جاري عمل نسخة احتياطية...",
@@ -198,6 +209,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "discountPercentHere": MessageLookupByLibrary.simpleMessage("% الخصم هنا"),
     "display": MessageLookupByLibrary.simpleMessage("اعدادات العرض"),
     "done": MessageLookupByLibrary.simpleMessage("تم"),
+    "downloadingUpdate": MessageLookupByLibrary.simpleMessage(
+      "جاري تحميل التحديث...",
+    ),
     "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
     "editAddition": MessageLookupByLibrary.simpleMessage("تعديل الاضافة"),
     "editBuyPayment": MessageLookupByLibrary.simpleMessage("تعديل دفعة الشراء"),
@@ -256,6 +270,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorDeletingSupplier": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ أثناء حذف المورد",
     ),
+    "errorFetchingUpdateInfo": MessageLookupByLibrary.simpleMessage(
+      "خطأ في جلب معلومات التحديث",
+    ),
     "errorGettingAppVersion": MessageLookupByLibrary.simpleMessage(
       "خطأ في جلب إصدار التطبيق:",
     ),
@@ -293,6 +310,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "general": MessageLookupByLibrary.simpleMessage("اعدادات عامة"),
     "grossRevenue": MessageLookupByLibrary.simpleMessage("الإيرادات الإجمالية"),
     "iAgreeTo": MessageLookupByLibrary.simpleMessage("أوافق على"),
+    "inAppUpdateError": m2,
     "inStock": MessageLookupByLibrary.simpleMessage("في المخزن"),
     "invalidBackupFilePleaseSelectInvobakFile":
         MessageLookupByLibrary.simpleMessage(
@@ -323,6 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "لا توجد مواد على وشك النفاذ",
     ),
     "itemUnit": MessageLookupByLibrary.simpleMessage("الوحدة"),
+    "lastChecked": m3,
     "lastWeek": MessageLookupByLibrary.simpleMessage("الاسبوع الماضي"),
     "less": MessageLookupByLibrary.simpleMessage("أقل"),
     "light": MessageLookupByLibrary.simpleMessage("فاتح"),
@@ -337,11 +356,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "lowStockAlert": MessageLookupByLibrary.simpleMessage(
       "تنبيه بإنخفاض المخزون",
     ),
-    "lowStockItemWithQuantity": m2,
+    "lowStockItemWithQuantity": m4,
     "lowStockItems": MessageLookupByLibrary.simpleMessage(
       "مواد على وشك النفاذ",
     ),
-    "lowStockItemsWithCount": m3,
+    "lowStockItemsWithCount": m5,
     "lowStockThreshold": MessageLookupByLibrary.simpleMessage(
       "حد المخزون الادنى.",
     ),
@@ -397,6 +416,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noReturnedItemsFound": MessageLookupByLibrary.simpleMessage(
       "لم يتم العثور على عناصر مُعادة.",
     ),
+    "noUpdateCheckRecordedYet": MessageLookupByLibrary.simpleMessage(
+      "لا يوجد سجل لفحص التحديثات حتى الآن.",
+    ),
     "notFound": MessageLookupByLibrary.simpleMessage("غير موجود!"),
     "noteOptional": MessageLookupByLibrary.simpleMessage("الملاحظات (اختياري)"),
     "notification": MessageLookupByLibrary.simpleMessage("إشعار"),
@@ -421,7 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "outOfStockAlert": MessageLookupByLibrary.simpleMessage(
       "تنبيه بنفاد المخزون",
     ),
-    "outOfStockItemWithName": m4,
+    "outOfStockItemWithName": m6,
     "outOfStockItems": MessageLookupByLibrary.simpleMessage(
       "عناصر نافذة من المخزن",
     ),
@@ -639,11 +661,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "unknownCustomer": MessageLookupByLibrary.simpleMessage("عميل غير معروف"),
     "unknownSupplier": MessageLookupByLibrary.simpleMessage("مورد غير معروف"),
     "update": MessageLookupByLibrary.simpleMessage("تحديث"),
+    "updateAvailable": MessageLookupByLibrary.simpleMessage("يوجد تحديث متاح!"),
     "updateBuyingPrice": MessageLookupByLibrary.simpleMessage(
       "تحديث سعر الشراء",
     ),
     "updateCustomer": MessageLookupByLibrary.simpleMessage(
       "تحديث بيانات العميل",
+    ),
+    "updateDownloadedPleaseRestartTheApp": MessageLookupByLibrary.simpleMessage(
+      "✅ تم تحميل التحديث. الرجاء إعادة تشغيل التطبيق.",
     ),
     "updateItem": MessageLookupByLibrary.simpleMessage("تحديث العنصر"),
     "updateSellingPrice": MessageLookupByLibrary.simpleMessage(

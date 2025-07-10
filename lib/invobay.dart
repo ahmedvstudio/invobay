@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invobay/core/providers/update_providers/update_related_providers.dart';
 import 'package:invobay/core/router/app_router.dart';
 import 'package:invobay/core/utils/helpers/helper_functions.dart';
 import 'package:invobay/generated/l10n.dart';
@@ -20,7 +21,7 @@ class InvoBay extends ConsumerWidget {
     final fontFamily = VHelperFunctions.getFontFamilyForLocale(locale);
     final lightTheme = VAppTheme.lightTheme(fontFamily: fontFamily, ref: ref);
     final darkTheme = VAppTheme.darkTheme(fontFamily: fontFamily, ref: ref);
-
+    ref.read(inAppUpdateProvider);
     return MaterialApp.router(
       scaffoldMessengerKey: scaffoldMessengerKey,
       locale: locale,

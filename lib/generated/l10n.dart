@@ -3029,6 +3029,101 @@ class S {
       args: [],
     );
   }
+
+  /// `Checking...`
+  String get checking {
+    return Intl.message('Checking...', name: 'checking', desc: '', args: []);
+  }
+
+  /// `Update Available`
+  String get updateAvailable {
+    return Intl.message(
+      'Update Available',
+      name: 'updateAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error fetching update info`
+  String get errorFetchingUpdateInfo {
+    return Intl.message(
+      'Error fetching update info',
+      name: 'errorFetchingUpdateInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No update check recorded yet.`
+  String get noUpdateCheckRecordedYet {
+    return Intl.message(
+      'No update check recorded yet.',
+      name: 'noUpdateCheckRecordedYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Checked : {time}`
+  String lastChecked(Object time) {
+    return Intl.message(
+      'Last Checked : $time',
+      name: 'lastChecked',
+      desc: 'Last time the update was checked.',
+      args: [time],
+    );
+  }
+
+  /// `🔄 Downloading update...`
+  String get downloadingUpdate {
+    return Intl.message(
+      '🔄 Downloading update...',
+      name: 'downloadingUpdate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `✅ Update downloaded. Please restart the app.`
+  String get updateDownloadedPleaseRestartTheApp {
+    return Intl.message(
+      '✅ Update downloaded. Please restart the app.',
+      name: 'updateDownloadedPleaseRestartTheApp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `🎉 App is already up to date.`
+  String get appIsAlreadyUpToDate {
+    return Intl.message(
+      '🎉 App is already up to date.',
+      name: 'appIsAlreadyUpToDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `⚠️ In-App Update Error: {error}`
+  String inAppUpdateError(Object error) {
+    return Intl.message(
+      '⚠️ In-App Update Error: $error',
+      name: 'inAppUpdateError',
+      desc: 'Error message for in-app update errors.',
+      args: [error],
+    );
+  }
+
+  /// `⚠️ Could not check for update.`
+  String get couldNotCheckForUpdate {
+    return Intl.message(
+      '⚠️ Could not check for update.',
+      name: 'couldNotCheckForUpdate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
