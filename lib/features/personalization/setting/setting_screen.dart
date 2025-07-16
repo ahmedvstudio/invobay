@@ -46,7 +46,7 @@ class SettingsScreen extends StatelessWidget {
                   VAppSettings(),
 
                   SizedBox(height: VSizes.spaceBtwSections),
-                ],
+                ]
               ),
             )
           ],

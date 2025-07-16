@@ -10,27 +10,12 @@ class VDeviceUtils {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
-  static Future<void> setStatusBarColor(Color color) async {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: color,
-      ),
-    );
-  }
-
   static bool isLandscapeOrientation(BuildContext context) {
-    final viewInsets = View.of(context).viewInsets;
-    return viewInsets.bottom == 0;
+    return MediaQuery.of(context).orientation == Orientation.landscape;
   }
 
   static bool isPortraitOrientation(BuildContext context) {
-    final viewInsets = View.of(context).viewInsets;
-    return viewInsets.bottom != 0;
-  }
-
-  static void setFullScreen(bool enable) {
-    SystemChrome.setEnabledSystemUIMode(
-        enable ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge);
+    return MediaQuery.of(context).orientation == Orientation.portrait;
   }
 
   static Size getScreenSize(BuildContext context) {
@@ -90,15 +75,6 @@ class VDeviceUtils {
   static Future<void> setPreferredOrientations(
       List<DeviceOrientation> orientations) async {
     await SystemChrome.setPreferredOrientations(orientations);
-  }
-
-  static void hideStatusBar() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-  }
-
-  static void showStatusBar() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
   }
 
   static Future<bool> hasInternetConnection() async {
