@@ -35,16 +35,13 @@ class VReceiptItem extends ConsumerWidget {
           children: [
             Row(
               children: [
-                SizedBox(
-                  width: VSizes.leftSideSpace,
-                  child: VMetaDataSection(
-                    tag: VHelperFunctions.getUnitLabel(context, itemUnit ?? ''),
-                    tagBackgroundColor: VColors.info,
-                    tagTextColor: VColors.white,
-                    showChild: false,
-                    showIcon: false,
-                    child: const Text(''),
-                  ),
+                VMetaDataSection(
+                  tag: VHelperFunctions.getUnitLabel(context, itemUnit ?? ''),
+                  tagBackgroundColor: VColors.info,
+                  tagTextColor: VColors.white,
+                  showChild: false,
+                  showIcon: false,
+                  child: const Text(''),
                 ),
                 Text('$itemQuantity × $currencySign$itemPrice',
                     style: Theme.of(context).textTheme.bodyLarge),

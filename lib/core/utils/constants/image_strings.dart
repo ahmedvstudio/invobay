@@ -37,4 +37,5 @@ class VImages {
   static const String debtSVG = 'assets/icons/payment_methods/debt.svg';
   static const String bankSVG =
       'assets/icons/payment_methods/bank_transfer.svg';
+  static const String globeSVG = 'assets/icons/socials/globe.svg';
 }

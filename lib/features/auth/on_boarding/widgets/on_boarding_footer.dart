@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:invobay/core/utils/constants/url_text.dart';
+import 'package:invobay/core/utils/device/device_utility.dart';
 import 'package:invobay/core/utils/extensions/localization_extension.dart';
 
 import '../../../../core/providers/common_providers/default_providers.dart';
@@ -10,8 +12,6 @@ import '../../../../core/router/router_constant.dart';
 import '../../../../core/utils/constants/colors.dart';
 import '../../../../core/utils/constants/hive_box_strings.dart';
 import '../../../../core/utils/constants/sizes.dart';
-import '../../../../core/utils/constants/text_strings.dart';
-import '../../../../core/utils/dialogs/dialogs.dart';
 import '../../../../core/utils/helpers/helper_functions.dart';
 
 class OnBoardingFooter extends ConsumerWidget {
@@ -55,10 +55,8 @@ class OnBoardingFooter extends ConsumerWidget {
                               isDark ? VColors.white : VColors.primary,
                         ),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => VDialogs.ok(
-                          context,
-                          context.loc.privacyPolicy,
-                          VText.privacyPolicyMessage),
+                      ..onTap = () =>
+                          VDeviceUtils.launchCustomUrl(VUrl.privacyPolicy),
                   ),
                   TextSpan(
                       text: ' ${context.loc.and} ',
@@ -72,8 +70,8 @@ class OnBoardingFooter extends ConsumerWidget {
                               isDark ? VColors.white : VColors.primary,
                         ),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => VDialogs.ok(context,
-                          context.loc.termsOfUse, VText.termsOfUseMessage),
+                      ..onTap =
+                          () => VDeviceUtils.launchCustomUrl(VUrl.termsOfUse),
                   ),
                 ]),
               ),
